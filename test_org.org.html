@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>test_org.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #383838;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-code {
+        /* org-code */
+        color: #b3b3b3;
+      }
+      .org-date {
+        /* org-date */
+        color: #8cd0d3;
+        text-decoration: underline;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-footnote {
+        /* org-footnote */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+        background-color: #3f3f3f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+        background-color: #3f3f3f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+        background-color: #3f3f3f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #7f9f7f;
+      }
+      .org-special-keyword {
+        /* org-special-keyword */
+        color: #e0cf9f;
+        font-weight: bold;
+      }
+      .org-tag {
+        /* org-tag */
+        font-weight: bold;
+      }
+      .org-todo {
+        /* org-todo */
+        color: #cc9393;
+        font-weight: bold;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Test Org Syntax
+</span></span><span class="org-level-1">* This is the index file</span>
+This repos aimed at demonstrating how to export org files to html.
+
+<span class="org-level-1">* Example Contents</span>
+<span class="org-level-2">** WATING Head 2                                                </span><span class="org-level-2"><span class="org-tag">:HOME:OFFICE:</span></span>
+<span class="org-level-3">*** Heading 3</span>
+This is a sample paragraph.
+<span class="org-date">&lt;2014-06-22 Sun&gt;</span>
+
+<span class="org-level-2">** </span><span class="org-todo">TODO</span><span class="org-level-2"> Head 2</span>
+   <span class="org-special-keyword">DEADLINE:</span> <span class="org-date">&lt;2014-06-22 Sun&gt;</span> <span class="org-special-keyword">SCHEDULED:</span> <span class="org-date">&lt;2014-06-22 Sun&gt;</span>
+  
+we'll have embeded code here: <span class="org-verbatim">=(apply + '(1 2 3 4))=</span>.
+
+Here we'll include a list.
+
+- item 1
+  - subitem 1
+  - subitem 2
+- item 2
+  1. ordered item 1
+  2. ordered item 2
+     - mixed item 1
+     - mixed item 2
+     HELLO :: This is a description node
+     WORLD :: another one.
+  3. ordered item 3.
+- item 3
+
+<span class="org-block-begin-line">#+BEGIN_EXAMPLE
+</span><span class="org-block">Some example from a text file.
+</span><span class="org-block-end-line">#+END_EXAMPLE
+</span>
+Another plain inline example:
+Here is an example
+   <span class="org-code">: Some example from a text file.
+</span>
+  
+<span class="org-level-1">* Links</span>
+File links ended with `org` will be converted to html.
+remember
+
+Image link:
+<span class="org-meta-line">#+CAPTION: This is the caption for the next figure link (or table)</span>
+<span class="org-meta-line">#+NAME:   fig:SED-HR4049</span>
+<span class="org-link"><a href="file:image/test.jpg">file:image/test.jpg</a></span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC emacs-lisp
+</span><span class="org-block">(defun org-xor (a b)
+  "Exclusive or."
+  (if a (not b) b))
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+<span class="org-level-1">* Test of footer</span>
+this is a paragraph <span class="org-footnote">[fn:1]</span>
+
+<span class="org-block-begin-line">#+BEGIN_SRC emacs-lisp -n -r
+</span><span class="org-block">(save-excursion                  (ref:sc)
+   (goto-char (point-min)))      (ref:jump)
+</span><span class="org-block-end-line">#+END_SRC
+</span>In line (sc) we remember the current position.  Line (jump)
+jumps to point-min.<span class="org-footnote">[fn:2]</span>
+
+<span class="org-level-1">* insert math</span>
+This is also a test.
+\begin{equation}
+x=\sqrt{b}
+\end{equation}
+
+If $a^2=b$ and \( b=2 \), then the solution must be
+either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
+
+
+<span class="org-level-1">* Footnotes</span>
+
+<span class="org-footnote">[fn:1]</span> This is still a test.
+<span class="org-footnote">[fn:2]</span> Another footnote.
+</pre>
+  </body>
+</html>
