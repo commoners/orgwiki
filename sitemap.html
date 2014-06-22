@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Sitemap for project org-notes</title>
-<!-- 2014-06-22 Sun 22:49 -->
+<!-- 2014-06-22 Sun 23:00 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Mark Wallace">
@@ -54,20 +54,10 @@ for the JavaScript code in this tag.
 /*]]>*///-->
 </script>
 <script type="text/javascript">
-    function rpl(expr,a,b) {
-      var i=0
-      while (i!=-1) {
-         i=expr.indexOf(a,i);
-         if (i>=0) {
-            expr=expr.substring(0,i)+b+expr.substring(i+a.length);
-            i+=b.length;
-         }
-      }
-      return expr
-    }
-
     function show_org_source(){
-       document.location.href = rpl(document.location.href,"html","org.html");
+       /* document.location.href = rpl(document.location.href,"html","org.html"); */
+       var url = document.location.href.split('#')[0];
+       document.location.href = url.replace(/.html$/, '.org.html');
     }
 </script>
 </head>
