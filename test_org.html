@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Test Org Syntax</title>
-<!-- 2014-06-22 Sun 22:46 -->
+<!-- 2014-06-22 Sun 22:48 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Mark Wallace">
@@ -252,9 +252,9 @@ Image link:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">org-xor</span> (a b)
-  <span style="font-style: italic;">"Exclusive or."</span>
-  (<span style="font-weight: bold;">if</span> a (not b) b))
+<pre class="src src-emacs-lisp">(<span style="color: #f0dfaf; font-weight: bold;">defun</span> <span style="color: #8cd0d3;">org-xor</span> (a b)
+  <span style="color: #8fb28f;">"Exclusive or."</span>
+  (<span style="color: #f0dfaf; font-weight: bold;">if</span> a (not b) b))
 </pre>
 </div>
 </div>
@@ -269,7 +269,7 @@ this is a paragraph <sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1"
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span id="coderef-sc" class="coderef-off"><span class="linenr">1: </span>(<span style="font-weight: bold;">save-excursion</span></span>
+<pre class="src src-emacs-lisp"><span id="coderef-sc" class="coderef-off"><span class="linenr">1: </span>(<span style="color: #f0dfaf; font-weight: bold;">save-excursion</span></span>
 <span id="coderef-jump" class="coderef-off"><span class="linenr">2: </span>   (goto-char (point-min)))</span>
 </pre>
 </div>
@@ -390,11 +390,13 @@ $(document).ready(function(){
         $('.show-comments').on('click', function(){
                                var disqus_shortname = 'lotaboutorgwiki'; // Replace this value with *your* username.
 
-                                (function() {
-                                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                                })();
+                               // ajax request to load the disqus javascript
+                               $.ajax({
+type: "GET",
+url: "http://" + disqus_shortname + ".disqus.com/embed.js",
+dataType: "script",
+cache: true
+});
                                // hide the button once comments load
                                $(this).fadeOut();
                                });
