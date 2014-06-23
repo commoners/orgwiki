@@ -6,76 +6,63 @@
     <style type="text/css">
     <!--
       body {
-        color: #dcdccc;
-        background-color: #3f3f3f;
+        color: #000000;
+        background-color: #ffffff;
       }
       .hl-line {
-        /* hl-line */
-        background-color: #383838;
       }
       .org-block {
-        /* org-block */
-        color: #b3b3b3;
       }
       .org-block-begin-line {
         /* org-block-begin-line */
-        color: #7f9f7f;
+        font-weight: bold;
+        font-style: italic;
       }
       .org-block-end-line {
         /* org-block-end-line */
-        color: #7f9f7f;
+        font-weight: bold;
+        font-style: italic;
       }
       .org-code {
-        /* org-code */
-        color: #b3b3b3;
       }
       .org-date {
         /* org-date */
-        color: #8cd0d3;
         text-decoration: underline;
       }
       .org-document-info-keyword {
-        /* org-document-info-keyword */
-        color: #b3b3b3;
       }
       .org-document-title {
         /* org-document-title */
-        color: #afeeee;
         font-weight: bold;
       }
       .org-footnote {
         /* org-footnote */
-        color: #00ffff;
         text-decoration: underline;
       }
       .org-level-1 {
         /* org-level-1 */
-        color: #dfaf8f;
-        background-color: #3f3f3f;
+        font-weight: bold;
       }
       .org-level-2 {
         /* org-level-2 */
-        color: #8fb28f;
-        background-color: #3f3f3f;
+        font-weight: bold;
+        font-style: italic;
       }
       .org-level-3 {
         /* org-level-3 */
-        color: #7cb8bb;
-        background-color: #3f3f3f;
+        font-weight: bold;
       }
       .org-link {
         /* org-link */
-        color: #d0bf8f;
-        font-weight: bold;
         text-decoration: underline;
       }
       .org-meta-line {
         /* org-meta-line */
-        color: #7f9f7f;
+        font-weight: bold;
+        font-style: italic;
       }
       .org-special-keyword {
         /* org-special-keyword */
-        color: #e0cf9f;
         font-weight: bold;
       }
       .org-tag {
@@ -84,12 +71,9 @@
       }
       .org-todo {
         /* org-todo */
-        color: #cc9393;
         font-weight: bold;
       }
       .org-verbatim {
-        /* org-verbatim */
-        color: #b3b3b3;
       }
 
       a {
@@ -106,8 +90,9 @@
   </head>
   <body>
     <pre>
-<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Test Org Syntax
-</span></span><span class="org-level-1">* This is the index file</span>
+<span class="org-meta-line"><span class="hl-line">#+OPTIONS: p:t</span></span><span class="hl-line">
+</span><span class="org-document-info-keyword">#+TITLE:</span> <span class="org-document-title">Test Org Syntax
+</span><span class="org-level-1">* This is the index file</span>
 This repos aimed at demonstrating how to export org files to html.
 
 <span class="org-level-1">* Example Contents</span>
@@ -117,7 +102,7 @@ This is a sample paragraph.
 <span class="org-date">&lt;2014-06-22 Sun&gt;</span>
 
 <span class="org-level-2">** </span><span class="org-todo">TODO</span><span class="org-level-2"> Head 2</span>
-   <span class="org-special-keyword">DEADLINE:</span> <span class="org-date">&lt;2014-06-22 Sun&gt;</span> <span class="org-special-keyword">SCHEDULED:</span> <span class="org-date">&lt;2014-06-22 Sun&gt;</span>
+   <span class="org-special-keyword">SCHEDULED:</span> <span class="org-date">&lt;2014-06-22 Sun&gt;</span>
   
 we'll have embeded code here: <span class="org-verbatim">=(apply + '(1 2 3 4))=</span>.
 
@@ -152,7 +137,7 @@ remember
 Image link:
 <span class="org-meta-line">#+CAPTION: This is the caption for the next figure link (or table)</span>
 <span class="org-meta-line">#+NAME:   fig:SED-HR4049</span>
-<span class="org-link"><a href="file:image/test.jpg">file:image/test.jpg</a></span>
+<span class="org-link"><a href="file:image/test.jpg">[[</a><a href="file:image/test.jpg">file:image/test.jpg</a><a href="file:image/test.jpg">]]</a></span>
 
 <span class="org-block-begin-line">#+BEGIN_SRC emacs-lisp
 </span><span class="org-block">(defun org-xor (a b)
@@ -167,7 +152,7 @@ this is a paragraph <span class="org-footnote">[fn:1]</span>
 </span><span class="org-block">(save-excursion                  (ref:sc)
    (goto-char (point-min)))      (ref:jump)
 </span><span class="org-block-end-line">#+END_SRC
-</span>In line <span class="org-link"><a href="(sc)">(sc)</a></span> we remember the current position.  Line <span class="org-link"><a href="(jump)">(jump)</a></span>
+</span>In line <span class="org-link"><a href="(sc)">[[</a><a href="(sc)">(sc)</a><a href="(sc)">]]</a></span> we remember the current position.  Line <span class="org-link"><a href="(jump)">[[</a><a href="(jump)">(jump)</a><a href="(jump)">]]</a></span>
 jumps to point-min.<span class="org-footnote">[fn:2]</span>
 
 <span class="org-level-1">* insert math</span>
