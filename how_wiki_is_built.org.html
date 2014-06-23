@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>how_wiki_is_built.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-footnote {
+        /* org-footnote */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+        background-color: #3f3f3f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+        background-color: #3f3f3f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword">#+TITLE:</span> <span class="org-document-title">&#26412;&#31449;&#26159;&#22914;&#20309;&#25645;&#24314;&#30340;
+</span>
+&#26412;&#25991;&#20171;&#32461;&#22914;&#20309;&#20351;&#29992; Org mode &#26469;&#25645;&#24314;&#26412;&#31449;(wiki)&#12290;&#26412;&#25991;&#36866;&#21512;&#21916;&#27426;&#25240;&#33150;&#30340;&#21516;&#23398;&#20204;&#65292;
+&#22914;&#26524;&#20320;&#24050;&#32463;&#26159;&#25042;&#20154;&#19968;&#20010;&#65292;&#37027;&#20040;&#20351;&#29992;wordpress&#25645;&#24314;&#21338;&#23458;&#26356;&#21152;&#26041;&#20415;&#12290;&#32780;&#22914;&#26524;&#21516;&#26102;&#20320;
+&#21916;&#27426;Emacs+orgmode&#30340;&#20889;&#20316;&#26041;&#24335;&#65292;
+<span class="org-link"><a href="https://github.com/punchagan/org2blog">[[https://github.com/punchagan/org2blog][</a><a href="https://github.com/punchagan/org2blog">org2blog</a><a href="https://github.com/punchagan/org2blog">]]</a></span> <a href="https://github.com/punchagan/org2blog][org2blog]]&#25554;&#20214;&#20063;&#33021;">&#25554;&#20214;&#20063;&#33021;</a>&#19982;
+wordpress&#24456;&#22909;&#30340;&#32467;&#21512;&#12290;
+
+&#37027;&#20040;&#19979;&#38754;&#24320;&#22987;&#27491;&#39064;&#21543;&#12290;
+
+<span class="org-level-1">* &#38656;&#35201;&#30340;&#24037;&#20855;</span>
+  &#8220;&#24037;&#27442;&#21892;&#20854;&#20107;&#65292;&#24517;&#20808;&#21033;&#20854;&#22120;&#8221;&#65292;&#36825;&#37324;&#25105;&#20204;&#20351;&#29992;&#30340;&#23601;&#26159;Emacs+org&#30340;&#20889;&#20316;&#26041;&#24335;&#65292;
+  &#20877;&#21033;&#29992;&#23427;&#30452;&#25509;&#29983;&#25104;HTML&#65292;&#26368;&#21518;&#20877;&#23558;&#20854;&#21457;&#24067;&#22312;&#32593;&#19978;&#65288;&#25110;&#26159;&#29992;&#20110;&#26412;&#22320;&#27983;&#35272;&#65289;&#12290;
+  
+  &#20197;&#19979;&#26159;&#20320;&#38656;&#35201;&#30340;&#24037;&#20855;&#65306;
+1. Emacs &#9472;&#9472; &#8220;&#19975;&#24694;&#8221;&#20043;&#28304;&#65292;&#24403;&#28982;&#26159;&#24517;&#22791;&#30340;&#12290;
+2. Org mode &#9472; &#9472;Emacs&#30340;&#24378;&#21147;&#25554;&#20214;&#65292;&#25454;&#35828;&#26377;&#19981;&#23569;&#20154;&#20351;&#29992;Emacs&#23436;&#20840;&#23601;&#26159;&#20026;&#20102;&#29992;
+   &#23427;&#12290;&#38656;&#35201;&#27880;&#24847;&#30340;&#26159;&#65292;&#35831;&#20351;&#29992;&#26368;&#26032;&#30340;&#29256;&#26412;&#65292;&#32780;&#19981;&#26159;Emacs&#33258;&#24102;&#30340;&#29256;&#26412;&#12290;
+3. htmlize &#9472;&#9472;Emacs&#25554;&#20214;&#65292;&#29992;&#20110;&#23558;&#25991;&#26412;&#36716;&#25442;&#25104;HTML&#65292;&#25903;&#25345;&#20195;&#30721;&#39640;&#20142;&#12290;
+4. &#29087;&#24713;Emacs&#30340;&#25805;&#20316;&#65292;&#20250;&#29992;Org mode&#65292;&#33021;&#30475;&#25026;emacs&#30340;&#37197;&#32622;&#12290;
+
+<span class="org-level-1">* &#35774;&#32622; org &#24037;&#31243;</span>
+  &#26412;&#25991;&#19981;&#20250;&#38754;&#38754;&#20465;&#21040;&#22320;&#35828;&#26126;&#22914;&#20309;&#20174;&#38646;&#24320;&#22987;&#65292;&#21482;&#26159;&#25552;&#20379;&#19968;&#20010;&#24605;&#36335;&#65292;&#35762;&#35299;&#19968;&#20123;&#20851;&#38190;&#28857;&#65292;
+  &#37325;&#35201;&#30340;&#36824;&#26159;&#22810;&#30475;&#22810;&#25240;&#33150;&#12290;
+
+<span class="org-level-2">** &#24037;&#31243;&#32467;&#26500;</span>
+   &#26412;&#25991;&#20013;&#65292;&#25105;&#20204;&#39318;&#20808;&#21019;&#24314;&#20004;&#20010;&#30446;&#24405; <span class="org-verbatim">=~/Dropbox/org/orgwiki=</span> &#29992;&#26469;&#23384;&#25918;&#28304;&#25991;&#20214;&#65307;
+   &#20197;&#21450; <span class="org-verbatim">=~/Dropbox/org/orgwiki_html=</span> &#29992;&#26469;&#23384;&#25918;&#29983;&#25104;&#30340;HTML&#25991;&#20214;&#12290;&#30446;&#24405;&#32467;&#26500;
+   &#31034;&#20363;&#22914;&#19979;&#65306;
+   
+<span class="org-block-begin-line">#+BEGIN_EXAMPLE
+</span><span class="org-block">/home/zhangjinzhou/Dropbox/org/orgwiki/
+|-- assets
+|   |-- css
+|   |   |-- style.css
+|   `-- js
+|       `-- jquery-1.7.1.min.js
+|-- files
+|   `-- org-projects.el
+|-- images
+|   `-- test.jpg
+|-- index.org
+|-- postamble.html
+|-- preamble.html
+|-- publish_wiki.sh
+`-- sitemap.org
+</span><span class="org-block-end-line">#+END_EXAMPLE
+</span>
+   &#20854;&#20013;&#65292; <span class="org-verbatim">=assets=</span> &#26159;&#29992;&#26469;&#23384;&#25918;&#32593;&#31449;&#27169;&#26495;&#25152;&#38656;&#35201;&#30340;&#25991;&#20214;&#65292; <span class="org-verbatim">=files=</span> &#21644;
+   <span class="org-verbatim">=images=</span> &#35270;&#20320;&#33258;&#24049;&#30340;&#38656;&#35201;&#32780;&#23450;&#65292;&#26159;&#29992;&#26469;&#23384;&#25918;&#25991;&#31456;&#20013;&#29992;&#24471;&#30528;&#30340;&#25991;&#20214;&#12290;
+   
+   &#22312;<span class="org-footnote">[fn:1]</span>&#20013;&#65292;&#20316;&#32773;&#35814;&#32454;&#20171;&#32461;&#20102;&#22914;&#20309;&#20351;&#29992;Org mode &#26469;&#24314;&#31435;&#24037;&#31243;&#20197;&#21450;&#27169;&#26495;&#30340;&#22522;&#26412;
+   &#20351;&#29992;&#26041;&#27861;&#65292;&#35831;&#35814;&#32454;&#38405;&#35835;&#12290;
+   
+<span class="org-level-2">** &#24037;&#31243;&#35774;&#32622;</span>
+   &#30001;&#20110;<span class="org-footnote">[fn:1]</span>&#20013;&#30340;&#35774;&#32622;&#21482;&#33021;&#23545;&#36755;&#20986;&#30340;&#19968;&#20123;&#36873;&#39033;&#20570;&#22522;&#26412;&#30340;&#37197;&#32622;&#65292;&#19981;&#33021;&#23436;&#20840;&#28385;&#36275;&#27004;
+   &#20027;&#30340;&#38656;&#27714;&#65292;&#20110;&#26159;&#65292;&#26681;&#25454;<span class="org-link"><a href="http://orgmode.org/worg/worg-setup.html">[[http://orgmode.org/worg/worg-setup.html][</a><a href="http://orgmode.org/worg/worg-setup.html">worg
+   &#23448;&#32593;</a><a href="http://orgmode.org/worg/worg-setup.html">]]</a></span> &#30340;&#35774;&#32622;<span class="org-footnote">[fn:2]</span>&#20570;&#20102;&#19968;&#20123;&#35843;&#25972;&#12290;
+
+   &#23436;&#25972;&#30340;&#35774;&#32622;&#35831;&#21442;&#35265; <span class="org-link"><a href="file:files/org-projects.el">[[</a><a href="file:files/org-projects.el">file:files/org-projects.el</a><a href="file:files/org-projects.el">]]</a></span>, &#26412;wiki&#30340;&#28304;&#30721;&#21487;&#20197;&#22312;
+   <span class="org-link"><a href="https://github.com/lotabout/orgwiki">[[https://github.com/lotabout/orgwiki][</a><a href="https://github.com/lotabout/orgwiki">Github</a><a href="https://github.com/lotabout/orgwiki">]]</a></span> <a href="https://github.com/lotabout/orgwiki][Github]]&#19978;&#24471;&#21040;">&#19978;&#24471;&#21040;</a>&#12290;
+   
+   &#35774;&#32622;&#21253;&#25324;&#20004;&#20010;&#26041;&#38754;&#65292;&#31532;&#19968;&#20010;&#26041;&#38754;&#26159;&#25511;&#21046;Emacs&#22914;&#20309;&#36755;&#20986;HTML&#65292;&#36825;&#38656;&#35201;&#22312;
+   <span class="org-verbatim">=.emacs=</span> &#37324;&#35774;&#32622;&#65292;&#20063;&#23601;&#26159;<span class="org-link"><a href="file:files/org-projects.el">[[</a><a href="file:files/org-projects.el">file:files/org-projects.el</a><a href="file:files/org-projects.el">]]</a></span> &#37324;&#30340;&#36825;&#20123;&#20869;&#23481;&#12290;
+   &#21478;&#19968;&#26041;&#38754;&#26159;&#25511;&#21046;&#36755;&#20986;&#30340;HTML&#22914;&#20309;&#26174;&#31034;&#65292;&#36825;&#20063;&#26159;&#20043;&#21069;&#25552;&#21040;&#30340;&#8220;&#27169;&#26495;&#8221;&#12290;
+   
+   &#26412;wiki&#30340;&#27169;&#26495;&#20027;&#35201;&#21253;&#25324;4&#20010;&#25991;&#20214;&#65292;&#38656;&#35201;&#27880;&#24847;&#30340;&#26159;&#65292;&#36825;&#20010;&#27169;&#26495;&#26159;&#19982;Emacs&#30340;&#35774;&#32622;
+   &#23545;&#24212;&#30340;&#12290;
+<span class="org-block-begin-line">#+BEGIN_EXAMPLE
+</span><span class="org-block">/home/zhangjinzhou/Dropbox/org/orgwiki/
+|-- assets
+|   |-- css
+|   |   |-- style.css
+|   `-- js
+|       `-- jquery-1.7.1.min.js
+|-- postamble.html
+`-- preamble.html
+</span><span class="org-block-end-line">#+END_EXAMPLE
+</span>   &#20854;&#20013;&#65292; <span class="org-verbatim">=preamble.html=</span> &#20013;&#21253;&#21547;&#20102;&#23548;&#33322;&#30456;&#20851;&#30340;&#20449;&#24687;&#12290; <span class="org-verbatim">=postamble.html=</span> &#20013;
+   &#28155;&#21152;&#20102;&#35832;&#22914;&#35780;&#35770;&#31561;&#30340;&#19968;&#20123;&#21151;&#33021;&#12290;&#22914;&#26524;&#20320;&#38656;&#35201;&#20351;&#29992;&#25105;&#30340;&#27169;&#26495;&#65292;&#35831;&#27880;&#24847;&#26367;&#25442;&#36825;&#20004;
+   &#20010;&#25991;&#20214;&#20013;&#30340;&#30456;&#24212;&#20869;&#23481;&#12290;
+   
+   &#20854;&#20013;&#65292; <span class="org-verbatim">=org-projects.el=</span> &#30340;&#35774;&#32622;&#26377;&#20004;&#31181;&#29992;&#27861;&#65288;for &#23567;&#30333;&#20204;&#65289;&#65292;&#31532;&#19968;&#31181;&#65292;&#23558;
+   &#23427;&#25918;&#22312;&#26576;&#20010;&#30446;&#24405;&#19979;&#65292;&#22914;&#65306; <span class="org-verbatim">=~/.emacs.d/elisp=</span> &#19979;&#12290;&#20877;&#22312; <span class="org-verbatim">=.emacs=</span> &#20013;&#21152;&#20837;
+   &#19979;&#38754;&#20195;&#30721;&#65306;
+<span class="org-block-begin-line">#+BEGIN_SRC emacs-lisp
+</span><span class="org-block">(add-to-list 'load-path "~/.emacs.d/elisp")
+(require 'org-projects)
+</span><span class="org-block-end-line">#+END_SRC
+</span>   &#25110;&#32773;&#23558;&#37324;&#38754;&#30340;&#25152;&#26377;&#20869;&#23481;&#20840;&#37096;&#22797;&#21046;&#21040; <span class="org-verbatim">=.emacs=</span> &#25991;&#20214;&#20013;&#12290;
+
+<span class="org-level-2">** &#20854;&#23427;&#35774;&#32622;</span>
+   &#30001;&#20110;&#25105;&#30340;&#27169;&#26495;&#37324;&#26377;&#19968;&#20010;&#21151;&#33021;&#65292;&#26159;&#26174;&#31034;&#25991;&#31456;&#23545;&#24212;&#30340;&#21407;&#22987;orgmode&#25991;&#20214;&#12290;&#23545;&#20110;
+   orgmode &#37324;&#30340;&#38142;&#25509;&#65292;&#21407;&#26412;&#30340;&#26679;&#24335;&#20250;&#20002;&#22833;&#65292;&#26159;&#22240;&#20026;&#22312;orgmode &#26174;&#31034;&#26102;&#65292;
+   <span class="org-verbatim">=</span><span class="org-link"><span class="org-verbatim"><a href="link">[[</a><a href="link">link</a><a href="link">]]</a></span></span><span class="org-verbatim">=</span> &#21464;&#25104;&#20102; <span class="org-verbatim">=link=</span> &#65292;&#22240;&#27492;&#36755;&#20986;&#26102;&#20002;&#22833;&#20102;&#22806;&#38754;&#30340;&#25324;&#21495;&#12290;&#22240;&#27492;&#22312;
+   <span class="org-verbatim">=.emacs=</span> &#21152;&#20837;&#19979;&#38754;&#20195;&#30721;&#65306;
+<span class="org-block-begin-line">#+BEGIN_SRC emacs-lisp
+</span><span class="org-block">; Enable literal links 
+(defun turn-on-literal-links ()
+  "enable literal links."
+  (interactive)
+  (org-remove-from-invisibility-spec '(org-link))
+  (org-restart-font-lock))
+
+(add-hook 'org-mode-hook 'turn-on-literal-links)
+</span><span class="org-block-end-line">#+END_SRC
+</span>
+<span class="org-level-1">* Footnotes</span>
+
+<span class="org-footnote">[fn:1]</span> <span class="org-link"><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">[[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][</a><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to HTML</a><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">]]</a></span>
+<span class="org-footnote">[fn:2]</span> <span class="org-link"><a href="http://orgmode.org/worg/sources/emacs.el">[[http://orgmode.org/worg/sources/emacs.el][</a><a href="http://orgmode.org/worg/sources/emacs.el">Worg's emacs.el</a><a href="http://orgmode.org/worg/sources/emacs.el">]]</a></span>
+</pre>
+  </body>
+</html>
