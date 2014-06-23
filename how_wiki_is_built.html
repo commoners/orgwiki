@@ -219,8 +219,8 @@ wordpress很好的结合。
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #cc9393;">"~/.emacs.d/elisp"</span>)
-(<span style="color: #f0dfaf; font-weight: bold;">require</span> '<span style="color: #bfebbf;">org-projects</span>)
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="font-style: italic;">"~/.emacs.d/elisp"</span>)
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">org-projects</span>)
 </pre>
 </div>
 <p>
@@ -240,9 +240,9 @@ orgmode 里的链接，原本的样式会丢失，是因为在orgmode 显示时�
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">Enable literal links </span>
-(<span style="color: #f0dfaf; font-weight: bold;">defun</span> <span style="color: #8cd0d3;">turn-on-literal-links</span> ()
-  <span style="color: #8fb28f;">"enable literal links."</span>
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">Enable literal links </span>
+(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">turn-on-literal-links</span> ()
+  <span style="font-style: italic;">"enable literal links."</span>
   (interactive)
   (org-remove-from-invisibility-spec '(org-link))
   (org-restart-font-lock))
@@ -300,8 +300,7 @@ orgmode 里的链接，原本的样式会丢失，是因为在orgmode 显示时�
 </section>
 
 <footer>
-    |由<a href="http://orgmode.org">Org Mode</a>自动生成<input type="button" value="Show Org source" onClick='show_org_source()'>
-    |采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a>授权|
+    |采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a>授权|由<a href="http://orgmode.org">Org Mode</a>自动生成<input type="button" value="Show Org source" onClick='show_org_source()'>|部署在<a href="https://github.com/lotabout/orgwiki">Github Pages</a>|
 </footer>
 
     <script src="assets/js/jquery-1.7.1.min.js"></script>
