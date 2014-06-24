@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>Unix_Network_Programming_v2.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-list-dt {
+        /* org-list-dt */
+        font-weight: bold;
+      }
+      .org-verbatim {
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">UNIX Network Programming Vol.2 Notes
+</span></span>
+<span class="org-level-1">* Chap01: Introduction</span>
+  
+<span class="org-level-2">** Introduction</span>
+   The evolution of IPC(interprocess of communication)
+- <span class="org-list-dt">pipe ::</span> unsed in programs or shells. Can be used only between
+          processes with common ancestors. <span class="underline">_FIFO_</span> broke this limit.
+- <span class="org-list-dt">System V message queue ::</span> can be used between processes no matter
+     they are related or not under <span class="underline">_the same host_</span>.
+- <span class="org-list-dt">Posix message queue ::</span> Almost the same to System V message queue.
+- <span class="org-list-dt">RPC(Remote procedure call) ::</span> Provide a mechanism for clients to
+     call some functions of the server.
+
+We can see that the range of IPC increases with evolution. From
+processes with common ancester to thoses in different hosts.
+     
+The evolution of Synchronization Mechanisms.
+- Hidden features of filesystem
+- record locking
+- System V semaphore.
+- Posix semaphore
+- mutex and condition variable.
+- read-write lock.
+
+<span class="org-level-2">** Sharing Information Between Processes and Threads</span>
+   
+There are 3 ways of sharing: through kernel(like sharing with files);
+in kernel(pipes); without kernel(shared memory).
+
+<span class="org-level-2">** Persistence of IPC Object</span>
+   The <span class="bold">*Presistence*</span> of any type of IPC is how long an object of that
+   type remains in existence.
+
+- <span class="org-list-dt">process-persistent IPC ::</span> exists until last process with IPC object
+     open closes the object. (pipes and FIFOs.)
+- <span class="org-list-dt">kernel-persistent IPC ::</span> exists until kernel reboots or IPC object
+     is explicitly deleted. (System V message queue, semaphores, and
+     shared memories)
+- <span class="org-list-dt">filesystem-persistent IPC ::</span> exists until IPC object is explicitly deleted.
+
+Note the difference between the place where IPC information was kept
+and the existence of IPC object. For example, pipes are kept by the
+kernel but exists with the existence of process.
+
+Normally, no IPCs were designed with filesystem-presistence. First, no
+processes survive the reboot. Second, requiring filesystem persistence
+might degrade the preformance.
+
+<span class="org-level-1">* Posix IPC</span>
+<span class="org-level-2">** Introduction</span>
+   There are 3 types of POSIX IPC:
+   - Posix message queue
+   - Posix semaphores
+   - Posix shared memory
+   They are common in: the pathnames used for identification, the
+   flags specified when opening or creatign, and the access permission.
+<span class="org-level-1">* System V IPC</span>
+  There are three types of System V IPC:
+  - System V message queues,
+  - System V semaphores, and
+  - System V shared memory.
+    
+<span class="org-level-2">** key_t Keys and ftok Function</span>
+   System V IPC use <span class="org-verbatim">=key_t=</span> values for their names. The header
+   &lt;sys/types.h&gt; defines the <span class="org-verbatim">=key_t=</span> datatype as an integer, which is
+   normally at least 32 bits long.
+   
+   The function <span class="org-verbatim">=ftok=</span> converts an <span class="underline">_existing_</span> pathname and an integer
+   identifier into <span class="org-verbatim">=key_t=</span> value.
+   
+   Client and server are able to generate the same <span class="org-verbatim">=key_t=</span> value once
+   they agree on the <span class="org-verbatim">=pathname=</span> and <span class="org-verbatim">=id=</span>.
+
+<span class="org-level-2">** ipc_perm Structure</span>
+   It is used by the kernel to maintain the information for each IPC
+   object, similar to the information it maintains for files.
+</pre>
+  </body>
+</html>
