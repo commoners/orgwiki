@@ -1,4 +1,5 @@
 #+TITLE: UNIX Network Programming Vol.2 Notes
+#+OPTIONS: toc:1
 
 * Chap01: Introduction
 
@@ -75,3 +76,25 @@ they agree on the =pathname= and =id=.
 ** ipc_perm Structure
 It is used by the kernel to maintain the information for each IPC
 object, similar to the information it maintains for files.
+
+* Pipes and FIFOs
+
+** Introduction
+The fundamental limitation of pipe is that they have NO name.
+
+** Full Duplex Pipe
+It depends on the system's support. Check first if you wants to
+make use of it.
+
+** FIFO
+
+1. when calling =mkfifo= to create FIFO, it will create a new fifo or
+   return =EEXIST= if the named FIFO already exists.
+2. FIFO should be open by calling =open= system call.
+3. When reading from FIFO, it will block the process. So be careful
+   not to block both the server and the client. (reorder the calling
+   of =read= and =write=).
+4. Call =unlink= to remove FIFO from the filesystem. Note that kernel
+   keeps a reference count of the number of open descriptors that
+   refer to the pipe or FIFO. Thus, when calling =unlink=, it will not
+   affect open descriptors that had previously opened the pathname.

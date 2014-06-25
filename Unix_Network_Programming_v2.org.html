@@ -34,6 +34,11 @@
         /* org-list-dt */
         font-weight: bold;
       }
+      .org-meta-line {
+        /* org-meta-line */
+        font-weight: bold;
+        font-style: italic;
+      }
       .org-verbatim {
       }
       .underline {
@@ -56,7 +61,8 @@
   <body>
     <pre>
 <span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">UNIX Network Programming Vol.2 Notes
-</span></span>
+</span></span><span class="org-meta-line">#+OPTIONS: toc:1</span>
+
 <span class="org-level-1">* Chap01: Introduction</span>
   
 <span class="org-level-2">** Introduction</span>
@@ -132,6 +138,29 @@ might degrade the preformance.
 <span class="org-level-2">** ipc_perm Structure</span>
    It is used by the kernel to maintain the information for each IPC
    object, similar to the information it maintains for files.
+   
+<span class="org-level-1">* Pipes and FIFOs</span>
+
+<span class="org-level-2">** Introduction</span>
+   The fundamental limitation of pipe is that they have NO name.
+
+<span class="org-level-2">** Full Duplex Pipe</span>
+   It depends on the system's support. Check first if you wants to
+   make use of it.
+
+<span class="org-level-2">** FIFO</span>
+   
+1. when calling <span class="org-verbatim">=mkfifo=</span> to create FIFO, it will create a new fifo or
+   return <span class="org-verbatim">=EEXIST=</span> if the named FIFO already exists.
+2. FIFO should be open by calling <span class="org-verbatim">=open=</span> system call.
+3. When reading from FIFO, it will block the process. So be careful
+   not to block both the server and the client. (reorder the calling
+   of <span class="org-verbatim">=read=</span> and <span class="org-verbatim">=write=</span>).
+4. Call <span class="org-verbatim">=unlink=</span> to remove FIFO from the filesystem. Note that kernel
+   keeps a reference count of the number of open descriptors that
+   refer to the pipe or FIFO. Thus, when calling <span class="org-verbatim">=unlink=</span>, it will not
+   affect open descriptors that had previously opened the pathname.
+
 </pre>
   </body>
 </html>
