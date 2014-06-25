@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Sitemap for project org-notes</title>
+<title>How to Design Programs Notes</title>
 <!-- 2014-06-25 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,29 +71,178 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Sitemap for project org-notes</h1>
-<ul class="org-ul">
-<li><a href="about.html">about</a>
-</li>
-<li><a href="emacs_notes.html">Emacs Notes</a>
-</li>
-<li><a href="htdp.html">How to Design Programs Notes</a>
-</li>
-<li><a href="theindex.html">Index</a>
-</li>
-<li><a href="index.html">Mark Wallace's Wiki</a>
-</li>
-<li><a href="remember.html">remember</a>
-</li>
-<li><a href="test_org.html">Test Org Syntax</a>
-</li>
-<li><a href="Thinking_In_Cpp.html">Thinking In C++ Notes</a>
-</li>
-<li><a href="Unix_Network_Programming_v2.html">UNIX Network Programming Vol.2 Notes</a>
-</li>
-<li><a href="how_wiki_is_built.html">本站是如何搭建的</a>
+<h1 class="title">How to Design Programs Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Design Functions</a>
+<ul>
+<li><a href="#sec-1-1">Information and Data</a></li>
+<li><a href="#sec-1-2">Process of Designing Functions</a></li>
+<li><a href="#sec-1-3">Domain Knowledge</a>
+<ul>
+<li><a href="#sec-1-3-1">From Functions to Programs</a></li>
+</ul>
 </li>
 </ul>
+</li>
+<li><a href="#sec-2">Lists</a></li>
+<li><a href="#sec-3">Designing With Self-referential Data Definitions</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Design Functions</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Information and Data</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Information can be thought as facts about the program's domain, while data is
+just a "literal" representation.
+</p>
+
+<p>
+Take temperature as an example. `100` is only a prepresentation or data. We
+know nothing only by looking at this literal. When the data is `interpretted`
+in the domain of temperature, we know it means 100C or 100F. On the other
+hand, computers or programs cannot understand 100C or 100F directly. We then
+can `represent` it as a number `100` or strings link `100C` or `100F`, these are
+what computers can understand.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Process of Designing Functions</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>-&gt;</b> This process can be guideline of writing comments for functions.
+</p>
+
+<ul class="org-ul">
+<li>Express how information is represented as data.
+<pre class="example">
+; we use plain numbers to represent temperatures.
+</pre>
+</li>
+<li>Write down a signature, a purpose statement, and a function header.
+A <span class="underline">signature</span> is like `haskell`'s function type.
+<pre class="example">
+; String -&gt; Number
+</pre>
+<p>
+<span class="underline">Purpose statement</span> is a short line to describe the purpose of a function. A
+better way to express this is to use descriptive names for functions.
+<span class="underline">Function Header</span> is the header of a function without its implementation.
+</p>
+</li>
+<li>Illustrate the signature and the purpose statement with some functional
+examples.
+<pre class="example">
+; Number -&gt; Number                                      ; signature
+; compute the area of a square whose side is len        ; purpose
+; given: 2, expect: 4                                   ; examples
+; given: 7, expect: 49
+(define (area-of-square len) 0)                         ; header
+</pre>
+</li>
+
+<li>The next step is considering what and how are we going to compute. This is
+done by inserting <b>templates</b> in the function body(for example, the ones
+introduced in the following chapters).
+</li>
+<li>Now <span class="underline">code</span>. Fill in the information needed by the template and other
+details.
+</li>
+<li>Last one: Test the functions. (in racket or other script languages, directly
+make some unit test cases is quite simple, do it!)
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Domain Knowledge</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Two forms of <span class="underline">domain knowledge</span>:
+</p>
+<ul class="org-ul">
+<li>Knowledge from external domains.
+</li>
+<li>Knowledge about the library functions in the chosen programming language.
+</li>
+</ul>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">From Functions to Programs</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+The `car` problem: Design a program that moves a car across the world canvas,
+from left to right, at the rate of three pixels per clock tick.
+</p>
+
+<p>
+How to tare down the problem into program elements:
+</p>
+<ul class="org-ul">
+<li>Find out constant staff and assign them to global constant variables.
+</li>
+<li>Find out properties that change over time. Design how to represent them with
+data. (can we call them <span class="underline">states</span>?)
+</li>
+<li>Design a number of functions to handle al these variable properties.
+</li>
+<li>write a <span class="underline">main</span> function so as to connect real world to our programs.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Lists</h2>
+<div class="outline-text-2" id="text-2">
+<blockquote>
+<p>
+Then again, if this list is supposed to represent a record with a fixed
+number of pieces, use a structure type instead.
+</p>
+</blockquote>
+
+<p>
+This means that when designing programs, use lists oly when the number of
+items is variable. Otherwise, choose <span class="underline">struct</span>, <span class="underline">vector</span>, etc. instead.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Designing With Self-referential Data Definitions</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This chapter talks about the design of new self-referential data(or
+recursively defined data). And how to walk through all the elements of a
+specific data.
+</p>
+
+<p>
+Also the book gave out a "template" for designing functions for
+self-referential data.
+</p>
+
+<p>
+<b>-&gt;</b> Most data structures comes with a patter, and there also exists a pattern
+ of how to deal with it. This is what we called a template.
+<a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#(counter._(figure._fig~3adesign5))|Designing%20a%20function%20for%20self-referential%20data">http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#(counter._(figure._fig~3adesign5))|Designing%20a%20function%20for%20self-referential%20data</a>
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>

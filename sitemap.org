@@ -2,6 +2,7 @@
 
 - [[file:about.org][about]]
 - [[file:emacs_notes.org][Emacs Notes]]
+- [[file:htdp.org][How to Design Programs Notes]]
 - [[file:theindex.org][Index]]
 - [[file:index.org][Mark Wallace's Wiki]]
 - [[file:remember.org][remember]]

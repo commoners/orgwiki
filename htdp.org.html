@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>htdp.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        font-weight: bold;
+      }
+      .org-link {
+        /* org-link */
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">How to Design Programs Notes
+</span></span>
+<span class="org-level-1">* Design Functions</span>
+<span class="org-level-2">** Information and Data</span>
+Information can be thought as facts about the program's domain, while data is
+just a "literal" representation.
+
+Take temperature as an example. `100` is only a prepresentation or data. We
+know nothing only by looking at this literal. When the data is `interpretted`
+in the domain of temperature, we know it means 100C or 100F. On the other
+hand, computers or programs cannot understand 100C or 100F directly. We then
+can `represent` it as a number `100` or strings link `100C` or `100F`, these are
+what computers can understand.
+
+<span class="org-level-2">** Process of Designing Functions</span>
+<span class="bold">*-&gt;*</span> This process can be guideline of writing comments for functions.
+
+- Express how information is represented as data.
+<span class="org-block-begin-line">  #+BEGIN_EXAMPLE
+</span><span class="org-block">  ; we use plain numbers to represent temperatures.
+</span><span class="org-block-end-line">  #+END_EXAMPLE
+</span>- Write down a signature, a purpose statement, and a function header.
+  A <span class="underline">_signature_</span> is like `haskell`'s function type.
+<span class="org-block-begin-line">  #+BEGIN_EXAMPLE
+</span><span class="org-block">  ; String -&gt; Number
+</span><span class="org-block-end-line">  #+END_EXAMPLE
+</span>  <span class="underline">_Purpose statement_</span> is a short line to describe the purpose of a function. A
+  better way to express this is to use descriptive names for functions.
+  <span class="underline">_Function Header_</span> is the header of a function without its implementation.
+- Illustrate the signature and the purpose statement with some functional
+  examples.
+<span class="org-block-begin-line">  #+BEGIN_EXAMPLE
+</span><span class="org-block">  ; Number -&gt; Number                                      ; signature
+  ; compute the area of a square whose side is len        ; purpose
+  ; given: 2, expect: 4                                   ; examples
+  ; given: 7, expect: 49
+  (define (area-of-square len) 0)                         ; header
+</span><span class="org-block-end-line">  #+END_EXAMPLE
+</span>
+- The next step is considering what and how are we going to compute. This is
+  done by inserting <span class="bold">*templates*</span> in the function body(for example, the ones
+  introduced in the following chapters).
+- Now <span class="underline">_code_</span>. Fill in the information needed by the template and other
+  details.
+- Last one: Test the functions. (in racket or other script languages, directly
+  make some unit test cases is quite simple, do it!)
+  
+<span class="org-level-2">** Domain Knowledge</span>
+   Two forms of <span class="underline">_domain knowledge_</span>:
+   - Knowledge from external domains.
+   - Knowledge about the library functions in the chosen programming language.
+
+<span class="org-level-3">*** From Functions to Programs</span>
+The `car` problem: Design a program that moves a car across the world canvas,
+from left to right, at the rate of three pixels per clock tick.
+
+How to tare down the problem into program elements:
+- Find out constant staff and assign them to global constant variables.
+- Find out properties that change over time. Design how to represent them with
+  data. (can we call them <span class="underline">_states_</span>?)
+- Design a number of functions to handle al these variable properties.
+- write a <span class="underline">_main_</span> function so as to connect real world to our programs.
+
+<span class="org-level-1">* Lists</span>
+
+<span class="org-block-begin-line">  #+BEGIN_QUOTE
+</span>    Then again, if this list is supposed to represent a record with a fixed
+    number of pieces, use a structure type instead.<span class="org-meta-line">
+</span><span class="org-block-end-line">  #+END_QUOTE
+</span>    
+This means that when designing programs, use lists oly when the number of
+items is variable. Otherwise, choose <span class="underline">_struct_</span>, <span class="underline">_vector_</span>, etc. instead.
+
+<span class="org-level-1">* Designing With Self-referential Data Definitions</span>
+
+This chapter talks about the design of new self-referential data(or
+recursively defined data). And how to walk through all the elements of a
+specific data.
+
+Also the book gave out a "template" for designing functions for
+self-referential data.
+
+<span class="bold">*-&gt;*</span> Most data structures comes with a patter, and there also exists a pattern
+ of how to deal with it. This is what we called a template.
+<span class="org-link"><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">[[</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">]]</a></span>
+
+
+</pre>
+  </body>
+</html>

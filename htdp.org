@@ -1,0 +1,85 @@
+#+TITLE: How to Design Programs Notes
+
+* Design Functions
+** Information and Data
+Information can be thought as facts about the program's domain, while data is
+just a "literal" representation.
+
+Take temperature as an example. `100` is only a prepresentation or data. We
+know nothing only by looking at this literal. When the data is `interpretted`
+in the domain of temperature, we know it means 100C or 100F. On the other
+hand, computers or programs cannot understand 100C or 100F directly. We then
+can `represent` it as a number `100` or strings link `100C` or `100F`, these are
+what computers can understand.
+
+** Process of Designing Functions
+*->* This process can be guideline of writing comments for functions.
+
+- Express how information is represented as data.
+  #+BEGIN_EXAMPLE
+  ; we use plain numbers to represent temperatures.
+  #+END_EXAMPLE
+- Write down a signature, a purpose statement, and a function header.
+  A _signature_ is like `haskell`'s function type.
+  #+BEGIN_EXAMPLE
+  ; String -> Number
+  #+END_EXAMPLE
+  _Purpose statement_ is a short line to describe the purpose of a function. A
+  better way to express this is to use descriptive names for functions.
+  _Function Header_ is the header of a function without its implementation.
+- Illustrate the signature and the purpose statement with some functional
+  examples.
+  #+BEGIN_EXAMPLE
+  ; Number -> Number                                      ; signature
+  ; compute the area of a square whose side is len        ; purpose
+  ; given: 2, expect: 4                                   ; examples
+  ; given: 7, expect: 49
+  (define (area-of-square len) 0)                         ; header
+  #+END_EXAMPLE
+
+- The next step is considering what and how are we going to compute. This is
+  done by inserting *templates* in the function body(for example, the ones
+  introduced in the following chapters).
+- Now _code_. Fill in the information needed by the template and other
+  details.
+- Last one: Test the functions. (in racket or other script languages, directly
+  make some unit test cases is quite simple, do it!)
+
+** Domain Knowledge
+Two forms of _domain knowledge_:
+- Knowledge from external domains.
+- Knowledge about the library functions in the chosen programming language.
+
+*** From Functions to Programs
+The `car` problem: Design a program that moves a car across the world canvas,
+from left to right, at the rate of three pixels per clock tick.
+
+How to tare down the problem into program elements:
+- Find out constant staff and assign them to global constant variables.
+- Find out properties that change over time. Design how to represent them with
+  data. (can we call them _states_?)
+- Design a number of functions to handle al these variable properties.
+- write a _main_ function so as to connect real world to our programs.
+
+* Lists
+
+#+BEGIN_QUOTE
+Then again, if this list is supposed to represent a record with a fixed
+number of pieces, use a structure type instead.
+#+END_QUOTE
+
+This means that when designing programs, use lists oly when the number of
+items is variable. Otherwise, choose _struct_, _vector_, etc. instead.
+
+* Designing With Self-referential Data Definitions
+
+This chapter talks about the design of new self-referential data(or
+recursively defined data). And how to walk through all the elements of a
+specific data.
+
+Also the book gave out a "template" for designing functions for
+self-referential data.
+
+*->* Most data structures comes with a patter, and there also exists a pattern
+ of how to deal with it. This is what we called a template.
+[[http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data]]
