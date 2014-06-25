@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>Thinking_In_Cpp.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #383838;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-footnote {
+        /* org-footnote */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+        background-color: #3f3f3f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+        background-color: #3f3f3f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Thinking In C++ Notes
+</span></span><span class="org-level-1">* C in C++</span>
+<span class="org-level-2">** temporary variables</span>
+In C++, variables can be defined anywhere in the source file. For
+example:
+<span class="org-block-begin-line">#+BEGIN_SRC cpp
+</span><span class="org-block">  for (int i = 0; i &lt; N; i++) {
+      /* some sentences */
+  }
+</span><span class="org-block-end-line">#+END_SRC
+</span>Note that we can also define variables in <span class="org-verbatim">=while=</span> statements, which
+however is <span class="bold">*wrong*</span> most of the time.
+<span class="org-block-begin-line">#+BEGIN_SRC cpp
+</span><span class="org-block">  while (char c = cin.get() != 'q') {
+      /* some statements */
+  }
+</span><span class="org-block-end-line">#+END_SRC
+</span>Operator <span class="bold">*=*</span> has higer precedence then <span class="bold">*!=*</span>, thus variable <span class="org-verbatim">=c=</span> will
+get a bool value. Now we'll want to add parenthesises like this:
+<span class="org-block-begin-line">#+BEGIN_SRC cpp
+</span><span class="org-block">  while ((char c = cin.get()) != 'q') {
+      /* some statements */
+  }
+</span><span class="org-block-end-line">#+END_SRC
+</span>This on the other hand is <span class="bold">*syntax error*</span>.
+
+<span class="org-level-2">** Linking with internal/external variables.</span>
+   There are two styles of linkage: internal linkage and external
+   linkage. External linkage means the symbol is accessable
+   throughtout the whole program and internal linkages means that it
+   is only accessable in one translation unit.
+
+<span class="org-footnote">[1]</span> <span class="org-link"><a href="http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c">[[http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c][</a><a href="http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c">What is external and internal linkage in C++</a><a href="http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c">]]</a></span>
+
+   
+<span class="org-level-2">** Turn variable and statements into string</span>
+   Use cpp macro feature: '#':
+<span class="org-block-begin-line">#+BEGIN_SRC cpp
+</span><span class="org-block">  #define PR(x) cout &lt;&lt; #x " = " &lt;&lt; x &lt;&lt; "\n";
+</span><span class="org-block-end-line">#+END_SRC
+</span>   and it will print out statements and their values correctly.
+   
+<span class="org-level-2">** Complecated declarations and definitions</span>
+   read the definition from right to left and recursively.
+<span class="org-block-begin-line">   #+BEGIN_SRC cpp
+</span><span class="org-block">     void *(*(*fp1)(int))[10];
+     /* fp1 is a pointer to a function which takes an int as its argument
+      ,* and return a pointer to an array of 10 elements, each element is a
+      ,* pointer to void. */
+     float (*(*fp2)(int, int, float))(int);
+     /* fp2 is a pointer to a function, which takes 3 arguments: (int, int,
+      ,* float), and returns a pointer to a function, which takes 1
+      ,* argument: (int) and returns a float */
+     typedef double (*(*(*fp3)())[10])();
+     fp3 a;
+     /* fp3 is a type, this type refers to a pointer to a function, which
+      ,* takes no arguments: (), and returns a pointer to an array of 10
+      ,* elements, each element is a pointer to a function, which takes no
+      ,* arguments: () and return a double. */
+     int (*(*f4())[10])();
+     /* f4 is a function, which takes no arguments: () and returns a
+      ,* pointer to an array of 10 elements, each element is a pointer to a
+      ,* function, which takes no arguements and return an integer. */
+</span><span class="org-block-end-line">   #+END_SRC
+</span><span class="org-level-2">** </span>
+</pre>
+  </body>
+</html>

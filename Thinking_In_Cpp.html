@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index</title>
+<title>Thinking In C++ Notes</title>
 <!-- 2014-06-25 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,8 +71,132 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Index</h1>
+<h1 class="title">Thinking In C++ Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">C in C++</a>
+<ul>
+<li><a href="#sec-1-1">temporary variables</a></li>
+<li><a href="#sec-1-2">Linking with internal/external variables.</a></li>
+<li><a href="#sec-1-3">Turn variable and statements into string</a></li>
+<li><a href="#sec-1-4">Complecated declarations and definitions</a></li>
+<li><a href="#sec-1-5"></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">C in C++</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">temporary variables</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In C++, variables can be defined anywhere in the source file. For
+example:
+</p>
+<div class="org-src-container">
 
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">for</span> (<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span> = 0; i &lt; N; i++) {
+    <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">some sentences */</span>
+}
+</pre>
+</div>
+<p>
+Note that we can also define variables in <code>while</code> statements, which
+however is <b>wrong</b> most of the time.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">while</span> (<span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span> = cin.get() != <span style="color: #cc9393;">'q'</span>) {
+    <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">some statements */</span>
+}
+</pre>
+</div>
+<p>
+Operator <b>=</b> has higer precedence then <b>!=</b>, thus variable <code>c</code> will
+get a bool value. Now we'll want to add parenthesises like this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">while</span> ((<span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span> = cin.get()) != <span style="color: #cc9393;">'q'</span>) {
+    <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">some statements */</span>
+}
+</pre>
+</div>
+<p>
+This on the other hand is <b>syntax error</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Linking with internal/external variables.</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+There are two styles of linkage: internal linkage and external
+linkage. External linkage means the symbol is accessable
+throughtout the whole program and internal linkages means that it
+is only accessable in one translation unit.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Turn variable and statements into string</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Use cpp macro feature: '#':
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#define</span> <span style="color: #8cd0d3;">PR</span>(<span style="color: #dfaf8f;">x</span>) cout &lt;&lt; #x <span style="color: #cc9393;">" = "</span> &lt;&lt; x &lt;&lt; <span style="color: #cc9393;">"\n"</span>;
+</pre>
+</div>
+<p>
+and it will print out statements and their values correctly.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Complecated declarations and definitions</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+read the definition from right to left and recursively.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">void</span> *(*(*<span style="color: #dfaf8f;">fp1</span>)(<span style="color: #8cd0d3;">int</span>))[10];
+<span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">fp1 is a pointer to a function which takes an int as its argument</span>
+<span style="color: #7f9f7f;"> * and return a pointer to an array of 10 elements, each element is a</span>
+<span style="color: #7f9f7f;"> * pointer to void. */</span>
+<span style="color: #8cd0d3;">float</span> (*(*<span style="color: #8cd0d3;">fp2</span>)(<span style="color: #8cd0d3;">int</span>, <span style="color: #8cd0d3;">int</span>, <span style="color: #8cd0d3;">float</span>))(<span style="color: #8cd0d3;">int</span>);
+<span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">fp2 is a pointer to a function, which takes 3 arguments: (int, int,</span>
+<span style="color: #7f9f7f;"> * float), and returns a pointer to a function, which takes 1</span>
+<span style="color: #7f9f7f;"> * argument: (int) and returns a float */</span>
+<span style="color: #f0dfaf; font-weight: bold;">typedef</span> <span style="color: #8cd0d3;">double</span> (*(*(*<span style="color: #8cd0d3;">fp3</span>)())[10])();
+<span style="color: #8cd0d3;">fp3</span> <span style="color: #dfaf8f;">a</span>;
+<span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">fp3 is a type, this type refers to a pointer to a function, which</span>
+<span style="color: #7f9f7f;"> * takes no arguments: (), and returns a pointer to an array of 10</span>
+<span style="color: #7f9f7f;"> * elements, each element is a pointer to a function, which takes no</span>
+<span style="color: #7f9f7f;"> * arguments: () and return a double. */</span>
+<span style="color: #8cd0d3;">int</span> (*(*<span style="color: #8cd0d3;">f4</span>())[10])();
+<span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">f4 is a function, which takes no arguments: () and returns a</span>
+<span style="color: #7f9f7f;"> * pointer to an array of 10 elements, each element is a pointer to a</span>
+<span style="color: #7f9f7f;"> * function, which takes no arguements and return an integer. */</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"></h3>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>
