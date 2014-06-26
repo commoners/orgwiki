@@ -55,6 +55,8 @@
         font-weight: bold;
         font-style: italic;
       }
+      .org-verbatim {
+      }
       .underline {
         /* underline */
         text-decoration: underline;
@@ -131,11 +133,140 @@ The `car` problem: Design a program that moves a car across the world canvas,
 from left to right, at the rate of three pixels per clock tick.
 
 How to tare down the problem into program elements:
-- Find out constant staff and assign them to global constant variables.
-- Find out properties that change over time. Design how to represent them with
-  data. (can we call them <span class="underline">_states_</span>?)
-- Design a number of functions to handle al these variable properties.
-- write a <span class="underline">_main_</span> function so as to connect real world to our programs.
+1. Find out constant staff and assign them to global constant variables.
+2. Find out properties that change over time. Design how to represent them with
+   data. (can we call them <span class="underline">_states_</span>?)
+3. Design a number of functions to handle al these variable properties.
+4. write a <span class="underline">_main_</span> function so as to connect real world to our programs.
+  
+We can conclude it into 4 elements when designing:
+1. global states(constants).
+2. data representation for states.
+3. actions to handle states.
+4. main function.
+
+<span class="org-level-3">*** Designing World Programs</span>
+    Why is modifying the sample problem and adding mouse event handler
+    is so straightforward? First it strictly separate the *model*(the
+    data that a program tracks) and the *view*(how the program show
+    results). Second is the design recipes for programs and functions
+    organize programs in the right way.
+    
+    This teaches us two leason: 
+    1. separate our modules.
+    2. correctly organize our design recipes.(including data and
+       functions, etc.)
+       
+<span class="org-level-1">* Intervals, Enumerations, Itemizations</span>
+  Why we need these? Often, we'll need to design programs with
+  restrictions on our built-in collections. One way to restrict it is
+  to enumerate a bunch of elements form a collection and to say that
+  these are the only ones that we are going to use. However,
+  enumeration will work only under finite number of elements, thus we
+  need intervals for "infinately" many elements.
+  
+<span class="org-level-2">** Conditional Computations</span>
+   Review the <span class="org-verbatim">=cond=</span> expression:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     (cond
+      [condition-expr-1 result-expr-1]
+      [condition-expr-2 result-expr-2]
+      ...
+      [condition-expr-n result-expr-n])
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   In may problem contexts, a function must distinguish several
+   different situations. With a <span class="org-verbatim">=cond=</span> expression expression, you can
+   use one line per possiblity and thus <span class="underline">_remaind the reader of the
+   code of the different situations from the problem statement_</span>.
+
+   Contrast <span class="org-verbatim">=cond=</span> with <span class="org-verbatim">=if=</span>. we use <span class="org-verbatim">=if=</span> is more suited when we want
+   to say "one or the other".
+   
+   Note that even if we can code with either one and the result is OK,
+   don't do it! Codes are read not only by machine, but also by
+   human. Thus express the idea directly and clearly is important.
+   
+   For example, in C language, using <span class="org-verbatim">=switch=</span> would be more expressive
+   than nested <span class="org-verbatim">=if=</span> statements.
+   
+<span class="org-level-2">** How it works</span>
+<span class="org-block-begin-line">   #+BEGIN_QUOTE
+</span>   Just looking at the <span class="org-verbatim">=cond=</span> expression you cannot predict which of
+   the three <span class="org-verbatim">=cond=</span> clause is going to be used._And that is the point
+   of a function._<span class="org-meta-line">
+</span><span class="org-block-end-line">   #+END_QUOTE
+</span>
+   
+<span class="org-level-2">** Enumerations</span>
+   The main idea of an enumeration is that it defines a collection of
+   data as a <span class="bold">*finite*</span> number of pieces of data. So we can iterate
+   through all its possibilities with a <span class="org-verbatim">=cond=</span> branch. This is the
+   <span class="bold">*template*</span> of dealing with enumerations.
+   
+   Example(From the book):
+<span class="org-block-begin-line">#+BEGIN_SRC scheme
+</span><span class="org-block">; A TrafficLight shows one of three colors:
+; &#8211; "red"
+; &#8211; "green"
+; &#8211; "yellow"
+; interp. each element of TrafficLight represents which colored
+; bulb is currently turned on
+
+; TrafficLight -&gt; TrafficLight
+; given state s, determine the next state of the traffic light
+ 
+(check-expect (traffic-light-next "red") "green")
+ 
+(define (traffic-light-next s)
+  (cond
+    [(string=? "red" s) "green"]
+    [(string=? "green" s) "yellow"]
+    [(string=? "yellow" s) "red"]))
+</span><span class="org-block-end-line">#+END_SRC
+</span>   There are 3 states of <span class="org-verbatim">=TrafficLight=</span>, thus we generate 3 <span class="org-verbatim">=cond=</span> branches.
+   
+   <span class="bold">*-&gt;*</span> <span class="org-link"><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_one.html#%28counter._%28figure._fig~3acond-enum%29%29">[[</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_one.html#%28counter._%28figure._fig~3acond-enum%29%29">http://www.ccs.neu.edu/home/matthias/HtDP2e/part_one.html#%28counter._%28figure._fig~3acond-enum%29%29</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_one.html#%28counter._%28figure._fig~3acond-enum%29%29">]]</a></span>
+   
+   Note the difference between these two implementation. The book
+   talked about the <span class="underline">_re-order_</span> of the condition lines. It also says
+   that <span class="underline">_Naturally, this kind of re-arrangement is done </span><span class="underline"><span class="bold">*after*</span></span><span class="underline"> the
+   function is designed properly._</span>
+   
+   I think the <span class="bold">*essence*</span> here is maintain the information of the same
+   level in the same level of <span class="org-verbatim">=cond=</span> expression. That means in this
+   <span class="org-verbatim">=cond=</span> we only cares about the information: what keys do we care
+   about? And condition <span class="org-verbatim">=( = (string-length k) 1)=</span> do not belong to
+   this class of informaiton, thus we through it into the <span class="org-verbatim">=else=</span>
+   branch. And we may generate a sub <span class="org-verbatim">=cond=</span> expression in <span class="org-verbatim">=else=</span>
+   branch if needed.
+   
+<span class="org-level-2">** Intervals</span>
+   The main concept here contains two parts:
+   1. the difference between <span class="underline">_interval_</span> and <span class="underline">_enumeration_</span> is
+      <span class="underline">_interval_</span> may contain <span class="bold">*infinate*</span> number of elements.
+   2. However, we can represent <span class="underline">_intervals_</span> in <span class="bold">*finite*</span> cases, each
+      can be specified by a boundary check function.
+   
+   That means when contruct <span class="org-verbatim">=cond=</span> expression for these two cases, the
+   main difference is how to write the <span class="underline">_condition expressions_</span>.
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; for enumeration
+     (define (iter-enumeration x)
+       (cond
+        [(= x 1) 1]
+        [(= x 2) 2]
+        [else 3]))
+
+     ; for intervals
+     (define (iter-interval x)
+       [(&lt; x 10) 1]
+       [(&lt; x 100) 2]
+       [else 3])
+
+     ; the main difference here is *=* and *&lt;*
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+<span class="org-level-2">** Itemization</span>
 
 <span class="org-level-1">* Lists</span>
 

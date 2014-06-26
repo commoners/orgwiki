@@ -55,11 +55,140 @@ The `car` problem: Design a program that moves a car across the world canvas,
 from left to right, at the rate of three pixels per clock tick.
 
 How to tare down the problem into program elements:
-- Find out constant staff and assign them to global constant variables.
-- Find out properties that change over time. Design how to represent them with
-  data. (can we call them _states_?)
-- Design a number of functions to handle al these variable properties.
-- write a _main_ function so as to connect real world to our programs.
+1. Find out constant staff and assign them to global constant variables.
+2. Find out properties that change over time. Design how to represent them with
+   data. (can we call them _states_?)
+3. Design a number of functions to handle al these variable properties.
+4. write a _main_ function so as to connect real world to our programs.
+
+We can conclude it into 4 elements when designing:
+1. global states(constants).
+2. data representation for states.
+3. actions to handle states.
+4. main function.
+
+*** Designing World Programs
+Why is modifying the sample problem and adding mouse event handler
+is so straightforward? First it strictly separate the *model*(the
+data that a program tracks) and the *view*(how the program show
+results). Second is the design recipes for programs and functions
+organize programs in the right way.
+
+This teaches us two leason: 
+1. separate our modules.
+2. correctly organize our design recipes.(including data and
+   functions, etc.)
+
+* Intervals, Enumerations, Itemizations
+Why we need these? Often, we'll need to design programs with
+restrictions on our built-in collections. One way to restrict it is
+to enumerate a bunch of elements form a collection and to say that
+these are the only ones that we are going to use. However,
+enumeration will work only under finite number of elements, thus we
+need intervals for "infinately" many elements.
+
+** Conditional Computations
+Review the =cond= expression:
+#+BEGIN_SRC scheme
+  (cond
+   [condition-expr-1 result-expr-1]
+   [condition-expr-2 result-expr-2]
+   ...
+   [condition-expr-n result-expr-n])
+#+END_SRC
+In may problem contexts, a function must distinguish several
+different situations. With a =cond= expression expression, you can
+use one line per possiblity and thus _remaind the reader of the
+code of the different situations from the problem statement_.
+
+Contrast =cond= with =if=. we use =if= is more suited when we want
+to say "one or the other".
+
+Note that even if we can code with either one and the result is OK,
+don't do it! Codes are read not only by machine, but also by
+human. Thus express the idea directly and clearly is important.
+
+For example, in C language, using =switch= would be more expressive
+than nested =if= statements.
+
+** How it works
+#+BEGIN_QUOTE
+Just looking at the =cond= expression you cannot predict which of
+the three =cond= clause is going to be used._And that is the point
+of a function._
+#+END_QUOTE
+
+
+** Enumerations
+The main idea of an enumeration is that it defines a collection of
+data as a *finite* number of pieces of data. So we can iterate
+through all its possibilities with a =cond= branch. This is the
+*template* of dealing with enumerations.
+
+Example(From the book):
+#+BEGIN_SRC scheme
+  ; A TrafficLight shows one of three colors:
+  ; – "red"
+  ; – "green"
+  ; – "yellow"
+  ; interp. each element of TrafficLight represents which colored
+  ; bulb is currently turned on
+
+  ; TrafficLight -> TrafficLight
+  ; given state s, determine the next state of the traffic light
+
+  (check-expect (traffic-light-next "red") "green")
+
+  (define (traffic-light-next s)
+    (cond
+      [(string=? "red" s) "green"]
+      [(string=? "green" s) "yellow"]
+      [(string=? "yellow" s) "red"]))
+#+END_SRC
+There are 3 states of =TrafficLight=, thus we generate 3 =cond= branches.
+
+*->* [[http://www.ccs.neu.edu/home/matthias/HtDP2e/part_one.html#%28counter._%28figure._fig~3acond-enum%29%29]]
+
+Note the difference between these two implementation. The book
+talked about the _re-order_ of the condition lines. It also says
+that _Naturally, this kind of re-arrangement is done *after* the
+function is designed properly._
+
+I think the *essence* here is maintain the information of the same
+level in the same level of =cond= expression. That means in this
+=cond= we only cares about the information: what keys do we care
+about? And condition =( = (string-length k) 1)= do not belong to
+this class of informaiton, thus we through it into the =else=
+branch. And we may generate a sub =cond= expression in =else=
+branch if needed.
+
+** Intervals
+The main concept here contains two parts:
+1. the difference between _interval_ and _enumeration_ is
+   _interval_ may contain *infinate* number of elements.
+2. However, we can represent _intervals_ in *finite* cases, each
+   can be specified by a boundary check function.
+
+That means when contruct =cond= expression for these two cases, the
+main difference is how to write the _condition expressions_.
+#+BEGIN_SRC scheme
+  ; for enumeration
+  (define (iter-enumeration x)
+    (cond
+     [(= x 1) 1]
+     [(= x 2) 2]
+     [else 3]))
+
+  ; for intervals
+  (define (iter-interval x)
+    [(< x 10) 1]
+    [(< x 100) 2]
+    [else 3])
+
+  ; the main difference here is *=* and *<*
+#+END_SRC
+
+** Itemization
 
 * Lists
 
