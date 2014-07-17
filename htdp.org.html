@@ -267,7 +267,71 @@ We can conclude it into 4 elements when designing:
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   
 <span class="org-level-2">** Itemization</span>
+   An interval distinguishes different subclasses of numbers; an
+   enumeration spells out item for item the useful elements of an
+   existing class of data.
 
+   Does the <span class="underline">_NorF_</span> example indicate that itemization is an abstraction
+   that it combines different data types(Number or false) and output
+   an enumeration(type NorF)?
+
+   I think in the example of the book, itemization is just like an
+   brief version of struct or class(the LR example).
+   
+   The test cases for "launch": when a function's main purpose is to
+   iterate over "itemization", we could design their test cases
+   according to its elements.
+   
+   The test cases for "fly": Test cases for Intervals should cover two
+   boundaries and the one inside it.
+   
+<span class="org-level-2">** Designing With Itemization</span>
+   6 steps of designning probrolems(with itemization):
+   1. When the problem statement distinguishes different classes of
+      input information, you need carefully formulated data definitions.
+   2. Add functions(signature, purpose statement, function header).
+   3. Pick at least one example for testing. The example should cover
+      cover each subclass in the data definition. That means at least
+      one for each subclass, and if the class is a range, be sure to
+      pick examples from the boundaries of the range and from its iterior.
+   4. Write down a <span class="underline">_template_</span> that mirrors the organization of
+      subclasses with a <span class="org-verbatim">=cond=</span>
+   5. For each <span class="org-verbatim">=cond=</span> line, fill in the code solving the sub-problem.
+   6. Finally, run tests and make sure that the tests cover all <span class="org-verbatim">=cond=</span> clauses.
+
+<span class="org-level-1">* Adding Structure</span>
+  Structure is a way of gluing information that belong to a unified
+  concept. For example, a name, a phone number and an email address
+  all belong to the concept of "contact".
+  
+<span class="org-level-2">** Structures</span>
+   Structure is like a container, we can put multiple objects in it,
+   and extract a single object from it at the same time. So we have a
+   <span class="bold">*constructor*</span> and <span class="bold">*extractor*</span> for structs.
+   
+   
+<span class="org-level-2">** The Universe of Data</span>
+   It is often best to illustrate data definition with examples just
+   like we illustrate the behavior of functions with examples:
+   - for a built-in collection of data(number, string, etc.), choose
+     your favorite examples.
+   - for an enumeration, use several of the items of the enumeration;
+   - for intervals, use the end points(if included) and at least one
+     interior point
+   - for itemizations, deal with each part separately;
+   - for data definitions for structures, follow the natural language
+     description, that is, use the constructor and pick an example
+     from the data collection named for each field.
+
+<span class="org-level-1">* Itemizations and Structures</span>
+  This chapter refine the design recepie. Two important concept here:
+  template and wish list.
+  
+  Template of dealing with a certain kind of structure(itemization or
+  lists in later chapter) reveals the essence of the it. Wish list is
+  a way to destruct a problem by pretending that we had some features
+  and implement them later.
+   
 <span class="org-level-1">* Lists</span>
 
 <span class="org-block-begin-line">  #+BEGIN_QUOTE
@@ -287,11 +351,197 @@ specific data.
 Also the book gave out a "template" for designing functions for
 self-referential data.
 
-<span class="bold">*-&gt;*</span> Most data structures comes with a patter, and there also exists a pattern
+<span class="bold">*-&gt;*</span> Most data structures comes with a pattern, and there also exists a pattern
  of how to deal with it. This is what we called a template.
 <span class="org-link"><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">[[</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data</a><a href="http://www.ccs.neu.edu/home/matthias/HtDP2e/part_two.html#%28counter._%28figure._fig~3adesign5%29%29|Designing a function for self-referential data">]]</a></span>
 
+6 steps of designing a function:
+1. problem analysis -&gt; data definition
+2. header -&gt; signature; purpose; statement; dummy definition
+3. example -&gt; examples and tests.
+4. template -&gt; function template
+5. definition -&gt; full-fledged definition
+6. test -&gt; validated test.
 
+<span class="org-level-2">** Non-empty Lists</span>
+   It is critical to have unified concept.
+
+   For the definition below:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; A List-of-tmperatures is one of:
+     ; - empty
+     ; - (cons CTemperature List-of-temperatures)
+
+     ; A CTemperature is a Number greater or equal to -256
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   It will lead to inconsistancy when the List is <span class="org-verbatim">=empty=</span>. Define an
+   <span class="org-verbatim">=average=</span> function for example
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; List-of-tempeartures -&gt; Number
+     ; compute the average tempearture
+     (define (average alot)
+       (/ (sum alot)
+          (how-many alot)))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   One solution is treat this definition as an itemization:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; List-of-temperatures -&gt; Number
+     ; compute the average tempearture
+     (define (average alot)
+       (cond
+        [(empty? alot) 0]
+        [else (/ (sum alot)
+                 (how-many alot))]))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   However, this will break our intuition that List-of-temperatures is
+   self-referential and should be treated as it is. This <span class="org-verbatim">=cond=</span> clause
+   broke this intuition.
+   
+   So, a better way would be refine the definition:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; A NEList-of-temperatures is one of:
+     ; &#8211; (cons CTemperature empty)
+     ; &#8211; (cons CTemperature NEList-of-temperatures)
+     ; interp.: non-empty lists of measured temperatures
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   Note that both solution works. We'll treat the first one as a
+   programming trick, the second as remoldeling. We're building
+   software not only to make the work but reflect our literal concept
+   as well. So, clarity and consistency of concept is capital.
+
+<span class="org-level-1">* Design By Composition</span>
+  This chapter talks about when to design several function and hwo to
+  compose theme into one program.
+  
+  There are some common tasks of processing data. It is convenient to
+  have some utility function to finish these tasks.
+
+<span class="org-level-2">** Composing Functions</span>
+   This book explains that programs are collections of definitions:
+   structure type definitions, data definitions, constant definitions,
+   and function definitions.
+   
+   A rough guideline for dividing labor among functions:
+<span class="org-block-begin-line">   #+BEGIN_QUOTE
+</span>   Formulate auxiliary function definitions for every dependency
+   between quantities in the problem statement. In short, design one
+   function per task.
+   
+   Formulate auxiliary function definitions when one data definition
+   points to a second data definition. Roughly, design one template
+   per data definition.<span class="org-meta-line">
+</span><span class="org-block-end-line">   #+END_QUOTE
+</span>
+   Turning a template into a complete functino definition means
+   combining the values of the template's subexpressions into the
+   final answer. As you do so, you might encounter several situations
+   that suggest the need for auxiliary functions:
+   1. If the composition of values requires knowledge of a particular
+      domain of application.
+   2. If the <span class="org-verbatim">=cond=</span> expression for case analysis is too complex.
+   3. If the composition of values must process an element from a
+      self-referential data definition.
+   4. If everything fails, you may need to design a <span class="bold">*more general*</span>
+      function and define the main function as a specific use of the
+      general function.
+      
+   Keeping wish lists is actually learning how to de-struct a problem
+   into several small pieces. Each entry is represented as function
+   header as described before(signature, purpose, header, etc.).
+   
+<span class="org-level-1">* Similarities Everywhere</span>
+
+<span class="org-level-2">** Similarities In Functions</span>
+   "Good programmers are too lazy to define several closely related
+   functions".
+
+<span class="org-level-2">** More Similarities In Functions</span>
+   Normally, function abstration is done by finding out the difference
+   between functions and replace them as function calls, these
+   functions are new parameters we should add to the abstracted functions.
+   
+   Using abstracted function is similar to using Macro in C
+   langauge. It saves typing and has control over all instances. If
+   there is a bug in abstracted function, fix it will fix all instances.
+
+   Also it's convenient to create new instances by our need once we have
+   abstracted functions.
+   
+<span class="org-level-2">** Similarities In Data Definition</span>
+   For the following two data definition:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; A List-of-numbers(short Lon) is one of: ; A List-of-String(short Los) is one of:
+     ; - empty                                 ; - empty
+     ; - (cons Number List-of-numbers)         ; - (cons Number List-of-String)
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   We can abstract it as:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     ; A [List-of ITEM] is one of:
+     ; - empty
+     ; - (cons ITEM [List-of ITEM])
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   We call such abstract data definition <span class="underline">_paracmetric data definition_</span>
+   because of  the parameter.
+   
+   <span class="bold">*-&gt;*</span> Is this similar to Haskell's data definition and Monad?
+   
+<span class="org-level-1">* Designing Abstraction</span>
+  In essence, to abstract is to turn something concrete into a parameter.
+  
+<span class="org-level-2">** Abstractions From Examples</span>
+   1. <span class="bold">*to compare*</span> two items for similarities.
+   2. <span class="bold">*to abstract*</span>: to replace the contents of similarities with new
+      names and add these names to the parameter list.
+   3. Now we must validate that the new function is correct. <span class="bold">*to test*</span>
+      means to define the two original functions in term of the abstraction.
+   4. Add <span class="bold">*signature*</span> to abstractions.
+      
+<span class="org-level-2">** Single Point Of Control</span>
+   That means we should formulate an abstractions and instantiate them
+   whever needed. Thus we'll have only a single point of control: the abstraction.
+   
+<span class="org-block-begin-line">   #+BEGIN_QUOTE
+</span>   Creating Abstrations: Form an abstraction instead of copying and
+   modifying any piece of a program.<span class="org-meta-line">
+</span><span class="org-block-end-line">   #+END_QUOTE
+</span>   
+<span class="org-level-2">** Abstractions From Templates</span>
+   Templates are themselves abstractions of operations on data. And
+   function abstractions can be thought as code representation of the template.
+   
+   Instead of abstracting from similar functions, abstracting directly
+   from templates should be more intuitive.
+   
+<span class="org-level-1">* Nameless Functions</span>
+
+<span class="org-level-2">** lambda, Technically</span>
+  Once we view <span class="underline">_lambda_</span> as the primitive concept, functions becomes
+  first class value. And function definitions are just syntax suger
+  for define a lambda values. And <span class="underline">_lambda_</span> is like a constructor.
+<span class="org-block-begin-line">  #+begin_src scheme
+</span><span class="org-block">    (define (f x)
+      (+ (sin x) x (* 3 x)))
+    ; is syntax suger for the following:
+    (define f
+      (lambda (x)
+        (+ (sin x) x (* 3 x))))
+</span><span class="org-block-end-line">  #+end_src
+</span>
+<span class="org-level-2">** Abstracting With lambda II</span>
+   It is very powerful once we treat function as data. We can
+   represent information as functions. And cosntructor of these kind
+   of data would generate functions instead of classical data types
+   like numbers, strings, etc. Check the book for example.
+
+<span class="org-level-1">* The Poetry Of s-expressions</span>
+  Intertwineded data means the combination of different data types
+  such as finite data and self-referential data. This chapter take
+  'Tree', 'forest' and 'S-expressions' as example, then talks about
+  how to simplify functions.
+  
 </pre>
   </body>
 </html>
