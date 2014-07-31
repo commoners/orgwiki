@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>racket_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .hl-line {
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        font-weight: bold;
+      }
+      .org-verbatim {
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Racket Notes
+</span></span>
+<span class="org-level-1">* Racket Guide Notes</span>
+<span class="org-level-2">** Classes</span>
+<span class="org-level-3">*** Class Declaration</span>
+   Use <span class="org-verbatim">=Class=</span> Expression to denote a first-class value:
+<span class="org-block-begin-line">#+BEGIN_SRC racket
+</span><span class="org-block">  (class superclass-expr decl-or-expr ...)
+
+  ; Example
+  (class object%  ; object% is the super class
+    (init size)   ; initialization arguments
+    (define current-size size) ; note that clause order matters
+    (define/public (get-size)  ; public method
+      current-size)
+    (super-new))  ; superclass initialzation, should always be called.
+</span><span class="org-block-end-line">#+END_SRC
+</span><span class="org-level-3">*** Public Methods</span>
+   Public methods are called by <span class="org-verbatim">=(send instance method arguments ...)=</span>
+<span class="org-level-3">*** Initialization arguments</span>
+   Initialization arguemnts are specified like the following:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (define default-10-fish%
+       (class fish%
+         (init [size 10])
+         (super-new [size size])))
+</span><span class="org-block-end-line">   #+END_SRC
+</span><span class="org-level-3">*** Interfaces</span>
+   Interfaces are declared by:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (interface (superinterface-expr ...) id ...)
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   To declare that a class implements an interface, the <span class="org-verbatim">=class*=</span> form
+   must be used instead of <span class="org-verbatim">=class=</span>:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (class* superclass-expre (interface-expre ...) decl-or-expr ...)
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   Example:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (define fish-interface (interface () get-size grow eat))
+     (define fish% (class* object% (fish-interface) ...))
+</span><span class="org-block-end-line">   #+END_SRC
+</span><span class="org-level-3">*** Final, Augment, and Inner</span>
+</pre>
+  </body>
+</html>

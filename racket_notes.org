@@ -1,0 +1,43 @@
+#+TITLE: Racket Notes
+
+* Racket Guide Notes
+** Classes
+*** Class Declaration
+Use =Class= Expression to denote a first-class value:
+#+BEGIN_SRC racket
+  (class superclass-expr decl-or-expr ...)
+
+  ; Example
+  (class object%  ; object% is the super class
+    (init size)   ; initialization arguments
+    (define current-size size) ; note that clause order matters
+    (define/public (get-size)  ; public method
+      current-size)
+    (super-new))  ; superclass initialzation, should always be called.
+#+END_SRC
+*** Public Methods
+Public methods are called by =(send instance method arguments ...)=
+*** Initialization arguments
+Initialization arguemnts are specified like the following:
+#+BEGIN_SRC racket
+  (define default-10-fish%
+    (class fish%
+      (init [size 10])
+      (super-new [size size])))
+#+END_SRC
+*** Interfaces
+Interfaces are declared by:
+#+BEGIN_SRC racket
+  (interface (superinterface-expr ...) id ...)
+#+END_SRC
+To declare that a class implements an interface, the =class*= form
+must be used instead of =class=:
+#+BEGIN_SRC racket
+  (class* superclass-expre (interface-expre ...) decl-or-expr ...)
+#+END_SRC
+Example:
+#+BEGIN_SRC racket
+  (define fish-interface (interface () get-size grow eat))
+  (define fish% (class* object% (fish-interface) ...))
+#+END_SRC
+*** Final, Augment, and Inner

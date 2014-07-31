@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index</title>
+<title>Racket Notes</title>
 <!-- 2014-07-31 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,8 +71,115 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Index</h1>
+<h1 class="title">Racket Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Racket Guide Notes</a>
+<ul>
+<li><a href="#sec-1-1">Classes</a>
+<ul>
+<li><a href="#sec-1-1-1">Class Declaration</a></li>
+<li><a href="#sec-1-1-2">Public Methods</a></li>
+<li><a href="#sec-1-1-3">Initialization arguments</a></li>
+<li><a href="#sec-1-1-4">Interfaces</a></li>
+<li><a href="#sec-1-1-5">Final, Augment, and Inner</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Racket Guide Notes</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Classes</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Class Declaration</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Use <code>Class</code> Expression to denote a first-class value:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-racket">(class superclass-expr decl-or-expr <span style="font-weight: bold;">...</span>)
+
+<span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">Example</span>
+(class object%  <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">object% is the super class</span>
+  (init size)   <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">initialization arguments</span>
+  (<span style="font-weight: bold;">define</span> <span style="font-weight: bold; font-style: italic;">current-size</span> size) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">note that clause order matters</span>
+  (define/public (<span style="font-weight: bold;">get-size</span>)  <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">public method</span>
+    current-size)
+  (super-new))  <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">superclass initialzation, should always be called.</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">Public Methods</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Public methods are called by <code>(send instance method arguments ...)</code>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3">Initialization arguments</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Initialization arguemnts are specified like the following:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-racket">(<span style="font-weight: bold;">define</span> <span style="font-weight: bold; font-style: italic;">default-10-fish%</span>
+  (class fish%
+    (init [size <span style="color: #2e8b57;">10</span>])
+    (super-new [size size])))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4">Interfaces</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+Interfaces are declared by:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-racket">(interface (superinterface-expr <span style="font-weight: bold;">...</span>) id <span style="font-weight: bold;">...</span>)
+</pre>
+</div>
+<p>
+To declare that a class implements an interface, the <code>class*</code> form
+must be used instead of <code>class</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-racket">(class* superclass-expre (interface-expre <span style="font-weight: bold;">...</span>) decl-or-expr <span style="font-weight: bold;">...</span>)
+</pre>
+</div>
+<p>
+Example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-racket">(<span style="font-weight: bold;">define</span> <span style="font-weight: bold; font-style: italic;">fish-interface</span> (interface () get-size grow eat))
+(<span style="font-weight: bold;">define</span> <span style="font-weight: bold; font-style: italic;">fish%</span> (class* object% (fish-interface) <span style="font-weight: bold;">...</span>))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5">Final, Augment, and Inner</h4>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>
