@@ -1,5 +1,18 @@
 #+TITLE: Racket Notes
 
+* Installation
+
+** readline support failure
+
+Fail when =(require readline)= or =(require xrepl)=. With following
+error message.
+
+#+BEGIN_EXAMPLE
+; Warning: no readline support (ffi-lib: couldn't open "libreadline.so.5" (/usr/lib64/libreadline.so.5: undefined symbol: PC)
+#+END_EXAMPLE
+
+In slackware, use =LD_PRELOAD=/usr/lib64/libcurses.so racket= instead.
+
 * Racket Guide Notes
 ** Classes
 *** Class Declaration

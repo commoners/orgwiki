@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Racket Notes</title>
-<!-- 2014-07-31 -->
+<!-- 2014-08-15 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -76,15 +76,20 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Racket Guide Notes</a>
+<li><a href="#sec-1">Installation</a>
 <ul>
-<li><a href="#sec-1-1">Classes</a>
+<li><a href="#sec-1-1">readline support failure</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Racket Guide Notes</a>
 <ul>
-<li><a href="#sec-1-1-1">Class Declaration</a></li>
-<li><a href="#sec-1-1-2">Public Methods</a></li>
-<li><a href="#sec-1-1-3">Initialization arguments</a></li>
-<li><a href="#sec-1-1-4">Interfaces</a></li>
-<li><a href="#sec-1-1-5">Final, Augment, and Inner</a></li>
+<li><a href="#sec-2-1">Classes</a>
+<ul>
+<li><a href="#sec-2-1-1">Class Declaration</a></li>
+<li><a href="#sec-2-1-2">Public Methods</a></li>
+<li><a href="#sec-2-1-3">Initialization arguments</a></li>
+<li><a href="#sec-2-1-4">Interfaces</a></li>
+<li><a href="#sec-2-1-5">Final, Augment, and Inner</a></li>
 </ul>
 </li>
 </ul>
@@ -94,14 +99,36 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Racket Guide Notes</h2>
+<h2 id="sec-1">Installation</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Classes</h3>
+<h3 id="sec-1-1">readline support failure</h3>
 <div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1">Class Declaration</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<p>
+Fail when <code>(require readline)</code> or <code>(require xrepl)</code>. With following
+error message.
+</p>
+
+<pre class="example">
+; Warning: no readline support (ffi-lib: couldn't open "libreadline.so.5" (/usr/lib64/libreadline.so.5: undefined symbol: PC)
+</pre>
+
+<p>
+In slackware, use <code>LD_PRELOAD=/usr/lib64/libcurses.so racket</code> instead.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Racket Guide Notes</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Classes</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Class Declaration</h4>
+<div class="outline-text-4" id="text-2-1-1">
 <p>
 Use <code>Class</code> Expression to denote a first-class value:
 </p>
@@ -120,17 +147,17 @@ Use <code>Class</code> Expression to denote a first-class value:
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-1-2" class="outline-4">
-<h4 id="sec-1-1-2">Public Methods</h4>
-<div class="outline-text-4" id="text-1-1-2">
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2">Public Methods</h4>
+<div class="outline-text-4" id="text-2-1-2">
 <p>
 Public methods are called by <code>(send instance method arguments ...)</code>
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3">Initialization arguments</h4>
-<div class="outline-text-4" id="text-1-1-3">
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3">Initialization arguments</h4>
+<div class="outline-text-4" id="text-2-1-3">
 <p>
 Initialization arguemnts are specified like the following:
 </p>
@@ -144,9 +171,9 @@ Initialization arguemnts are specified like the following:
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-1-4" class="outline-4">
-<h4 id="sec-1-1-4">Interfaces</h4>
-<div class="outline-text-4" id="text-1-1-4">
+<div id="outline-container-sec-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4">Interfaces</h4>
+<div class="outline-text-4" id="text-2-1-4">
 <p>
 Interfaces are declared by:
 </p>
@@ -175,8 +202,8 @@ Example:
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-1-5" class="outline-4">
-<h4 id="sec-1-1-5">Final, Augment, and Inner</h4>
+<div id="outline-container-sec-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5">Final, Augment, and Inner</h4>
 </div>
 </div>
 </div>

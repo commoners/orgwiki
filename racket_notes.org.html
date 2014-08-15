@@ -61,6 +61,19 @@
     <pre>
 <span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Racket Notes
 </span></span>
+<span class="org-level-1">* Installation</span>
+  
+<span class="org-level-2">** readline support failure</span>
+   
+   Fail when <span class="org-verbatim">=(require readline)=</span> or <span class="org-verbatim">=(require xrepl)=</span>. With following
+   error message.
+   
+<span class="org-block-begin-line">   #+BEGIN_EXAMPLE
+</span><span class="org-block">     ; Warning: no readline support (ffi-lib: couldn't open "libreadline.so.5" (/usr/lib64/libreadline.so.5: undefined symbol: PC)
+</span><span class="org-block-end-line">   #+END_EXAMPLE
+</span>   
+   In slackware, use <span class="org-verbatim">=LD_PRELOAD=/usr/lib64/libcurses.so racket=</span> instead.
+
 <span class="org-level-1">* Racket Guide Notes</span>
 <span class="org-level-2">** Classes</span>
 <span class="org-level-3">*** Class Declaration</span>
