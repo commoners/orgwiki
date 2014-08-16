@@ -54,3 +54,37 @@ Example:
   (define fish% (class* object% (fish-interface) ...))
 #+END_SRC
 *** Final, Augment, and Inner
+* Topics
+** Memoized
+Define function that uses a hash table to memorized computed arguemnts.
+
+First, define a macro for that:
+#+BEGIN_SRC racket
+  (define-syntax define-memoized
+    (syntax-rules ()
+      [(define-memoized (f args ...) body ...)
+       (define f
+         (let ([ht (make-hash)])
+  	 (lambda (args ...)
+  	   (hash-ref! ht (list args ...) (thunk body ...)))))]))
+#+END_SRC
+
+Note that the =thunk= in the above code. It is needed due to the
+behaviour of =hash-ref!= of racket, you can of course use the
+following instead:
+#+BEGIN_SRC racket
+  (lambda (args ...)
+    (define tmp (list args ...))
+    (when (not (hash-has-key? ht tmp))
+      (hash-set! ht tmp (begin body ...)))
+    (hash-ref ht tmp))
+#+END_SRC
+
+And then define functions using =define-memoized=:
+#+BEGIN_SRC racket
+  (define-memoized (mfibo n)
+    (cond
+      [(= n 0) 1]
+      [(= n 1) 1]
+      [else (+ (mfibo (- n 1)) (mfibo (- n 2)))]))
+#+END_SRC

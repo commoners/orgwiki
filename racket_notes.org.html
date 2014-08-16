@@ -115,6 +115,40 @@
      (define fish% (class* object% (fish-interface) ...))
 </span><span class="org-block-end-line">   #+END_SRC
 </span><span class="org-level-3">*** Final, Augment, and Inner</span>
-</pre>
+<span class="org-level-1">* Topics</span>
+<span class="org-level-2">** Memoized</span>
+   Define function that uses a hash table to memorized computed arguemnts.
+   
+   First, define a macro for that:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (define-syntax define-memoized
+       (syntax-rules ()
+         [(define-memoized (f args ...) body ...)
+          (define f
+            (let ([ht (make-hash)])
+              (lambda (args ...)
+                (hash-ref! ht (list args ...) (thunk body ...)))))]))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   Note that the <span class="org-verbatim">=thunk=</span> in the above code. It is needed due to the
+   behaviour of <span class="org-verbatim">=hash-ref!=</span> of racket, you can of course use the
+   following instead:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (lambda (args ...)
+       (define tmp (list args ...))
+       (when (not (hash-has-key? ht tmp))
+         (hash-set! ht tmp (begin body ...)))
+       (hash-ref ht tmp))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   And then define functions using <span class="org-verbatim">=define-memoized=</span>:
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
+</span><span class="org-block">     (define-memoized (mfibo n)
+       (cond
+         [(= n 0) 1]
+         [(= n 1) 1]
+         [else (+ (mfibo (- n 1)) (mfibo (- n 2)))]))
+</span><span class="org-block-end-line">   #+END_SRC
+</span></pre>
   </body>
 </html>
