@@ -7,6 +7,7 @@
 - [[file:index.org][Mark Wallace's Wiki]]
 - [[file:racket_notes.org][Racket Notes]]
 - [[file:remember.org][remember]]
+- [[file:slackware_notes.org][Slackware Notes]]
 - [[file:test_org.org][Test Org Syntax]]
 - [[file:Thinking_In_Cpp.org][Thinking In C++ Notes]]
 - [[file:Unix_Network_Programming_v2.org][UNIX Network Programming Vol.2 Notes]]
