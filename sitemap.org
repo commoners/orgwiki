@@ -1,6 +1,8 @@
 #+TITLE: Sitemap for project org-notes
 
 - [[file:about.org][about]]
+- [[file:C++_Notes.org][C++ Notes]]
+- Color Scheme Colection [[file:color_schemes.org][配色收集]]
 - [[file:emacs_notes.org][Emacs Notes]]
 - [[file:htdp.org][How to Design Programs Notes]]
 - [[file:theindex.org][Index]]
