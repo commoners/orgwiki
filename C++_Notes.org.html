@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>C++_Notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #383838;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+        background-color: #3f3f3f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+        background-color: #3f3f3f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">C++ Notes
+</span></span>
+<span class="org-level-1">* objects</span>
+<span class="org-level-2">** How to make </span><span class="org-level-2"><span class="org-verbatim">=static=</span></span><span class="org-level-2"> entries global</span>
+   
+   Suppose you have an object file: <span class="org-verbatim">=foo.o=</span>. Then you can check symbol
+   table by:
+   
+<span class="org-block-begin-line">   #+BEGIN_SRC sh
+</span><span class="org-block">     objdump -t foo.o
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   Output as follows:
+<span class="org-block-begin-line">   #+BEGIN_EXAMPLE
+</span><span class="org-block">     $ objdump -t lib.o
+
+     lib.o:     file format elf64-x86-64
+
+     SYMBOL TABLE:
+     0000000000000000 l    df *ABS*  0000000000000000 lib.c
+     0000000000000000 l    d  .text  0000000000000000 .text
+     0000000000000000 l    d  .data  0000000000000000 .data
+     0000000000000000 l    d  .bss   0000000000000000 .bss
+     0000000000000000 l     F .text  0000000000000014 add2
+     0000000000000000 l    d  .note.GNU-stack        0000000000000000 .note.GNU-stack
+     0000000000000000 l    d  .eh_frame      0000000000000000 .eh_frame
+     0000000000000000 l    d  .comment       0000000000000000 .comment
+     0000000000000014 g     F .text  0000000000000041 multiply
+</span><span class="org-block-end-line">   #+END_EXAMPLE
+</span>   
+   You can see that <span class="org-verbatim">=add2=</span> is local symbol which is indicated by the
+   flag <span class="org-verbatim">=l=</span>, while <span class="org-verbatim">=multiply=</span> is global symbol by flag <span class="org-verbatim">=g=</span>.
+   
+   Save the symbols you want to globalized to a text file:
+<span class="org-block-begin-line">   #+BEGIN_EXAMPLE
+</span><span class="org-block">     $ cat foobar 
+     add2 
+</span><span class="org-block-end-line">   #+END_EXAMPLE
+</span>   
+   And Use <span class="org-verbatim">=objcopy=</span> to create a new object file for use.
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     $ objcopy --globalize-symbols=foobar lib.o lib2.o
+</span><span class="org-block-end-line">   #+end_src
+</span>
+- <span class="org-link"><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">[[http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o][</a><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">is it possible to override static functions</a><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">]]</a></span>
+</pre>
+  </body>
+</html>

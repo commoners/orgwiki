@@ -54,6 +54,51 @@ Example:
   (define fish% (class* object% (fish-interface) ...))
 #+END_SRC
 *** Final, Augment, and Inner
+* Racket Reference
+** for
+=for= clause will not run at all if no sequence is specified:
+#+BEGIN_SRC scheme
+  (with-input-from-string "appleppppl"
+    (lambda ()
+      (for (#:break (eof-object? (peek-char (current-input-port))))
+        (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
+#+END_SRC
+Instead, feed it with an infinite sequence:
+#+BEGIN_SRC scheme
+  (with-input-from-string "appleppppl"
+    (lambda ()
+      (for ([i (in-naturals 1)]
+  	  #:break (eof-object? (peek-char (current-input-port))))
+        (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
+#+END_SRC
+
+Note that the position of =#:when=, =#:unless=, =#:break=,
+=#:final= matters. As the document says, if one of the above
+appears, racket will refactor the =for= clause with:
+#+BEGIN_SRC scheme
+  (for (for-clauses-above ...)
+    (when guard-expr
+      (for (for-clause-remains ...) body ...+)))
+#+END_SRC
+That would suprise you somehow, consider the following example(from
+the reference):
+#+BEGIN_SRC scheme
+  (for ([i '(1 2 3)]
+        [j "abc"]
+        #:break (not (odd? i))
+        [k '(1 2 3)])
+    (display (list i j k)))
+#+END_SRC
+it will produce =(1 a 1)(1 a 2)(1 a 3)= instead of =(1 a 1)=, if
+the latter is what you expected, check the following code:
+#+BEGIN_SRC scheme
+  (for ([i '(1 2 3)]
+        [j "abc"]
+        [k '(1 2 3)]
+        #:break (not (odd? i)))
+    (display (list i j k)))
+#+END_SRC
+
 * Topics
 ** Memoized
 Define function that uses a hash table to memorized computed arguemnts.

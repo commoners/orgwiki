@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index</title>
+<title>C++ Notes</title>
 <!-- 2014-09-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,8 +71,86 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Index</h1>
+<h1 class="title">C++ Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">objects</a>
+<ul>
+<li><a href="#sec-1-1">How to make <code>static</code> entries global</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">objects</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">How to make <code>static</code> entries global</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Suppose you have an object file: <code>foo.o</code>. Then you can check symbol
+table by:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">objdump -t foo.o
+</pre>
+</div>
+
+<p>
+Output as follows:
+</p>
+<pre class="example">
+$ objdump -t lib.o
+
+lib.o:     file format elf64-x86-64
+
+SYMBOL TABLE:
+0000000000000000 l    df *ABS*  0000000000000000 lib.c
+0000000000000000 l    d  .text  0000000000000000 .text
+0000000000000000 l    d  .data  0000000000000000 .data
+0000000000000000 l    d  .bss   0000000000000000 .bss
+0000000000000000 l     F .text  0000000000000014 add2
+0000000000000000 l    d  .note.GNU-stack        0000000000000000 .note.GNU-stack
+0000000000000000 l    d  .eh_frame      0000000000000000 .eh_frame
+0000000000000000 l    d  .comment       0000000000000000 .comment
+0000000000000014 g     F .text  0000000000000041 multiply
+</pre>
+
+<p>
+You can see that <code>add2</code> is local symbol which is indicated by the
+flag <code>l</code>, while <code>multiply</code> is global symbol by flag <code>g</code>.
+</p>
+
+<p>
+Save the symbols you want to globalized to a text file:
+</p>
+<pre class="example">
+$ cat foobar 
+add2
+</pre>
+
+<p>
+And Use <code>objcopy</code> to create a new object file for use.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ objcopy --globalize-symbols=foobar lib.o lib2.o
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">is it possible to override static functions</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>

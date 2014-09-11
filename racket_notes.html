@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Racket Notes</title>
-<!-- 2014-08-16 -->
+<!-- 2014-09-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -94,9 +94,14 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#sec-3">Topics</a>
+<li><a href="#sec-3">Racket Reference</a>
 <ul>
-<li><a href="#sec-3-1">Memoized</a></li>
+<li><a href="#sec-3-1">for</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">Topics</a>
+<ul>
+<li><a href="#sec-4-1">Memoized</a></li>
 </ul>
 </li>
 </ul>
@@ -213,11 +218,83 @@ Example:
 </div>
 </div>
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Topics</h2>
+<h2 id="sec-3">Racket Reference</h2>
 <div class="outline-text-2" id="text-3">
 </div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">Memoized</h3>
+<h3 id="sec-3-1">for</h3>
 <div class="outline-text-3" id="text-3-1">
+<p>
+<code>for</code> clause will not run at all if no sequence is specified:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(with-input-from-string <span style="color: #cc9393;">"appleppppl"</span>
+  (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> ()
+    (for (<span style="color: #8cd0d3;">#:break</span> (eof-object? (peek-char (current-input-port))))
+      (printf <span style="color: #cc9393;">"~a~n"</span> (regexp-match #rx<span style="color: #cc9393;">"p+(.)"</span> (current-input-port))))))
+</pre>
+</div>
+<p>
+Instead, feed it with an infinite sequence:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(with-input-from-string <span style="color: #cc9393;">"appleppppl"</span>
+  (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> ()
+    (for ([i (in-naturals 1)]
+          <span style="color: #8cd0d3;">#:break</span> (eof-object? (peek-char (current-input-port))))
+      (printf <span style="color: #cc9393;">"~a~n"</span> (regexp-match #rx<span style="color: #cc9393;">"p+(.)"</span> (current-input-port))))))
+</pre>
+</div>
+
+<p>
+Note that the position of <code>#:when</code>, <code>#:unless</code>, <code>#:break</code>,
+<code>#:final</code> matters. As the document says, if one of the above
+appears, racket will refactor the <code>for</code> clause with:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(for (for-clauses-above ...)
+  (<span style="color: #f0dfaf; font-weight: bold;">when</span> guard-expr
+    (for (for-clause-remains ...) body ...+)))
+</pre>
+</div>
+<p>
+That would suprise you somehow, consider the following example(from
+the reference):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(for ([i '(1 2 3)]
+      [j <span style="color: #cc9393;">"abc"</span>]
+      <span style="color: #8cd0d3;">#:break</span> (not (odd? i))
+      [k '(1 2 3)])
+  (display (list i j k)))
+</pre>
+</div>
+<p>
+it will produce <code>(1 a 1)(1 a 2)(1 a 3)</code> instead of <code>(1 a 1)</code>, if
+the latter is what you expected, check the following code:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(for ([i '(1 2 3)]
+      [j <span style="color: #cc9393;">"abc"</span>]
+      [k '(1 2 3)]
+      <span style="color: #8cd0d3;">#:break</span> (not (odd? i)))
+  (display (list i j k)))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Topics</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Memoized</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 Define function that uses a hash table to memorized computed arguemnts.
 </p>

@@ -6,43 +6,52 @@
     <style type="text/css">
     <!--
       body {
-        color: #000000;
-        background-color: #ffffff;
+        color: #dcdccc;
+        background-color: #3f3f3f;
       }
       .hl-line {
+        /* hl-line */
+        background-color: #383838;
       }
       .org-block {
+        /* org-block */
+        color: #b3b3b3;
       }
       .org-block-begin-line {
         /* org-block-begin-line */
-        font-weight: bold;
-        font-style: italic;
+        color: #7f9f7f;
       }
       .org-block-end-line {
         /* org-block-end-line */
-        font-weight: bold;
-        font-style: italic;
+        color: #7f9f7f;
       }
       .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
       }
       .org-document-title {
         /* org-document-title */
+        color: #afeeee;
         font-weight: bold;
       }
       .org-level-1 {
         /* org-level-1 */
-        font-weight: bold;
+        color: #dfaf8f;
+        background-color: #3f3f3f;
       }
       .org-level-2 {
         /* org-level-2 */
-        font-weight: bold;
-        font-style: italic;
+        color: #8fb28f;
+        background-color: #3f3f3f;
       }
       .org-level-3 {
         /* org-level-3 */
-        font-weight: bold;
+        color: #7cb8bb;
+        background-color: #3f3f3f;
       }
       .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
       }
 
       a {
@@ -115,6 +124,51 @@
      (define fish% (class* object% (fish-interface) ...))
 </span><span class="org-block-end-line">   #+END_SRC
 </span><span class="org-level-3">*** Final, Augment, and Inner</span>
+<span class="org-level-1">* Racket Reference</span>
+<span class="org-level-2">** for</span>
+   <span class="org-verbatim">=for=</span> clause will not run at all if no sequence is specified:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     (with-input-from-string "appleppppl"
+       (lambda ()
+         (for (#:break (eof-object? (peek-char (current-input-port))))
+           (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   Instead, feed it with an infinite sequence:
+<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+</span><span class="org-block">     (with-input-from-string "appleppppl"
+       (lambda ()
+         (for ([i (in-naturals 1)]
+               #:break (eof-object? (peek-char (current-input-port))))
+           (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   
+   Note that the position of <span class="org-verbatim">=#:when=</span>, <span class="org-verbatim">=#:unless=</span>, <span class="org-verbatim">=#:break=</span>,
+   <span class="org-verbatim">=#:final=</span> matters. As the document says, if one of the above
+   appears, racket will refactor the <span class="org-verbatim">=for=</span> clause with:
+<span class="org-block-begin-line">   #+begin_src scheme
+</span><span class="org-block">     (for (for-clauses-above ...)
+       (when guard-expr
+         (for (for-clause-remains ...) body ...+)))
+</span><span class="org-block-end-line">   #+END_SRC
+</span>   That would suprise you somehow, consider the following example(from
+   the reference):
+<span class="org-block-begin-line">   #+begin_src scheme
+</span><span class="org-block">     (for ([i '(1 2 3)]
+           [j "abc"]
+           #:break (not (odd? i))
+           [k '(1 2 3)])
+       (display (list i j k)))
+</span><span class="org-block-end-line">   #+end_src
+</span>   it will produce <span class="org-verbatim">=(1 a 1)(1 a 2)(1 a 3)=</span> instead of <span class="org-verbatim">=(1 a 1)=</span>, if
+   the latter is what you expected, check the following code:
+<span class="org-block-begin-line">   #+begin_src scheme
+</span><span class="org-block">     (for ([i '(1 2 3)]
+           [j "abc"]
+           [k '(1 2 3)]
+           #:break (not (odd? i)))
+       (display (list i j k)))
+</span><span class="org-block-end-line">   #+end_src
+</span>
 <span class="org-level-1">* Topics</span>
 <span class="org-level-2">** Memoized</span>
    Define function that uses a hash table to memorized computed arguemnts.
