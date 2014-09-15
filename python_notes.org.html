@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>python_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .hl-line {
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-code {
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-link {
+        /* org-link */
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-verbatim {
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">python Notes
+</span></span>
+Notes Using Python./Python&#20351;&#29992;&#31508;&#35760;&#12290;
+
+<span class="org-level-1">* Input/Output</span>
+
+  Two ways of formatting:
+  1. concatinate strings manually.
+  2. using <span class="org-verbatim">=str.format()=</span>
+     
+  Two ways to convert any value to a string: pass it to the <span class="org-verbatim">=repr()=</span>
+  or <span class="org-verbatim">=str()=</span> functions. <span class="org-verbatim">=str()=</span> is meant to generate results that are
+  human-readable while <span class="org-verbatim">=repr()=</span>'s result is for interpreter.
+  
+  <span class="org-verbatim">=str.zfill()=</span> pads a numeric string on the left with zeros. It
+  understands about plus and minus signs:
+<span class="org-block-begin-line">  #+BEGIN_SRC python :exports both :results output
+</span><span class="org-block">    print '12'.zfill(5)
+    print '-3.14'.zfill(7)
+    print '3.14159265359'.zfill(5)
+</span><span class="org-block-end-line">  #+END_SRC
+</span>
+<span class="org-meta-line">  #+RESULTS:</span>
+  <span class="org-code">: 00012
+</span>  <span class="org-code">: -003.14
+</span>  <span class="org-code">: 3.14159265359
+</span>  
+<span class="org-level-2">** String Format</span>
+   Basic Usage:
+<span class="org-block-begin-line">   #+begin_src python :exports both :results output
+</span><span class="org-block">     print 'We are the {} who says "{}!"'.format('Knights', 'Ni')
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: We are the Knights who says "Ni!"
+</span>   
+   The '{}' is called "format field", it can refer to fields by number
+   or keywords:
+   
+<span class="org-block-begin-line">   #+begin_src python :exports both :results output
+</span><span class="org-block">     print '{0} and {1}'.format('spam', 'eggs')
+     print '{1} and {0}'.format('spam', 'eggs')
+
+     print 'This {food} is {adjective}.'.format(food = 'spam', adjective =
+                                                'absolutly horrible')
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: spam and eggs
+</span>   <span class="org-code">: eggs and spam
+</span>   <span class="org-code">: This spam is absolutly horrible.
+</span>   
+   <span class="org-verbatim">=!r=</span> to retrieve <span class="org-verbatim">=repr()=</span> output and <span class="org-verbatim">=!s=</span> for <span class="org-verbatim">=str()=</span>
+
+<span class="org-block-begin-line">   #+begin_src python :exports both :results output
+</span><span class="org-block">     import math
+     print 'The value of PI is approximately {}.'.format(math.pi)
+     print 'The value of PI is approximately {!r}.'.format(math.pi)
+</span><span class="org-block-end-line">   #+END_SRC
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: The value of PI is approximately 3.14159265359.
+</span>   <span class="org-code">: The value of PI is approximately 3.141592653589793.
+</span>   
+   Check <span class="org-link"><a href="https://docs.python.org/2/tutorial/inputoutput.html">[[https://docs.python.org/2/tutorial/inputoutput.html][</a><a href="https://docs.python.org/2/tutorial/inputoutput.html">Input
+   and Output</a><a href="https://docs.python.org/2/tutorial/inputoutput.html">]]</a></span> for more information.
+   
+   Also, the complete syntax for formatting string is:
+<span class="org-block-begin-line">   #+BEGIN_EXAMPLE
+</span><span class="org-block">     replacement_field ::=  "{" [field_name] ["!" conversion] [":" format_spec] "}"
+     field_name        ::=  arg_name ("." attribute_name | "[" element_index "]")*
+     arg_name          ::=  [identifier | integer]
+     attribute_name    ::=  identifier
+     element_index     ::=  integer | index_string
+     index_string      ::=  &lt;any source character except "]"&gt; +
+     conversion        ::=  "r" | "s"
+     format_spec       ::=  &lt;described in the next section&gt;
+</span><span class="org-block-end-line">   #+END_EXAMPLE
+</span>   Check
+   <span class="org-link"><a href="https://docs.python.org/2/library/string.html#format-string-syntax">[[https://docs.python.org/2/library/string.html#format-string-syntax][</a><a href="https://docs.python.org/2/library/string.html#format-string-syntax">Format
+   String Syntax</a><a href="https://docs.python.org/2/library/string.html#format-string-syntax">]]</a></span> for more information.
+
+<span class="org-level-2">** Methods of File Operation</span>
+   
+   <span class="org-verbatim">=read=</span>: To read a file's contents, call <span class="org-verbatim">=f.read(size)=</span>, which will return a
+   string. <span class="org-verbatim">=size=</span> is optional, while omitted or negative, the entire
+   contens of the file will be read and returned.
+   
+   <span class="org-verbatim">=readline=</span>: reads a single line from the file, and the newline
+   character '\n' will be left at the end of the string. If the
+   returned string is empty, the it has reached the end of the
+   file. While a blank line is represented by '\n', a string
+   containing only a single newline.
+   
+   If you want to read all the lines of a file in a list, you can also
+   use <span class="org-verbatim">=list(f)=</span> or <span class="org-verbatim">=f.readlinesf()=</span>
+   
+   <span class="org-verbatim">=write=</span>: <span class="org-verbatim">=f.write(string)=</span> writes <span class="org-verbatim">=string=</span> to the file, returning <span class="org-verbatim">=None=</span>.
+   
+   <span class="org-verbatim">=tell=</span> and <span class="org-verbatim">=seek=</span>: to deal with file offset.
+<span class="org-block-begin-line">   #+BEGIN_SRC python
+</span><span class="org-block">     &gt;&gt;&gt; f = open('test.txt', 'w+')
+     &gt;&gt;&gt; f.write('0123456789abcdef')
+     &gt;&gt;&gt; f.seek(5)     # go to the 6th byte in the file
+     &gt;&gt;&gt; f.read(1)
+     '5'
+     &gt;&gt;&gt; f.seek(-3, 2) # go to the 3rd byte before the end
+     &gt;&gt;&gt; f.read(1)
+     'd'
+</span><span class="org-block-end-line">   #+END_SRC
+</span></pre>
+  </body>
+</html>
