@@ -1,0 +1,46 @@
+#+TITLE: 面试技能收集
+
+本页旨在记录准备面试过程中学习的知识。
+
+* C/C++
+
+* Python
+** 装饰器 Decorator
+python 中的decorator本质上就是包装函数 =wrap= ，以被包装函数 =fn=
+为参数，返回一个包装后的函数并赋给 =fn= 。
+
+例[fn:1]：
+#+BEGIN_SRC python
+  def hello(fn):
+      def wrapper():
+  	print "hello, %s" % fn.__name__
+  	fn()
+  	print "goodby, %s" % fn.__name__
+      return wrapper
+
+  @hello
+  def foo():
+      print "i am foo"
+
+  foo()
+#+END_SRC
+
+这里 =@hello= 的语法想当于执行了 =func = decorator(func)= ，即
+=decorator= 以函数 =func= 为参数，返回包装后的参数。注意到这里最后
+的赋值，所以它相当于lisp里的 =(set! func (decorator func))= [fn:2]
+
+函数 =decorator= 本身也可以接收参数：
+
+#+BEGIN_SRC python
+  @decorator(arg1, arg2)
+  def func():
+      pass
+#+END_SRC
+相当于:
+#+BEGIN_SRC python
+  func = decorator(arg1, arg2)(func)
+#+END_SRC
+
+[fn:1] [[http://coolshell.cn/articles/11265.html][Python 修饰器的函数式编程]]
+
+[fn:2] [[file:racket_notes.org::*Memoized]]

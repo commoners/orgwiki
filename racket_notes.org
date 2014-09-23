@@ -133,3 +133,34 @@ And then define functions using =define-memoized=:
       [(= n 1) 1]
       [else (+ (mfibo (- n 1)) (mfibo (- n 2)))]))
 #+END_SRC
+
+Another way to implement this is using wrapper function plus
+assignment. Wrapper function is as follows:
+#+BEGIN_SRC scheme
+  (define (memo fn)
+    (let ([ht (make-hash)])
+      (lambda args
+        (hash-ref! ht args (thunk (apply fn args))))))
+#+END_SRC
+And then we can use the wrapper function like:
+#+BEGIN_SRC scheme
+  (define mfibo (memo fibo))
+  (time (mfibo 30))  ; => Slow
+  (time (mfibo 30))  ; => Fast
+  (time (mfibo 31))  ; => Slow
+#+END_SRC
+The reason that the final call being slow is that =fn= in =memo= is
+the un-memorized version, thus =mfibo= only memorize the arguments
+that is explicitly called by =mfibo= (that is 30 in the above
+example). In order to get the full memorized version, we can use
+the following:
+#+BEGIN_SRC scheme
+  (set! fibo (memo fibo))
+  (time (fibo 30))  ; => Fast
+  (time (fibo 30))  ; => Fast
+  (time (ibo 31))  ; => Fast
+#+END_SRC
+Now =fibo= is full memorized!.
+
+*** Reference
+- [[http://codeimmersion.i3ci.hampshire.edu/2009/10/09/memoization/][Scheme Memoization]]

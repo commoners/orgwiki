@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Racket Notes</title>
-<!-- 2014-09-11 -->
+<!-- 2014-09-19 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -101,7 +101,11 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-4">Topics</a>
 <ul>
-<li><a href="#sec-4-1">Memoized</a></li>
+<li><a href="#sec-4-1">Memoized</a>
+<ul>
+<li><a href="#sec-4-1-1">Reference</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -340,6 +344,58 @@ And then define functions using <code>define-memoized</code>:
     [(= n 1) 1]
     [else (+ (mfibo (- n 1)) (mfibo (- n 2)))]))
 </pre>
+</div>
+
+<p>
+Another way to implement this is using wrapper function plus
+assignment. Wrapper function is as follows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">memo</span> fn)
+  (<span style="color: #f0dfaf; font-weight: bold;">let</span> ([ht (make-hash)])
+    (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> args
+      (hash-ref! ht args (thunk (apply fn args))))))
+</pre>
+</div>
+<p>
+And then we can use the wrapper function like:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">define</span> <span style="color: #8cd0d3;">mfibo</span> (memo fibo))
+(time (mfibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Slow</span>
+(time (mfibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
+(time (mfibo 31))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Slow</span>
+</pre>
+</div>
+<p>
+The reason that the final call being slow is that <code>fn</code> in <code>memo</code> is
+the un-memorized version, thus <code>mfibo</code> only memorize the arguments
+that is explicitly called by <code>mfibo</code> (that is 30 in the above
+example). In order to get the full memorized version, we can use
+the following:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(set! fibo (memo fibo))
+(time (fibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
+(time (fibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
+(time (ibo 31))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
+</pre>
+</div>
+<p>
+Now <code>fibo</code> is full memorized!.
+</p>
+</div>
+
+<div id="outline-container-sec-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1">Reference</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<ul class="org-ul">
+<li><a href="http://codeimmersion.i3ci.hampshire.edu/2009/10/09/memoization/">Scheme Memoization</a>
+</li>
+</ul>
 </div>
 </div>
 </div>

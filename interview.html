@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index</title>
+<title>面试技能收集</title>
 <!-- 2014-09-19 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,9 +71,102 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Index</h1>
+<h1 class="title">面试技能收集</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">C/C++</a></li>
+<li><a href="#sec-2">Python</a>
+<ul>
+<li><a href="#sec-2-1">装饰器 Decorator</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+本页旨在记录准备面试过程中学习的知识。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">C/C++</h2>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Python</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">装饰器 Decorator</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+python 中的decorator本质上就是包装函数 <code>wrap</code> ，以被包装函数 <code>fn</code>
+为参数，返回一个包装后的函数并赋给 <code>fn</code> 。
+</p>
+
+<p>
+例<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">hello</span>(fn):
+<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">wrapper</span>():
+        <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"hello, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
+        fn()
+        <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"goodby, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
+<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">return</span> wrapper
+
+<span style="color: #8cd0d3;">@hello</span>
+<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">foo</span>():
+<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"i am foo"</span>
+
+foo()
+</pre>
+</div>
+
+<p>
+这里 <code>@hello</code> 的语法想当于执行了 <code>func = decorator(func)</code> ，即
+<code>decorator</code> 以函数 <code>func</code> 为参数，返回包装后的参数。注意到这里最后
+的赋值，所以它相当于lisp里的 <code>(set! func (decorator func))</code> <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>
+</p>
+
+<p>
+函数 <code>decorator</code> 本身也可以接收参数：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #8cd0d3;">@decorator</span>(arg1, arg2)
+<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">func</span>():
+<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">pass</span>
+</pre>
+</div>
+<p>
+相当于:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #dfaf8f;">func</span> = decorator(arg1, arg2)(func)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<a href="http://coolshell.cn/articles/11265.html">Python 修饰器的函数式编程</a>
+</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+<a href="racket_notes.html#sec-4-1">racket_notes.html#sec-4-1</a>
+</p></div>
+
 
 </div>
+</div></div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>
 
