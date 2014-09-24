@@ -9,6 +9,10 @@
         color: #dcdccc;
         background-color: #3f3f3f;
       }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
       .org-block {
         /* org-block */
         color: #b3b3b3;
@@ -49,6 +53,11 @@
         color: #8fb28f;
         background-color: #3f3f3f;
       }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+        background-color: #3f3f3f;
+      }
       .org-link {
         /* org-link */
         color: #d0bf8f;
@@ -62,6 +71,10 @@
       .org-verbatim {
         /* org-verbatim */
         color: #b3b3b3;
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
       }
 
       a {
@@ -83,7 +96,107 @@
 &#26412;&#39029;&#26088;&#22312;&#35760;&#24405;&#20934;&#22791;&#38754;&#35797;&#36807;&#31243;&#20013;&#23398;&#20064;&#30340;&#30693;&#35782;&#12290;
 
 <span class="org-level-1">* C/C++</span>
+  
+<span class="org-level-2">** Cast</span>
+   
+<span class="org-level-3">*** dynamic_cast</span>
+    <span class="org-verbatim">=dynamic_cast=</span> can only be used with pointers and references to
+    classes(or with <span class="org-verbatim">=void *=</span>)
+    
+    - It is naturally includes <span class="underline">_pointer upcast_</span> (converting from
+      pointer-to-derived to pointer-to-base), in the same way as
+      allowed as an <span class="underline">_implicit conversion_</span>
+    - It can also <span class="underline">_downcast_</span> (convert from pointer-to-base to
+      pointer-to-derived) polymorphic classes(those with virtual
+      members) if and only if the pointed object is a valid complete
+      object of the target type. (Normally this means that it can convert
+      pointer-to-base that is previously converted from pointer-to-derived.)
+<span class="org-level-3">*** static_cast</span>
+    <span class="org-verbatim">=static_cast=</span> can perform conversion between pointers to related
+    classes, not only <span class="underline">_upcast_</span> but also <span class="underline">_downcast_</span>. No checks are
+    performed during runtime to guarentee that the object being
+    converted is in fact a full object of the destination type.
+    
+    <span class="org-verbatim">=static_cast=</span> is also able to perform all conversions allowed
+    implicitly(not only those with pointers to classes), and is also
+    able to perform the opposite of these.<span class="org-footnote">[fn:3]</span>
+<span class="org-level-3">*** reinterpret_cast</span>
+    <span class="org-verbatim">=reinterpret_cast=</span> converts any pointer type to any other pointer
+    type, even of unrelated classes. The operation result is a simple
+    binary copy of the value from one pointer to the other.
+    
+    It can also cast pointers to or from integer type.
+    
+    The conversions that can be performed by <span class="org-verbatim">=reinterpret_cast=</span> but
+    not by <span class="org-verbatim">=static_cast=</span> are low-level operations based on
+    reinterpreting the binary representations of the types. which on
+    most cases results in code which is system-specific, and thus
+    non-portable. For example:
+<span class="org-block-begin-line">    #+begin_src cpp
+</span><span class="org-block">      class A { /* ... */ };
+      class B { /* ... */ };
+      A * a = new A;
+      B * b = reinterpret_cast&lt;B*&gt;(a);
+</span><span class="org-block-end-line">    #+end_src
+</span><span class="org-level-3">*** const_cast</span>
+    This type of casting manipulates the constness of the object
+    pointed by a pointer, either to be set or to be removed.
 
+<span class="org-level-3">*** Conclusion</span>
+    Use <span class="org-verbatim">=dynamic_cast=</span> to ensure target type. <span class="org-verbatim">=static_cast=</span> to do most
+    implicit casting.
+    
+    Non-pointer objects can only be casted by <span class="org-verbatim">=static_cast=</span>.
+
+    
+<span class="org-level-2">** Library</span>
+
+<span class="org-level-3">*** static vs shared library</span>
+    For more information <span class="org-footnote">[fn:4]</span>.
+    
+    - Dll(shared) pros: can be used to reuse/share code between
+      several products; load in the process memory on demand and can
+      be unloaded when not needed; can be upgrade independently of the
+      rest of the program
+    - Dll cons: performance impact of the dll loading and code
+      rebasing; versioning problem("dll hell")
+    - Lib(static) pros: no performance impact as code is always loaded
+      in the process and is not rebased; no versioning problems.
+    - Lib cons: executable/process "bloat" -- all the code is in your
+      executable and is loaded upon process start, no reuse/sharing --
+      each product has its own copy of code.
+
+<span class="org-level-2">** sizeof</span>
+   <span class="org-verbatim">=sizeof=</span> will calculate in-memory size of an object. So when
+   applying it to STL objects, it will results in the sizeof STL
+   container itself instead of the size of all its elements. Example
+   (on 64bit machine):
+<span class="org-block-begin-line">   #+begin_src cpp :results output
+</span><span class="org-block">     #include &lt;iostream&gt;
+     #include &lt;string&gt;
+     #include &lt;vector&gt;
+
+     using namespace std;
+
+     int main(int argc, char *argv[])
+     {
+         string str = "abcdefgaaaaaaaaaaaa";
+         cout &lt;&lt; "sizeof(str) = " &lt;&lt; sizeof(str) &lt;&lt; endl;
+         vector&lt;int&gt; vec(100);
+         cout &lt;&lt; "sizeof(vec(100)) = " &lt;&lt; sizeof(vec) &lt;&lt; endl;
+         vector&lt;char&gt; cvec(100);
+         cout &lt;&lt; "sizeof(cvec(100)) = " &lt;&lt; sizeof(cvec) &lt;&lt; endl;
+         
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: sizeof(str) = 8
+</span>   <span class="org-code">: sizeof(vec(100)) = 24
+</span>   <span class="org-code">: sizeof(cvec(100)) = 24
+</span>
+   
 <span class="org-level-1">* Python</span>
 <span class="org-level-2">** &#35013;&#39280;&#22120; Decorator</span>
    python &#20013;&#30340;decorator&#26412;&#36136;&#19978;&#23601;&#26159;&#21253;&#35013;&#20989;&#25968; <span class="org-verbatim">=wrap=</span> &#65292;&#20197;&#34987;&#21253;&#35013;&#20989;&#25968; <span class="org-verbatim">=fn=</span>
@@ -97,7 +210,6 @@
              fn()
              print "goodby, %s" % fn.__name__
          return wrapper
-      
      @hello
      def foo():
          print "i am foo"
@@ -112,7 +224,8 @@
 </span>   
    &#36825;&#37324; <span class="org-verbatim">=@hello=</span> &#30340;&#35821;&#27861;&#24819;&#24403;&#20110;&#25191;&#34892;&#20102; <span class="org-verbatim">=func = decorator(func)=</span> &#65292;&#21363;
    <span class="org-verbatim">=decorator=</span> &#20197;&#20989;&#25968; <span class="org-verbatim">=func=</span> &#20026;&#21442;&#25968;&#65292;&#36820;&#22238;&#21253;&#35013;&#21518;&#30340;&#21442;&#25968;&#12290;&#27880;&#24847;&#21040;&#36825;&#37324;&#26368;&#21518;
-   &#30340;&#36171;&#20540;&#65292;&#25152;&#20197;&#23427;&#30456;&#24403;&#20110;lisp&#37324;&#30340; <span class="org-verbatim">=(set! func (decorator func))=</span> <span class="org-footnote">[fn:2]</span>
+   &#30340;&#36171;&#20540;&#65292;&#25152;&#20197;&#23427;&#30456;&#24403;&#20110;lisp&#37324;&#30340; <span class="org-verbatim">=(set! func (decorator func))=</span> <span class="org-footnote">[fn:2]</span>&#65292;
+   &#32780;&#30456;&#27604;&#20110;&#20351;&#29992; <span class="org-verbatim">=set!=</span> &#30340; <span class="org-verbatim">=lisp=</span> &#23454;&#29616;&#65292;python&#30340;&#20248;&#21183;&#22312;&#20110;&#31616;&#21270;&#20102;&#35821;&#27861;&#12290;
 
    &#20989;&#25968; <span class="org-verbatim">=decorator=</span> &#26412;&#36523;&#20063;&#21487;&#20197;&#25509;&#25910;&#21442;&#25968;&#65306;
 
@@ -125,12 +238,88 @@
 <span class="org-block-begin-line">   #+begin_src python
 </span><span class="org-block">     func = decorator(arg1, arg2)(func)
 </span><span class="org-block-end-line">   #+end_src
-</span>   
+</span><span class="org-level-1">* Network</span>
+  
+<span class="org-level-2">** TCP/UDP</span>
+   UDP(User Datagram Protocol) is used to provide multiplexing for
+   processes in a host.
+   
+   UDP uses &lt;host, port&gt; to identify a process.
+   
+   The <span class="bold">*end-to-end argument*</span>: it is one of the most important
+   principles in system design. It says that a function(in network,
+   providing reliable/ordered delivery) should not be provided in
+   lower levels unless it can be completely and correctly implemented
+   at that level. However it does allow for functions to be
+   incompletely provided at lower level as performance
+   optimization. This is why it is perfectly consistent with
+   end-to-end argument to perform error detection(e.g. CRC) on a
+   hop-to-hop basis. Detecting and retransmiting a single corrupt
+   packet accross one hop is more preferable to having to
+   retransmiting an entire file end-to-end.
+   
+   TCP's demux key is given by &lt;srcPort, srcIP, dstPort, dstIP&gt;.
+   
+   Check <span class="org-link"><a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">[[http://en.wikipedia.org/wiki/Transmission_Control_Protocol][</a><a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP frame</a><a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">]]</a></span> for frame structure.
+   
+   Because TCP is byte-oriented protocol, each byte has a sequence
+   number, the <span class="underline">_Sequence Number_</span> field carrys the sequence number of
+   the first byte of the segment.
+   
+<span class="org-level-3">*** Establish TCP connection(Three-way handshake)</span>
+<span class="org-block-begin-line">    #+begin_example
+</span><span class="org-block">      Client =&gt; Server/Client &lt;= Server
+      1. =&gt; SYN, SequneceNum = x
+      2. &lt;= SYN+ACK, SequenceNum = y, Acknowledgement = x+1
+      3. =&gt; ACK, Acknowledgement = y+1
+</span><span class="org-block-end-line">    #+end_example
+</span>    
+    The SequenceNums are the starting sequence numbers the two sides
+    plan to use for their respective byte stream.
+    
+    1. Note that even if the 3rd packet is lost, the connection is
+       still OK to use, because after the 2nd step, the client's state
+       is changed to ESTABLISHED. And every packet contains an
+       <span class="underline">_Acknowledge_</span> number, and it will turn the server into
+       ESTABLISHED after the first packet from client is received.
+    2. Most sender will set a timer after sending some packet, and if
+       after several tries the expected response does not arrive, TCP
+       give up and returns to the CLOSED state.
+<span class="org-level-3">*** Termination of TCP connection</span>
+<span class="org-meta-line">    #+caption: Connection termination</span>
+<span class="org-meta-line">    #+name: fig:tcp-close</span>
+    <span class="org-link"><a href="file:images/TCP_CLOSE.png">[[</a><a href="file:images/TCP_CLOSE.png">file:images/TCP_CLOSE.png</a><a href="file:images/TCP_CLOSE.png">]]</a></span>
+    
+    The state changes:
+<span class="org-block-begin-line">    #+begin_example
+</span><span class="org-block">      This side closes first:
+      ESTABLISHED -&gt; FIN_WAIT_1 -&gt; FIN_WAIT_2 -&gt; TIME_WAIT -&gt; CLOSED
+      That side closes first:
+      ESTABLISHED -&gt; CLOSE_WAIT -&gt; LAST_ACK -&gt; CLOSED
+      Both side close at the same time:
+      ESTABLISHED -&gt; FIN_WAIT_1 -&gt; CLOSING -&gt; TIME_WAIT -&gt; CLOSED
+</span><span class="org-block-end-line">    #+end_example
+</span>
+    Note that the connection cannot move from TIME_WAIT to CLOSED
+    until it has waited for two times the maximum amount of the an IP
+    datagram can live on the internet(i.e. 120s). The reason is that
+    while the local side(on the left of the image) of the connection
+    has sent an ACK in response of the other side's FIN segment, it
+    does not know that the ACK was successfully delivered. As a
+    consequence, the other side might retransmit its FIN segment, and
+    this second FIN segment might be delayed in the internet. If the
+    connection is allowed to move directly to CLOSED state, then
+    another application might came along and use the same connection,
+    and the delayed FIN segment might immediatly initiate the
+    termination of the newly created connection.
+<span class="org-level-2">** &#20174;&#36755;&#20837;URL&#21040;&#27983;&#35272;&#22120;&#26174;&#31034;&#65292;&#21518;&#21488;&#21457;&#29983;&#20102;&#20160;&#20040;</span>
+   <span class="org-link"><a href="http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html">[[http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html][</a><a href="http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html">&#30334;&#24230;&#38754;&#35797;&#39064;&#65306;&#20174;&#36755;&#20837;url&#21040;&#26174;&#31034;&#32593;&#39029;&#65292;&#21518;&#21488;&#21457;&#29983;&#20102;&#20160;&#20040;&#65311;</a><a href="http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html">]]</a></span>
 <span class="org-level-1">* Footnotes</span>
-  haha
 
 <span class="org-footnote">[fn:1]</span> <span class="org-link"><a href="http://coolshell.cn/articles/11265.html">[[http://coolshell.cn/articles/11265.html][</a><a href="http://coolshell.cn/articles/11265.html">Python &#20462;&#39280;&#22120;&#30340;&#20989;&#25968;&#24335;&#32534;&#31243;</a><a href="http://coolshell.cn/articles/11265.html">]]</a></span>
 <span class="org-footnote">[fn:2]</span> <span class="org-link"><a href="file:racket_notes.org::*Memoized">[[</a><a href="file:racket_notes.org::*Memoized">file:racket_notes.org::*Memoized</a><a href="file:racket_notes.org::*Memoized">]]</a></span>
+<span class="org-footnote">[fn:3]</span> <span class="org-link"><a href="http://www.cplusplus.com/doc/tutorial/typecasting/">[[http://www.cplusplus.com/doc/tutorial/typecasting/][</a><a href="http://www.cplusplus.com/doc/tutorial/typecasting/">C++ type casting</a><a href="http://www.cplusplus.com/doc/tutorial/typecasting/">]]</a></span>
+<span class="org-footnote">[fn:4]</span> <span class="org-link"><a href="http://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries">[[http://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries][</a><a href="http://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries">When to use dynamic vs. static libraries</a><a href="http://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries">]]</a></span>
 </pre>
   </body>
 </html>

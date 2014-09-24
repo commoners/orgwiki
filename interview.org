@@ -4,6 +4,105 @@
 
 * C/C++
 
+** Cast
+
+*** dynamic_cast
+=dynamic_cast= can only be used with pointers and references to
+classes(or with =void *=)
+
+- It is naturally includes _pointer upcast_ (converting from
+  pointer-to-derived to pointer-to-base), in the same way as
+  allowed as an _implicit conversion_
+- It can also _downcast_ (convert from pointer-to-base to
+  pointer-to-derived) polymorphic classes(those with virtual
+  members) if and only if the pointed object is a valid complete
+  object of the target type. (Normally this means that it can convert
+  pointer-to-base that is previously converted from pointer-to-derived.)
+*** static_cast
+=static_cast= can perform conversion between pointers to related
+classes, not only _upcast_ but also _downcast_. No checks are
+performed during runtime to guarentee that the object being
+converted is in fact a full object of the destination type.
+
+=static_cast= is also able to perform all conversions allowed
+implicitly(not only those with pointers to classes), and is also
+able to perform the opposite of these.[fn:3]
+
+[fn:3] [[http://www.cplusplus.com/doc/tutorial/typecasting/][C++ type casting]]
+*** reinterpret_cast
+=reinterpret_cast= converts any pointer type to any other pointer
+type, even of unrelated classes. The operation result is a simple
+binary copy of the value from one pointer to the other.
+
+It can also cast pointers to or from integer type.
+
+The conversions that can be performed by =reinterpret_cast= but
+not by =static_cast= are low-level operations based on
+reinterpreting the binary representations of the types. which on
+most cases results in code which is system-specific, and thus
+non-portable. For example:
+#+BEGIN_SRC cpp
+  class A { /* ... */ };
+  class B { /* ... */ };
+  A * a = new A;
+  B * b = reinterpret_cast<B*>(a);
+#+END_SRC
+*** const_cast
+This type of casting manipulates the constness of the object
+pointed by a pointer, either to be set or to be removed.
+
+*** Conclusion
+Use =dynamic_cast= to ensure target type. =static_cast= to do most
+implicit casting.
+
+Non-pointer objects can only be casted by =static_cast=.
+
+
+** Library
+
+*** static vs shared library
+For more information [fn:4].
+
+- Dll(shared) pros: can be used to reuse/share code between
+  several products; load in the process memory on demand and can
+  be unloaded when not needed; can be upgrade independently of the
+  rest of the program
+- Dll cons: performance impact of the dll loading and code
+  rebasing; versioning problem("dll hell")
+- Lib(static) pros: no performance impact as code is always loaded
+  in the process and is not rebased; no versioning problems.
+- Lib cons: executable/process "bloat" -- all the code is in your
+  executable and is loaded upon process start, no reuse/sharing --
+  each product has its own copy of code.
+
+[fn:4] [[http://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries][When to use dynamic vs. static libraries]]
+
+** sizeof
+=sizeof= will calculate in-memory size of an object. So when
+applying it to STL objects, it will results in the sizeof STL
+container itself instead of the size of all its elements. Example
+(on 64bit machine):
+#+BEGIN_SRC cpp
+  #include <iostream>
+  #include <string>
+  #include <vector>
+
+  using namespace std;
+
+  int main(int argc, char *argv[])
+  {
+      string str = "abcdefgaaaaaaaaaaaa";
+      cout << "sizeof(str) = " << sizeof(str) << endl;
+      vector<int> vec(100);
+      cout << "sizeof(vec(100)) = " << sizeof(vec) << endl;
+      vector<char> cvec(100);
+      cout << "sizeof(cvec(100)) = " << sizeof(cvec) << endl;
+
+      return 0;
+  }
+#+END_SRC
+
+
 * Python
 ** 装饰器 Decorator
 python 中的decorator本质上就是包装函数 =wrap= ，以被包装函数 =fn=
@@ -17,7 +116,6 @@ python 中的decorator本质上就是包装函数 =wrap= ，以被包装函数 =
   	fn()
   	print "goodby, %s" % fn.__name__
       return wrapper
-
   @hello
   def foo():
       print "i am foo"
@@ -27,7 +125,8 @@ python 中的decorator本质上就是包装函数 =wrap= ，以被包装函数 =
 
 这里 =@hello= 的语法想当于执行了 =func = decorator(func)= ，即
 =decorator= 以函数 =func= 为参数，返回包装后的参数。注意到这里最后
-的赋值，所以它相当于lisp里的 =(set! func (decorator func))= [fn:2]
+的赋值，所以它相当于lisp里的 =(set! func (decorator func))= [fn:2]，
+而相比于使用 =set!= 的 =lisp= 实现，python的优势在于简化了语法。
 
 函数 =decorator= 本身也可以接收参数：
 
@@ -44,3 +143,79 @@ python 中的decorator本质上就是包装函数 =wrap= ，以被包装函数 =
 [fn:1] [[http://coolshell.cn/articles/11265.html][Python 修饰器的函数式编程]]
 
 [fn:2] [[file:racket_notes.org::*Memoized]]
+* Network
+
+** TCP/UDP
+UDP(User Datagram Protocol) is used to provide multiplexing for
+processes in a host.
+
+UDP uses <host, port> to identify a process.
+
+The *end-to-end argument*: it is one of the most important
+principles in system design. It says that a function(in network,
+providing reliable/ordered delivery) should not be provided in
+lower levels unless it can be completely and correctly implemented
+at that level. However it does allow for functions to be
+incompletely provided at lower level as performance
+optimization. This is why it is perfectly consistent with
+end-to-end argument to perform error detection(e.g. CRC) on a
+hop-to-hop basis. Detecting and retransmiting a single corrupt
+packet accross one hop is more preferable to having to
+retransmiting an entire file end-to-end.
+
+TCP's demux key is given by <srcPort, srcIP, dstPort, dstIP>.
+
+Check [[http://en.wikipedia.org/wiki/Transmission_Control_Protocol][TCP frame]] for frame structure.
+
+Because TCP is byte-oriented protocol, each byte has a sequence
+number, the _Sequence Number_ field carrys the sequence number of
+the first byte of the segment.
+
+*** Establish TCP connection(Three-way handshake)
+#+BEGIN_EXAMPLE
+Client => Server/Client <= Server
+1. => SYN, SequneceNum = x
+2. <= SYN+ACK, SequenceNum = y, Acknowledgement = x+1
+3. => ACK, Acknowledgement = y+1
+#+END_EXAMPLE
+
+The SequenceNums are the starting sequence numbers the two sides
+plan to use for their respective byte stream.
+
+1. Note that even if the 3rd packet is lost, the connection is
+   still OK to use, because after the 2nd step, the client's state
+   is changed to ESTABLISHED. And every packet contains an
+   _Acknowledge_ number, and it will turn the server into
+   ESTABLISHED after the first packet from client is received.
+2. Most sender will set a timer after sending some packet, and if
+   after several tries the expected response does not arrive, TCP
+   give up and returns to the CLOSED state.
+*** Termination of TCP connection
+#+CAPTION: Connection termination
+#+NAME: fig:tcp-close
+[[file:images/TCP_CLOSE.png]]
+
+The state changes:
+#+BEGIN_EXAMPLE
+This side closes first:
+ESTABLISHED -> FIN_WAIT_1 -> FIN_WAIT_2 -> TIME_WAIT -> CLOSED
+That side closes first:
+ESTABLISHED -> CLOSE_WAIT -> LAST_ACK -> CLOSED
+Both side close at the same time:
+ESTABLISHED -> FIN_WAIT_1 -> CLOSING -> TIME_WAIT -> CLOSED
+#+END_EXAMPLE
+
+Note that the connection cannot move from TIME_WAIT to CLOSED
+until it has waited for two times the maximum amount of the an IP
+datagram can live on the internet(i.e. 120s). The reason is that
+while the local side(on the left of the image) of the connection
+has sent an ACK in response of the other side's FIN segment, it
+does not know that the ACK was successfully delivered. As a
+consequence, the other side might retransmit its FIN segment, and
+this second FIN segment might be delayed in the internet. If the
+connection is allowed to move directly to CLOSED state, then
+another application might came along and use the same connection,
+and the delayed FIN segment might immediatly initiate the
+termination of the newly created connection.
+** 从输入URL到浏览器显示，后台发生了什么
+[[http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html][百度面试题：从输入url到显示网页，后台发生了什么？]]
