@@ -9,9 +9,9 @@
         color: #dcdccc;
         background-color: #3f3f3f;
       }
-      .hl-line {
-        /* hl-line */
-        background-color: #383838;
+      .bold {
+        /* bold */
+        font-weight: bold;
       }
       .org-block {
         /* org-block */
@@ -24,6 +24,10 @@
       .org-block-end-line {
         /* org-block-end-line */
         color: #7f9f7f;
+      }
+      .org-code {
+        /* org-code */
+        color: #b3b3b3;
       }
       .org-document-info-keyword {
         /* org-document-info-keyword */
@@ -50,6 +54,14 @@
         font-weight: bold;
         text-decoration: underline;
       }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #7f9f7f;
+      }
+      .org-table {
+        /* org-table */
+        color: #9fc59f;
+      }
       .org-verbatim {
         /* org-verbatim */
         color: #b3b3b3;
@@ -69,18 +81,24 @@
   </head>
   <body>
     <pre>
-<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">C++ Notes
-</span></span>
+<span class="org-document-info-keyword">#+TITLE:</span> <span class="org-document-title">C++ Notes
+</span>
+<span class="org-level-1">* Utils</span>
+
+<span class="org-level-2">** g++ show V-table</span>
+   Type <span class="org-verbatim">=g++ -fdump-class-hierarchy xx.cpp=</span> and it will generate a
+   <span class="org-verbatim">=.class=</span> file.
+
 <span class="org-level-1">* objects</span>
 <span class="org-level-2">** How to make </span><span class="org-level-2"><span class="org-verbatim">=static=</span></span><span class="org-level-2"> entries global</span>
-   
+
    Suppose you have an object file: <span class="org-verbatim">=foo.o=</span>. Then you can check symbol
    table by:
-   
+
 <span class="org-block-begin-line">   #+BEGIN_SRC sh
 </span><span class="org-block">     objdump -t foo.o
 </span><span class="org-block-end-line">   #+END_SRC
-</span>   
+</span>
    Output as follows:
 <span class="org-block-begin-line">   #+BEGIN_EXAMPLE
 </span><span class="org-block">     $ objdump -t lib.o
@@ -98,22 +116,564 @@
      0000000000000000 l    d  .comment       0000000000000000 .comment
      0000000000000014 g     F .text  0000000000000041 multiply
 </span><span class="org-block-end-line">   #+END_EXAMPLE
-</span>   
+</span>
    You can see that <span class="org-verbatim">=add2=</span> is local symbol which is indicated by the
    flag <span class="org-verbatim">=l=</span>, while <span class="org-verbatim">=multiply=</span> is global symbol by flag <span class="org-verbatim">=g=</span>.
-   
+
    Save the symbols you want to globalized to a text file:
 <span class="org-block-begin-line">   #+BEGIN_EXAMPLE
-</span><span class="org-block">     $ cat foobar 
-     add2 
+</span><span class="org-block">     $ cat foobar
+     add2
 </span><span class="org-block-end-line">   #+END_EXAMPLE
-</span>   
+</span>
    And Use <span class="org-verbatim">=objcopy=</span> to create a new object file for use.
 <span class="org-block-begin-line">   #+begin_src sh
 </span><span class="org-block">     $ objcopy --globalize-symbols=foobar lib.o lib2.o
 </span><span class="org-block-end-line">   #+end_src
 </span>
 - <span class="org-link"><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">[[http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o][</a><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">is it possible to override static functions</a><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">]]</a></span>
-</pre>
+<span class="org-level-1">* Syntax/Compilation</span>
+<span class="org-level-2">** Variable and Segment</span>
+   In Linux, use <span class="org-verbatim">=nm a.out=</span> or <span class="org-verbatim">=objdump -t a.out=</span> to display symbols.
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     int a = 1;
+     int b = 0;
+     int c;
+     int d[] = {0,0,0,0,0};
+     int e[] = {0,0,0,0,5};
+     int f[5];
+     static int g = 20;
+     static int h;
+
+     int main(int argc, char *argv[])
+     {
+         int i = 1;
+         int j = 0;
+         int k;
+         int l[] = {0,0,0,0,0};
+         int m[] = {0,0,0,0,5};
+         int n[5];
+         static int o = 20;
+         static int p;
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+   Symbols as follows(Upper case means the symbol is global/external):
+<span class="org-block-begin-line">   #+begin_example
+</span><span class="org-block">     0000000000600a60 D a
+     0000000000600aa0 B b
+     0000000000600ae4 B c
+     0000000000600ab0 B d
+     0000000000600a70 D e
+     0000000000600ad0 B f
+     0000000000600a84 d g
+     0000000000600ac4 b h
+     0000000000600a88 d o.1736
+     0000000000600ac8 b p.1737
+</span><span class="org-block-end-line">   #+end_example
+</span>
+   There are following rules.
+   1. All normal local variables(without static) are allocated on stack.
+   2. Initialized variable are stored in <span class="bold">*Data*</span> segment(D/d). Note
+      that if a variable is initialized to <span class="org-verbatim">=0=</span>, it is treated as
+      non-initialized(variable b, d).
+   3. Non-initialized variables are stored in <span class="bold">*BSS*</span> segment.
+   4. all static variables are treated as global defined variable
+      except that they are not visible outside their module(file or function).
+
+<span class="org-level-2">** Variable Scope</span>
+   A variable is visiable immediately after its declaration:
+<span class="org-block-begin-line">   #+begin_src C :results output
+</span><span class="org-block">     #include &lt;stdio.h&gt;
+     int a = 1;
+     int b = 10;
+     int main(int argc, char *argv[])
+     {
+         printf("%d\n", a);
+         int a = 2;
+         printf("%d\n", a);
+
+         int b = b; /* b remains undefined */
+         printf("%d\n", b);
+         return 0;
+     }
+
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 1
+</span>   <span class="org-code">: 2
+</span>   <span class="org-code">: 0
+</span>
+<span class="org-level-2">** Parameter Order</span>
+   Note that the evaluation order of the parameters of C/C++ is from
+   right to left:
+<span class="org-block-begin-line">   #+begin_src C :results output
+</span><span class="org-block">     #include &lt;stdio.h&gt;
+
+     int func1() {printf("Function 1\n"); return 1;}
+     int func2() {printf("Function 2\n"); return 1;}
+
+     void func3(int a, int b) {return;}
+
+     int main(int argc, char *argv[])
+     {
+         int b = 3;
+         int arr[] = {6,7,8,9,10};
+         int *ptr = arr;
+         printf("%d, %d\n", *ptr, *(++ptr));
+
+         printf("%d, %d\n", func1(), func2());
+
+         func3(func1(), func2());
+         return 0;
+     }
+
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 7, 7
+</span>   <span class="org-code">: Function 2
+</span>   <span class="org-code">: Function 1
+</span>   <span class="org-code">: 1, 1
+</span>   <span class="org-code">: Function 2
+</span>   <span class="org-code">: Function 1
+</span>
+<span class="org-level-2">** Big/Little endian</span>
+<span class="org-block-begin-line">   #+begin_src C
+</span><span class="org-block">     #include &lt;stdio.h&gt;
+
+     int main(int argc, char *argv[])
+     {
+         unsigned int tmp = 0x01020304;
+         char *b = (char *)&amp;tmp;
+         printf("%x %x %x %x\n", *b, *(b+1), *(b+2), *(b+3));
+
+         /* big endian    =&gt; 1 2 3 4
+            little endian =&gt; 4 3 2 1 */
+
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-level-2">** extern C</span>
+   When C++ make uses of C compiled libraries =extern "C"= should be
+   added. This is because C++ allows function overload. Suppose we
+   have C function <span class="org-verbatim">=void foo(int x, int y)=</span>, C compiled library will
+   have symbol name like <span class="org-verbatim">=_foo=</span>, after adding =extern "C"=, C++ will
+   have names like <span class="org-verbatim">=_foo_int_int=</span> which include its parameter information.
+
+<span class="org-level-2">** mutable</span>
+   <span class="org-verbatim">=mutable=</span> is a keyword in C++ and is used to describe class members
+   to allow <span class="org-verbatim">=const=</span> member functions to modify it.
+
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     #include &lt;iostream&gt;
+     #include &lt;string&gt;
+     using namespace std;
+     class Student{
+         string Name;
+         int time_of_getname;
+     public:
+         Student(char *name){
+             Name = name;
+             time_of_getname = 0;
+         }
+         string get_name() {
+             time_of_getname ++;
+             return Name;
+         }
+     };
+     int main(int argc, char *argv[])
+     {
+         const Student xx("Foo Bar");
+         cout &lt;&lt; xx.get_name() &lt;&lt; endl; // error, const object calls non-const function
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+   Then set <span class="org-verbatim">=get_name=</span> to const function and <span class="org-verbatim">=time_of_getname=</span> to
+   mutable(otherwise compilation will fail):
+
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     #include &lt;iostream&gt;
+     #include &lt;string&gt;
+     using namespace std;
+     class Student{
+         string Name;
+         mutable int time_of_getname;
+     public:
+         Student(char *name){
+             Name = name;
+             time_of_getname = 0;
+         }
+         string get_name() const {
+             time_of_getname ++;
+             return Name;
+         }
+     };
+     int main(int argc, char *argv[])
+     {
+         const Student xx("Foo Bar");
+         cout &lt;&lt; xx.get_name() &lt;&lt; endl; // error, const object calls non-const function
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-level-2">** sizeof</span>
+   1. Empty class have size of <span class="bold">*1 byte*</span>.
+   2. If a class includes virtual function, or it uses virtual inherit
+      it will add a pointer to a virtual table, thus need one more
+      pointer.
+   3. <span class="org-verbatim">=static=</span> member do not count when calculating <span class="org-verbatim">=sizeof=</span>.
+   4. Other members are counted like <span class="org-verbatim">=struct=</span> for data alignment.
+   5. Derived class will have all members of its parents.
+
+<span class="org-block-begin-line">   #+begin_src cpp :results output
+</span><span class="org-block">     #include &lt;iostream&gt;
+     using namespace std;
+
+     class Empty {};
+     class Derived1: public Empty {};
+     class Derived2: public Empty {};
+     class Multiple: public Derived1, public Derived2 {};
+
+     class A: virtual public Empty {};
+     class C: public A, public Derived1 {};
+
+     class Virtual {virtual void display() {}};
+
+     class Static{
+         int a;
+         static int not_count;
+     };
+
+     class Normal{
+         int i;
+         char c;
+         double d;
+         char cc;
+     };
+
+
+     int main(int argc, char *argv[])
+     {
+         cout &lt;&lt; "In 64bit System" &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Empty class):\t" &lt;&lt; sizeof(Empty) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Derived class):\t" &lt;&lt; sizeof(Derived1) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Multiple):\t" &lt;&lt; sizeof(Multiple) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Multiple of virtual):\t" &lt;&lt; sizeof(C) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(virtual):\t" &lt;&lt; sizeof(Virtual) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Static):\t" &lt;&lt; sizeof(Static) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(Normal):\t" &lt;&lt; sizeof(Normal) &lt;&lt; endl;
+         cout &lt;&lt; "sizeof(virtual inherit):\t" &lt;&lt; sizeof(A) &lt;&lt; endl;
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: In 64bit System
+</span>   <span class="org-code">: sizeof(Empty class):       1
+</span>   <span class="org-code">: sizeof(Derived class):     1
+</span>   <span class="org-code">: sizeof(Multiple):  2
+</span>   <span class="org-code">: sizeof(Multiple of virtual):       16
+</span>   <span class="org-code">: sizeof(virtual):   8
+</span>   <span class="org-code">: sizeof(Static):    4
+</span>   <span class="org-code">: sizeof(Normal):    24
+</span>   <span class="org-code">: sizeof(virtual inherit):   8
+</span>
+   A brief summary of struct alignment.
+   1. Members are aligned to the next multiplications of their size. For
+      example, <span class="org-verbatim">=short=</span> must be aligned to <span class="org-verbatim">=addr%2 ==</span> 0=, <span class="org-verbatim">=double=</span>
+      should be aligned to <span class="org-verbatim">=addr%2 ==</span> 8=, etc.
+   2. The size of struct is the multiple of the maximal size of its member.
+   3. If a struct contains another struct, the final size of the
+      struct is the multiple of the maximal size of all members of the
+      struct recursively.
+<span class="org-block-begin-line">   #+begin_src C :results output
+</span><span class="org-block">     /* in Linux 64-bit machine, sizeof(long double) = 16 */
+     #include &lt;stdio.h&gt;
+     struct NonEmpty {char c; long double d; char f;};
+     struct Sub {
+         struct NonEmpty a;
+         char b;
+     };
+
+     int main(int argc, char *argv[])
+     {
+         printf("%d\n", sizeof(struct NonEmpty));
+         printf("%d\n", sizeof(struct Sub));
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 48
+</span>   <span class="org-code">: 64
+</span>
+   <span class="bold">*Reference for structure padding*</span>
+   - <span class="org-link"><a href="http://www.catb.org/esr/structure-packing/">[[http://www.catb.org/esr/structure-packing/][</a><a href="http://www.catb.org/esr/structure-packing/">Structure Padding</a><a href="http://www.catb.org/esr/structure-packing/">]]</a></span>
+   - <span class="org-link"><a href="http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/">[[http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/][</a><a href="http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/">Structure Member Alignment</a><a href="http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/">]]</a></span>
+
+<span class="org-level-2">** const</span>
+   C++ do not allow empty const variable while c do;
+<span class="org-block-begin-line">   #+begin_src C
+</span><span class="org-block">     int main(int argc, char *argv[])
+     {
+         const int i;  // Compile error in C++ while OK in C
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span><span class="org-level-1">* Classes</span>
+<span class="org-level-2">** Inheritance</span>
+   A derived class can access all the non-private member of its base
+   class. Thus the base-class members that should not be accessible to
+   the member functions of derived class should be declared private in
+   the base class
+
+   <span class="org-table">| Access          | Public | Protected | Private |</span>
+   <span class="org-table">|-----------------+--------+-----------+---------|</span>
+   <span class="org-table">| Same class      | yes    | yes       | yes     |</span>
+   <span class="org-table">| Derived classes | yes    | yes       | no      |</span>
+   <span class="org-table">| Outside classes | yes    | no        | no      |</span>
+
+   A derived class inherits all base class methods with the following
+   <span class="bold">*exceptions*</span>:
+   - Constructors, desctructors and copy constructors of the base
+     class.
+   - Overloaded operators of the base class.
+   - The friend functions of the base class.
+
+   <span class="bold">*References*</span>
+   - <span class="org-link"><a href="http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">[[http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm][</a><a href="http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">C++ Inheritance</a><a href="http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">]]</a></span>
+
+<span class="org-level-2">** Virtual Function</span>
+   Virtual function come into place where member function overriding
+   exists. Normally, C++ will call the member function according to
+   the type of current object.
+<span class="org-block-begin-line">   #+begin_src cpp :results output
+</span><span class="org-block">     #include &lt;iostream&gt;
+     using namespace std;
+
+     class B
+     {
+     public:
+         void display()
+             { cout &lt;&lt; "Content of base class.\n"; }
+     };
+
+     class D : public B
+     {
+     public:
+         void display()
+             {cout &lt;&lt; "Content of derived class.\n"; }
+     };
+
+     int main(int argc, char *argv[])
+     {
+         B *b;
+         D d;
+         d.display();
+
+         b = &amp;d; /* convert pointer to derived object to base class */
+         b-&gt;display();
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: Content of derived class.
+</span>   <span class="org-code">: Content of base class.
+</span>
+   Even if the object <span class="org-verbatim">=b=</span> points to is actually a object of class <span class="org-verbatim">=D=</span>,
+   class <span class="org-verbatim">=B=</span>'s member function <span class="org-verbatim">=display=</span> is called(member function of
+   the class that matches the type of pointer).
+
+   Virtual function gives the programmer the capability to call member
+   function of different class by a same function call depending upon
+   different context.
+
+<span class="org-block-begin-line">   #+begin_src cpp :results output
+</span><span class="org-block">     #include &lt;iostream&gt;
+     using namespace std;
+
+     class B
+     {
+     public:
+         virtual void display()
+             { cout &lt;&lt; "Content of base class.\n"; }
+     };
+
+     class D1 : public B
+     {
+     public:
+         void display()
+             {cout &lt;&lt; "Content of first derived class.\n"; }
+     };
+
+     class D2 : public B
+     {
+     public:
+         void display()
+             {cout &lt;&lt; "Content of second derived class.\n"; }
+     };
+
+     int main(int argc, char *argv[])
+     {
+         B *b;
+         B bt;
+         D1 d1;
+         D2 d2;
+
+         b = &amp;bt;
+         b-&gt;display(); /* calls B's display() */
+
+         b = &amp;d1;
+         b-&gt;display(); /* calls display() of derived class D1 */
+
+         b = &amp;d2;
+         b-&gt;display(); /* calls display() of derived class D2 */
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: Content of base class.
+</span>   <span class="org-code">: Content of first derived class.
+</span>   <span class="org-code">: Content of second derived class.
+</span>
+   In this example, <span class="org-verbatim">=display()=</span> function of the three classes are
+   called with the same code.
+
+   <span class="bold">*pure virtual function*</span> is declared using <span class="org-verbatim">=virtual float area() =
+   0=</span>, Notice the <span class="org-verbatim">=\=0=</span> part.
+   If a class contains at least one pure virtual function, that class
+   is known as <span class="bold">*abstract class*</span> and cannot be instanciate.
+
+   <span class="bold">*References*</span>
+   - <span class="org-link"><a href="http://www.programiz.com/cpp-programming/virtual-functions">[[http://www.programiz.com/cpp-programming/virtual-functions][</a><a href="http://www.programiz.com/cpp-programming/virtual-functions">C++ Virtual Function</a><a href="http://www.programiz.com/cpp-programming/virtual-functions">]]</a></span>
+
+<span class="org-level-2">** Virtual Destructor</span>
+   If the destructor of the <span class="bold">*Base*</span> class is not virtual, then a <span class="bold">*Base*</span>
+   pointer to a <span class="bold">*Derived*</span> class will call <span class="bold">*Base*</span>'s destructor
+   only. Note that this behavior is actually <span class="bold">*undefined*</span>!. So even if
+   you have nothing to release in <span class="bold">*Derived*</span> class, don't do this!
+
+   Note: in a derived class, if your base class has a virtual
+   destructor, your own destructor is automatically virtual. You might
+   need an explicitly defined destructor for other reasons, but
+   there's no need to redeclare a destructor simply to make sure it is
+   virtual. No matter whether you declare it with the virtual keyword,
+   declare it without the virtual keyword, or don't declare it at all,
+   it's still virtual.
+
+   <span class="bold">*References*</span>
+   - <span class="org-link"><a href="http://en.wikipedia.org/wiki/Virtual_function#Virtual_destructors">[[http://en.wikipedia.org/wiki/Virtual_function#Virtual_destructors][</a><a href="http://en.wikipedia.org/wiki/Virtual_function#Virtual_destructors">Virtual Functions</a><a href="http://en.wikipedia.org/wiki/Virtual_function#Virtual_destructors">]]</a></span>
+   - <span class="org-link"><a href="http://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">[[http://stackoverflow.com/questions/461203/when-to-use-virtual-destructors][</a><a href="http://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">When to use virtual destructors</a><a href="http://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">]]</a></span>
+   - <span class="org-link"><a href="http://www.gotw.ca/publications/mill18.htm">[[http://www.gotw.ca/publications/mill18.htm][</a><a href="http://www.gotw.ca/publications/mill18.htm">Virtuality</a><a href="http://www.gotw.ca/publications/mill18.htm">]]</a></span>
+
+<span class="org-level-2">** Virtual Inheritance</span>
+   Virtual inheritance is used to solve
+   <span class="org-link"><a href="http://en.wikipedia.org/wiki/Diamond_problem">[[http://en.wikipedia.org/wiki/Diamond_problem][</a><a href="http://en.wikipedia.org/wiki/Diamond_problem">Diamond Problem</a><a href="http://en.wikipedia.org/wiki/Diamond_problem">]]</a></span>.
+
+   Examples of diamond problem and solution are illustrated in <span class="org-link"><a href="http://en.wikipedia.org/wiki/Virtual_inheritance">[[http://en.wikipedia.org/wiki/Virtual_inheritance][</a><a href="http://en.wikipedia.org/wiki/Virtual_inheritance">Virtual Inheritance</a><a href="http://en.wikipedia.org/wiki/Virtual_inheritance">]]</a></span>.
+   Here I quote the example:
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     class Animal {
+     public:
+         virtual void eat();
+     };
+
+     // Two classes virtually inheriting Animal:
+     class Mammal : public virtual Animal {
+     public:
+         virtual void breathe();
+     };
+
+     class WingedAnimal : public virtual Animal {
+     public:
+         virtual void flap();
+     };
+
+     // A bat is still a winged mammal
+     class Bat : public Mammal, public WingedAnimal {
+     };
+</span><span class="org-block-end-line">   #+end_src
+</span>   Normally, inheritance without virtual keyword would make <span class="org-verbatim">=Bat=</span> a
+   <span class="org-verbatim">=&lt;Mammal, WingedAnimal&gt;=</span> object. Thus there exists two instance of
+   the grand-class <span class="org-verbatim">=Animal=</span>. With virtual inheritance, <span class="org-verbatim">=Bat=</span> will
+   include only one instance of <span class="org-verbatim">=Animal=</span> and add some information to
+   <span class="org-verbatim">=Mammal=</span> and <span class="org-verbatim">=WingedAnimal=</span>, that makes <span class="org-verbatim">=Bat=</span> like this: <span class="org-verbatim">=&lt;vpointer,
+   Mammal, vpointer, WingedAnimal, Bat, Animal&gt;=</span>.
+
+   Take the above into account when calculating the size of a class.
+
+<span class="org-level-2">** constant member functions</span>
+   Declaring a member function with the <span class="org-verbatim">=const=</span> keyword specifies that
+   the function is a "read-only" function that does not modify the
+   object for which it is called. A constant member function cannot
+   modify any non-static data members or call any member function that
+   are't constant.
+
+   It's like a mechanism to ensure that the function has no side-effect.
+
+   Note that <span class="org-verbatim">=const=</span> object can only call member functions that are <span class="org-verbatim">=const=</span>.
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     // constant_member_function.cpp
+     class Date
+     {
+     public:
+         Date( int mn, int dy, int yr ){
+             month = mn;
+         };
+         int getMonth() const;     // A read-only function
+         void setMonth( int mn );   // A write function; can't be const
+     private:
+         int month;
+     };
+
+     int Date::getMonth() const
+     {
+         return month;        // Doesn't modify anything
+     }
+     void Date::setMonth( int mn )
+     {
+         month = mn;          // Modifies data member
+     }
+     int main()
+     {
+         Date MyDate( 7, 4, 1998 );
+         const Date BirthDate( 1, 18, 1953 );
+         MyDate.setMonth( 4 );    // Okay
+         BirthDate.getMonth();    // Okay
+         // BirthDate.setMonth( 4 ); // C2662 Error &lt;=
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
+   <span class="bold">*References*</span>
+   - <span class="org-link"><a href="http://msdn.microsoft.com/en-us/library/6ke686zh.aspx">[[http://msdn.microsoft.com/en-us/library/6ke686zh.aspx][</a><a href="http://msdn.microsoft.com/en-us/library/6ke686zh.aspx">Constant Member Functions</a><a href="http://msdn.microsoft.com/en-us/library/6ke686zh.aspx">]]</a></span>
+<span class="org-level-2">** Named Constructor Idiom</span>
+   <span class="org-link"><a href="http://www.parashift.com/c%2B%2B-faq-lite/named-ctor-idiom.html">[[http://www.parashift.com/c%2B%2B-faq-lite/named-ctor-idiom.html][</a><a href="http://www.parashift.com/c%2B%2B-faq-lite/named-ctor-idiom.html">What is the "Named Constructor Idiom"</a><a href="http://www.parashift.com/c%2B%2B-faq-lite/named-ctor-idiom.html">]]</a></span>
+   Named constructor idiom provide more intuitive and/or safer
+   construction operation for user of your code. It can also be used
+   to generate objects when you make your constructor private.
+<span class="org-block-begin-line">   #+begin_src cpp
+</span><span class="org-block">     class Base
+     {
+         Base(){}
+     public:
+         static Base generate(){ return Base(); }
+     };
+
+
+     int main(int argc, char *argv[])
+     {
+         // Base b; // Error due to private constructor.
+         Base b = Base::generate();
+         return 0;
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span></pre>
   </body>
 </html>

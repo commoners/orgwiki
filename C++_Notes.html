@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>C++ Notes</title>
-<!-- 2014-09-11 -->
+<!-- 2014-09-26 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -76,9 +76,36 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">objects</a>
+<li><a href="#sec-1">Utils</a>
 <ul>
-<li><a href="#sec-1-1">How to make <code>static</code> entries global</a></li>
+<li><a href="#sec-1-1">g++ show V-table</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">objects</a>
+<ul>
+<li><a href="#sec-2-1">How to make <code>static</code> entries global</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Syntax/Compilation</a>
+<ul>
+<li><a href="#sec-3-1">Variable and Segment</a></li>
+<li><a href="#sec-3-2">Variable Scope</a></li>
+<li><a href="#sec-3-3">Parameter Order</a></li>
+<li><a href="#sec-3-4">Big/Little endian</a></li>
+<li><a href="#sec-3-5">extern C</a></li>
+<li><a href="#sec-3-6">mutable</a></li>
+<li><a href="#sec-3-7">sizeof</a></li>
+<li><a href="#sec-3-8">const</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">Classes</a>
+<ul>
+<li><a href="#sec-4-1">Inheritance</a></li>
+<li><a href="#sec-4-2">Virtual Function</a></li>
+<li><a href="#sec-4-3">Virtual Destructor</a></li>
+<li><a href="#sec-4-4">Virtual Inheritance</a></li>
+<li><a href="#sec-4-5">constant member functions</a></li>
+<li><a href="#sec-4-6">Named Constructor Idiom</a></li>
 </ul>
 </li>
 </ul>
@@ -86,11 +113,25 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">objects</h2>
+<h2 id="sec-1">Utils</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">How to make <code>static</code> entries global</h3>
+<h3 id="sec-1-1">g++ show V-table</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+Type <code>g++ -fdump-class-hierarchy xx.cpp</code> and it will generate a
+<code>.class</code> file.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">objects</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">How to make <code>static</code> entries global</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 Suppose you have an object file: <code>foo.o</code>. Then you can check symbol
 table by:
@@ -131,7 +172,7 @@ flag <code>l</code>, while <code>multiply</code> is global symbol by flag <code>
 Save the symbols you want to globalized to a text file:
 </p>
 <pre class="example">
-$ cat foobar 
+$ cat foobar
 add2
 </pre>
 
@@ -148,6 +189,742 @@ And Use <code>objcopy</code> to create a new object file for use.
 <li><a href="http://stackoverflow.com/questions/9806282/is-it-possible-to-override-static-functions-in-an-object-module-gcc-ld-x86-o">is it possible to override static functions</a>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Syntax/Compilation</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Variable and Segment</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+In Linux, use <code>nm a.out</code> or <code>objdump -t a.out</code> to display symbols.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 1;
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 0;
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">c</span>;
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">d</span>[] = {0,0,0,0,0};
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">e</span>[] = {0,0,0,0,5};
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">f</span>[5];
+<span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">g</span> = 20;
+<span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">h</span>;
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span> = 1;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span> = 0;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">k</span>;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">l</span>[] = {0,0,0,0,0};
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">m</span>[] = {0,0,0,0,5};
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">n</span>[5];
+    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">o</span> = 20;
+    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">p</span>;
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+Symbols as follows(Upper case means the symbol is global/external):
+</p>
+<pre class="example">
+0000000000600a60 D a
+0000000000600aa0 B b
+0000000000600ae4 B c
+0000000000600ab0 B d
+0000000000600a70 D e
+0000000000600ad0 B f
+0000000000600a84 d g
+0000000000600ac4 b h
+0000000000600a88 d o.1736
+0000000000600ac8 b p.1737
+</pre>
+
+<p>
+There are following rules.
+</p>
+<ol class="org-ol">
+<li>All normal local variables(without static) are allocated on stack.
+</li>
+<li>Initialized variable are stored in <b>Data</b> segment(D/d). Note
+that if a variable is initialized to <code>0</code>, it is treated as
+non-initialized(variable b, d).
+</li>
+<li>Non-initialized variables are stored in <b>BSS</b> segment.
+</li>
+<li>all static variables are treated as global defined variable
+except that they are not visible outside their module(file or function).
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Variable Scope</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A variable is visiable immediately after its declaration:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 1;
+<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 10;
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    printf(<span style="color: #cc9393;">"%d\n"</span>, a);
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 2;
+    printf(<span style="color: #cc9393;">"%d\n"</span>, a);
+
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = b; <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">b remains undefined </span><span style="color: #7f9f7f;">*/</span>
+    printf(<span style="color: #cc9393;">"%d\n"</span>, b);
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">Parameter Order</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Note that the evaluation order of the parameters of C/C++ is from
+right to left:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">func1</span>() {printf(<span style="color: #cc9393;">"Function 1\n"</span>); <span style="color: #f0dfaf; font-weight: bold;">return</span> 1;}
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">func2</span>() {printf(<span style="color: #cc9393;">"Function 2\n"</span>); <span style="color: #f0dfaf; font-weight: bold;">return</span> 1;}
+
+<span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">func3</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span>) {<span style="color: #f0dfaf; font-weight: bold;">return</span>;}
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 3;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">arr</span>[] = {6,7,8,9,10};
+    <span style="color: #8cd0d3;">int</span> *<span style="color: #dfaf8f;">ptr</span> = arr;
+    printf(<span style="color: #cc9393;">"%d, %d\n"</span>, *ptr, *(++ptr));
+
+    printf(<span style="color: #cc9393;">"%d, %d\n"</span>, func1(), func2());
+
+    func3(func1(), func2());
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">Big/Little endian</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #8cd0d3;">unsigned</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">tmp</span> = 0x01020304;
+    <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">b</span> = (<span style="color: #8cd0d3;">char</span> *)&amp;tmp;
+    printf(<span style="color: #cc9393;">"%x %x %x %x\n"</span>, *b, *(b+1), *(b+2), *(b+3));
+
+    <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">big endian    =&gt; 1 2 3 4</span>
+<span style="color: #7f9f7f;">       little endian =&gt; 4 3 2 1 </span><span style="color: #7f9f7f;">*/</span>
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5">extern C</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+When C++ make uses of C compiled libraries =extern "C"= should be
+added. This is because C++ allows function overload. Suppose we
+have C function <code>void foo(int x, int y)</code>, C compiled library will
+have symbol name like <code>_foo</code>, after adding <code>extern "C"=, C++ will
+   have names like =_foo_int_int</code> which include its parameter information.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6">mutable</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+<code>mutable</code> is a keyword in C++ and is used to describe class members
+to allow <code>const</code> member functions to modify it.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;string&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Student</span>{
+    <span style="color: #8cd0d3;">string</span> <span style="color: #dfaf8f;">Name</span>;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">time_of_getname</span>;
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">Student</span>(<span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">name</span>){
+        Name = name;
+        time_of_getname = 0;
+    }
+    <span style="color: #8cd0d3;">string</span> <span style="color: #8cd0d3;">get_name</span>() {
+        time_of_getname ++;
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> Name;
+    }
+};
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Student</span> <span style="color: #dfaf8f;">xx</span>(<span style="color: #cc9393;">"Foo Bar"</span>);
+    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">error, const object calls non-const function</span>
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+Then set <code>get_name</code> to const function and <code>time_of_getname</code> to
+mutable(otherwise compilation will fail):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;string&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Student</span>{
+    <span style="color: #8cd0d3;">string</span> <span style="color: #dfaf8f;">Name</span>;
+    <span style="color: #f0dfaf; font-weight: bold;">mutable</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">time_of_getname</span>;
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">Student</span>(<span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">name</span>){
+        Name = name;
+        time_of_getname = 0;
+    }
+    <span style="color: #8cd0d3;">string</span> <span style="color: #8cd0d3;">get_name</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span> {
+        time_of_getname ++;
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> Name;
+    }
+};
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Student</span> <span style="color: #dfaf8f;">xx</span>(<span style="color: #cc9393;">"Foo Bar"</span>);
+    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">error, const object calls non-const function</span>
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7">sizeof</h3>
+<div class="outline-text-3" id="text-3-7">
+<ol class="org-ol">
+<li>Empty class have size of <b>1 byte</b>.
+</li>
+<li>If a class includes virtual function, or it uses virtual inherit
+it will add a pointer to a virtual table, thus need one more
+pointer.
+</li>
+<li><code>static</code> member do not count when calculating <code>sizeof</code>.
+</li>
+<li>Other members are counted like <code>struct</code> for data alignment.
+</li>
+<li>Derived class will have all members of its parents.
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Empty</span> {};
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Derived1</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Derived2</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Multiple</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived1</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived2</span> {};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>: <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">C</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">A</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived1</span> {};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Virtual</span> {<span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>() {}};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Static</span>{
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span>;
+    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">not_count</span>;
+};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Normal</span>{
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
+    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span>;
+    <span style="color: #8cd0d3;">double</span> <span style="color: #dfaf8f;">d</span>;
+    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">cc</span>;
+};
+
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    cout &lt;&lt; <span style="color: #cc9393;">"In 64bit System"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Empty class):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Empty) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Derived class):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Derived1) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Multiple):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Multiple) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Multiple of virtual):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(C) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(virtual):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Virtual) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Static):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Static) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Normal):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Normal) &lt;&lt; endl;
+    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(virtual inherit):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(A) &lt;&lt; endl;
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+A brief summary of struct alignment.
+</p>
+<ol class="org-ol">
+<li>Members are aligned to the next multiplications of their size. For
+example, <code>short</code> must be aligned to <code>addr%2 =</code> 0=, <code>double</code>
+should be aligned to <code>addr%2 =</code> 8=, etc.
+</li>
+<li>The size of struct is the multiple of the maximal size of its member.
+</li>
+<li>If a struct contains another struct, the final size of the
+struct is the multiple of the maximal size of all members of the
+struct recursively.
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">in Linux 64-bit machine, sizeof(long double) = 16 </span><span style="color: #7f9f7f;">*/</span>
+<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span> {<span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span>; <span style="color: #8cd0d3;">long</span> <span style="color: #8cd0d3;">double</span> <span style="color: #dfaf8f;">d</span>; <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">f</span>;};
+<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">Sub</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span> <span style="color: #dfaf8f;">a</span>;
+    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">b</span>;
+};
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    printf(<span style="color: #cc9393;">"%d\n"</span>, <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span>));
+    printf(<span style="color: #cc9393;">"%d\n"</span>, <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">Sub</span>));
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+<b>Reference for structure padding</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://www.catb.org/esr/structure-packing/">Structure Padding</a>
+</li>
+<li><a href="http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/">Structure Member Alignment</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8">const</h3>
+<div class="outline-text-3" id="text-3-8">
+<p>
+C++ do not allow empty const variable while c do;
+</p>
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Compile error in C++ while OK in C</span>
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Classes</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Inheritance</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+A derived class can access all the non-private member of its base
+class. Thus the base-class members that should not be accessible to
+the member functions of derived class should be declared private in
+the base class
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Access</th>
+<th scope="col" class="left">Public</th>
+<th scope="col" class="left">Protected</th>
+<th scope="col" class="left">Private</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Same class</td>
+<td class="left">yes</td>
+<td class="left">yes</td>
+<td class="left">yes</td>
+</tr>
+
+<tr>
+<td class="left">Derived classes</td>
+<td class="left">yes</td>
+<td class="left">yes</td>
+<td class="left">no</td>
+</tr>
+
+<tr>
+<td class="left">Outside classes</td>
+<td class="left">yes</td>
+<td class="left">no</td>
+<td class="left">no</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+A derived class inherits all base class methods with the following
+<b>exceptions</b>:
+</p>
+<ul class="org-ul">
+<li>Constructors, desctructors and copy constructors of the base
+class.
+</li>
+<li>Overloaded operators of the base class.
+</li>
+<li>The friend functions of the base class.
+</li>
+</ul>
+
+<p>
+<b>References</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">C++ Inheritance</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Virtual Function</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Virtual function come into place where member function overriding
+exists. Normally, C++ will call the member function according to
+the type of current object.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">B</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
+        { cout &lt;&lt; <span style="color: #cc9393;">"Content of base class.\n"</span>; }
+};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
+        {cout &lt;&lt; <span style="color: #cc9393;">"Content of derived class.\n"</span>; }
+};
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #8cd0d3;">B</span> *<span style="color: #dfaf8f;">b</span>;
+    <span style="color: #8cd0d3;">D</span> <span style="color: #dfaf8f;">d</span>;
+    d.display();
+
+    b = &amp;d; <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">convert pointer to derived object to base class */</span>
+    b-&gt;display();
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+Even if the object <code>b</code> points to is actually a object of class <code>D</code>,
+class <code>B</code>'s member function <code>display</code> is called(member function of
+the class that matches the type of pointer).
+</p>
+
+<p>
+Virtual function gives the programmer the capability to call member
+function of different class by a same function call depending upon
+different context.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">B</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
+        { cout &lt;&lt; <span style="color: #cc9393;">"Content of base class.\n"</span>; }
+};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D1</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
+        {cout &lt;&lt; <span style="color: #cc9393;">"Content of first derived class.\n"</span>; }
+};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D2</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
+        {cout &lt;&lt; <span style="color: #cc9393;">"Content of second derived class.\n"</span>; }
+};
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #8cd0d3;">B</span> *<span style="color: #dfaf8f;">b</span>;
+    <span style="color: #8cd0d3;">B</span> <span style="color: #dfaf8f;">bt</span>;
+    <span style="color: #8cd0d3;">D1</span> <span style="color: #dfaf8f;">d1</span>;
+    <span style="color: #8cd0d3;">D2</span> <span style="color: #dfaf8f;">d2</span>;
+
+    b = &amp;bt;
+    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls B's display() */</span>
+
+    b = &amp;d1;
+    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls display() of derived class D1 */</span>
+
+    b = &amp;d2;
+    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls display() of derived class D2 */</span>
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+In this example, <code>display()</code> function of the three classes are
+called with the same code.
+</p>
+
+<p>
+<b>pure virtual function</b> is declared using <code>virtual float area() =
+   0</code>, Notice the <code>\=0</code> part.
+If a class contains at least one pure virtual function, that class
+is known as <b>abstract class</b> and cannot be instanciate.
+</p>
+
+<p>
+<b>References</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://www.programiz.com/cpp-programming/virtual-functions">C++ Virtual Function</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Virtual Destructor</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+If the destructor of the <b>Base</b> class is not virtual, then a <b>Base</b>
+pointer to a <b>Derived</b> class will call <b>Base</b>'s destructor
+only. Note that this behavior is actually <b>undefined</b>!. So even if
+you have nothing to release in <b>Derived</b> class, don't do this!
+</p>
+
+<p>
+Note: in a derived class, if your base class has a virtual
+destructor, your own destructor is automatically virtual. You might
+need an explicitly defined destructor for other reasons, but
+there's no need to redeclare a destructor simply to make sure it is
+virtual. No matter whether you declare it with the virtual keyword,
+declare it without the virtual keyword, or don't declare it at all,
+it's still virtual.
+</p>
+
+<p>
+<b>References</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://en.wikipedia.org/wiki/Virtual_function#Virtual_destructors">Virtual Functions</a>
+</li>
+<li><a href="http://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">When to use virtual destructors</a>
+</li>
+<li><a href="http://www.gotw.ca/publications/mill18.htm">Virtuality</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4">Virtual Inheritance</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Virtual inheritance is used to solve
+<a href="http://en.wikipedia.org/wiki/Diamond_problem">Diamond Problem</a>.
+</p>
+
+<p>
+Examples of diamond problem and solution are illustrated in <a href="http://en.wikipedia.org/wiki/Virtual_inheritance">Virtual Inheritance</a>.
+Here I quote the example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Animal</span> {
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">eat</span>();
+};
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Two classes virtually inheriting Animal:</span>
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Mammal</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">Animal</span> {
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">breathe</span>();
+};
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">WingedAnimal</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">Animal</span> {
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">flap</span>();
+};
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A bat is still a winged mammal</span>
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Bat</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Mammal</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">WingedAnimal</span> {
+};
+</pre>
+</div>
+<p>
+Normally, inheritance without virtual keyword would make <code>Bat</code> a
+<code>&lt;Mammal, WingedAnimal&gt;</code> object. Thus there exists two instance of
+the grand-class <code>Animal</code>. With virtual inheritance, <code>Bat</code> will
+include only one instance of <code>Animal</code> and add some information to
+<code>Mammal</code> and <code>WingedAnimal</code>, that makes <code>Bat</code> like this: <code>&lt;vpointer,
+   Mammal, vpointer, WingedAnimal, Bat, Animal&gt;</code>.
+</p>
+
+<p>
+Take the above into account when calculating the size of a class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5">constant member functions</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Declaring a member function with the <code>const</code> keyword specifies that
+the function is a "read-only" function that does not modify the
+object for which it is called. A constant member function cannot
+modify any non-static data members or call any member function that
+are't constant.
+</p>
+
+<p>
+It's like a mechanism to ensure that the function has no side-effect.
+</p>
+
+<p>
+Note that <code>const</code> object can only call member functions that are <code>const</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">constant_member_function.cpp</span>
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Date</span>
+{
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">Date</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">dy</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">yr</span> ){
+        month = mn;
+    };
+    <span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">getMonth</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span>;     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A read-only function</span>
+    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">setMonth</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span> );   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A write function; can't be const</span>
+<span style="color: #f0dfaf; font-weight: bold;">private</span>:
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">month</span>;
+};
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #bfebbf;">Date</span>::<span style="color: #8cd0d3;">getMonth</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span>
+{
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> month;        <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Doesn't modify anything</span>
+}
+<span style="color: #8cd0d3;">void</span> <span style="color: #bfebbf;">Date</span>::<span style="color: #8cd0d3;">setMonth</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span> )
+{
+    month = mn;          <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Modifies data member</span>
+}
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>()
+{
+    <span style="color: #8cd0d3;">Date</span> <span style="color: #dfaf8f;">MyDate</span>( 7, 4, 1998 );
+    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Date</span> <span style="color: #dfaf8f;">BirthDate</span>( 1, 18, 1953 );
+    MyDate.setMonth( 4 );    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Okay</span>
+    BirthDate.getMonth();    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Okay</span>
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">BirthDate.setMonth( 4 ); // C2662 Error &lt;=</span>
+}
+</pre>
+</div>
+
+<p>
+<b>References</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://msdn.microsoft.com/en-us/library/6ke686zh.aspx">Constant Member Functions</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6">Named Constructor Idiom</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+<a href="http://www.parashift.com/c++-faq-lite/named-ctor-idiom.html">What is the "Named Constructor Idiom"</a>
+Named constructor idiom provide more intuitive and/or safer
+construction operation for user of your code. It can also be used
+to generate objects when you make your constructor private.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Base</span>
+{
+    <span style="color: #8cd0d3;">Base</span>(){}
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">Base</span> <span style="color: #8cd0d3;">generate</span>(){ <span style="color: #f0dfaf; font-weight: bold;">return</span> Base(); }
+};
+
+
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+{
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Base b; // Error due to private constructor.</span>
+    <span style="color: #8cd0d3;">Base</span> <span style="color: #dfaf8f;">b</span> = <span style="color: #bfebbf;">Base</span>::generate();
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+}
+</pre>
+</div>
 </div>
 </div>
 </div>

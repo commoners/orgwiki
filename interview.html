@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>面试技能收集</title>
-<!-- 2014-09-24 -->
+<!-- 2014-09-26 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -93,6 +93,8 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#sec-1-3">sizeof</a></li>
+<li><a href="#sec-1-4">如何防止类被实例化</a></li>
+<li><a href="#sec-1-5">如何防止类被继承</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">Python</a>
@@ -111,13 +113,32 @@ for the JavaScript code in this tag.
 <li><a href="#sec-3-2">从输入URL到浏览器显示，后台发生了什么</a></li>
 </ul>
 </li>
+<li><a href="#sec-4">Linux System Programming</a>
+<ul>
+<li><a href="#sec-4-1">IPC(Inter-Process Communication)</a>
+<ul>
+<li><a href="#sec-4-1-1">PIPE</a></li>
+<li><a href="#sec-4-1-2">FIFO</a></li>
+<li><a href="#sec-4-1-3">message queue</a></li>
+<li><a href="#sec-4-1-4">shared memory</a></li>
+<li><a href="#sec-4-1-5">semaphore</a></li>
+<li><a href="#sec-4-1-6">Deadlock</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-2">线程与进程</a></li>
+<li><a href="#sec-4-3">进程调度</a>
+<ul>
+<li><a href="#sec-4-3-1">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <p>
 本页旨在记录准备面试过程中学习的知识。
 </p>
-
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">C/C++</h2>
 <div class="outline-text-2" id="text-1">
@@ -218,7 +239,6 @@ Non-pointer objects can only be casted by <code>static_cast</code>.
 </div>
 </div>
 
-
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Library</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -282,9 +302,39 @@ container itself instead of the size of all its elements. Example
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">如何防止类被实例化</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>Make the class an abstract class by including at least one <span class="underline">pure
+virtual</span> function.
+</li>
+<li>Make the constructor of a class private, and then create a
+static function which will return some instantances of the
+class. If only one instance of the class is allowed, we should
+also keep a reference to this instance in the class
+</li>
+</ol>
 </div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">如何防止类被继承</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Reasons of preventing derived classes:
+</p>
+<ol class="org-ol">
+<li>Mark a class as non-subclassable so you can safely use a
+non-virtual destructor and avoid a vtable altogether.
+</li>
 
-
+<li><a href="http://stackoverflow.com/questions/2184133/prevent-class-inheritance-in-c">Prevent class inheritance in C++</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Python</h2>
 <div class="outline-text-2" id="text-2">
@@ -462,6 +512,198 @@ termination of the newly created connection.
 <p>
 <a href="http://www.cnblogs.com/rollenholt/archive/2012/03/23/2414345.html">百度面试题：从输入url到显示网页，后台发生了什么？</a>
 </p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Linux System Programming</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">IPC(Inter-Process Communication)</h3>
+<div class="outline-text-3" id="text-4-1">
+</div><div id="outline-container-sec-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1">PIPE</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+The atomicity of <code>write</code> of pipe is controled by <code>PIPE_BUF</code>, if
+the size of written is less than or equal to <code>PIPE_BUF</code>, then the
+written processes is ensured to be atomic. Otherwise, the data
+written by different processes might overlap.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2">FIFO</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<p>
+FIFO can exist even after the processes quit. The remaining
+feature is more or less the same to PIPE.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-1-3" class="outline-4">
+<h4 id="sec-4-1-3">message queue</h4>
+<div class="outline-text-4" id="text-4-1-3">
+<p>
+Note the behavior of <code>msgrcv</code> if the buffer size is less than the
+size of message in message queue. <code>man msgrcv</code> to find more details.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-1-4" class="outline-4">
+<h4 id="sec-4-1-4">shared memory</h4>
+<div class="outline-text-4" id="text-4-1-4">
+<p>
+Still, notice the behavior of <code>shmget</code> if the required size is
+greater than the size of already created shared memory.
+</p>
+
+<p>
+Also shared memory is <code>critical area</code>, i.e. a client might be
+reading while the server is writing. Thus shared memory is often
+combined with semaphore to do synchronization.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-1-5" class="outline-4">
+<h4 id="sec-4-1-5">semaphore</h4>
+<div class="outline-text-4" id="text-4-1-5">
+<p>
+How to avoid deadlock?
+</p>
+
+<p>
+=&gt; UNIX uses the "All or nothing" mechanism. That means you either
+get all the resources or nothing at all. You should request all
+the resources at the same time and if one of them is blocked you
+may not get any of the others.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-1-6" class="outline-4">
+<h4 id="sec-4-1-6">Deadlock</h4>
+<div class="outline-text-4" id="text-4-1-6">
+<p>
+The
+<a href="http://en.wikipedia.org/wiki/Deadlock#Necessary_conditions">Four
+conditions</a> should all hold in a system for deadlock to occur:
+</p>
+<ol class="org-ol">
+<li>Mutal Exclusion :: At least one resource must be held in a
+non-shareable mode. Only one process can use the resource at
+any given instant of time.
+</li>
+<li>Hold and Wait or Resource Holding :: A process is currently
+holding at least one resource and requesting additional
+resources which are being held by other processes.
+</li>
+<li>No Preemption :: A resource can be released only voluntarily by
+the process holding it, after that process has
+completed its task.
+</li>
+<li>Circular Wait :: A process must be waiting for a resource which
+is being held by another process, which in
+turn waiting for the first process to release
+the resource.
+</li>
+</ol>
+<p>
+Unfulfillment of <b>any</b> of these conditions is enough to preclude a
+deadlock from occurring.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">线程与进程</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+进程是系统分配资源的基本单位，线程是系统调度的基本单位。
+</p>
+
+<p>
+<b>联系</b>
+</p>
+
+<ol class="org-ol">
+<li>一个进程至少拥有一个线程──主线程，也可以拥有多个线程。一个线程
+必须有一个父进程。多个进程可以并发执行，一个线程可以创建和撤销另
+一个线程，同一个进程中的多个线程可以并发执行。
+</li>
+<li>同一进程中的所有线程共享该进程的所有资源。但各自拥有自己的堆栈。
+</li>
+<li>线程的同步方式与进程相同，但可以额外地使用全局变量来同步。
+</li>
+</ol>
+
+<p>
+<b>区别</b>
+</p>
+
+<ol class="org-ol">
+<li>系统开销：创建或删除 <span class="underline">进程</span> 时，由于系统需要分配和回收资源，所以
+开销明显大于线程的创建和删除。
+</li>
+<li>资源管理：若一个进程崩溃，在保护模式下不会影响其它进程。而线程没
+有单独的地址空间，崩溃之后进程也随之崩溃。因此多进程方式比多线程
+更健壮。但线程切换耗费更大的资源。
+</li>
+<li>通信方式：进程间通信主要包括PIPE，FIFO，System V IPC(Message
+Queue, Shared Memory, Semaphore)，socket通信。这些方法同样适用于
+线程间通信，但对于同一进程的不同线程，使用全局变量进行通信的效率
+更高。
+</li>
+</ol>
+
+<p>
+<b>参考</b>
+</p>
+<ul class="org-ul">
+<li><a href="http://blog.csdn.net/xiexievv/article/details/7294189">进程与线程的区别与联系</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">进程调度</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+请描述一下进程是如何调度的。
+</p>
+<dl class="org-dl">
+<dt> 先来先服务（FCFS） </dt><dd>即先来的任务先运行，后来的不可抢占，直到前
+面的任务完成为止。特点是简单，但效率低；对长作业有利，对短作业
+不利；CPU繁忙型有利，I/O繁忙型不利。
+</dd>
+<dt> 短作业优先（SJF） </dt><dd>从队列中选择一个或若干个估计运行时间短的作业
+运行。平均等待时间短，平均周转时间短。但长作业不利，有时甚至永
+远无法得到运行；未考虑进行的紧迫性；估算时间不准确。
+</dd>
+<dt> 优先级调度算法 </dt><dd>为进程分配优先级，代表紧迫程度，依据不同的子策
+略（如是否可抢占）有不同的子算法。
+</dd>
+<dt> 高响应比优先调度算法 </dt><dd>是对FCFS和SJF的一个平衡，对队列中的进程计
+算响应比，并选取最小的一个或几个先运行。
+</dd>
+<dt> 时间片轮转调度算法 </dt><dd>选择就绪队列中的一个进程，按先到先得的策略，
+但每个进程每次只能运行一个时间片，之后就移动到队列的末尾。该算
+法与时间片的选择有关，如时间片过大，则退化成FCFS算法。
+</dd>
+<dt> 多级反馈队列调度算法 </dt><dd>它根据不同的优先级创建了不同的就绪队列，
+进程的优先级动态进行调整。当优先级高的队列空的时候才运行优先级
+低的队列。任务之间是可以抢占的。
+</dd>
+</dl>
+</div>
+
+<div id="outline-container-sec-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1">参考</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<ul class="org-ul">
+<li><a href="http://see.xidian.edu.cn/cpp/html/2595.html">操作系统典型调度算法</a>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
