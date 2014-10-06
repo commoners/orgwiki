@@ -1,0 +1,15 @@
+This is TeX, Version 3.1415926 (TeX Live 2013) (format=tex 2014.1.23)  2 OCT 2014 18:33
+**\relax
+
+*\show\centerline
+> \centerline=macro:
+#1->\line {\hss #1\hss }.
+<*> \show\centerline
+                    
+? 
+! Emergency stop.
+<*> \show\centerline
+                    
+End of file on the terminal!
+
+No pages of output.

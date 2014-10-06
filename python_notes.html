@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>python Notes</title>
-<!-- 2014-09-15 -->
+<!-- 2014-10-02 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -156,9 +157,9 @@ understands about plus and minus signs:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="font-weight: bold;">print</span> <span style="font-style: italic;">'12'</span>.zfill(5)
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'-3.14'</span>.zfill(7)
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'3.14159265359'</span>.zfill(5)
+<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'12'</span>.zfill(5)
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'-3.14'</span>.zfill(7)
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'3.14159265359'</span>.zfill(5)
 </pre>
 </div>
 
@@ -177,7 +178,7 @@ Basic Usage:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="font-weight: bold;">print</span> <span style="font-style: italic;">'We are the {} who says "{}!"'</span>.<span style="font-weight: bold;">format</span>(<span style="font-style: italic;">'Knights'</span>, <span style="font-style: italic;">'Ni'</span>)
+<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'We are the {} who says "{}!"'</span>.<span style="color: #8cd0d3;">format</span>(<span style="color: #cc9393;">'Knights'</span>, <span style="color: #cc9393;">'Ni'</span>)
 </pre>
 </div>
 
@@ -192,11 +193,11 @@ or keywords:
 
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="font-weight: bold;">print</span> <span style="font-style: italic;">'{0} and {1}'</span>.<span style="font-weight: bold;">format</span>(<span style="font-style: italic;">'spam'</span>, <span style="font-style: italic;">'eggs'</span>)
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'{1} and {0}'</span>.<span style="font-weight: bold;">format</span>(<span style="font-style: italic;">'spam'</span>, <span style="font-style: italic;">'eggs'</span>)
+<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'{0} and {1}'</span>.<span style="color: #8cd0d3;">format</span>(<span style="color: #cc9393;">'spam'</span>, <span style="color: #cc9393;">'eggs'</span>)
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'{1} and {0}'</span>.<span style="color: #8cd0d3;">format</span>(<span style="color: #cc9393;">'spam'</span>, <span style="color: #cc9393;">'eggs'</span>)
 
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'This {food} is {adjective}.'</span>.<span style="font-weight: bold;">format</span>(food = <span style="font-style: italic;">'spam'</span>, adjective =
-                                           <span style="font-style: italic;">'absolutly horrible'</span>)
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'This {food} is {adjective}.'</span>.<span style="color: #8cd0d3;">format</span>(food = <span style="color: #cc9393;">'spam'</span>, adjective =
+                                           <span style="color: #cc9393;">'absolutly horrible'</span>)
 </pre>
 </div>
 
@@ -212,9 +213,9 @@ This spam is absolutly horrible.
 
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="font-weight: bold;">import</span> math
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'The value of PI is approximately {}.'</span>.<span style="font-weight: bold;">format</span>(math.pi)
-<span style="font-weight: bold;">print</span> <span style="font-style: italic;">'The value of PI is approximately {!r}.'</span>.<span style="font-weight: bold;">format</span>(math.pi)
+<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">import</span> math
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'The value of PI is approximately {}.'</span>.<span style="color: #8cd0d3;">format</span>(math.pi)
+<span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">'The value of PI is approximately {!r}.'</span>.<span style="color: #8cd0d3;">format</span>(math.pi)
 </pre>
 </div>
 
@@ -280,14 +281,14 @@ use <code>list(f)</code> or <code>f.readlinesf()</code>
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">&gt;&gt;&gt; <span style="font-weight: bold; font-style: italic;">f</span> = <span style="font-weight: bold;">open</span>(<span style="font-style: italic;">'test.txt'</span>, <span style="font-style: italic;">'w+'</span>)
-&gt;&gt;&gt; f.write(<span style="font-style: italic;">'0123456789abcdef'</span>)
-&gt;&gt;&gt; f.seek(5)     <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">go to the 6th byte in the file</span>
+<pre class="src src-python">&gt;&gt;&gt; <span style="color: #dfaf8f;">f</span> = <span style="color: #8cd0d3;">open</span>(<span style="color: #cc9393;">'test.txt'</span>, <span style="color: #cc9393;">'w+'</span>)
+&gt;&gt;&gt; f.write(<span style="color: #cc9393;">'0123456789abcdef'</span>)
+&gt;&gt;&gt; f.seek(5)<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>    <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">go to the 6th byte in the file</span>
 &gt;&gt;&gt; f.read(1)
-<span style="font-style: italic;">'5'</span>
-&gt;&gt;&gt; f.seek(-3, 2) <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">go to the 3rd byte before the end</span>
+<span style="color: #cc9393;">'5'</span>
+&gt;&gt;&gt; f.seek(-3, 2) <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">go to the 3rd byte before the end</span>
 &gt;&gt;&gt; f.read(1)
-<span style="font-style: italic;">'d'</span>
+<span style="color: #cc9393;">'d'</span>
 </pre>
 </div>
 </div>

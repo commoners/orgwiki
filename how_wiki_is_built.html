@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>本站是如何搭建的</title>
-<!-- 2014-06-23 -->
+<!-- 2014-10-02 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -219,8 +220,8 @@ wordpress很好的结合。
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="font-style: italic;">"~/.emacs.d/elisp"</span>)
-(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">org-projects</span>)
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #cc9393;">"~/.emacs.d/elisp"</span>)
+(<span style="color: #f0dfaf; font-weight: bold;">require</span> '<span style="color: #bfebbf;">org-projects</span>)
 </pre>
 </div>
 <p>
@@ -240,9 +241,9 @@ orgmode 里的链接，原本的样式会丢失，是因为在orgmode 显示时�
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">Enable literal links </span>
-(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">turn-on-literal-links</span> ()
-  <span style="font-style: italic;">"enable literal links."</span>
+<pre class="src src-emacs-lisp"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">Enable literal links </span>
+(<span style="color: #f0dfaf; font-weight: bold;">defun</span> <span style="color: #8cd0d3;">turn-on-literal-links</span> ()
+  <span style="color: #8fb28f;">"enable literal links."</span>
   (interactive)
   (org-remove-from-invisibility-spec '(org-link))
   (org-restart-font-lock))

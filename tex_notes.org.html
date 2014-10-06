@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>tex_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-formula {
+        /* org-formula */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        font-weight: bold;
+      }
+      .org-list-dt {
+        /* org-list-dt */
+        font-weight: bold;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-table {
+      }
+      .org-verbatim {
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">TeX/LaTeX Notes
+</span></span>
+<span class="org-level-1">* TeX</span>
+<span class="org-level-2">** The shape of things to come</span>
+<span class="org-level-3">*** Fonts</span>
+    Define new fonts.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">    \font\bigrm = cmr10 scaled \magstep 1
+</span><span class="org-block-end-line">    #+end_src
+</span>    <span class="org-verbatim">=\magstep 1=</span> will increase the font size for <span class="org-verbatim">=20%=</span>, <span class="org-verbatim">=\magstephalf=</span>
+    for <span class="org-verbatim">=9.5%=</span>.
+
+<span class="org-level-3">*** Units</span>
+    <span class="org-table">|           | in(inch) | cm(centimetre) | pc(pica) |</span>
+    <span class="org-table">| pt(point) | 72.27pt  | 28.4pt         | 12pt     |</span>
+    
+    A <span class="underline">_pica_</span> is about the distance between the baselines of two
+    consecutive lines of (unmagnified) normal text.
+
+    - <span class="org-list-dt">ex ::</span> The height of the letter 'x'.
+    - <span class="org-list-dt">em ::</span> The width of the capital letter 'M'.
+            
+<span class="org-level-3">*** Page Shape</span>
+    There are three parts of a page:
+    1. Headline: above the main text, often contains chapter title,
+       section title, or page number, etc.
+    2. Main text which includes footnotes.
+    3. Footline: might contain a page number.
+       
+    <span class="org-verbatim">=\vfill\eject=</span> to start a new page. <span class="org-verbatim">=\vfill=</span> causes any left over
+    vertical space to be gathered at the bottom of the page. <span class="org-verbatim">=\hsize=</span>
+    (default to 6.5in) controls the horizontal width of the text on the
+    page. The vertical analogue is <span class="org-verbatim">=\vsize=</span> (default to 8.9in) which is
+    the current height of the <span class="underline">_main text_</span>. Main texts can be shiftted
+    which is controled by <span class="org-verbatim">=\hoffset=</span> (default to 0) and <span class="org-verbatim">=\voffset=</span>
+    (default to 0).
+
+<span class="org-level-3">*** Paragraph Shape</span>
+<span class="org-meta-line">    #+caption: Some paragraph shape parameters</span>
+    <span class="org-table">|                    Function | TeX Control Word | TeX default |</span>
+    <span class="org-table">|-----------------------------+------------------+-------------|</span>
+    <span class="org-table">|                         </span><span class="org-formula">&lt;r&gt;</span><span class="org-table"> |                  |             |</span>
+    <span class="org-table">|                       width | \hsize           | 6.5in       |</span>
+    <span class="org-table">|   indentation on first line | \parindent       | 20pt        |</span>
+    <span class="org-table">|      distance between lines | \baselineskip    | 12pt        |</span>
+    <span class="org-table">| distance between paragraphs | \parskip         | 0pt         |</span>
+    
+    <span class="org-verbatim">=\noindent=</span> can be added at the beginning of a paragraph to avoid
+    indent only for this paticular paragraph.
+    
+    A more flexialbe way to control the width of paragraphs is to use
+    <span class="org-verbatim">=\rightskip=</span> and <span class="org-verbatim">=\leftskip=</span> to set the right and left margins of
+    paragraphs respectively. <span class="org-verbatim">=\narrower=</span> is handy for setting both
+    <span class="org-verbatim">=\rightskip=</span> and <span class="org-verbatim">=\leftskip=</span> to <span class="org-verbatim">=\parindent=</span>.
+    
+    Lines can be made with different lengths within one paragraph by
+    using <span class="org-verbatim">=\hangindent=</span> (default to 0pt) and <span class="org-verbatim">=\hangafter=</span> (default to
+    1). <span class="org-verbatim">=\hangindent=</span> controls the indent width, left if positive,
+    right negative. <span class="org-verbatim">=\hangafter=</span> controls the number of lines before
+    <span class="org-verbatim">=\hangindent=</span> take effect. For example <span class="org-verbatim">=\hangafter = 6=</span> means the
+    first <span class="org-verbatim">=6=</span> lines are normal while <span class="org-verbatim">=\hangindent = -6=</span> means the last
+    <span class="org-verbatim">=6=</span> lines are normal.
+    
+    The control word <span class="org-verbatim">=\parshape=</span> can be used to make paragraphs with a
+    great variety of shapes.
+    
+    <span class="org-verbatim">=\vskip 1 in=</span> is used to insert extra spaces between
+    paragraphs. <span class="org-verbatim">=\vskip=</span> will not insert spaces across page
+    boundaries. If you actually want to insert spaces at the top of a
+    page, you can use <span class="org-verbatim">=vglue 1 in=</span> instead or surround <span class="org-verbatim">=\vskip=</span> between
+    environment <span class="org-verbatim">=\topinsert=</span> and <span class="org-verbatim">=\endinsert=</span>:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \topinsert
+      \vskip 1 in
+      \centerline{Figure 1}
+      \endinsert
+</span><span class="org-block-end-line">    #+end_src
+</span>    Some special control word are made for convenience for making
+    small vertical skip: <span class="org-verbatim">=\smallskip=</span>, <span class="org-verbatim">=\medskip=</span>, <span class="org-verbatim">=\bigskip=</span>.
+    
+<span class="org-level-3">*** Line Shape</span>
+    <span class="org-verbatim">=\leftline{some text}=</span>, <span class="org-verbatim">=\rightline{some text}=</span>, <span class="org-verbatim">=\centerline{some
+    text}=</span> and even <span class="org-verbatim">=\line{some text}=</span> are provide for making special lines.
+    
+    Other types of spacing can be get by using the control word <span class="org-verbatim">=\hfil=</span>.
+
+    It's possible to move horizontally using <span class="org-verbatim">=\hskip=</span> in a manner
+    analogous with <span class="org-verbatim">=\vskip=</span>.
+
+    The right justification can be canceled by using the control word <span class="org-verbatim">=\raggedright=</span>.
+<span class="org-level-3">*** Footnotes</span>
+    The general pattern to make footnotes using TeX is
+    <span class="org-verbatim">=\footnote{mark}{text}=</span>. Some avaliable marks are <span class="org-verbatim">=\dag=</span>, <span class="org-verbatim">=\ddag=</span>,
+    <span class="org-verbatim">=\S=</span> and <span class="org-verbatim">=\P=</span>. Example: <span class="org-verbatim">=\footnotes{${}^{21}$}{This is the footnote at the bottom of a page}=</span>
+<span class="org-level-3">*** Headlines and Footlines</span>
+    The lines for title and page numbers that go above and below the
+    main text are produced by using <span class="org-verbatim">=\headline={...}=</span> and
+    <span class="org-verbatim">=\footline={...}=</span> 
+
+    The principle is the same as using <span class="org-verbatim">=\line=</span>. A helpful control word
+    is <span class="org-verbatim">=\pageno=</span> which represents the current page number. For example:
+    <span class="org-verbatim">=\headline={\hfil \tenrm Page \the\pageno}=</span>. The control word
+    <span class="org-verbatim">=\the=</span> takes the internal value of next word if it is an
+    appropriate control word and prints it as text. <span class="org-verbatim">=\folio=</span> is an
+    alternative to <span class="org-verbatim">=\the \pageno=</span>, except that it will print roman
+    numbers when <span class="org-verbatim">=\pageno=</span> is negative.
+    
+    Different headlines can be produced for even and odd pages in the
+    following manner:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \headline={\ifodd \pageno {...}\else {...} \fi}
+</span><span class="org-block-end-line">    #+end_src
+</span><span class="org-level-3">*** Overfull and underfull boxes</span>
+    The badness of a line measures how badly the words are spaced and
+    is a number between 0(perfect) and 10000(horrible). There is a
+    parameter called <span class="org-verbatim">=\hbadness=</span> whose default value is 1000. Any line
+    whose badness is greater than <span class="org-verbatim">=\hbadness=</span> is reported as underfull
+    box.
+    
+    Similarily, TeX allows a line to be slightly longer than <span class="org-verbatim">=\hsize=</span>
+    in order to achieve a more balanced appearance. If the badness of a
+    line is greater than <span class="org-verbatim">=\tolerance=</span> (default to 200), TeX will add a
+    new word at the end of the line although it might exceed
+    <span class="org-verbatim">=\hsize=</span>. <span class="org-verbatim">=\hfuzz=</span> (default to 0.1pt) determines how much excess is
+    allowed. If <span class="org-verbatim">=\hfuzz=</span> is exceeded overfull box is reported. 
+    
+    The width of slug(boxes) is controled by <span class="org-verbatim">=\overfullrule=</span>. Including
+    <span class="org-verbatim">=\overfullrule = 0 pt=</span> in your file will preventing the printing of slugs.
+    
+    All the above concept have their vertical analogues. <span class="org-verbatim">=\vbadness=</span>
+    controls vertical text boxes.
+
+<span class="org-level-2">** Groups</span>
+   Groups are formed by surround objecs with '{ contents }'. For
+   example: <span class="org-verbatim">={\bf three boldface words}=</span>. Also, size changes can be
+   made  in the text that are only temporary:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     {
+       \hsize = 4in
+       \parindent = 0pt
+       \leftskip = 1in
+       Some text...
+       /par % This is an easy mistake to make
+            % use a \par or a blank line here to indicate the end of a paragraph
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>   
+<span class="org-level-2">** Math</span>
+   How to insert texts between math equations? Use <span class="org-verbatim">=hbox=</span>. =$x=y+1 
+   \hbox{ whenever } y = x+1$=. Note the space on either side of the
+   word within the brace.
+   
+<span class="org-meta-line">   #+caption: Adding space to mathematical text</span>
+   <span class="org-table">|                Name | Control Sequence |</span>
+   <span class="org-table">|---------------------+------------------|</span>
+   <span class="org-table">|                 </span><span class="org-formula">&lt;r&gt;</span><span class="org-table"> |                  |</span>
+   <span class="org-table">|         Double quad | \qquad           |</span>
+   <span class="org-table">|                Quad | \quad            |</span>
+   <span class="org-table">|               Space | \_(space)        |</span>
+   <span class="org-table">|         Thick space | \;               |</span>
+   <span class="org-table">|        Medium space | \&gt;               |</span>
+   <span class="org-table">|          Thin space | \,               |</span>
+   <span class="org-table">| Negative thin space | \!               |</span>
+   
+<span class="org-meta-line">   #+caption: Greek Characters</span>
+   <span class="org-table">|----------+------------+-------------+---------------+--------+----------+----------+------------|</span>
+   <span class="org-table">| \alpha   | </span><span class="org-formula"><span class="org-verbatim">=\alpha=</span></span><span class="org-formula">   </span><span class="org-table">| \beta       | </span><span class="org-table"><span class="org-verbatim">=\beta=</span></span><span class="org-table">       | \gamma | </span><span class="org-table"><span class="org-verbatim">=\gamma=</span></span><span class="org-table"> | \delta   | </span><span class="org-table"><span class="org-verbatim">=\delta=</span></span><span class="org-table">   |</span>
+   <span class="org-table">| \epsilon | </span><span class="org-formula"><span class="org-verbatim">=\epsilon=</span></span><span class="org-formula"> </span><span class="org-table">| \varepsilon | </span><span class="org-table"><span class="org-verbatim">=\varepsilon=</span></span><span class="org-table"> | \zeta  | </span><span class="org-table"><span class="org-verbatim">=\zeta=</span></span><span class="org-table">  | \eta     | </span><span class="org-table"><span class="org-verbatim">=\eta=</span></span><span class="org-table">     |</span>
+   <span class="org-table">| \theta   | </span><span class="org-formula"><span class="org-verbatim">=\theta=</span></span><span class="org-formula">   </span><span class="org-table">| \vartheta   | </span><span class="org-table"><span class="org-verbatim">=\vartheta=</span></span><span class="org-table">   | \iota  | </span><span class="org-table"><span class="org-verbatim">=\iota=</span></span><span class="org-table">  | \kappa   | </span><span class="org-table"><span class="org-verbatim">=\kappa=</span></span><span class="org-table">   |</span>
+   <span class="org-table">| \lambda  | </span><span class="org-formula"><span class="org-verbatim">=\lambda=</span></span><span class="org-formula">  </span><span class="org-table">| \mu         | </span><span class="org-table"><span class="org-verbatim">=\mu=</span></span><span class="org-table">         | \nu    | </span><span class="org-table"><span class="org-verbatim">=\nu=</span></span><span class="org-table">    | \xi      | </span><span class="org-table"><span class="org-verbatim">=\xi=</span></span><span class="org-table">      |</span>
+   <span class="org-table">| o        | </span><span class="org-formula"><span class="org-verbatim">=o=</span></span><span class="org-formula">        </span><span class="org-table">| \pi         | </span><span class="org-table"><span class="org-verbatim">=\pi=</span></span><span class="org-table">         | \rho   | </span><span class="org-table"><span class="org-verbatim">=\rho=</span></span><span class="org-table">   | \varrho  | </span><span class="org-table"><span class="org-verbatim">=\varrho=</span></span><span class="org-table">  |</span>
+   <span class="org-table">| \sigma   | </span><span class="org-formula"><span class="org-verbatim">=\sigma=</span></span><span class="org-formula">   </span><span class="org-table">| \varsigma   | </span><span class="org-table"><span class="org-verbatim">=\varsigma=</span></span><span class="org-table">   | \tau   | </span><span class="org-table"><span class="org-verbatim">=\tau=</span></span><span class="org-table">   | \upsilon | </span><span class="org-table"><span class="org-verbatim">=\upsilon=</span></span><span class="org-table"> |</span>
+   <span class="org-table">| \phi     | </span><span class="org-formula"><span class="org-verbatim">=\phi=</span></span><span class="org-formula">     </span><span class="org-table">| \varphi     | </span><span class="org-table"><span class="org-verbatim">=\varphi=</span></span><span class="org-table">     | \chi   | </span><span class="org-table"><span class="org-verbatim">=\chi=</span></span><span class="org-table">   | \psi     | </span><span class="org-table"><span class="org-verbatim">=\psi=</span></span><span class="org-table">     |</span>
+   <span class="org-table">| \omega   | </span><span class="org-formula"><span class="org-verbatim">=\omega=</span></span><span class="org-formula">   </span><span class="org-table">| \Gamma      | </span><span class="org-table"><span class="org-verbatim">=\Gamma=</span></span><span class="org-table">      | \Delta | </span><span class="org-table"><span class="org-verbatim">=\Delta=</span></span><span class="org-table"> | \Theta   | </span><span class="org-table"><span class="org-verbatim">=\Theta=</span></span><span class="org-table">   |</span>
+   <span class="org-table">| \Lambda  | </span><span class="org-formula"><span class="org-verbatim">=\Lambda=</span></span><span class="org-formula">  </span><span class="org-table">| \Xi         | </span><span class="org-table"><span class="org-verbatim">=\Xi=</span></span><span class="org-table">         | \Pi    | </span><span class="org-table"><span class="org-verbatim">=\Pi=</span></span><span class="org-table">    | \Sigma   | </span><span class="org-table"><span class="org-verbatim">=\Sigma=</span></span><span class="org-table">   |</span>
+   <span class="org-table">| \Upsilon | </span><span class="org-formula"><span class="org-verbatim">=\Upsilon=</span></span><span class="org-formula"> </span><span class="org-table">| \Phi        | </span><span class="org-table"><span class="org-verbatim">=\Phi=</span></span><span class="org-table">        | \Psi   | </span><span class="org-table"><span class="org-verbatim">=\Psi=</span></span><span class="org-table">   | \Omega   | </span><span class="org-table"><span class="org-verbatim">=\Omega=</span></span><span class="org-table">   |</span>
+   
+<span class="org-level-3">*** Fractions</span>
+    <span class="org-verbatim">=$${a+b \over c+d}$$=</span> yields:$$a+b \over c+d$$
+    
+<span class="org-level-3">*** Subscript and superscript</span>
+    <span class="org-verbatim">=$\sum_{k=1}^nk^2$=</span> yields: $\sum_{k=1}^nk^2$.
+    and <span class="org-verbatim">=$\int_0^x f(t)\,dt$=</span> will give: $\int_0^x f(t)\,dt$
+    
+<span class="org-level-3">*** Roots, square and otherwise</span>
+    To typeset a square root, use <span class="org-verbatim">=\sqrt{...}=</span>, to make cube or other
+    roots, use <span class="org-verbatim">=\root n \of {...}=</span>.
+    
+    <span class="org-verbatim">=$\sqrt{x^2+y^2}$=</span>: $\sqrt{x^2+y^2}$
+
+    <span class="org-verbatim">=$\root n \of {1+x^n}$=</span>: $\root n \of {1+x^n}$
+    
+<span class="org-level-3">*** Lines, above and below</span>
+    Use the construction <span class="org-verbatim">=\overline{...}=</span> and <span class="org-verbatim">=\underline{...}=</span> to put
+    line above and below expressions.
+    
+    <span class="org-verbatim">=$\overline{x+y} = \overline{x}+\overline{y}$=</span>: $\overline{x+y}=\overline{x}+\overline{y}$
+
+    To underline non-mathematical text, use <span class="org-verbatim">=\underbar{...}=</span>
+    
+<span class="org-level-3">*** Delimiters large and small</span>
+    To make larger left delimiters the control words <span class="org-verbatim">=\bigl=</span>, <span class="org-verbatim">=\Bigl=</span>,
+    <span class="org-verbatim">=\biggl=</span> and <span class="org-verbatim">=\Biggl=</span> are used in front of the delimiter;
+    similarily, <span class="org-verbatim">=\bigr=</span>, <span class="org-verbatim">=\Bigr=</span>, <span class="org-verbatim">=\biggr=</span> and <span class="org-verbatim">=\Biggr=</span> are used for
+    the right delimiters. For example: <span class="org-verbatim">=$\Bigl[$=</span>
+    
+    Of course, you can let TeX choose the right size of delimiter by
+    using control words <span class="org-verbatim">=\left=</span> and <span class="org-verbatim">=\right=</span> before our
+    delimiters. Thus <span class="org-verbatim">=\left[...\right]=</span> will generate right size for
+    <span class="org-verbatim">=[...]=</span>. Note that <span class="org-verbatim">=\left=</span> and <span class="org-verbatim">=\right=</span> should appear in pairs.
+    
+<span class="org-level-3">*** proclaim</span>
+    <span class="org-verbatim">=\proclaim=</span> macro is used to stating theorems, corollaries,
+    propositions and the like. 
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \proclaim Theorem 1(H.``G.''Wells). In the country of the blind, the
+      one-eyed man is king.
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+<span class="org-level-3">*** Matrices</span>
+    Matrices are typeset using combinations of the alignment character
+    <span class="org-verbatim">=&amp;=</span> and the control word <span class="org-verbatim">=\cr=</span> to indicate the end of the
+    line. Start with <span class="org-verbatim">=$$\pmatrix{...}$$=</span>.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      $$\pmatrix{
+        a &amp; b &amp; c &amp; d \cr
+        b &amp; a &amp; c+d &amp; c-d \cr
+        0 &amp; 0 &amp; a+b &amp; a-b \cr
+        0 &amp; 0 &amp; ab &amp; cd \cr
+      }$$
+</span><span class="org-block-end-line">    #+end_src
+</span>    The entries can be flushed left or right with the help of <span class="org-verbatim">=\hfill=</span>.
+    
+    It is possible to have matrices that use other delimiters. Using
+    <span class="org-verbatim">=\matrix=</span> instead of <span class="org-verbatim">=\pmatrix=</span> will leave off the parentheses, so
+    the delimiters must be explicitly included using <span class="org-verbatim">=\left=</span> and <span class="org-verbatim">=\right=</span>
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      $$\left |
+      \matrix{
+        a &amp; b &amp; c &amp; d \cr
+        b &amp; a &amp; c+d &amp; c-d \cr
+        0 &amp; 0 &amp; a+b &amp; a-b \cr
+        0 &amp; 0 &amp; ab &amp; cd \cr
+      }
+      \right | $$
+</span><span class="org-block-end-line">    #+end_src
+</span>    It is even possible to use <span class="org-verbatim">=\left.=</span> and <span class="org-verbatim">=\right.=</span> to indicate the
+    delimiter is deleted(note the use of period). It is the same
+    effect to not adding delimiters at all, but it will be needed when
+    you want only opening or closing delimiter.
+    
+    <span class="org-verbatim">=\cdots=</span>, <span class="org-verbatim">=\vdots=</span> and <span class="org-verbatim">=\ddots=</span> can be used to insert horizontal,
+    vertical, and diagonal dots.
+
+<span class="org-level-3">*** Displayed Equations</span>
+    Equation alignment is done with the alignment character <span class="org-verbatim">=&amp;=</span> and
+    the control word <span class="org-verbatim">=\cr=</span> and <span class="org-verbatim">=\eqalign=</span>.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      $$ \eqalign{
+        a+b &amp;= c+d \cr
+        x &amp;= w+y+x \cr
+        m+n+o+p &amp;= q \cr
+      } $$
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+    Displayed equations can be numbered at either the right or left
+    margin, <span class="org-verbatim">=\eqno ...=</span> to indicate right margin and <span class="org-verbatim">=\leqno=</span> for left.
+    
+    It's possible to number aligned equations by using the control
+    word <span class="org-verbatim">=\eqalignno=</span> and <span class="org-verbatim">=\leqalignno=</span>.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      $$ \eqalignno{
+        a+b &amp;= c+d &amp; (1)\cr
+        x &amp;= w+y+x \cr
+        m+n+o+p &amp;= q &amp; * \cr
+      } $$
+</span><span class="org-block-end-line">    #+end_src
+</span>   
+<span class="org-level-2">** All in a row</span>
+   There are two method to align texts. The first is using tabbing
+   environment, the second is horizontal alignment environment.
+   
+<span class="org-level-3">*** Picking up the tab</span>
+    First, set the tab position using <span class="org-verbatim">=\settabs=</span>, then a line starts
+    with the control symbol <span class="org-verbatim">=\+=</span> and ends with <span class="org-verbatim">=\cr=</span>.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \settabs 4 \columns
+      \+ British Columbia &amp; Alberta &amp; Saskatchewan &amp; Manitoba \cr
+      \+ Ontario &amp; Quebec &amp; New Brunswick &amp; Nova Scotia \cr
+      \+ &amp; Prince Edward Island &amp; Newfoundland \cr
+</span><span class="org-block-end-line">    #+end_src
+</span>    We can also set tab positions to a given string
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \settabs \+ \quad Year \quad &amp; \quad Price \quad &amp; \quad Dividend &amp; \cr 
+      \+ \hfill Year \quad &amp; \quad Price \quad &amp; \quad Dividend \cr
+      \+ \hfill 1971 \quad &amp; \quad 41--54 \quad &amp; \qquad \$2.60 \cr
+      \+ \hfill 2 \quad &amp; \quad 41--54 \quad &amp; \qquad \$2.70 \cr
+      \+ \hfill 3 \quad &amp; \quad 46--55 \quad &amp; \qquad \$2.87 \cr
+      \+ \hfill 4 \quad &amp; \quad 40--53 \quad &amp; \qquad \$3.24 \cr
+      \+ \hfill 5 \quad &amp; \quad 45--52 \quad &amp; \qquad \$3.40 \cr
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+<span class="org-level-3">*** Horizontal alignemnt with more sophisticated patters</span>
+    The general pattern in the <span class="org-verbatim">=\halign=</span> is as follows:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \halign{ &lt;template line&gt; \cr
+      &lt;first display line&gt; \cr
+      &lt;second display line&gt; \cr
+      ...
+      &lt;last display line&gt; \cr
+      }
+</span><span class="org-block-end-line">    #+end_src
+</span>    Both template line and display line are seperated by <span class="org-verbatim">=&amp;=</span>
+    symbol. In template line, symbol <span class="org-verbatim">=#=</span> indicate the contents of the
+    corresponding section in display line and thus must appear in each section.
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \halign{\hskip 2 in $#$&amp; \hfil \quad # \hfil &amp; \qquad $#$ &amp; \hfil \quad # \hfil \cr
+      \alpha &amp; alpha &amp; \beta &amp; beta \cr
+      \gamma &amp; gamma &amp; \delta &amp; delta \cr
+      \epsilon &amp; epsilon &amp; \zeta &amp; zeta \cr
+      }
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+    Alignment can be escaped using <span class="org-verbatim">=\noalign{...}=</span>, this is useful
+    when adding rulers: <span class="org-verbatim">=\noalign{\hrule}=</span>.
+    
+    Below is a general pattern to generate table:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      $$\vbox{
+      \offinterlineskip
+      \halign{
+      \strut \vrule # &amp; \vrule # &amp; . . . &amp; \vrule # \vrule \cr
+      \noalign{\hrule}
+      &lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; \cr
+      \noalign{\hrule}
+      ...
+      \noalign{\hrule}
+      &lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; \cr
+      \noalign{\hrule}
+      }
+      }$$
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+<span class="org-level-2">** Rolling your own</span>
+   In this section, we'll create new control word.
+   
+<span class="org-level-3">*** The lone and short of it</span>
+    The control word <span class="org-verbatim">=\def=</span> is used to define new control words. The
+    simplest form is <span class="org-verbatim">=\def\newname{...}=</span>. Then whenever <span class="org-verbatim">=\newname=</span>
+    appears in your file, it will be replaced by its definition.
+    
+<span class="org-level-3">*** Filling in with parameters</span>
+    Macro with one parameter: <span class="org-verbatim">=\def\newword#1{...}=</span>. Then the symbol
+    <span class="org-verbatim">=#1=</span> may appear between braces (several times) in the definition
+    of <span class="org-verbatim">=\newword=</span>. <span class="bold">*The spacing in the definition is crucial here;
+    there must be no spaces before the opening brace*</span>.
+    
+    The parameter of a macro can be no more than one paragraph long,
+    and this is a safety feature.
+    
+    Macros with more than one parameter is trivial: <span class="org-verbatim">=\def\talks#1#2{#1
+    talks to #2}=</span>. Note that the parameter number should come in
+    consecutive order, that is <span class="org-verbatim">=#1, #2, #3=</span>, otherwise error
+    occurs. The parameter may go up to <span class="org-verbatim">=#9=</span>.
+
+<span class="org-level-3">*** By any other name</span>
+    Use <span class="org-verbatim">=\let \newname = \oldname=</span> to rename control words.
+
+<span class="org-level-2">** Digging a little deeper</span>
+
+<span class="org-level-3">*** Big files, little files</span>
+    <span class="org-verbatim">=\input filename=</span> will cause <span class="org-verbatim">=filename.tex=</span> to be read immediately as
+    if the text of <span class="org-verbatim">=filename.tex=</span> had been part of the file that read
+    it in.
+    
+    The <span class="org-verbatim">=\input=</span> control word also allows the use of predesigned
+    macros, i.e. the predesigned macro will affect the file being read.
+
+<span class="org-level-3">*** Larger macro packages</span>
+    The plain TeX package is contained in a <span class="underline">_format file_</span>
+    <span class="org-verbatim">=plain.fmt=</span>. Macros can be showed by <span class="org-verbatim">=\show\macroname=</span> in the TeX shell.
+
+<span class="org-level-3">*** Horizontal and vertical lines</span>
+    We know that <span class="org-verbatim">=\hrule=</span> will generate a vertical line whose width is
+    the current value of <span class="org-verbatim">=\hsize=</span>, and then continue on with a new
+    paragraph. It is possible to specify wdith of hrule by <span class="org-verbatim">=\hrule
+    width 5 cm=</span> for example; also you can use <span class="org-verbatim">=\vskip=</span> or <span class="org-verbatim">=\bigskip=</span>
+    to put some space above or below the hrule:
+<span class="org-block-begin-line">    #+begin_src tex      
+</span><span class="org-block">      \parindent = 0pt \parskip=12pt
+      Here is the text before the hrule
+      \bigskip
+      \hrule width 3 in
+      And here is some text after the hrule
+</span><span class="org-block-end-line">    #+end_src
+</span>    
+    In fact, we can also specify the <span class="bold">*height*</span> (default to 0.4pt, the
+    amount by which the hrule extends above the baseline on which the
+    type is being set) and <span class="bold">*depth*</span> (default to 0pt, the amount by
+    which the hrule extends below the baseline on which the type is
+    being set). For example:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \hrule width 3 in height 2 pt depth 3pt
+</span><span class="org-block-end-line">    #+end_src
+</span>    The above three parameter may be given in any order.
+
+    A vrule may be defined analogously to an hrule by specifying the
+    <span class="org-verbatim">=width=</span>, <span class="org-verbatim">=height=</span> and <span class="org-verbatim">=depth=</span>. But unlike hrule, it will not
+    automatically start a new paragraph when it appears, and has 0.4pt
+    width by default and the same height with a line on which it is
+    being set.
+    
+<span class="org-level-3">*** Boxes with boxes</span>
+    A hbox is formed by using <span class="org-verbatim">=\hbox{...}=</span>. The size of an hbox can be
+    specified by <span class="org-verbatim">=\hbox to 5 cm{Contents of the box}=</span> for
+    example. Note that this is easy to get underfull or overfull
+    box. Use <span class="org-verbatim">=\hfil=</span> to absorb the extra space.
+    
+    Note that there might be spaces in hboxes that is out of your
+    expectation. Unless a line ends in a control word, there is always
+    a space between the last entry in one line and the first one in
+    the next line, so if this is not what you want, use % at the end
+    of that line to comment it out.
+    
+    It's easy to move boxes up, down, left or right on the page by
+    <span class="org-verbatim">=\raise=</span>, <span class="org-verbatim">=\lower=</span>, <span class="org-verbatim">=\moveleft=</span> and <span class="org-verbatim">=\moveright=</span>. For
+    example <span class="org-verbatim">=\moveright 1in in \vbox{...}=</span>. Note that the default
+    depth of <span class="org-verbatim">=\strut=</span> is 3.5pt.
+    
+    It is also possible to fill a box with either an hrule or with
+    dots. The idea is to use <span class="org-verbatim">=\hrulefill=</span> or <span class="org-verbatim">=\dotfill=</span> in the hbox.
+
+<span class="org-level-2">** Reference</span>
+   - "A Gentle Introduction to TeX"
+
+<span class="org-level-1">* TeXBook</span>
+  
+<span class="org-level-2">** Characters</span>
+   Character codes are can be expressed in several formats:
+   decimal,octal, hexadecimal. <span class="org-verbatim">=\char92=</span>, <span class="org-verbatim">=\char'134=</span> and <span class="org-verbatim">=\char"5C=</span>
+   are the same and correspond to the above three format. Note the use
+   of single quote ='= and double quote ="= here.
+<span class="org-level-2">** Glue</span>
+   Glue has three attributes: space, the ability to stretch and its
+   ability to shrink. A glue is stretched or shrinked by the
+   percentage of their ability. Check texbook page 70 for details.
+   
+   You should add glues applying the following rules:
+   1. The natural glue space should be the amount of space that looks best.
+   2. The glue stretch shdould be the maximum amount of space that can
+      be added to the natural spacing before the layout begins to look bad.
+   3. The glue shrink should be the maximum amount of space that can
+      be subtracted from the natural spacing before the layout begins
+      to look bad.
+      
+   Vertical glue is created by writing <span class="org-verbatim">=\vskip&lt;glue&gt;=</span>, where <span class="org-verbatim">=&lt;glue&gt;=</span>
+   is any glue specification. The usual way to specify <span class="org-verbatim">=&lt;glue&gt;=</span> to TeX
+   is:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     &lt;dimen&gt; plus &lt;dimen&gt; minus &lt;dimen&gt;
+</span><span class="org-block-end-line">   #+end_src
+</span>   where <span class="org-verbatim">=plus&lt;dimen&gt;=</span> and <span class="org-verbatim">=minus&lt;dimen&gt;=</span> are optional and assumed to
+   be zero if not present. Horizontal glue is created by <span class="org-verbatim">=\hskip=</span>.
+
+   Infinite glue is specified by <span class="org-verbatim">=\vfil=</span> and <span class="org-verbatim">=\vfill=</span> or their
+   horizontal correspondings. Glue with infinite stretch and shrink
+   ability is specifed by <span class="org-verbatim">=\hss=</span> (horizontal stretch or shrink) or
+   <span class="org-verbatim">=\vss=</span>. And <span class="org-verbatim">=\hfilneg=</span> and <span class="org-verbatim">=\vfilneg=</span> will cancel the
+   stretchability of <span class="org-verbatim">=\hfil=</span> and <span class="org-verbatim">=\vfil=</span>.
+   
+   Inifinities are specified by special units <span class="org-verbatim">=fil=</span>, <span class="org-verbatim">=fill=</span> and
+   <span class="org-verbatim">=filll=</span> in the <span class="org-verbatim">=&lt;dimen&gt;=</span> parts of a stretchability or
+   shrinkability. For example, <span class="org-verbatim">=\vfil=</span>, <span class="org-verbatim">=\vfill=</span>, <span class="org-verbatim">=\vss=</span> and
+   <span class="org-verbatim">=\vfilneg=</span> are essentially equivalent to:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \vskip 0pt plus 1fil
+     \vskip 0pt plus 1fill
+     \vskip 0pt plus 1fil minus 1fil
+     \vskip 0pt plus -fil
+</span><span class="org-block-end-line">   #+end_src 
+</span>
+   <span class="org-verbatim">=\hbox to &lt;dimen&gt;{contents}=</span> to set the width of hbox, <span class="org-verbatim">=\hbox
+   spread &lt;dimen&gt;{contents}=</span> create a box whose width is a given
+   amount more than the natural width of its contents.
+   
+<span class="org-level-2">** Boxes</span>
+   Summary of specifing boxes:
+   1. A character by itself makes a character box, in horizontal mode;
+      this character is taken from the current font.
+   2. The command <span class="org-verbatim">=\hrule=</span> and <span class="org-verbatim">=\vrule=</span> make rule boxes.
+   3. Otherwise you can make hboxes and vboxes, which fall under the
+      generic term <span class="org-verbatim">=&lt;box&gt;=</span>, A box has one of the following seven forms:
+<span class="org-block-begin-line">      #+begin_src tex
+</span><span class="org-block">        \hbox&lt;box specification&gt;{&lt;horizontal material&gt;}
+        \vbox&lt;box specification&gt;{&lt;vertical material&gt;}
+        \vtop&lt;box specification&gt;{&lt;vertical material&gt;}
+        \box&lt;register number&gt;
+        \copy&lt;register number&gt;
+        \vsplit&lt;register number&gt; to &lt;dimen&gt;
+        \lastbox
+</span><span class="org-block-end-line">      #+end_src
+</span>      Here a <span class="org-verbatim">=&lt;box specification&gt; is either </span><span class="org-verbatim"><span class="org-verbatim">=to&lt;dimen&gt;=</span></span> or
+      <span class="org-verbatim">=spread&lt;dimen&gt;=</span> or empty;
+
+   Glue is a special case of leaders. Normally, the space in glue
+   contains nothing, we can specify its filling contents by control
+   word <span class="org-verbatim">=\leaders=</span>: <span class="org-verbatim">=\leaders&lt;box or glue&gt;\hskip&lt;glue&gt;=</span>
+
+<span class="org-level-2">** How TeX break paragraphs into lines</span>
+   A way to indicate TeX not to break at current point is to insert
+   <span class="org-verbatim">=~=</span> character. For example: <span class="org-verbatim">=Chapter~12=</span> will not break between the
+   word <span class="org-verbatim">=Chapter=</span> and the number <span class="org-verbatim">=12=</span>, thus assure best looking.
+
+   Another method is using <span class="org-verbatim">=hbox=</span> because TeX will not break any boxes.
+   
+   However if you want to force break in the middle of a paragraph,
+   just say <span class="org-verbatim">=\break=</span>. And if you want TeX to fill up the right hand
+   part of a line with blank space just before a forced line break,
+   without indenting the next line, just say <span class="org-verbatim">=\hfil\break=</span>.
+   
+   Option <span class="org-verbatim">=\obeylines=</span> is used to keep the original consecutive lines
+   to appear line-to-line in the output. When adding this option,
+   every end-of-line in the input is treated as a <span class="org-verbatim">=\par=</span> instead of
+   consecutive end-of-line characters.
+   
+   Roughly speaking, TeX breaks paragraphs into lines in the following
+   way: Breakpoints are inserted between words or after hyphens so as
+   to produce lines whose badnesses do not exceed the current
+   <span class="org-verbatim">=\tolerance=</span>. If there's no way to insert such breakpoints, an
+   overfull box is set. Otherwise the breakpoints are chosen so that
+   the paragraph is mathematically optimal, i.e., best possible, in
+   the sense that it has no more "demerits" than you could obtain by
+   any other sequence of breakpoints. Demerits are based on the
+   badnesses of individual line and on the existence of such things as
+   consecutive lines that end with hyphens or tight lines that occur
+   next to loose ones.
+   
+   A discretionary break consists of three sequence of  characters
+   called <span class="underline">_pre-break_</span>, <span class="underline">_post-break_</span> and <span class="underline">_no-break_</span> texts.
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \discretionary{&lt;pre-break text&gt;}{&lt;post-break text&gt;}{&lt;no-break text&gt;}
+</span><span class="org-block-end-line">   #+end_src
+</span>   If a line break occurs, the pre-break text will appear at the end
+   of the current line and the post-break text will occur at the
+   beginning of next line, but if no break happens, the no-break text
+   will appear in the current line. For example, the propper break of
+   the word "difficult" is provided as:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     di\discretionary{f-}{fi}{ffi}cult
+</span><span class="org-block-end-line">   #+end_src
+</span>   
+   Each potential breakpoint has an associated "penalty", which
+   represents the "aesthetic cost" of breaking at that place. For
+   example, you say <span class="org-verbatim">=\penalty 100=</span> at some point in a paragraph, that
+   position will be legitimate place to break between lines, but a
+   penalty 100 will be charged. If you say <span class="org-verbatim">=\penalty-100=</span>, you are
+   telling that this is a rather good palce to break.   
+   
+   Any penalty that is 10000 or more is considered to be so large that
+   TeX never breaks there. At the other extreme, any penalty that is
+   -10000 or less is considered to be so small that TeX will always
+   break there. The <span class="org-verbatim">=\nobreak=</span> is simply an abbreviation of <span class="org-verbatim">=\penalty10000=</span>.
+<span class="org-level-1">* TeX by Topci</span>
+<span class="org-level-2">** Macro</span>
+   A parameter is called undelimited if it is followed immediately by
+   another parameter in the <span class="org-verbatim">=&lt;parameter text&gt;=</span> or by the opening brace
+   of the <span class="org-verbatim">=&lt;replacement text&gt;=</span>, it is called delimited if it is
+   following any other tokens.
+<span class="org-level-3">*** Undelimited Parameter</span>
+    When a macro with an undelimited parameter is expanded, TeX scans
+    ahead (without expanding) until a non-blank token is found. If
+    this token is not an explicit <span class="org-verbatim">=&lt;left brace&gt;=</span>, it is taken to be
+    the argument corresponding to the parameter. Otherwise a
+    <span class="org-verbatim">=&lt;balanced text&gt;=</span> is absorbed by scanning until the matching
+    explicit <span class="org-verbatim">=&lt;right brace&gt;=</span> has been found. This balanced text then
+    constitutes the argument.
+    
+    For example: <span class="org-verbatim">=\def\foo#1#2#3{#1(#2)#3}=</span>, the call to <span class="org-verbatim">=\foo123=</span>
+    gives <span class="org-verbatim">=1(2)3=</span>; but <span class="org-verbatim">=\foo 1 2 3=</span> also gives the same result. This
+    example illustrate the definition of "token" and how TeX skip spaces.
+<span class="org-level-3">*** Delimited parameters</span>
+    Character token acting as delimiters in the parameter text have
+    both their character code and category code stored; the delimiters
+    of the actual arguments have to match both.
+    
+    When looking for the argument corresponding to a delimited
+    parameter, TeX absorbs all tokens without expansion(but balancing
+    braces) until the (exact sequence of) delimiting tokens is
+    encountered. The delimeting tokens are not part of the argument;
+    they are removed from the input stream during the macro call.
+</pre>
+  </body>
+</html>

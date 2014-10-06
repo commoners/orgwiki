@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>C++ Notes</title>
-<!-- 2014-09-26 -->
+<!-- 2014-10-02 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -106,6 +107,11 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4-4">Virtual Inheritance</a></li>
 <li><a href="#sec-4-5">constant member functions</a></li>
 <li><a href="#sec-4-6">Named Constructor Idiom</a></li>
+<li><a href="#sec-4-7">Default Constructor</a></li>
+<li><a href="#sec-4-8">Copy constructor</a></li>
+<li><a href="#sec-4-9">Member Initialization List</a></li>
+<li><a href="#sec-4-10">Data Member Layout</a></li>
+<li><a href="#sec-4-11">Vtable Notes</a></li>
 </ul>
 </li>
 </ul>
@@ -925,6 +931,265 @@ to generate objects when you make your constructor private.
 }
 </pre>
 </div>
+</div>
+</div>
+<div id="outline-container-sec-4-7" class="outline-3">
+<h3 id="sec-4-7">Default Constructor</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+There are four characteristics of a class under which the compiler
+needs to sythesize a default constructor for classes that declare
+no constructor at all. They are called implicit nontrivial default
+constructors. The synthesized constructor fulfills only
+implemention need instead of program need. These characteristics are:
+</p>
+
+<ol class="org-ol">
+<li>Class that has member class object with default constructor.
+</li>
+<li>Class is derived from base class with default constructor.
+</li>
+<li>Class has virtual member function.
+</li>
+<li>Class with a virtual base class.
+</li>
+</ol>
+
+<p>
+Classes that do not exhibit these characteristics and declares no
+constructor at all are said to have implicit trivial default
+constructors. In practice, these tirvial constructors might not be
+synthesized at all.
+</p>
+
+<p>
+Note that if you've declared a constructor manually, the system
+will not generate one default for you any more.
+</p>
+
+<p>
+So, if you make your constructor private, the derived class will
+try to generate a constructor that calls the base class's
+constructor which is private and invalid to call outside the base
+class. So as to prevent your class from inheriting.
+</p>
+
+<p>
+<b>references</b>
+</p>
+<ul class="org-ul">
+<li>"Inside the C++ Object Model" Section 2.1.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-8" class="outline-3">
+<h3 id="sec-4-8">Copy constructor</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+Under three situations will copy constructor be used.
+</p>
+<ol class="org-ol">
+<li>Assign an object to another.
+</li>
+<li>Passing an object as the parameter of a function by value.
+</li>
+<li>Returning an object from a function.
+</li>
+</ol>
+</div>
+
+<ul class="org-ul"><li>Default Memberwise Initialization<br ><div class="outline-text-5" id="text-4-8-0-1">
+<p>
+Each class object initialized with another object of its class
+is initialized by what is called default memberwise
+initialization.
+</p>
+
+<p>
+If the class do not provide an explicit copy constructor, the new
+object will be initialized by memberwise copy. That means all
+members(except member class object) are directly be assigned to
+the value of the old object(pointer/array, etc). Member class
+objects are copied recursively using memberwise initialization.
+</p>
+</div>
+</li>
+
+<li>Bitwise Copy Semantics<br ><div class="outline-text-5" id="text-4-8-0-2">
+<p>
+"In practice, a good compiler generate bitwise copies for most
+class object since they have bitwise copy semantics.
+</p>
+
+<p>
+When are bitwise copy semantics not exhibited by a class?
+</p>
+<ol class="org-ol">
+<li>When the class have a member object of a class which a copy
+constructor exists.(either explictly defined by the class
+designer or sythesized by the compiler)
+</li>
+<li>The class is derived from a base class for which a copy
+constructor exists(again, either defined or sythesized).
+</li>
+<li>When a class declares one or more virtual function.
+</li>
+<li>When a class is derived from an inheritance chain in which one
+or more base classes are virtual(virtual inheritance).
+</li>
+</ol>
+
+<p>
+Case 1,2 the implementation will need to insert invocations of
+the member or base class copy constructor inside the synthesized
+copy constructor.
+</p>
+</div>
+</li>
+
+<li>Resetting the Virtual Table Pointer<br ><div class="outline-text-5" id="text-4-8-0-3">
+<p>
+Normally, if two objects belong to the same class, bitwise copy
+can be applied, even if they contain virtual functions.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">ZooAnimal</span> { 
+<span style="color: #f0dfaf; font-weight: bold;">public</span>: 
+   <span style="color: #8cd0d3;">ZooAnimal</span>(); 
+   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> ~<span style="color: #8cd0d3;">ZooAnimal</span>(); 
+
+   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">animate</span>(); 
+   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">draw</span>(); 
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">... </span>
+<span style="color: #f0dfaf; font-weight: bold;">private</span>: 
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">data necessary for ZooAnimal's </span>
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">version of animate() and draw() </span>
+}; 
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Bear</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">ZooAnimal</span> { 
+<span style="color: #f0dfaf; font-weight: bold;">public</span>: 
+   <span style="color: #8cd0d3;">Bear</span>(); 
+
+   <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">animate</span>(); 
+   <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">draw</span>(); 
+   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">dance</span>(); 
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">... </span>
+<span style="color: #f0dfaf; font-weight: bold;">private</span>: 
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">data necessary for Bear's version </span>
+   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">of animate(), draw(), and dance() </span>
+}; 
+<span style="color: #8cd0d3;">Bear</span> <span style="color: #dfaf8f;">yogi</span>;
+<span style="color: #8cd0d3;">Bear</span> <span style="color: #dfaf8f;">winnie</span> = yogi; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Bitwise copy is sufficiant</span>
+
+<span style="color: #8cd0d3;">ZooAnimal</span> <span style="color: #dfaf8f;">franny</span> = yogi; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">vptr should be re-constructed</span>
+</pre>
+</div>
+<p>
+However, <code>vptr</code> should be correctly reset when initializing an
+object using a pointer to a derived class. Because <code>yogi</code>'s
+<code>draw()</code> function points to <code>Bear</code> while <code>franny</code> is a
+<code>ZooAnimal</code> and its <code>show()</code> should points to class <code>ZooAnimal</code>.
+</p>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-4-9" class="outline-3">
+<h3 id="sec-4-9">Member Initialization List</h3>
+<div class="outline-text-3" id="text-4-9">
+<p>
+You may initialize members using member initialization list or
+within constructor, execpt four conditions your choice is insignificant.
+</p>
+
+<p>
+You MUST use member initialization list under the following first 3
+conditions:
+</p>
+<ol class="org-ol">
+<li>When initializing a reference member;
+</li>
+<li>When initializing a const member;
+</li>
+<li>When invoking a base or member class constructor with a set of arguments.
+</li>
+<li>Member initialization is faster.
+</li>
+</ol>
+
+<p>
+Note that the initialization order of member initailization list is
+the order of member declaration instead of member initialization
+list order. This may lead to some subtle bug.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>{
+<span style="color: #f0dfaf; font-weight: bold;">private</span>:
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>;
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">A</span>(val): j(val),i(j){} <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">bug.</span>
+};
+</pre>
+</div>
+<p>
+However, the member initialization list code comes before any user
+code, thus the following code is correct.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>{
+<span style="color: #f0dfaf; font-weight: bold;">private</span>:
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>;
+<span style="color: #f0dfaf; font-weight: bold;">public</span>:
+    <span style="color: #8cd0d3;">A</span>(val): j(val){
+        i = j;
+    }
+};
+</pre>
+</div>
+<p>
+An advice: put code that initialize a member using another object
+inside constructor body. This will aovid ambiguous to some extent.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-10" class="outline-3">
+<h3 id="sec-4-10">Data Member Layout</h3>
+<div class="outline-text-3" id="text-4-10">
+<ol class="org-ol">
+<li>The Standard requires within an access section (the private,
+public, or protected section of a class declaration) only that
+the members be set down such that "later members have higher
+addresses within a class object"
+</li>
+<li>The compiler will also synthesize data member to support Object
+Model. <code>vptr</code> is such an example. Traditionally they are placed
+after all explicitly declared members. Recently they are placed
+at the beginning of the class object. It is implementation
+dependent.
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-4-11" class="outline-3">
+<h3 id="sec-4-11">Vtable Notes</h3>
+<div class="outline-text-3" id="text-4-11">
+<ul class="org-ul">
+<li><a href="http://web.archive.org/web/20120517021435/http://tinydrblog.appspot.com/?p=89001">VTable Notes on Multiple Inheritance in GCC C++ Compiler v4.0.1</a>
+</li>
+<li><a href="http://stackoverflow.com/questions/5712808/understanding-the-vtable-entries">Understanding the vtable entries</a>
+</li>
+<li><a href="http://mentorembedded.github.io/cxx-abi/cxx-vtable-ex.html">C++ Vtable Example</a>
+</li>
+<li><a href="http://mentorembedded.github.io/cxx-abi/abi.html">Itanium C++ ABI</a>
+</li>
+</ul>
 </div>
 </div>
 </div>

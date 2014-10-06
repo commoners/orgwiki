@@ -6,8 +6,8 @@
     <style type="text/css">
     <!--
       body {
-        color: #dcdccc;
-        background-color: #3f3f3f;
+        color: #000000;
+        background-color: #ffffff;
       }
       .bold {
         /* bold */
@@ -15,30 +15,28 @@
       }
       .hl-line {
         /* hl-line */
-        background-color: #383838;
+        background-color: #404040;
       }
       .org-document-info-keyword {
-        /* org-document-info-keyword */
-        color: #b3b3b3;
       }
       .org-document-title {
         /* org-document-title */
-        color: #afeeee;
         font-weight: bold;
       }
       .org-level-1 {
         /* org-level-1 */
-        color: #dfaf8f;
-        background-color: #3f3f3f;
+        font-weight: bold;
       }
       .org-level-2 {
         /* org-level-2 */
-        color: #8fb28f;
-        background-color: #3f3f3f;
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-link {
+        /* org-link */
+        text-decoration: underline;
       }
       .org-verbatim {
-        /* org-verbatim */
-        color: #b3b3b3;
       }
 
       a {
@@ -77,6 +75,15 @@
    5. <span class="org-verbatim">=C-h c KEY=</span> displays in the echo area the name of the command
       that KEY is bound to.
 <span class="org-level-2">** Mark and the region</span>
+   
+<span class="org-level-1">* Eshell</span>
+<span class="org-level-2">** Visual Commands</span>
+   Some commands are not sufficient to run inside eshell, such as
+   <span class="org-verbatim">=top=</span>. They are supported by <span class="org-verbatim">=Term=</span> mode. We can add these commands
+   into <span class="org-verbatim">=eshell-visual-commands=</span> to make eshell invoke <span class="org-verbatim">=term=</span> mode automatically.
+   
+<span class="org-level-2">** References</span>
+   - <span class="org-link"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">[[http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/][</a><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">Complete Guide to Mastering Eshell</a><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">]]</a></span>
 
 <span class="org-level-1">* FAQs</span>
 <span class="org-level-2">** How to insert not graphic characters?</span>

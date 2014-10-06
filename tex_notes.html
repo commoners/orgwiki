@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TeX/LaTeX Notes</title>
+<!-- 2014-10-06 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+    function show_org_source(){
+       /* document.location.href = rpl(document.location.href,"html","org.html"); */
+       var url = document.location.href.split('#')[0];
+       document.location.href = url.replace(/.html$/, '.org.html');
+    }
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<!--<body onload="prettyPrint()">-->
+<nav>
+    <a href="index.html">Index</a>
+    <a href="about.html">About</a>
+    <a href="https://lotabout.github.io">Blog</a>
+    <a href="sitemap.html">SiteMap</a>
+</nav>
+</div>
+<div id="content">
+<h1 class="title">TeX/LaTeX Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">TeX</a>
+<ul>
+<li><a href="#sec-1-1">The shape of things to come</a>
+<ul>
+<li><a href="#sec-1-1-1">Fonts</a></li>
+<li><a href="#sec-1-1-2">Units</a></li>
+<li><a href="#sec-1-1-3">Page Shape</a></li>
+<li><a href="#sec-1-1-4">Paragraph Shape</a></li>
+<li><a href="#sec-1-1-5">Line Shape</a></li>
+<li><a href="#sec-1-1-6">Headlines and Footlines</a></li>
+<li><a href="#sec-1-1-7">Overfull and underfull boxes</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">Groups</a></li>
+<li><a href="#sec-1-3">Math</a>
+<ul>
+<li><a href="#sec-1-3-1">Fractions</a></li>
+<li><a href="#sec-1-3-2">Subscript and superscript</a></li>
+<li><a href="#sec-1-3-3">Roots, square and otherwise</a></li>
+<li><a href="#sec-1-3-4">Lines, above and below</a></li>
+<li><a href="#sec-1-3-5">Delimiters large and small</a></li>
+<li><a href="#sec-1-3-6">proclaim</a></li>
+<li><a href="#sec-1-3-7">Matrices</a></li>
+<li><a href="#sec-1-3-8">Displayed Equations</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">All in a row</a>
+<ul>
+<li><a href="#sec-1-4-1">Picking up the tab</a></li>
+<li><a href="#sec-1-4-2">Horizontal alignemnt with more sophisticated patters</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">Rolling your own</a>
+<ul>
+<li><a href="#sec-1-5-1">The lone and short of it</a></li>
+<li><a href="#sec-1-5-2">Filling in with parameters</a></li>
+<li><a href="#sec-1-5-3">By any other name</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-6">Digging a little deeper</a>
+<ul>
+<li><a href="#sec-1-6-1">Big files, little files</a></li>
+<li><a href="#sec-1-6-2">Larger macro packages</a></li>
+<li><a href="#sec-1-6-3">Horizontal and vertical lines</a></li>
+<li><a href="#sec-1-6-4">Boxes with boxes</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-7">Reference</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">TeXBook</a>
+<ul>
+<li><a href="#sec-2-1">Characters</a></li>
+<li><a href="#sec-2-2">Glue</a></li>
+<li><a href="#sec-2-3">Boxes</a></li>
+<li><a href="#sec-2-4">How TeX break paragraphs into lines</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">TeX by Topci</a>
+<ul>
+<li><a href="#sec-3-1">Macro</a>
+<ul>
+<li><a href="#sec-3-1-1">Undelimited Parameter</a></li>
+<li><a href="#sec-3-1-2">Delimited parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">TeX</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">The shape of things to come</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Fonts</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Define new fonts.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\font\bigrm = cmr10 scaled \magstep 1
+</pre>
+</div>
+<p>
+<code>\magstep 1</code> will increase the font size for <code>20%</code>, <code>\magstephalf</code>
+for <code>9.5%</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">Units</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<table>
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<tbody>
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">in(inch)</td>
+<td class="left">cm(centimetre)</td>
+<td class="left">pc(pica)</td>
+</tr>
+
+<tr>
+<td class="left">pt(point)</td>
+<td class="left">72.27pt</td>
+<td class="left">28.4pt</td>
+<td class="left">12pt</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+A <span class="underline">pica</span> is about the distance between the baselines of two
+consecutive lines of (unmagnified) normal text.
+</p>
+
+<dl class="org-dl">
+<dt> ex </dt><dd>The height of the letter 'x'.
+</dd>
+<dt> em </dt><dd>The width of the capital letter 'M'.
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3">Page Shape</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+There are three parts of a page:
+</p>
+<ol class="org-ol">
+<li>Headline: above the main text, often contains chapter title,
+section title, or page number, etc.
+</li>
+<li>Main text which includes footnotes.
+</li>
+<li>Footline: might contain a page number.
+</li>
+</ol>
+
+<p>
+<code>\vfill\eject</code> to start a new page. <code>\vfill</code> causes any left over
+vertical space to be gathered at the bottom of the page. <code>\hsize</code>
+(default to 6.5in) controls the horizontal width of the text on the
+page. The vertical analogue is <code>\vsize</code> (default to 8.9in) which is
+the current height of the <span class="underline">main text</span>. Main texts can be shiftted
+which is controled by <code>\hoffset</code> (default to 0) and <code>\voffset</code>
+(default to 0).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4">Paragraph Shape</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<table>
+<caption class="t-above"><span class="table-number">Table 1:</span> Some paragraph shape parameters</caption>
+
+<colgroup>
+<col  class="right">
+
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">Function</th>
+<th scope="col" class="left">TeX Control Word</th>
+<th scope="col" class="left">TeX default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">width</td>
+<td class="left">\hsize</td>
+<td class="left">6.5in</td>
+</tr>
+
+<tr>
+<td class="right">indentation on first line</td>
+<td class="left">\parindent</td>
+<td class="left">20pt</td>
+</tr>
+
+<tr>
+<td class="right">distance between lines</td>
+<td class="left">\baselineskip</td>
+<td class="left">12pt</td>
+</tr>
+
+<tr>
+<td class="right">distance between paragraphs</td>
+<td class="left">\parskip</td>
+<td class="left">0pt</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<code>\noindent</code> can be added at the beginning of a paragraph to avoid
+indent only for this paticular paragraph.
+</p>
+
+<p>
+A more flexialbe way to control the width of paragraphs is to use
+<code>\rightskip</code> and <code>\leftskip</code> to set the right and left margins of
+paragraphs respectively. <code>\narrower</code> is handy for setting both
+<code>\rightskip</code> and <code>\leftskip</code> to <code>\parindent</code>.
+</p>
+
+<p>
+Lines can be made with different lengths within one paragraph by
+using <code>\hangindent</code> (default to 0pt) and <code>\hangafter</code> (default to
+1). <code>\hangindent</code> controls the indent width, left if positive,
+right negative. <code>\hangafter</code> controls the number of lines before
+<code>\hangindent</code> take effect. For example <code>\hangafter = 6</code> means the
+first <code>6</code> lines are normal while <code>\hangindent = -6</code> means the last
+<code>6</code> lines are normal.
+</p>
+
+<p>
+The control word <code>\parshape</code> can be used to make paragraphs with a
+great variety of shapes.
+</p>
+
+<p>
+<code>\vskip 1 in</code> is used to insert extra spaces between
+paragraphs. <code>\vskip</code> will not insert spaces across page
+boundaries. If you actually want to insert spaces at the top of a
+page, you can use <code>vglue 1 in</code> instead or surround <code>\vskip</code> between
+environment <code>\topinsert</code> and <code>\endinsert</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\topinsert
+\vskip 1 in
+\centerline{Figure 1}
+\endinsert
+</pre>
+</div>
+<p>
+Some special control word are made for convenience for making
+small vertical skip: <code>\smallskip</code>, <code>\medskip</code>, <code>\bigskip</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5">Line Shape</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<p>
+<code>\leftline{some text}</code>, <code>\rightline{some text}</code>, <code>\centerline{some
+    text}</code> and even <code>\line{some text}</code> are provide for making special lines.
+</p>
+
+<p>
+Other types of spacing can be get by using the control word <code>\hfil</code>.
+</p>
+
+<p>
+It's possible to move horizontally using <code>\hskip</code> in a manner
+analogous with <code>\vskip</code>.
+</p>
+
+<p>
+The right justification can be canceled by using the control word <code>\raggedright</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-1-6" class="outline-4">
+<h4 id="sec-1-1-6">Headlines and Footlines</h4>
+<div class="outline-text-4" id="text-1-1-6">
+<p>
+The lines for title and page numbers that go above and below the
+main text are produced by using <code>\headline={...}</code> and
+<code>\footline={...}</code> 
+</p>
+
+<p>
+The principle is the same as using <code>\line</code>. A helpful control word
+is <code>\pageno</code> which represents the current page number. For example:
+<code>\headline={\hfil \tenrm Page \the\pageno}</code>. The control word
+<code>\the</code> takes the internal value of next word if it is an
+appropriate control word and prints it as text. <code>\folio</code> is an
+alternative to <code>\the \pageno</code>, except that it will print roman
+numbers when <code>\pageno</code> is negative.
+</p>
+
+<p>
+Different headlines can be produced for even and odd pages in the
+following manner:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\headline={\ifodd \pageno {...}\else {...} \fi}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-7" class="outline-4">
+<h4 id="sec-1-1-7">Overfull and underfull boxes</h4>
+<div class="outline-text-4" id="text-1-1-7">
+<p>
+The badness of a line measures how badly the words are spaced and
+is a number between 0(perfect) and 10000(horrible). There is a
+parameter called <code>\hbadness</code> whose default value is 1000. Any line
+whose badness is greater than <code>\hbadness</code> is reported as underfull
+box.
+</p>
+
+<p>
+Similarily, TeX allows a line to be slightly longer than <code>\hsize</code>
+in order to achieve a more balanced appearance. If the badness of a
+line is greater than <code>\tolerance</code> (default to 200), TeX will add a
+new word at the end of the line although it might exceed
+<code>\hsize</code>. <code>\hfuzz</code> (default to 0.1pt) determines how much excess is
+allowed. If <code>\hfuzz</code> is exceeded overfull box is reported. 
+</p>
+
+<p>
+The width of slug(boxes) is controled by <code>\overfullrule</code>. Including
+<code>\overfullrule = 0 pt</code> in your file will preventing the printing of slugs.
+</p>
+
+<p>
+All the above concept have their vertical analogues. <code>\vbadness</code>
+controls vertical text boxes.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Groups</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Groups are formed by surround objecs with '{ contents }'. For
+example: <code>{\bf three boldface words}</code>. Also, size changes can be
+made  in the text that are only temporary:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">{
+  \hsize = 4in
+  \parindent = 0pt
+  \leftskip = 1in
+  Some text...
+  /par <span style="font-weight: bold; font-style: italic;">% This is an easy mistake to make</span>
+       <span style="font-weight: bold; font-style: italic;">% use a </span><span style="font-weight: bold; font-style: italic;">\par</span><span style="font-weight: bold; font-style: italic;"> or a blank line here to indicate the end of a paragraph</span>
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Math</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+How to insert texts between math equations? Use <code>hbox</code>. <code>$x=y+1 
+   \hbox{ whenever } y = x+1$</code>. Note the space on either side of the
+word within the brace.
+</p>
+
+<table>
+<caption class="t-above"><span class="table-number">Table 2:</span> Adding space to mathematical text</caption>
+
+<colgroup>
+<col  class="right">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">Name</th>
+<th scope="col" class="left">Control Sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">Double quad</td>
+<td class="left">\qquad</td>
+</tr>
+
+<tr>
+<td class="right">Quad</td>
+<td class="left">\quad</td>
+</tr>
+
+<tr>
+<td class="right">Space</td>
+<td class="left">\_(space)</td>
+</tr>
+
+<tr>
+<td class="right">Thick space</td>
+<td class="left">\;</td>
+</tr>
+
+<tr>
+<td class="right">Medium space</td>
+<td class="left">\&gt;</td>
+</tr>
+
+<tr>
+<td class="right">Thin space</td>
+<td class="left">\,</td>
+</tr>
+
+<tr>
+<td class="right">Negative thin space</td>
+<td class="left">\!</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<caption class="t-above"><span class="table-number">Table 3:</span> Greek Characters</caption>
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<tbody>
+<tr>
+<td class="left">&alpha;</td>
+<td class="left"><code>\alpha</code></td>
+<td class="left">&beta;</td>
+<td class="left"><code>\beta</code></td>
+<td class="left">&gamma;</td>
+<td class="left"><code>\gamma</code></td>
+<td class="left">&delta;</td>
+<td class="left"><code>\delta</code></td>
+</tr>
+
+<tr>
+<td class="left">&epsilon;</td>
+<td class="left"><code>\epsilon</code></td>
+<td class="left">&epsilon;</td>
+<td class="left"><code>\varepsilon</code></td>
+<td class="left">&zeta;</td>
+<td class="left"><code>\zeta</code></td>
+<td class="left">&eta;</td>
+<td class="left"><code>\eta</code></td>
+</tr>
+
+<tr>
+<td class="left">&theta;</td>
+<td class="left"><code>\theta</code></td>
+<td class="left">&thetasym;</td>
+<td class="left"><code>\vartheta</code></td>
+<td class="left">&iota;</td>
+<td class="left"><code>\iota</code></td>
+<td class="left">&kappa;</td>
+<td class="left"><code>\kappa</code></td>
+</tr>
+
+<tr>
+<td class="left">&lambda;</td>
+<td class="left"><code>\lambda</code></td>
+<td class="left">&mu;</td>
+<td class="left"><code>\mu</code></td>
+<td class="left">&nu;</td>
+<td class="left"><code>\nu</code></td>
+<td class="left">&xi;</td>
+<td class="left"><code>\xi</code></td>
+</tr>
+
+<tr>
+<td class="left">o</td>
+<td class="left"><code>o</code></td>
+<td class="left">&pi;</td>
+<td class="left"><code>\pi</code></td>
+<td class="left">&rho;</td>
+<td class="left"><code>\rho</code></td>
+<td class="left">\varrho</td>
+<td class="left"><code>\varrho</code></td>
+</tr>
+
+<tr>
+<td class="left">&sigma;</td>
+<td class="left"><code>\sigma</code></td>
+<td class="left">&sigmaf;</td>
+<td class="left"><code>\varsigma</code></td>
+<td class="left">&tau;</td>
+<td class="left"><code>\tau</code></td>
+<td class="left">&upsilon;</td>
+<td class="left"><code>\upsilon</code></td>
+</tr>
+
+<tr>
+<td class="left">&phi;</td>
+<td class="left"><code>\phi</code></td>
+<td class="left">&varphi;</td>
+<td class="left"><code>\varphi</code></td>
+<td class="left">&chi;</td>
+<td class="left"><code>\chi</code></td>
+<td class="left">&psi;</td>
+<td class="left"><code>\psi</code></td>
+</tr>
+
+<tr>
+<td class="left">&omega;</td>
+<td class="left"><code>\omega</code></td>
+<td class="left">&Gamma;</td>
+<td class="left"><code>\Gamma</code></td>
+<td class="left">&Delta;</td>
+<td class="left"><code>\Delta</code></td>
+<td class="left">&Theta;</td>
+<td class="left"><code>\Theta</code></td>
+</tr>
+
+<tr>
+<td class="left">&Lambda;</td>
+<td class="left"><code>\Lambda</code></td>
+<td class="left">&Xi;</td>
+<td class="left"><code>\Xi</code></td>
+<td class="left">&Pi;</td>
+<td class="left"><code>\Pi</code></td>
+<td class="left">&Sigma;</td>
+<td class="left"><code>\Sigma</code></td>
+</tr>
+
+<tr>
+<td class="left">&Upsilon;</td>
+<td class="left"><code>\Upsilon</code></td>
+<td class="left">&Phi;</td>
+<td class="left"><code>\Phi</code></td>
+<td class="left">&Psi;</td>
+<td class="left"><code>\Psi</code></td>
+<td class="left">&Omega;</td>
+<td class="left"><code>\Omega</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Fractions</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+<code>$${a+b \over c+d}$$</code> yields:$$a+b \over c+d$$
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Subscript and superscript</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+<code>$\sum_{k=1}^nk^2$</code> yields: \(\sum_{k=1}^nk^2\).
+and <code>$\int_0^x f(t)\,dt$</code> will give: \(\int_0^x f(t)\,dt\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">Roots, square and otherwise</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+To typeset a square root, use <code>\sqrt{...}</code>, to make cube or other
+roots, use <code>\root n \of {...}</code>.
+</p>
+
+<p>
+<code>$\sqrt{x^2+y^2}$</code>: \(\sqrt{x^2+y^2}\)
+</p>
+
+<p>
+<code>$\root n \of {1+x^n}$</code>: \(\root n \of {1+x^n}\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4">Lines, above and below</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Use the construction <code>\overline{...}</code> and <code>\underline{...}</code> to put
+line above and below expressions.
+</p>
+
+<p>
+<code>$\overline{x+y} = \overline{x}+\overline{y}$</code>: \(\overline{x+y}=\overline{x}+\overline{y}\)
+</p>
+
+<p>
+To underline non-mathematical text, use <code>\underbar{...}</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5">Delimiters large and small</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+To make larger left delimiters the control words <code>\bigl</code>, <code>\Bigl</code>,
+<code>\biggl</code> and <code>\Biggl</code> are used in front of the delimiter;
+similarily, <code>\bigr</code>, <code>\Bigr</code>, <code>\biggr</code> and <code>\Biggr</code> are used for
+the right delimiters. For example: <code>$\Bigl[$</code>
+</p>
+
+<p>
+Of course, you can let TeX choose the right size of delimiter by
+using control words <code>\left</code> and <code>\right</code> before our
+delimiters. Thus <code>\left[...\right]</code> will generate right size for
+<code>[...]</code>. Note that <code>\left</code> and <code>\right</code> should appear in pairs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6">proclaim</h4>
+<div class="outline-text-4" id="text-1-3-6">
+<p>
+<code>\proclaim</code> macro is used to stating theorems, corollaries,
+propositions and the like. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\proclaim Theorem 1(H.<span style="font-style: italic;">``G.''</span>Wells). In the country of the blind, the
+one-eyed man is king.
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7">Matrices</h4>
+<div class="outline-text-4" id="text-1-3-7">
+<p>
+Matrices are typeset using combinations of the alignment character
+<code>&amp;</code> and the control word <code>\cr</code> to indicate the end of the
+line. Start with <code>$$\pmatrix{...}$$</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\pmatrix</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">  a &amp; b &amp; c &amp; d </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  b &amp; a &amp; c+d &amp; c-d </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">}$$</span>
+</pre>
+</div>
+<p>
+The entries can be flushed left or right with the help of <code>\hfill</code>.
+</p>
+
+<p>
+It is possible to have matrices that use other delimiters. Using
+<code>\matrix</code> instead of <code>\pmatrix</code> will leave off the parentheses, so
+the delimiters must be explicitly included using <code>\left</code> and <code>\right</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\left</span><span style="text-decoration: underline;"> |</span>
+<span style="text-decoration: underline;">\matrix</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">  a &amp; b &amp; c &amp; d </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  b &amp; a &amp; c+d &amp; c-d </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">\right</span><span style="text-decoration: underline;"> | $$</span>
+</pre>
+</div>
+<p>
+It is even possible to use <code>\left.</code> and <code>\right.</code> to indicate the
+delimiter is deleted(note the use of period). It is the same
+effect to not adding delimiters at all, but it will be needed when
+you want only opening or closing delimiter.
+</p>
+
+<p>
+<code>\cdots</code>, <code>\vdots</code> and <code>\ddots</code> can be used to insert horizontal,
+vertical, and diagonal dots.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-8" class="outline-4">
+<h4 id="sec-1-3-8">Displayed Equations</h4>
+<div class="outline-text-4" id="text-1-3-8">
+<p>
+Equation alignment is done with the alignment character <code>&amp;</code> and
+the control word <code>\cr</code> and <code>\eqalign</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="text-decoration: underline;">$$ </span><span style="text-decoration: underline;">\eqalign</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">  a+b &amp;= c+d </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  x &amp;= w+y+x </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  m+n+o+p &amp;= q </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">} $$</span>
+</pre>
+</div>
+
+<p>
+Displayed equations can be numbered at either the right or left
+margin, <code>\eqno ...</code> to indicate right margin and <code>\leqno</code> for left.
+</p>
+
+<p>
+It's possible to number aligned equations by using the control
+word <code>\eqalignno</code> and <code>\leqalignno</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="text-decoration: underline;">$$ </span><span style="text-decoration: underline;">\eqalignno</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">  a+b &amp;= c+d &amp; (1)</span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  x &amp;= w+y+x </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">  m+n+o+p &amp;= q &amp; * </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">} $$</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">All in a row</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+There are two method to align texts. The first is using tabbing
+environment, the second is horizontal alignment environment.
+</p>
+</div>
+
+<div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1">Picking up the tab</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+First, set the tab position using <code>\settabs</code>, then a line starts
+with the control symbol <code>\+</code> and ends with <code>\cr</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\settabs 4 \columns
+\+ British Columbia <span style="font-weight: bold;">&amp;</span> Alberta <span style="font-weight: bold;">&amp;</span> Saskatchewan <span style="font-weight: bold;">&amp;</span> Manitoba \cr
+\+ Ontario <span style="font-weight: bold;">&amp;</span> Quebec <span style="font-weight: bold;">&amp;</span> New Brunswick <span style="font-weight: bold;">&amp;</span> Nova Scotia \cr
+\+ <span style="font-weight: bold;">&amp;</span> Prince Edward Island <span style="font-weight: bold;">&amp;</span> Newfoundland \cr
+</pre>
+</div>
+<p>
+We can also set tab positions to a given string
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\settabs \+ <span style="font-weight: bold;">\quad</span> Year <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Price <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Dividend <span style="font-weight: bold;">&amp;</span> \cr 
+\+ \hfill Year <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Price <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Dividend \cr
+\+ \hfill 1971 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 41--54 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.60 \cr
+\+ \hfill 2 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 41--54 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.70 \cr
+\+ \hfill 3 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 46--55 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.87 \cr
+\+ \hfill 4 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 40--53 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$3.24 \cr
+\+ \hfill 5 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 45--52 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$3.40 \cr
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2">Horizontal alignemnt with more sophisticated patters</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+The general pattern in the <code>\halign</code> is as follows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\halign{ &lt;template line&gt; \cr
+&lt;first display line&gt; \cr
+&lt;second display line&gt; \cr
+...
+&lt;last display line&gt; \cr
+}
+</pre>
+</div>
+<p>
+Both template line and display line are seperated by <code>&amp;</code>
+symbol. In template line, symbol <code>#</code> indicate the contents of the
+corresponding section in display line and thus must appear in each section.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\halign{\hskip 2 in <span style="text-decoration: underline;">$#$</span><span style="font-weight: bold;">&amp;</span> \hfil <span style="font-weight: bold;">\quad</span> # \hfil <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> <span style="text-decoration: underline;">$#$</span> <span style="font-weight: bold;">&amp;</span> \hfil <span style="font-weight: bold;">\quad</span> # \hfil \cr
+\alpha <span style="font-weight: bold;">&amp;</span> alpha <span style="font-weight: bold;">&amp;</span> \beta <span style="font-weight: bold;">&amp;</span> beta \cr
+\gamma <span style="font-weight: bold;">&amp;</span> gamma <span style="font-weight: bold;">&amp;</span> \delta <span style="font-weight: bold;">&amp;</span> delta \cr
+\epsilon <span style="font-weight: bold;">&amp;</span> epsilon <span style="font-weight: bold;">&amp;</span> \zeta <span style="font-weight: bold;">&amp;</span> zeta \cr
+}
+</pre>
+</div>
+
+<p>
+Alignment can be escaped using <code>\noalign{...}</code>, this is useful
+when adding rulers: <code>\noalign{\hrule}</code>.
+</p>
+
+<p>
+Below is a general pattern to generate table:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\vbox</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">\offinterlineskip</span>
+<span style="text-decoration: underline;">\halign</span><span style="text-decoration: underline;">{</span>
+<span style="text-decoration: underline;">\strut</span><span style="text-decoration: underline;"> </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # &amp; </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # &amp; . . . &amp; </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">...</span>
+<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="text-decoration: underline;">\cr</span>
+<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">}</span>
+<span style="text-decoration: underline;">}$$</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">Rolling your own</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+In this section, we'll create new control word.
+</p>
+</div>
+
+<div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">The lone and short of it</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+The control word <code>\def</code> is used to define new control words. The
+simplest form is <code>\def\newname{...}</code>. Then whenever <code>\newname</code>
+appears in your file, it will be replaced by its definition.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2">Filling in with parameters</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+Macro with one parameter: <code>\def\newword#1{...}</code>. Then the symbol
+<code>#1</code> may appear between braces (several times) in the definition
+of <code>\newword</code>. <b>The spacing in the definition is crucial here;
+there must be no spaces before the opening brace</b>.
+</p>
+
+<p>
+The parameter of a macro can be no more than one paragraph long,
+and this is a safety feature.
+</p>
+
+<p>
+Macros with more than one parameter is trivial: <code>\def\talks#1#2{#1
+    talks to #2}</code>. Note that the parameter number should come in
+consecutive order, that is <code>#1, #2, #3</code>, otherwise error
+occurs. The parameter may go up to <code>#9</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3">By any other name</h4>
+<div class="outline-text-4" id="text-1-5-3">
+<p>
+Use <code>\let \newname = \oldname</code> to rename control words.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">Digging a little deeper</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">Big files, little files</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+<code>\input filename</code> will cause <code>filename.tex</code> to be read immediately as
+if the text of <code>filename.tex</code> had been part of the file that read
+it in.
+</p>
+
+<p>
+The <code>\input</code> control word also allows the use of predesigned
+macros, i.e. the predesigned macro will affect the file being read.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">Larger macro packages</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+The plain TeX package is contained in a <span class="underline">format file</span>
+<code>plain.fmt</code>. Macros can be showed by <code>\show\macroname</code> in the TeX shell.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">Horizontal and vertical lines</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<p>
+We know that <code>\hrule</code> will generate a vertical line whose width is
+the current value of <code>\hsize</code>, and then continue on with a new
+paragraph. It is possible to specify wdith of hrule by <code>\hrule
+    width 5 cm</code> for example; also you can use <code>\vskip</code> or <code>\bigskip</code>
+to put some space above or below the hrule:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\parindent = 0pt \parskip=12pt
+Here is the text before the hrule
+\bigskip
+\hrule width 3 in
+And here is some text after the hrule
+</pre>
+</div>
+
+<p>
+In fact, we can also specify the <b>height</b> (default to 0.4pt, the
+amount by which the hrule extends above the baseline on which the
+type is being set) and <b>depth</b> (default to 0pt, the amount by
+which the hrule extends below the baseline on which the type is
+being set). For example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\hrule width 3 in height 2 pt depth 3pt
+</pre>
+</div>
+<p>
+The above three parameter may be given in any order.
+</p>
+
+<p>
+A vrule may be defined analogously to an hrule by specifying the
+<code>width</code>, <code>height</code> and <code>depth</code>. But unlike hrule, it will not
+automatically start a new paragraph when it appears, and has 0.4pt
+width by default and the same height with a line on which it is
+being set.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4">Boxes with boxes</h4>
+<div class="outline-text-4" id="text-1-6-4">
+<p>
+A hbox is formed by using <code>\hbox{...}</code>. The size of an hbox can be
+specified by <code>\hbox to 5 cm{Contents of the box}</code> for
+example. Note that this is easy to get underfull or overfull
+box. Use <code>\hfil</code> to absorb the extra space.
+</p>
+
+<p>
+Note that there might be spaces in hboxes that is out of your
+expectation. Unless a line ends in a control word, there is always
+a space between the last entry in one line and the first one in
+the next line, so if this is not what you want, use % at the end
+of that line to comment it out.
+</p>
+
+<p>
+It's easy to move boxes up, down, left or right on the page by
+<code>\raise</code>, <code>\lower</code>, <code>\moveleft</code> and <code>\moveright</code>. For
+example <code>\moveright 1in in \vbox{...}</code>. Note that the default
+depth of <code>\strut</code> is 3.5pt.
+</p>
+
+<p>
+It is also possible to fill a box with either an hrule or with
+dots. The idea is to use <code>\hrulefill</code> or <code>\dotfill</code> in the hbox.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">Reference</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>"A Gentle Introduction to TeX"
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">TeXBook</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Characters</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Character codes are can be expressed in several formats:
+decimal,octal, hexadecimal. <code>\char92</code>, <code>\char'134</code> and <code>\char"5C</code>
+are the same and correspond to the above three format. Note the use
+of single quote ='= and double quote ="= here.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Glue</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Glue has three attributes: space, the ability to stretch and its
+ability to shrink. A glue is stretched or shrinked by the
+percentage of their ability. Check texbook page 70 for details.
+</p>
+
+<p>
+You should add glues applying the following rules:
+</p>
+<ol class="org-ol">
+<li>The natural glue space should be the amount of space that looks best.
+</li>
+<li>The glue stretch shdould be the maximum amount of space that can
+be added to the natural spacing before the layout begins to look bad.
+</li>
+<li>The glue shrink should be the maximum amount of space that can
+be subtracted from the natural spacing before the layout begins
+to look bad.
+</li>
+</ol>
+
+<p>
+Vertical glue is created by writing <code>\vskip&lt;glue&gt;</code>, where <code>&lt;glue&gt;</code>
+is any glue specification. The usual way to specify <code>&lt;glue&gt;</code> to TeX
+is:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">&lt;dimen&gt; plus &lt;dimen&gt; minus &lt;dimen&gt;
+</pre>
+</div>
+<p>
+where <code>plus&lt;dimen&gt;</code> and <code>minus&lt;dimen&gt;</code> are optional and assumed to
+be zero if not present. Horizontal glue is created by <code>\hskip</code>.
+</p>
+
+<p>
+Infinite glue is specified by <code>\vfil</code> and <code>\vfill</code> or their
+horizontal correspondings. Glue with infinite stretch and shrink
+ability is specifed by <code>\hss</code> (horizontal stretch or shrink) or
+<code>\vss</code>. And <code>\hfilneg</code> and <code>\vfilneg</code> will cancel the
+stretchability of <code>\hfil</code> and <code>\vfil</code>.
+</p>
+
+<p>
+Inifinities are specified by special units <code>fil</code>, <code>fill</code> and
+<code>filll</code> in the <code>&lt;dimen&gt;</code> parts of a stretchability or
+shrinkability. For example, <code>\vfil</code>, <code>\vfill</code>, <code>\vss</code> and
+<code>\vfilneg</code> are essentially equivalent to:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\vskip 0pt plus 1fil
+\vskip 0pt plus 1fill
+\vskip 0pt plus 1fil minus 1fil
+\vskip 0pt plus -fil
+</pre>
+</div>
+
+<p>
+<code>\hbox to &lt;dimen&gt;{contents}</code> to set the width of hbox, <code>\hbox
+   spread &lt;dimen&gt;{contents}</code> create a box whose width is a given
+amount more than the natural width of its contents.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Boxes</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Summary of specifing boxes:
+</p>
+<ol class="org-ol">
+<li>A character by itself makes a character box, in horizontal mode;
+this character is taken from the current font.
+</li>
+<li>The command <code>\hrule</code> and <code>\vrule</code> make rule boxes.
+</li>
+<li>Otherwise you can make hboxes and vboxes, which fall under the
+generic term <code>&lt;box&gt;</code>, A box has one of the following seven forms:
+<div class="org-src-container">
+
+<pre class="src src-tex">\hbox&lt;box specification&gt;{&lt;horizontal material&gt;}
+\vbox&lt;box specification&gt;{&lt;vertical material&gt;}
+\vtop&lt;box specification&gt;{&lt;vertical material&gt;}
+\box&lt;register number&gt;
+\copy&lt;register number&gt;
+\vsplit&lt;register number&gt; to &lt;dimen&gt;
+\lastbox
+</pre>
+</div>
+<p>
+Here a <code>&lt;box specification&gt; is either =to&lt;dimen&gt;</code> or
+<code>spread&lt;dimen&gt;</code> or empty;
+</p>
+</li>
+</ol>
+
+<p>
+Glue is a special case of leaders. Normally, the space in glue
+contains nothing, we can specify its filling contents by control
+word <code>\leaders</code>: <code>\leaders&lt;box or glue&gt;\hskip&lt;glue&gt;</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">How TeX break paragraphs into lines</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+A way to indicate TeX not to break at current point is to insert
+<code>~</code> character. For example: <code>Chapter~12</code> will not break between the
+word <code>Chapter</code> and the number <code>12</code>, thus assure best looking.
+</p>
+
+<p>
+Another method is using <code>hbox</code> because TeX will not break any boxes.
+</p>
+
+<p>
+However if you want to force break in the middle of a paragraph,
+just say <code>\break</code>. And if you want TeX to fill up the right hand
+part of a line with blank space just before a forced line break,
+without indenting the next line, just say <code>\hfil\break</code>.
+</p>
+
+<p>
+Option <code>\obeylines</code> is used to keep the original consecutive lines
+to appear line-to-line in the output. When adding this option,
+every end-of-line in the input is treated as a <code>\par</code> instead of
+consecutive end-of-line characters.
+</p>
+
+<p>
+Roughly speaking, TeX breaks paragraphs into lines in the following
+way: Breakpoints are inserted between words or after hyphens so as
+to produce lines whose badnesses do not exceed the current
+<code>\tolerance</code>. If there's no way to insert such breakpoints, an
+overfull box is set. Otherwise the breakpoints are chosen so that
+the paragraph is mathematically optimal, i.e., best possible, in
+the sense that it has no more "demerits" than you could obtain by
+any other sequence of breakpoints. Demerits are based on the
+badnesses of individual line and on the existence of such things as
+consecutive lines that end with hyphens or tight lines that occur
+next to loose ones.
+</p>
+
+<p>
+A discretionary break consists of three sequence of  characters
+called <span class="underline">pre-break</span>, <span class="underline">post-break</span> and <span class="underline">no-break</span> texts.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">\discretionary{&lt;pre-break text&gt;}{&lt;post-break text&gt;}{&lt;no-break text&gt;}
+</pre>
+</div>
+<p>
+If a line break occurs, the pre-break text will appear at the end
+of the current line and the post-break text will occur at the
+beginning of next line, but if no break happens, the no-break text
+will appear in the current line. For example, the propper break of
+the word "difficult" is provided as:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex">di\discretionary{f-}{fi}{ffi}cult
+</pre>
+</div>
+
+<p>
+Each potential breakpoint has an associated "penalty", which
+represents the "aesthetic cost" of breaking at that place. For
+example, you say <code>\penalty 100</code> at some point in a paragraph, that
+position will be legitimate place to break between lines, but a
+penalty 100 will be charged. If you say <code>\penalty-100</code>, you are
+telling that this is a rather good palce to break.   
+</p>
+
+<p>
+Any penalty that is 10000 or more is considered to be so large that
+TeX never breaks there. At the other extreme, any penalty that is
+-10000 or less is considered to be so small that TeX will always
+break there. The <code>\nobreak</code> is simply an abbreviation of <code>\penalty10000</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">TeX by Topci</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Macro</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+A parameter is called undelimited if it is followed immediately by
+another parameter in the <code>&lt;parameter text&gt;</code> or by the opening brace
+of the <code>&lt;replacement text&gt;</code>, it is called delimited if it is
+following any other tokens.
+</p>
+</div>
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1">Undelimited Parameter</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+When a macro with an undelimited parameter is expanded, TeX scans
+ahead (without expanding) until a non-blank token is found. If
+this token is not an explicit <code>&lt;left brace&gt;</code>, it is taken to be
+the argument corresponding to the parameter. Otherwise a
+<code>&lt;balanced text&gt;</code> is absorbed by scanning until the matching
+explicit <code>&lt;right brace&gt;</code> has been found. This balanced text then
+constitutes the argument.
+</p>
+
+<p>
+For example: <code>\def\foo#1#2#3{#1(#2)#3}</code>, the call to <code>\foo123</code>
+gives <code>1(2)3</code>; but <code>\foo 1 2 3</code> also gives the same result. This
+example illustrate the definition of "token" and how TeX skip spaces.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2">Delimited parameters</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+Character token acting as delimiters in the parameter text have
+both their character code and category code stored; the delimiters
+of the actual arguments have to match both.
+</p>
+
+<p>
+When looking for the argument corresponding to a delimited
+parameter, TeX absorbs all tokens without expansion(but balancing
+braces) until the (exact sequence of) delimiting tokens is
+encountered. The delimeting tokens are not part of the argument;
+they are removed from the input stream during the macro call.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<a href="#" class="back-to-top">Back to Top</a>
+
+<!-- <hr class="comment"> -->
+<!-- <div id="show_source"> -->
+<!--   <input type="button" value="Show Org source" onClick='show_org_source()'> -->
+<!-- </div> -->
+
+</script>
+<hr class="comment">
+<section class="comment">
+<!-- An element a visitor can click if they <3 comments! -->
+<button class="btn show-comments">Load Disqus comments</button>
+<div id="disqus_thread"></div>
+ 
+<!-- The empty element required for Disqus to loads comments into -->
+<!--<div id="disqus_thread"></div>-->
+    <!--<script type="text/javascript">-->
+        <!--/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */-->
+        <!--var disqus_shortname = 'lotaboutvimwiki'; // required: replace example with your forum shortname-->
+
+        <!--/* * * DON'T EDIT BELOW THIS LINE * * */-->
+        <!--(function() {-->
+            <!--var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;-->
+            <!--dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';-->
+            <!--(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);-->
+        <!--})();-->
+    <!--</script>-->
+    <!--<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
+</section>
+
+<footer>
+    |采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a>授权|由<a href="http://orgmode.org">Org Mode</a>自动生成<input type="button" value="Show Org source" onClick='show_org_source()'>|部署在<a href="https://github.com/lotabout/orgwiki">Github Pages</a>|
+</footer>
+
+    <script src="assets/js/jquery-1.7.1.min.js"></script>
+    <script>
+$(document).ready(function(){
+	var offset = 100;
+	var duration = 110;
+
+        $(window).resize(function () {
+            var toc= $('#table-of-contents')
+            if ($(window).width() <= 800) {
+                toc.css('position', 'static')
+	        return
+            }
+            });
+        $(window).scroll(
+            function () {
+            console.log("scroll called.")
+            var toc= $('#table-of-contents')
+            if ($(window).width() <= 800) {
+            toc.css('position', 'static')
+            return
+            }
+
+            if ($(this).scrollTop() > duration) {
+            toc.css('left', toc.position().left + 'px')
+            toc.css('position', 'fixed')
+            $('.back-to-top').fadeIn(duration);
+            } else {
+            toc.css('left', '0px')
+            toc.css('top', '0px')
+            toc.css('position', 'relative')
+            $('.back-to-top').fadeOut(duration);
+            }
+            });
+        $('.back-to-top').click(
+            function(event) {
+            event.preventDefault;
+            $('html, body').animate({scrollTop: 0}, duration);
+            return false;
+            });
+
+        $('.show-comments').on('click', function(){
+                               var disqus_shortname = 'lotaboutorgwiki'; // Replace this value with *your* username.
+
+                               // ajax request to load the disqus javascript
+                               $.ajax({
+type: "GET",
+url: "http://" + disqus_shortname + ".disqus.com/embed.js",
+dataType: "script",
+cache: true
+});
+                               // hide the button once comments load
+                               $(this).fadeOut();
+                               });
+});
+    </script>
+</div>
+</body>
+</html>
