@@ -87,6 +87,22 @@
     <pre>
 <span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">TeX/LaTeX Notes
 </span></span>
+<span class="org-level-1">* Plain TeX FAQs</span>
+<span class="org-level-2">** How to include images</span>
+   If you only need eps files, package <span class="org-verbatim">=epsf=</span> is ready to use:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \input epsf
+     \epsfbox{subdir/fig_tex.eps}
+     % scale version
+     \epsfxsize\hsize \epsfysize=0.5\hsize \epsfbox{subdir/fig_tex.eps}
+</span><span class="org-block-end-line">   #+end_src
+</span>   Or take advantage of LaTeX <span class="org-verbatim">=graphicx=</span> package:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \input miniltx % add minimal latex support
+     \input graphicx.sty
+     \includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
+</span><span class="org-block-end-line">   #+end_src
+</span>
 <span class="org-level-1">* TeX</span>
 <span class="org-level-2">** The shape of things to come</span>
 <span class="org-level-3">*** Fonts</span>

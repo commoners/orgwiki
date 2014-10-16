@@ -1,5 +1,21 @@
 #+TITLE: TeX/LaTeX Notes
 
+* Plain TeX FAQs
+** How to include images
+If you only need eps files, package =epsf= is ready to use:
+#+BEGIN_SRC tex
+  \input epsf
+  \epsfbox{subdir/fig_tex.eps}
+  % scale version
+  \epsfxsize\hsize \epsfysize=0.5\hsize \epsfbox{subdir/fig_tex.eps}
+#+END_SRC
+Or take advantage of LaTeX =graphicx= package:
+#+BEGIN_SRC tex
+  \input miniltx % add minimal latex support
+  \input graphicx.sty
+  \includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
+#+END_SRC
+
 * TeX
 ** The shape of things to come
 *** Fonts
