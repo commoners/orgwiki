@@ -15,6 +15,9 @@ Or take advantage of LaTeX =graphicx= package:
   \input graphicx.sty
   \includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
 #+END_SRC
+** Change font size in a single command
+Regretably, plain TeX do not have convenient commands like =\large=
+or =\tiny= in LaTeX. The closest way is the =fontch= package.
 
 * TeX
 ** The shape of things to come
