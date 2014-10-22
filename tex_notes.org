@@ -18,8 +18,173 @@ Or take advantage of LaTeX =graphicx= package:
 ** Change font size in a single command
 Regretably, plain TeX do not have convenient commands like =\large=
 or =\tiny= in LaTeX. The closest way is the =fontch= package.
+** How to generate bookmarks in PDF
+This means we want to have bookmarks in sidebars in PDF viewer.
 
-* TeX
+1. use pdftex's primitive =\pdfoutline=, check =pdftex='s manual
+   for more information.
+2. Use dvi's special =\sepcial{pdf:outline ...}=.
+3. Package =navigator= which can be used in LaTeX and plain TeX.
+
+* eplain package
+** Contents
+Eplain add _table of contents_ support to plain tex. It will use
+multiple runs of =tex= command to get the table of contents.
+1. On the first run, contents are written into a =.aux= file.
+2. On the second run, control sequence =/readtocfile= will actually
+   read the ouputted =.aux= file.
+Note that on the first run, eplain will actually read the existing
+=.aux= file no matter what exists in it. So in order to get the
+right result, the second run is required.
+
+The macros provided work as follows:
+1. macros such as =\writetocentry{part}{some text}= are give, so
+   you should invoke it wherever you want to output an content entry.
+2. on the first run of tex, these macros will generate new macros
+   and ouput it to the =.aux= file. New macros have the form like
+   =\toc part entry{some text}{page number}=, =part= here is
+   sperated by the author to note that it is taken from step 1.
+3. You should implement the =\tocpartentry= macro for whatever
+   =part= you intend to use so that it will give out the format you
+   want.
+4. on the second run, =\readtocfile= will read =.aux= file and
+   executed all the entry macros according to your own definition
+   in step 3.
+=eplain= provided some predefined macros for convenience:
+=\tocchapterentry=, =\tocsectionentry= and =\tocsubsectionentry=,
+that means you can directly use for example
+=\writetocentry{chapter}{<chapter name>}= without having to define
+=\tocchapterentry= all by yourself.
+
+Three macros are provided to write entries:
+1. =\writetocentry{part}{text}= will translate to
+   =\tocpartentry{text}{page number}=
+2. =\writenumberedtocentry{part}{text}{<tok1><tok2>...}= will be
+   translated to =\tocpartentry{text}{<exp1><tok2>...}{page
+         number}= while =<exp1>= means the expansion of =<tok1>=.
+3. =\writenumberedtocline{part}{<tok1><tok2>...}{text}= is just
+   like =\writenumberedtocentry= except the argument position. It
+   will be translated to =\tocpartentry{<exp1><tok2>...}{text}{page
+         number}=.
+Note that all the above three macros behave differently when
+={part}= is a number. In this case, the entry will expand to:
+1. =\writetocentry{1}{text}= to =\tocentry{1}{text}{pagenumber}=
+2. =\writenumberedtocentry{10}{text}{<tok1><tok2>...}= to
+   =\tocentry{10}{text}{<exp1><tok2>...}{page number}=
+3. =\writenumberedtocline{5}{<tok1><tok2>...}{text}= to
+   =\tocentry{10}{<exp1><tok2>...}{text}{page number}=
+i.e. =\tocpartentry...= becomes =\tocentry{part}=.
+*** Example
+Here is a short example which make use of the predefined
+=\tocchapterentry= routine:
+
+#+BEGIN_SRC tex
+  % run:
+  %   tex xxx.tex
+  %   tex xxx.tex
+  % two runs is needed.
+  \input eplain
+  \readtocfile  
+
+  \writetocentry{chapter}{Introduction}
+  \writetocentry{chapter}{Related Work}
+  \writetocentry{section}{Twenty Years ago}
+  \writetocentry{section}{Ten Years ago}
+  \writetocentry{chapter}{My Work}
+  \writetocentry{section}{Some Important Bases}
+  \writetocentry{section}{The idea}
+  \writetocentry{subsection}{Idea part I}
+  \writetocentry{subsection}{Idea part II}
+  \writetocentry{chapter}{Experiment}
+  \writetocentry{chapter}{Conclution}
+  \writetocentry{chapter}{Reference}
+#+END_SRC
+Note that there will be no chapter numbers or section numbers. You
+should program to implement it if needed.
+** Generic references
+=eplain= added support for defining generic references and way to
+refer to them.
+*** Define Generic References
+The Syntax is as follows:
+#+BEGIN_SRC tex
+  \definexref{<label>}{<value of label>}{<class>}
+  \definexref{sec-intro}{3.1}{section}
+#+END_SRC
+The =<value of label>= could be anything, and =<class>= is used to
+indicate what class the reference belongs to, a "section",
+"theorem" or whatever.
+
+The =<class>='s output can be defined by the control sequence
+=\<class>word=, see the example of next section.
+*** Using generic references
+To retrieve the value of the label defined via =\definexref=, the
+following commands are provided:
+1. =\refn{label}= or =\xrefn{label}=, giveout the =<value of
+          label>= of =<label>=.
+2. =\ref{label}=, first give out the class name of =<label>= by
+   =\c word= control sequence followed by a tie, then call
+   =\refn= on label.
+3. =\refs{labe}=, like =\ref= but add the letter 's' to the =\c word=.
+
+For example: 
+#+BEGIN_SRC tex
+  \def\xxxword{Orz}
+  \definexref{xxx-intro}{3.1}{xxx}
+  \definexref{xxx-next}{3.2}{xxx}
+  See \refs{xxx-intro} and \refn{xxx-next} ...
+#+END_SRC
+will produce:
+#+BEGIN_EXAMPLE
+See Orz 3.1 and 3.2 ...
+#+END_EXAMPLE
+*** Page number reference
+1. =\xrdef{label}= to define a page number reference.
+2. =\xref{label}= generate the text "p. pageno". Like generic
+   reference, the "p. " part can be redefined by
+   =\xrefpageword=. Default to =p. \thinspace=
+
+** Indexing
+Eplain provides support for generating raw material for an index,
+and for typesetting a sorted index. A separate program must do the
+actual collection and sorting of terms, because TeX itself has no
+support for sorting.
+
+Eplain uses the program "MakeIndex". The workfow is explained as
+follows:
+1. For a document "foo.tex", Eplain's =\idx= command wirte raw
+   materials to "foo.idx".
+2. MakeIndex reads "foo.idx", collect and sort the index, and
+   writes to "foo.ind".
+3. Eplain reads and typesets "foo.ind" on a subsequent run of TeX.
+
+Multiple indices are supported by adjusting =\defineindex{<single
+   letter>}= command. =\defineindex{m}= will produce a command =\mdx=
+and write contents to =foo.mdx=. The default indexing command is
+defined by =\defineindex{i}= by Eplain.
+
+*** Indexing Terms
+The indexing commands(to write raw materials) are provided as
+=\sIdx= and =\Idx=. The =I= here refer to the =<single letter>=
+when defining index commands as described in previous section. The
+=s= version means "slient". =\Idx= version will add the index to
+"foo.idx" file and typeset it in current position, while the
+silent version will only add the index.
+
+*** Indexing commands
+1. =\sidx{term}[subterm]= makes and index entry for _term_,
+   optionally with subterm _subterm_.
+2. =\sidxname{first}{last}[subterm]= makes an index entry for
+   "first, last". The seperator ", " is defined by =\idxnameseperator=.
+3. =\sidxmarked\cs{term}[subterm]=, index entry is typesetted by
+   =\cs{term}= in addition to =\sidx=.
+4. =\sidxsubmarked{term}\cs{subterm}=, typeset =subterm= by =\cs=.
+
+*** Typesetting an index
+=\readindexfile{i}=
+
+
+
+* Gentle Introduction
 ** The shape of things to come
 *** Fonts
 Define new fonts.
@@ -380,7 +545,6 @@ occurs. The parameter may go up to =#9=.
 Use =\let \newname = \oldname= to rename control words.
 
 ** Digging a little deeper
-
 *** Big files, little files
 =\input filename= will cause =filename.tex= to be read immediately as
 if the text of =filename.tex= had been part of the file that read
@@ -445,9 +609,7 @@ dots. The idea is to use =\hrulefill= or =\dotfill= in the hbox.
 
 ** Reference
 - "A Gentle Introduction to TeX"
-
 * TeXBook
-
 ** Characters
 Character codes are can be expressed in several formats:
 decimal,octal, hexadecimal. =\char92=, =\char'134= and =\char"5C=

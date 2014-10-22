@@ -105,8 +105,173 @@
 </span><span class="org-level-2">** Change font size in a single command</span>
    Regretably, plain TeX do not have convenient commands like <span class="org-verbatim">=\large=</span>
    or <span class="org-verbatim">=\tiny=</span> in LaTeX. The closest way is the <span class="org-verbatim">=fontch=</span> package.
+<span class="org-level-2">** How to generate bookmarks in PDF</span>
+   This means we want to have bookmarks in sidebars in PDF viewer.
+   
+   1. use pdftex's primitive <span class="org-verbatim">=\pdfoutline=</span>, check <span class="org-verbatim">=pdftex=</span>'s manual
+      for more information.
+   2. Use dvi's special <span class="org-verbatim">=\sepcial{pdf:outline ...}=</span>.
+   3. Package <span class="org-verbatim">=navigator=</span> which can be used in LaTeX and plain TeX.
 
-<span class="org-level-1">* TeX</span>
+<span class="org-level-1">* eplain package</span>
+<span class="org-level-2">** Contents</span>
+   Eplain add <span class="underline">_table of contents_</span> support to plain tex. It will use
+   multiple runs of <span class="org-verbatim">=tex=</span> command to get the table of contents.
+   1. On the first run, contents are written into a <span class="org-verbatim">=.aux=</span> file.
+   2. On the second run, control sequence <span class="org-verbatim">=/readtocfile=</span> will actually
+      read the ouputted <span class="org-verbatim">=.aux=</span> file.
+   Note that on the first run, eplain will actually read the existing
+   <span class="org-verbatim">=.aux=</span> file no matter what exists in it. So in order to get the
+   right result, the second run is required.
+
+   The macros provided work as follows:
+   1. macros such as <span class="org-verbatim">=\writetocentry{part}{some text}=</span> are give, so
+      you should invoke it wherever you want to output an content entry.
+   2. on the first run of tex, these macros will generate new macros
+      and ouput it to the <span class="org-verbatim">=.aux=</span> file. New macros have the form like
+      <span class="org-verbatim">=\toc part entry{some text}{page number}=</span>, <span class="org-verbatim">=part=</span> here is
+      sperated by the author to note that it is taken from step 1.
+   3. You should implement the <span class="org-verbatim">=\tocpartentry=</span> macro for whatever
+      <span class="org-verbatim">=part=</span> you intend to use so that it will give out the format you
+      want.
+   4. on the second run, <span class="org-verbatim">=\readtocfile=</span> will read <span class="org-verbatim">=.aux=</span> file and
+      executed all the entry macros according to your own definition
+      in step 3.
+   <span class="org-verbatim">=eplain=</span> provided some predefined macros for convenience:
+   <span class="org-verbatim">=\tocchapterentry=</span>, <span class="org-verbatim">=\tocsectionentry=</span> and <span class="org-verbatim">=\tocsubsectionentry=</span>,
+   that means you can directly use for example
+   <span class="org-verbatim">=\writetocentry{chapter}{&lt;chapter name&gt;}=</span> without having to define
+   <span class="org-verbatim">=\tocchapterentry=</span> all by yourself.
+   
+   Three macros are provided to write entries:
+   1. <span class="org-verbatim">=\writetocentry{part}{text}=</span> will translate to
+      <span class="org-verbatim">=\tocpartentry{text}{page number}=</span>
+   2. <span class="org-verbatim">=\writenumberedtocentry{part}{text}{&lt;tok1&gt;&lt;tok2&gt;...}=</span> will be
+      translated to <span class="org-verbatim">=\tocpartentry{text}{&lt;exp1&gt;&lt;tok2&gt;...}{page
+      number}=</span> while <span class="org-verbatim">=&lt;exp1&gt;=</span> means the expansion of <span class="org-verbatim">=&lt;tok1&gt;=</span>.
+   3. <span class="org-verbatim">=\writenumberedtocline{part}{&lt;tok1&gt;&lt;tok2&gt;...}{text}=</span> is just
+      like <span class="org-verbatim">=\writenumberedtocentry=</span> except the argument position. It
+      will be translated to <span class="org-verbatim">=\tocpartentry{&lt;exp1&gt;&lt;tok2&gt;...}{text}{page
+      number}=</span>.
+   Note that all the above three macros behave differently when
+   <span class="org-verbatim">={part}=</span> is a number. In this case, the entry will expand to:
+   1. <span class="org-verbatim">=\writetocentry{1}{text}=</span> to <span class="org-verbatim">=\tocentry{1}{text}{pagenumber}=</span>
+   2. <span class="org-verbatim">=\writenumberedtocentry{10}{text}{&lt;tok1&gt;&lt;tok2&gt;...}=</span> to
+      <span class="org-verbatim">=\tocentry{10}{text}{&lt;exp1&gt;&lt;tok2&gt;...}{page number}=</span>
+   3. <span class="org-verbatim">=\writenumberedtocline{5}{&lt;tok1&gt;&lt;tok2&gt;...}{text}=</span> to
+      <span class="org-verbatim">=\tocentry{10}{&lt;exp1&gt;&lt;tok2&gt;...}{text}{page number}=</span>
+   i.e. <span class="org-verbatim">=\tocpartentry...=</span> becomes <span class="org-verbatim">=\tocentry{part}=</span>.
+<span class="org-level-3">*** Example</span>
+    Here is a short example which make use of the predefined
+    <span class="org-verbatim">=\tocchapterentry=</span> routine:
+
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      % run:
+      %   tex xxx.tex
+      %   tex xxx.tex
+      % two runs is needed.
+      \input eplain
+      \readtocfile  
+
+      \writetocentry{chapter}{Introduction}
+      \writetocentry{chapter}{Related Work}
+      \writetocentry{section}{Twenty Years ago}
+      \writetocentry{section}{Ten Years ago}
+      \writetocentry{chapter}{My Work}
+      \writetocentry{section}{Some Important Bases}
+      \writetocentry{section}{The idea}
+      \writetocentry{subsection}{Idea part I}
+      \writetocentry{subsection}{Idea part II}
+      \writetocentry{chapter}{Experiment}
+      \writetocentry{chapter}{Conclution}
+      \writetocentry{chapter}{Reference}
+</span><span class="org-block-end-line">    #+end_src
+</span>    Note that there will be no chapter numbers or section numbers. You
+    should program to implement it if needed.
+<span class="org-level-2">** Generic references</span>
+   <span class="org-verbatim">=eplain=</span> added support for defining generic references and way to
+   refer to them.
+<span class="org-level-3">*** Define Generic References</span>
+    The Syntax is as follows:
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \definexref{&lt;label&gt;}{&lt;value of label&gt;}{&lt;class&gt;}
+      \definexref{sec-intro}{3.1}{section}
+</span><span class="org-block-end-line">    #+end_src
+</span>    The <span class="org-verbatim">=&lt;value of label&gt;=</span> could be anything, and <span class="org-verbatim">=&lt;class&gt;=</span> is used to
+    indicate what class the reference belongs to, a "section",
+    "theorem" or whatever.
+    
+    The <span class="org-verbatim">=&lt;class&gt;=</span>'s output can be defined by the control sequence
+    <span class="org-verbatim">=\&lt;class&gt;word=</span>, see the example of next section.
+<span class="org-level-3">*** Using generic references</span>
+    To retrieve the value of the label defined via <span class="org-verbatim">=\definexref=</span>, the
+    following commands are provided:
+    1. <span class="org-verbatim">=\refn{label}=</span> or <span class="org-verbatim">=\xrefn{label}=</span>, giveout the <span class="org-verbatim">=&lt;value of
+       label&gt;=</span> of <span class="org-verbatim">=&lt;label&gt;=</span>.
+    2. <span class="org-verbatim">=\ref{label}=</span>, first give out the class name of <span class="org-verbatim">=&lt;label&gt;=</span> by
+       <span class="org-verbatim">=\c word=</span> control sequence followed by a tie, then call
+       <span class="org-verbatim">=\refn=</span> on label.
+    3. <span class="org-verbatim">=\refs{labe}=</span>, like <span class="org-verbatim">=\ref=</span> but add the letter 's' to the <span class="org-verbatim">=\c word=</span>.
+       
+    For example: 
+<span class="org-block-begin-line">    #+begin_src tex
+</span><span class="org-block">      \def\xxxword{Orz}
+      \definexref{xxx-intro}{3.1}{xxx}
+      \definexref{xxx-next}{3.2}{xxx}
+      See \refs{xxx-intro} and \refn{xxx-next} ...
+</span><span class="org-block-end-line">    #+end_src
+</span>    will produce:
+<span class="org-block-begin-line">    #+begin_example
+</span><span class="org-block">      See Orz 3.1 and 3.2 ...
+</span><span class="org-block-end-line">    #+end_example
+</span><span class="org-level-3">*** Page number reference</span>
+    1. <span class="org-verbatim">=\xrdef{label}=</span> to define a page number reference.
+    2. <span class="org-verbatim">=\xref{label}=</span> generate the text "p. pageno". Like generic
+       reference, the "p. " part can be redefined by
+       <span class="org-verbatim">=\xrefpageword=</span>. Default to <span class="org-verbatim">=p. \thinspace=</span>
+       
+<span class="org-level-2">** Indexing</span>
+   Eplain provides support for generating raw material for an index,
+   and for typesetting a sorted index. A separate program must do the
+   actual collection and sorting of terms, because TeX itself has no
+   support for sorting.
+   
+   Eplain uses the program "MakeIndex". The workfow is explained as
+   follows:
+   1. For a document "foo.tex", Eplain's <span class="org-verbatim">=\idx=</span> command wirte raw
+      materials to "foo.idx".
+   2. MakeIndex reads "foo.idx", collect and sort the index, and
+      writes to "foo.ind".
+   3. Eplain reads and typesets "foo.ind" on a subsequent run of TeX.
+      
+   Multiple indices are supported by adjusting <span class="org-verbatim">=\defineindex{&lt;single
+   letter&gt;}=</span> command. <span class="org-verbatim">=\defineindex{m}=</span> will produce a command <span class="org-verbatim">=\mdx=</span>
+   and write contents to <span class="org-verbatim">=foo.mdx=</span>. The default indexing command is
+   defined by <span class="org-verbatim">=\defineindex{i}=</span> by Eplain.
+
+<span class="org-level-3">*** Indexing Terms</span>
+    The indexing commands(to write raw materials) are provided as
+    <span class="org-verbatim">=\sIdx=</span> and <span class="org-verbatim">=\Idx=</span>. The <span class="org-verbatim">=I=</span> here refer to the <span class="org-verbatim">=&lt;single letter&gt;=</span>
+    when defining index commands as described in previous section. The
+    <span class="org-verbatim">=s=</span> version means "slient". <span class="org-verbatim">=\Idx=</span> version will add the index to
+    "foo.idx" file and typeset it in current position, while the
+    silent version will only add the index.
+    
+<span class="org-level-3">*** Indexing commands</span>
+    1. <span class="org-verbatim">=\sidx{term}[subterm]=</span> makes and index entry for <span class="underline">_term_</span>,
+       optionally with subterm <span class="underline">_subterm_</span>.
+    2. <span class="org-verbatim">=\sidxname{first}{last}[subterm]=</span> makes an index entry for
+       "first, last". The seperator ", " is defined by <span class="org-verbatim">=\idxnameseperator=</span>.
+    3. <span class="org-verbatim">=\sidxmarked\cs{term}[subterm]=</span>, index entry is typesetted by
+       <span class="org-verbatim">=\cs{term}=</span> in addition to <span class="org-verbatim">=\sidx=</span>.
+    4. <span class="org-verbatim">=\sidxsubmarked{term}\cs{subterm}=</span>, typeset <span class="org-verbatim">=subterm=</span> by <span class="org-verbatim">=\cs=</span>.
+
+<span class="org-level-3">*** Typesetting an index</span>
+    <span class="org-verbatim">=\readindexfile{i}=</span>
+   
+
+    
+<span class="org-level-1">* Gentle Introduction</span>
 <span class="org-level-2">** The shape of things to come</span>
 <span class="org-level-3">*** Fonts</span>
     Define new fonts.
@@ -473,7 +638,6 @@
     Use <span class="org-verbatim">=\let \newname = \oldname=</span> to rename control words.
 
 <span class="org-level-2">** Digging a little deeper</span>
-
 <span class="org-level-3">*** Big files, little files</span>
     <span class="org-verbatim">=\input filename=</span> will cause <span class="org-verbatim">=filename.tex=</span> to be read immediately as
     if the text of <span class="org-verbatim">=filename.tex=</span> had been part of the file that read
@@ -538,9 +702,7 @@
 
 <span class="org-level-2">** Reference</span>
    - "A Gentle Introduction to TeX"
-
 <span class="org-level-1">* TeXBook</span>
-  
 <span class="org-level-2">** Characters</span>
    Character codes are can be expressed in several formats:
    decimal,octal, hexadecimal. <span class="org-verbatim">=\char92=</span>, <span class="org-verbatim">=\char'134=</span> and <span class="org-verbatim">=\char"5C=</span>
