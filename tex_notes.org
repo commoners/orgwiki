@@ -15,6 +15,20 @@ Or take advantage of LaTeX =graphicx= package:
   \input graphicx.sty
   \includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
 #+END_SRC
+** How to draw pictures
+Generally, there are several methods:
+1. MetaPost -- to draw pictures and later make TeX to include
+   it. It's said that it is supported only under Linux/Unix.
+2. PSTricks -- use dvi's primitives to provide drawing
+   macros. Support both plain TeX and LaTeX. It's said to be a
+   better choice than MetaPost. However it seems to have some bus
+   working with plain TeX. For example, =\definecolor= not defined
+   is reported in TeXLive 2014. Also, there seems to be
+   uncompatible with Eplain's =color= package.
+3. PGF/Tikz -- A package made to support both Dvips and
+   pdfTeX. Tikz is server as a (better)front end of PGF. Also
+   uncompatible with Eplain's =color= package.
+
 ** Change font size in a single command
 Regretably, plain TeX do not have convenient commands like =\large=
 or =\tiny= in LaTeX. The closest way is the =fontch= package.
@@ -25,6 +39,14 @@ This means we want to have bookmarks in sidebars in PDF viewer.
    for more information.
 2. Use dvi's special =\sepcial{pdf:outline ...}=.
 3. Package =navigator= which can be used in LaTeX and plain TeX.
+
+An example of using =\special=:
+#+BEGIN_SRC tex
+  \chapter#1{
+   \hbox{\special{pdf: outline 1 << /Title (#1) /Dest [
+   @thispage /FitH @ypos ] >> }}%
+  }
+#+END_SRC
 
 * eplain package
 ** Contents
@@ -181,7 +203,6 @@ silent version will only add the index.
 
 *** Typesetting an index
 =\readindexfile{i}=
-
 
 
 * Gentle Introduction
@@ -763,3 +784,11 @@ parameter, TeX absorbs all tokens without expansion(but balancing
 braces) until the (exact sequence of) delimiting tokens is
 encountered. The delimeting tokens are not part of the argument;
 they are removed from the input stream during the macro call.
+
+* Fonts
+
+** Good fonts
+We kown that TeX's default roman fonts sucks. So here I'll record
+some fonts that I encounter is good looking.
+
+1. =URWPalladioL=

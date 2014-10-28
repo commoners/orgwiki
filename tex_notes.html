@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>TeX/LaTeX Notes</title>
-<!-- 2014-10-22 -->
+<!-- 2014-10-28 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -121,8 +121,9 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">Plain TeX FAQs</a>
 <ul>
 <li><a href="#sec-1-1">How to include images</a></li>
-<li><a href="#sec-1-2">Change font size in a single command</a></li>
-<li><a href="#sec-1-3">How to generate bookmarks in PDF</a></li>
+<li><a href="#sec-1-2">How to draw pictures</a></li>
+<li><a href="#sec-1-3">Change font size in a single command</a></li>
+<li><a href="#sec-1-4">How to generate bookmarks in PDF</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">eplain package</a>
@@ -216,6 +217,11 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
+<li><a href="#sec-6">Fonts</a>
+<ul>
+<li><a href="#sec-6-1">Good fonts</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -250,17 +256,42 @@ Or take advantage of LaTeX <code>graphicx</code> package:
 </div>
 </div>
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">Change font size in a single command</h3>
+<h3 id="sec-1-2">How to draw pictures</h3>
 <div class="outline-text-3" id="text-1-2">
+<p>
+Generally, there are several methods:
+</p>
+<ol class="org-ol">
+<li>MetaPost &#x2013; to draw pictures and later make TeX to include
+it. It's said that it is supported only under Linux/Unix.
+</li>
+<li>PSTricks &#x2013; use dvi's primitives to provide drawing
+macros. Support both plain TeX and LaTeX. It's said to be a
+better choice than MetaPost. However it seems to have some bus
+working with plain TeX. For example, <code>\definecolor</code> not defined
+is reported in TeXLive 2014. Also, there seems to be
+uncompatible with Eplain's <code>color</code> package.
+</li>
+<li>PGF/Tikz &#x2013; A package made to support both Dvips and
+pdfTeX. Tikz is server as a (better)front end of PGF. Also
+uncompatible with Eplain's <code>color</code> package.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Change font size in a single command</h3>
+<div class="outline-text-3" id="text-1-3">
 <p>
 Regretably, plain TeX do not have convenient commands like <code>\large</code>
 or <code>\tiny</code> in LaTeX. The closest way is the <code>fontch</code> package.
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">How to generate bookmarks in PDF</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">How to generate bookmarks in PDF</h3>
+<div class="outline-text-3" id="text-1-4">
 <p>
 This means we want to have bookmarks in sidebars in PDF viewer.
 </p>
@@ -274,6 +305,18 @@ for more information.
 <li>Package <code>navigator</code> which can be used in LaTeX and plain TeX.
 </li>
 </ol>
+
+<p>
+An example of using <code>\special</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-tex"><span style="font-weight: bold;">\</span><span style="font-weight: bold;">chapter</span>#1{
+ \hbox{\special{pdf: outline 1 <span style="font-style: italic;">&lt;&lt; /Title (#1) /Dest [</span>
+<span style="font-style: italic;"> @thispage /FitH @ypos ] &gt;&gt;</span> }}<span style="font-weight: bold; font-style: italic;">%</span>
+}
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -564,7 +607,6 @@ optionally with subterm <span class="underline">subterm</span>.
 </div>
 </div>
 </div>
-
 
 
 <div id="outline-container-sec-3" class="outline-2">
@@ -1773,6 +1815,25 @@ encountered. The delimeting tokens are not part of the argument;
 they are removed from the input stream during the macro call.
 </p>
 </div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Fonts</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">Good fonts</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+We kown that TeX's default roman fonts sucks. So here I'll record
+some fonts that I encounter is good looking.
+</p>
+
+<ol class="org-ol">
+<li><code>URWPalladioL</code>
+</li>
+</ol>
 </div>
 </div>
 </div>

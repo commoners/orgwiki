@@ -102,7 +102,21 @@
      \input graphicx.sty
      \includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
 </span><span class="org-block-end-line">   #+end_src
-</span><span class="org-level-2">** Change font size in a single command</span>
+</span><span class="org-level-2">** How to draw pictures</span>
+   Generally, there are several methods:
+   1. MetaPost -- to draw pictures and later make TeX to include
+      it. It's said that it is supported only under Linux/Unix.
+   2. PSTricks -- use dvi's primitives to provide drawing
+      macros. Support both plain TeX and LaTeX. It's said to be a
+      better choice than MetaPost. However it seems to have some bus
+      working with plain TeX. For example, <span class="org-verbatim">=\definecolor=</span> not defined
+      is reported in TeXLive 2014. Also, there seems to be
+      uncompatible with Eplain's <span class="org-verbatim">=color=</span> package.
+   3. PGF/Tikz -- A package made to support both Dvips and
+      pdfTeX. Tikz is server as a (better)front end of PGF. Also
+      uncompatible with Eplain's <span class="org-verbatim">=color=</span> package.
+
+<span class="org-level-2">** Change font size in a single command</span>
    Regretably, plain TeX do not have convenient commands like <span class="org-verbatim">=\large=</span>
    or <span class="org-verbatim">=\tiny=</span> in LaTeX. The closest way is the <span class="org-verbatim">=fontch=</span> package.
 <span class="org-level-2">** How to generate bookmarks in PDF</span>
@@ -112,7 +126,15 @@
       for more information.
    2. Use dvi's special <span class="org-verbatim">=\sepcial{pdf:outline ...}=</span>.
    3. Package <span class="org-verbatim">=navigator=</span> which can be used in LaTeX and plain TeX.
-
+      
+   An example of using <span class="org-verbatim">=\special=</span>:
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \chapter#1{
+      \hbox{\special{pdf: outline 1 &lt;&lt; /Title (#1) /Dest [
+      @thispage /FitH @ypos ] &gt;&gt; }}%
+     }
+</span><span class="org-block-end-line">   #+end_src
+</span>
 <span class="org-level-1">* eplain package</span>
 <span class="org-level-2">** Contents</span>
    Eplain add <span class="underline">_table of contents_</span> support to plain tex. It will use
@@ -270,7 +292,6 @@
     <span class="org-verbatim">=\readindexfile{i}=</span>
    
 
-    
 <span class="org-level-1">* Gentle Introduction</span>
 <span class="org-level-2">** The shape of things to come</span>
 <span class="org-level-3">*** Fonts</span>
@@ -856,6 +877,14 @@
     braces) until the (exact sequence of) delimiting tokens is
     encountered. The delimeting tokens are not part of the argument;
     they are removed from the input stream during the macro call.
+
+<span class="org-level-1">* Fonts</span>
+  
+<span class="org-level-2">** Good fonts</span>
+   We kown that TeX's default roman fonts sucks. So here I'll record
+   some fonts that I encounter is good looking.
+   
+   1. <span class="org-verbatim">=URWPalladioL=</span>
 </pre>
   </body>
 </html>
