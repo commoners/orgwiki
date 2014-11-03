@@ -2,10 +2,9 @@
 <html>
 <head>
 <title>C++ Notes</title>
-<!-- 2014-10-02 -->
+<!-- 2014-11-03 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
-<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -209,26 +208,26 @@ In Linux, use <code>nm a.out</code> or <code>objdump -t a.out</code> to display 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 1;
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 0;
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">c</span>;
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">d</span>[] = {0,0,0,0,0};
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">e</span>[] = {0,0,0,0,5};
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">f</span>[5];
-<span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">g</span> = 20;
-<span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">h</span>;
+<pre class="src src-cpp"><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">a</span> = 1;
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">b</span> = 0;
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">c</span>;
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">d</span>[] = {0,0,0,0,0};
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">e</span>[] = {0,0,0,0,5};
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">f</span>[5];
+<span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">g</span> = 20;
+<span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">h</span>;
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span> = 1;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span> = 0;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">k</span>;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">l</span>[] = {0,0,0,0,0};
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">m</span>[] = {0,0,0,0,5};
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">n</span>[5];
-    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">o</span> = 20;
-    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">p</span>;
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span> = 1;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">j</span> = 0;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">k</span>;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">l</span>[] = {0,0,0,0,0};
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">m</span>[] = {0,0,0,0,5};
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">n</span>[5];
+    <span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">o</span> = 20;
+    <span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">p</span>;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -276,18 +275,18 @@ A variable is visiable immediately after its declaration:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 1;
-<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 10;
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<pre class="src src-C"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;stdio.h&gt;</span>
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">a</span> = 1;
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">b</span> = 10;
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    printf(<span style="color: #cc9393;">"%d\n"</span>, a);
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span> = 2;
-    printf(<span style="color: #cc9393;">"%d\n"</span>, a);
+    printf(<span style="font-style: italic;">"%d\n"</span>, a);
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">a</span> = 2;
+    printf(<span style="font-style: italic;">"%d\n"</span>, a);
 
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = b; <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">b remains undefined </span><span style="color: #7f9f7f;">*/</span>
-    printf(<span style="color: #cc9393;">"%d\n"</span>, b);
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">b</span> = b; <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">b remains undefined </span><span style="font-weight: bold; font-style: italic;">*/</span>
+    printf(<span style="font-style: italic;">"%d\n"</span>, b);
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -303,24 +302,24 @@ right to left:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;stdio.h&gt;</span>
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">func1</span>() {printf(<span style="color: #cc9393;">"Function 1\n"</span>); <span style="color: #f0dfaf; font-weight: bold;">return</span> 1;}
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">func2</span>() {printf(<span style="color: #cc9393;">"Function 2\n"</span>); <span style="color: #f0dfaf; font-weight: bold;">return</span> 1;}
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">func1</span>() {printf(<span style="font-style: italic;">"Function 1\n"</span>); <span style="font-weight: bold;">return</span> 1;}
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">func2</span>() {printf(<span style="font-style: italic;">"Function 2\n"</span>); <span style="font-weight: bold;">return</span> 1;}
 
-<span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">func3</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span>) {<span style="color: #f0dfaf; font-weight: bold;">return</span>;}
+<span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">func3</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">a</span>, <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">b</span>) {<span style="font-weight: bold;">return</span>;}
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">b</span> = 3;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">arr</span>[] = {6,7,8,9,10};
-    <span style="color: #8cd0d3;">int</span> *<span style="color: #dfaf8f;">ptr</span> = arr;
-    printf(<span style="color: #cc9393;">"%d, %d\n"</span>, *ptr, *(++ptr));
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">b</span> = 3;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">arr</span>[] = {6,7,8,9,10};
+    <span style="font-weight: bold; text-decoration: underline;">int</span> *<span style="font-weight: bold; font-style: italic;">ptr</span> = arr;
+    printf(<span style="font-style: italic;">"%d, %d\n"</span>, *ptr, *(++ptr));
 
-    printf(<span style="color: #cc9393;">"%d, %d\n"</span>, func1(), func2());
+    printf(<span style="font-style: italic;">"%d, %d\n"</span>, func1(), func2());
 
     func3(func1(), func2());
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -332,18 +331,18 @@ right to left:
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 
-<pre class="src src-C"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;stdio.h&gt;</span>
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">unsigned</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">tmp</span> = 0x01020304;
-    <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">b</span> = (<span style="color: #8cd0d3;">char</span> *)&amp;tmp;
-    printf(<span style="color: #cc9393;">"%x %x %x %x\n"</span>, *b, *(b+1), *(b+2), *(b+3));
+    <span style="font-weight: bold; text-decoration: underline;">unsigned</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">tmp</span> = 0x01020304;
+    <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">b</span> = (<span style="font-weight: bold; text-decoration: underline;">char</span> *)&amp;tmp;
+    printf(<span style="font-style: italic;">"%x %x %x %x\n"</span>, *b, *(b+1), *(b+2), *(b+3));
 
-    <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">big endian    =&gt; 1 2 3 4</span>
-<span style="color: #7f9f7f;">       little endian =&gt; 4 3 2 1 </span><span style="color: #7f9f7f;">*/</span>
+    <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">big endian    =&gt; 1 2 3 4</span>
+<span style="font-weight: bold; font-style: italic;">       little endian =&gt; 4 3 2 1 </span><span style="font-weight: bold; font-style: italic;">*/</span>
 
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -373,27 +372,27 @@ to allow <code>const</code> member functions to modify it.
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;string&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Student</span>{
-    <span style="color: #8cd0d3;">string</span> <span style="color: #dfaf8f;">Name</span>;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">time_of_getname</span>;
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">Student</span>(<span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">name</span>){
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;string&gt;</span>
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Student</span>{
+    <span style="font-weight: bold; text-decoration: underline;">string</span> <span style="font-weight: bold; font-style: italic;">Name</span>;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">time_of_getname</span>;
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">Student</span>(<span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">name</span>){
         Name = name;
         time_of_getname = 0;
     }
-    <span style="color: #8cd0d3;">string</span> <span style="color: #8cd0d3;">get_name</span>() {
+    <span style="font-weight: bold; text-decoration: underline;">string</span> <span style="font-weight: bold;">get_name</span>() {
         time_of_getname ++;
-        <span style="color: #f0dfaf; font-weight: bold;">return</span> Name;
+        <span style="font-weight: bold;">return</span> Name;
     }
 };
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Student</span> <span style="color: #dfaf8f;">xx</span>(<span style="color: #cc9393;">"Foo Bar"</span>);
-    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">error, const object calls non-const function</span>
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">Student</span> <span style="font-weight: bold; font-style: italic;">xx</span>(<span style="font-style: italic;">"Foo Bar"</span>);
+    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">error, const object calls non-const function</span>
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -405,27 +404,27 @@ mutable(otherwise compilation will fail):
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;string&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Student</span>{
-    <span style="color: #8cd0d3;">string</span> <span style="color: #dfaf8f;">Name</span>;
-    <span style="color: #f0dfaf; font-weight: bold;">mutable</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">time_of_getname</span>;
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">Student</span>(<span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">name</span>){
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;string&gt;</span>
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Student</span>{
+    <span style="font-weight: bold; text-decoration: underline;">string</span> <span style="font-weight: bold; font-style: italic;">Name</span>;
+    <span style="font-weight: bold;">mutable</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">time_of_getname</span>;
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">Student</span>(<span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">name</span>){
         Name = name;
         time_of_getname = 0;
     }
-    <span style="color: #8cd0d3;">string</span> <span style="color: #8cd0d3;">get_name</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span> {
+    <span style="font-weight: bold; text-decoration: underline;">string</span> <span style="font-weight: bold;">get_name</span>() <span style="font-weight: bold;">const</span> {
         time_of_getname ++;
-        <span style="color: #f0dfaf; font-weight: bold;">return</span> Name;
+        <span style="font-weight: bold;">return</span> Name;
     }
 };
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Student</span> <span style="color: #dfaf8f;">xx</span>(<span style="color: #cc9393;">"Foo Bar"</span>);
-    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">error, const object calls non-const function</span>
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">Student</span> <span style="font-weight: bold; font-style: italic;">xx</span>(<span style="font-style: italic;">"Foo Bar"</span>);
+    cout &lt;&lt; xx.get_name() &lt;&lt; endl; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">error, const object calls non-const function</span>
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -452,44 +451,44 @@ pointer.
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Empty</span> {};
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Derived1</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Derived2</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Multiple</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived1</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived2</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Empty</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Derived1</span>: <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Empty</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Derived2</span>: <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Empty</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Multiple</span>: <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Derived1</span>, <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Derived2</span> {};
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>: <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Empty</span> {};
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">C</span>: <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">A</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Derived1</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">A</span>: <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Empty</span> {};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">C</span>: <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">A</span>, <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Derived1</span> {};
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Virtual</span> {<span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>() {}};
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Virtual</span> {<span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>() {}};
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Static</span>{
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">a</span>;
-    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">not_count</span>;
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Static</span>{
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">a</span>;
+    <span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">not_count</span>;
 };
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Normal</span>{
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
-    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span>;
-    <span style="color: #8cd0d3;">double</span> <span style="color: #dfaf8f;">d</span>;
-    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">cc</span>;
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Normal</span>{
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>;
+    <span style="font-weight: bold; text-decoration: underline;">char</span> <span style="font-weight: bold; font-style: italic;">c</span>;
+    <span style="font-weight: bold; text-decoration: underline;">double</span> <span style="font-weight: bold; font-style: italic;">d</span>;
+    <span style="font-weight: bold; text-decoration: underline;">char</span> <span style="font-weight: bold; font-style: italic;">cc</span>;
 };
 
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    cout &lt;&lt; <span style="color: #cc9393;">"In 64bit System"</span> &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Empty class):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Empty) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Derived class):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Derived1) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Multiple):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Multiple) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Multiple of virtual):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(C) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(virtual):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Virtual) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Static):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Static) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(Normal):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(Normal) &lt;&lt; endl;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(virtual inherit):\t"</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(A) &lt;&lt; endl;
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    cout &lt;&lt; <span style="font-style: italic;">"In 64bit System"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Empty class):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Empty) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Derived class):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Derived1) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Multiple):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Multiple) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Multiple of virtual):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(C) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(virtual):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Virtual) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Static):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Static) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(Normal):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(Normal) &lt;&lt; endl;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(virtual inherit):\t"</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(A) &lt;&lt; endl;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -511,19 +510,19 @@ struct recursively.
 </ol>
 <div class="org-src-container">
 
-<pre class="src src-C"><span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">in Linux 64-bit machine, sizeof(long double) = 16 </span><span style="color: #7f9f7f;">*/</span>
-<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;stdio.h&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span> {<span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">c</span>; <span style="color: #8cd0d3;">long</span> <span style="color: #8cd0d3;">double</span> <span style="color: #dfaf8f;">d</span>; <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">f</span>;};
-<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">Sub</span> {
-    <span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span> <span style="color: #dfaf8f;">a</span>;
-    <span style="color: #8cd0d3;">char</span> <span style="color: #dfaf8f;">b</span>;
+<pre class="src src-C"><span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">in Linux 64-bit machine, sizeof(long double) = 16 </span><span style="font-weight: bold; font-style: italic;">*/</span>
+<span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;stdio.h&gt;</span>
+<span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">NonEmpty</span> {<span style="font-weight: bold; text-decoration: underline;">char</span> <span style="font-weight: bold; font-style: italic;">c</span>; <span style="font-weight: bold; text-decoration: underline;">long</span> <span style="font-weight: bold; text-decoration: underline;">double</span> <span style="font-weight: bold; font-style: italic;">d</span>; <span style="font-weight: bold; text-decoration: underline;">char</span> <span style="font-weight: bold; font-style: italic;">f</span>;};
+<span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">Sub</span> {
+    <span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">NonEmpty</span> <span style="font-weight: bold; font-style: italic;">a</span>;
+    <span style="font-weight: bold; text-decoration: underline;">char</span> <span style="font-weight: bold; font-style: italic;">b</span>;
 };
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    printf(<span style="color: #cc9393;">"%d\n"</span>, <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">NonEmpty</span>));
-    printf(<span style="color: #cc9393;">"%d\n"</span>, <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(<span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">Sub</span>));
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    printf(<span style="font-style: italic;">"%d\n"</span>, <span style="font-weight: bold;">sizeof</span>(<span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">NonEmpty</span>));
+    printf(<span style="font-style: italic;">"%d\n"</span>, <span style="font-weight: bold;">sizeof</span>(<span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">Sub</span>));
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -548,10 +547,10 @@ C++ do not allow empty const variable while c do;
 </p>
 <div class="org-src-container">
 
-<pre class="src src-C"><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<pre class="src src-C"><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Compile error in C++ while OK in C</span>
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>;  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Compile error in C++ while OK in C</span>
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -649,32 +648,32 @@ the type of current object.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">B</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">B</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
-        { cout &lt;&lt; <span style="color: #cc9393;">"Content of base class.\n"</span>; }
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>()
+        { cout &lt;&lt; <span style="font-style: italic;">"Content of base class.\n"</span>; }
 };
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">D</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">B</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
-        {cout &lt;&lt; <span style="color: #cc9393;">"Content of derived class.\n"</span>; }
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>()
+        {cout &lt;&lt; <span style="font-style: italic;">"Content of derived class.\n"</span>; }
 };
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">B</span> *<span style="color: #dfaf8f;">b</span>;
-    <span style="color: #8cd0d3;">D</span> <span style="color: #dfaf8f;">d</span>;
+    <span style="font-weight: bold; text-decoration: underline;">B</span> *<span style="font-weight: bold; font-style: italic;">b</span>;
+    <span style="font-weight: bold; text-decoration: underline;">D</span> <span style="font-weight: bold; font-style: italic;">d</span>;
     d.display();
 
-    b = &amp;d; <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">convert pointer to derived object to base class */</span>
+    b = &amp;d; <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">convert pointer to derived object to base class */</span>
     b-&gt;display();
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -693,46 +692,46 @@ different context.
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">B</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">B</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
-        { cout &lt;&lt; <span style="color: #cc9393;">"Content of base class.\n"</span>; }
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>()
+        { cout &lt;&lt; <span style="font-style: italic;">"Content of base class.\n"</span>; }
 };
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D1</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">D1</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">B</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
-        {cout &lt;&lt; <span style="color: #cc9393;">"Content of first derived class.\n"</span>; }
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>()
+        {cout &lt;&lt; <span style="font-style: italic;">"Content of first derived class.\n"</span>; }
 };
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">D2</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">B</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">D2</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">B</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">display</span>()
-        {cout &lt;&lt; <span style="color: #cc9393;">"Content of second derived class.\n"</span>; }
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">display</span>()
+        {cout &lt;&lt; <span style="font-style: italic;">"Content of second derived class.\n"</span>; }
 };
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">B</span> *<span style="color: #dfaf8f;">b</span>;
-    <span style="color: #8cd0d3;">B</span> <span style="color: #dfaf8f;">bt</span>;
-    <span style="color: #8cd0d3;">D1</span> <span style="color: #dfaf8f;">d1</span>;
-    <span style="color: #8cd0d3;">D2</span> <span style="color: #dfaf8f;">d2</span>;
+    <span style="font-weight: bold; text-decoration: underline;">B</span> *<span style="font-weight: bold; font-style: italic;">b</span>;
+    <span style="font-weight: bold; text-decoration: underline;">B</span> <span style="font-weight: bold; font-style: italic;">bt</span>;
+    <span style="font-weight: bold; text-decoration: underline;">D1</span> <span style="font-weight: bold; font-style: italic;">d1</span>;
+    <span style="font-weight: bold; text-decoration: underline;">D2</span> <span style="font-weight: bold; font-style: italic;">d2</span>;
 
     b = &amp;bt;
-    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls B's display() */</span>
+    b-&gt;display(); <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">calls B's display() */</span>
 
     b = &amp;d1;
-    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls display() of derived class D1 */</span>
+    b-&gt;display(); <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">calls display() of derived class D1 */</span>
 
     b = &amp;d2;
-    b-&gt;display(); <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">calls display() of derived class D2 */</span>
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    b-&gt;display(); <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">calls display() of derived class D2 */</span>
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -807,24 +806,24 @@ Here I quote the example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Animal</span> {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">eat</span>();
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Animal</span> {
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">eat</span>();
 };
 
-<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Two classes virtually inheriting Animal:</span>
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Mammal</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">Animal</span> {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">breathe</span>();
+<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Two classes virtually inheriting Animal:</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Mammal</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">Animal</span> {
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">breathe</span>();
 };
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">WingedAnimal</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">Animal</span> {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">flap</span>();
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">WingedAnimal</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">Animal</span> {
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">flap</span>();
 };
 
-<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A bat is still a winged mammal</span>
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Bat</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Mammal</span>, <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">WingedAnimal</span> {
+<span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">A bat is still a winged mammal</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Bat</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">Mammal</span>, <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">WingedAnimal</span> {
 };
 </pre>
 </div>
@@ -863,34 +862,34 @@ Note that <code>const</code> object can only call member functions that are <cod
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">constant_member_function.cpp</span>
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Date</span>
+<pre class="src src-cpp"><span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">constant_member_function.cpp</span>
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Date</span>
 {
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">Date</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">dy</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">yr</span> ){
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">Date</span>( <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">mn</span>, <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">dy</span>, <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">yr</span> ){
         month = mn;
     };
-    <span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">getMonth</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span>;     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A read-only function</span>
-    <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">setMonth</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span> );   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">A write function; can't be const</span>
-<span style="color: #f0dfaf; font-weight: bold;">private</span>:
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">month</span>;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">getMonth</span>() <span style="font-weight: bold;">const</span>;     <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">A read-only function</span>
+    <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">setMonth</span>( <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">mn</span> );   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">A write function; can't be const</span>
+<span style="font-weight: bold;">private</span>:
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">month</span>;
 };
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #bfebbf;">Date</span>::<span style="color: #8cd0d3;">getMonth</span>() <span style="color: #f0dfaf; font-weight: bold;">const</span>
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; text-decoration: underline;">Date</span>::<span style="font-weight: bold;">getMonth</span>() <span style="font-weight: bold;">const</span>
 {
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> month;        <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Doesn't modify anything</span>
+    <span style="font-weight: bold;">return</span> month;        <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Doesn't modify anything</span>
 }
-<span style="color: #8cd0d3;">void</span> <span style="color: #bfebbf;">Date</span>::<span style="color: #8cd0d3;">setMonth</span>( <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">mn</span> )
+<span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold; text-decoration: underline;">Date</span>::<span style="font-weight: bold;">setMonth</span>( <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">mn</span> )
 {
-    month = mn;          <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Modifies data member</span>
+    month = mn;          <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Modifies data member</span>
 }
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>()
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>()
 {
-    <span style="color: #8cd0d3;">Date</span> <span style="color: #dfaf8f;">MyDate</span>( 7, 4, 1998 );
-    <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">Date</span> <span style="color: #dfaf8f;">BirthDate</span>( 1, 18, 1953 );
-    MyDate.setMonth( 4 );    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Okay</span>
-    BirthDate.getMonth();    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Okay</span>
-    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">BirthDate.setMonth( 4 ); // C2662 Error &lt;=</span>
+    <span style="font-weight: bold; text-decoration: underline;">Date</span> <span style="font-weight: bold; font-style: italic;">MyDate</span>( 7, 4, 1998 );
+    <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">Date</span> <span style="font-weight: bold; font-style: italic;">BirthDate</span>( 1, 18, 1953 );
+    MyDate.setMonth( 4 );    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Okay</span>
+    BirthDate.getMonth();    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Okay</span>
+    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">BirthDate.setMonth( 4 ); // C2662 Error &lt;=</span>
 }
 </pre>
 </div>
@@ -915,19 +914,19 @@ to generate objects when you make your constructor private.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Base</span>
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Base</span>
 {
-    <span style="color: #8cd0d3;">Base</span>(){}
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">Base</span> <span style="color: #8cd0d3;">generate</span>(){ <span style="color: #f0dfaf; font-weight: bold;">return</span> Base(); }
+    <span style="font-weight: bold;">Base</span>(){}
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">static</span> <span style="font-weight: bold; text-decoration: underline;">Base</span> <span style="font-weight: bold;">generate</span>(){ <span style="font-weight: bold;">return</span> Base(); }
 };
 
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Base b; // Error due to private constructor.</span>
-    <span style="color: #8cd0d3;">Base</span> <span style="color: #dfaf8f;">b</span> = <span style="color: #bfebbf;">Base</span>::generate();
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Base b; // Error due to private constructor.</span>
+    <span style="font-weight: bold; text-decoration: underline;">Base</span> <span style="font-weight: bold; font-style: italic;">b</span> = <span style="font-weight: bold; text-decoration: underline;">Base</span>::generate();
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -1000,7 +999,7 @@ Under three situations will copy constructor be used.
 </ol>
 </div>
 
-<ul class="org-ul"><li>Default Memberwise Initialization<br ><div class="outline-text-5" id="text-4-8-0-1">
+<ul class="org-ul"><li><a id="sec-4-8-0-1" name="sec-4-8-0-1"></a>Default Memberwise Initialization<br ><div class="outline-text-5" id="text-4-8-0-1">
 <p>
 Each class object initialized with another object of its class
 is initialized by what is called default memberwise
@@ -1017,7 +1016,7 @@ objects are copied recursively using memberwise initialization.
 </div>
 </li>
 
-<li>Bitwise Copy Semantics<br ><div class="outline-text-5" id="text-4-8-0-2">
+<li><a id="sec-4-8-0-2" name="sec-4-8-0-2"></a>Bitwise Copy Semantics<br ><div class="outline-text-5" id="text-4-8-0-2">
 <p>
 "In practice, a good compiler generate bitwise copies for most
 class object since they have bitwise copy semantics.
@@ -1049,42 +1048,42 @@ copy constructor.
 </div>
 </li>
 
-<li>Resetting the Virtual Table Pointer<br ><div class="outline-text-5" id="text-4-8-0-3">
+<li><a id="sec-4-8-0-3" name="sec-4-8-0-3"></a>Resetting the Virtual Table Pointer<br ><div class="outline-text-5" id="text-4-8-0-3">
 <p>
 Normally, if two objects belong to the same class, bitwise copy
 can be applied, even if they contain virtual functions.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">ZooAnimal</span> { 
-<span style="color: #f0dfaf; font-weight: bold;">public</span>: 
-   <span style="color: #8cd0d3;">ZooAnimal</span>(); 
-   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> ~<span style="color: #8cd0d3;">ZooAnimal</span>(); 
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">ZooAnimal</span> { 
+<span style="font-weight: bold;">public</span>: 
+   <span style="font-weight: bold;">ZooAnimal</span>(); 
+   <span style="font-weight: bold;">virtual</span> ~<span style="font-weight: bold;">ZooAnimal</span>(); 
 
-   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">animate</span>(); 
-   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">draw</span>(); 
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">... </span>
-<span style="color: #f0dfaf; font-weight: bold;">private</span>: 
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">data necessary for ZooAnimal's </span>
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">version of animate() and draw() </span>
+   <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">animate</span>(); 
+   <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">draw</span>(); 
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">... </span>
+<span style="font-weight: bold;">private</span>: 
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">data necessary for ZooAnimal's </span>
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">version of animate() and draw() </span>
 }; 
 
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Bear</span> : <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">ZooAnimal</span> { 
-<span style="color: #f0dfaf; font-weight: bold;">public</span>: 
-   <span style="color: #8cd0d3;">Bear</span>(); 
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Bear</span> : <span style="font-weight: bold;">public</span> <span style="font-weight: bold; text-decoration: underline;">ZooAnimal</span> { 
+<span style="font-weight: bold;">public</span>: 
+   <span style="font-weight: bold;">Bear</span>(); 
 
-   <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">animate</span>(); 
-   <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">draw</span>(); 
-   <span style="color: #f0dfaf; font-weight: bold;">virtual</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">dance</span>(); 
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">... </span>
-<span style="color: #f0dfaf; font-weight: bold;">private</span>: 
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">data necessary for Bear's version </span>
-   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">of animate(), draw(), and dance() </span>
+   <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">animate</span>(); 
+   <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">draw</span>(); 
+   <span style="font-weight: bold;">virtual</span> <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">dance</span>(); 
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">... </span>
+<span style="font-weight: bold;">private</span>: 
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">data necessary for Bear's version </span>
+   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">of animate(), draw(), and dance() </span>
 }; 
-<span style="color: #8cd0d3;">Bear</span> <span style="color: #dfaf8f;">yogi</span>;
-<span style="color: #8cd0d3;">Bear</span> <span style="color: #dfaf8f;">winnie</span> = yogi; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Bitwise copy is sufficiant</span>
+<span style="font-weight: bold; text-decoration: underline;">Bear</span> <span style="font-weight: bold; font-style: italic;">yogi</span>;
+<span style="font-weight: bold; text-decoration: underline;">Bear</span> <span style="font-weight: bold; font-style: italic;">winnie</span> = yogi; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">Bitwise copy is sufficiant</span>
 
-<span style="color: #8cd0d3;">ZooAnimal</span> <span style="color: #dfaf8f;">franny</span> = yogi; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">vptr should be re-constructed</span>
+<span style="font-weight: bold; text-decoration: underline;">ZooAnimal</span> <span style="font-weight: bold; font-style: italic;">franny</span> = yogi; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">vptr should be re-constructed</span>
 </pre>
 </div>
 <p>
@@ -1126,12 +1125,12 @@ list order. This may lead to some subtle bug.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>{
-<span style="color: #f0dfaf; font-weight: bold;">private</span>:
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>;
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">A</span>(val): j(val),i(j){} <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">bug.</span>
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">A</span>{
+<span style="font-weight: bold;">private</span>:
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">j</span>;
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">A</span>(val): j(val),<span style="font-weight: bold; text-decoration: underline;">i</span>(<span style="font-weight: bold; font-style: italic;">j</span>){} <span style="font-weight: bold; font-style: italic;">//</span><span style="font-weight: bold; font-style: italic;">bug.</span>
 };
 </pre>
 </div>
@@ -1141,12 +1140,12 @@ code, thus the following code is correct.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span>{
-<span style="color: #f0dfaf; font-weight: bold;">private</span>:
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
-    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>;
-<span style="color: #f0dfaf; font-weight: bold;">public</span>:
-    <span style="color: #8cd0d3;">A</span>(val): j(val){
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">A</span>{
+<span style="font-weight: bold;">private</span>:
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>;
+    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">j</span>;
+<span style="font-weight: bold;">public</span>:
+    <span style="font-weight: bold;">A</span>(val): <span style="font-weight: bold;">j</span>(val){
         i = j;
     }
 };
