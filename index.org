@@ -20,6 +20,10 @@ hosted on github pages.
 
 ** System
 - [[file:slackware_notes.org][Slackware 使用记录]]
+- [[file:linux_notes.org][Linux 常见问题]]
+** Tools
+- [[file:emacs_notes.org][Emacs 笔记]]
+- [[file:tex_notes.org][TeX 笔记]]
 
 ** Misc
 - [[file:how_wiki_is_built.org][本站是如何搭建的]]

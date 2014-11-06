@@ -21,6 +21,12 @@ use =C-x z= (repeat).
    that KEY is bound to.
 ** Mark and the region
 
+** kill ring
+Emacs will save the contens yanked by =C-k= or =M-w=. We can
+paste/yank the contents last killed by press =C-y=. But if we want
+the contens earlier, we can press =M-y= multiple times after press
+=C=y=. 
+
 * Eshell
 ** Visual Commands
 Some commands are not sufficient to run inside eshell, such as
