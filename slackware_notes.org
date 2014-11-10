@@ -41,3 +41,10 @@ There's a couple of things to keep in mind:
   # convertpkg-compat32 -i /path/to/your/fresh/foo-VERSION-i486-BUILD.tgz
   # upgradepkg --install-new /tmp/foo-compat32-VERSION-x86_64-BUILDcompat32.txz
 #+END_SRC
+
+** acroread(Adobe Reader)界面方框
+原因是pango modules没有正确设置和加载，用下列命令生成：
+#+BEGIN_SRC sh
+  pango-querymodules-32 > '/etc/pango/i486-slackware-linux/pango.modules'
+#+END_SRC
+- [[http://drunkedcat.diandian.com/post/2012-04-26/40047144778][amd64 gentoo acroread 字体方框问题]]

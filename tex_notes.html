@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>TeX/LaTeX Notes</title>
-<!-- 2014-11-03 -->
+<!-- 2014-11-10 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -128,9 +128,9 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-2">eplain package</a>
 <ul>
-<li><a href="#sec-2-1">Contents</a>
+<li><a href="#sec-2-1">FAQs</a>
 <ul>
-<li><a href="#sec-2-1-1">Example</a></li>
+<li><a href="#sec-2-1-1">xetex is not compatible with color/graphic{s,x} packages</a></li>
 </ul>
 </li>
 <li><a href="#sec-2-2">Generic references</a>
@@ -325,123 +325,34 @@ An example of using <code>\special</code>:
 <h2 id="sec-2">eplain package</h2>
 <div class="outline-text-2" id="text-2">
 </div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">Contents</h3>
+<h3 id="sec-2-1">FAQs</h3>
 <div class="outline-text-3" id="text-2-1">
-<p>
-Eplain add <span class="underline">table of contents</span> support to plain tex. It will use
-multiple runs of <code>tex</code> command to get the table of contents.
-</p>
-<ol class="org-ol">
-<li>On the first run, contents are written into a <code>.aux</code> file.
-</li>
-<li>On the second run, control sequence <code>/readtocfile</code> will actually
-read the ouputted <code>.aux</code> file.
-</li>
-</ol>
-<p>
-Note that on the first run, eplain will actually read the existing
-<code>.aux</code> file no matter what exists in it. So in order to get the
-right result, the second run is required.
-</p>
-
-<p>
-The macros provided work as follows:
-</p>
-<ol class="org-ol">
-<li>macros such as <code>\writetocentry{part}{some text}</code> are give, so
-you should invoke it wherever you want to output an content entry.
-</li>
-<li>on the first run of tex, these macros will generate new macros
-and ouput it to the <code>.aux</code> file. New macros have the form like
-<code>\toc part entry{some text}{page number}</code>, <code>part</code> here is
-sperated by the author to note that it is taken from step 1.
-</li>
-<li>You should implement the <code>\tocpartentry</code> macro for whatever
-<code>part</code> you intend to use so that it will give out the format you
-want.
-</li>
-<li>on the second run, <code>\readtocfile</code> will read <code>.aux</code> file and
-executed all the entry macros according to your own definition
-in step 3.
-</li>
-</ol>
-<p>
-<code>eplain</code> provided some predefined macros for convenience:
-<code>\tocchapterentry</code>, <code>\tocsectionentry</code> and <code>\tocsubsectionentry</code>,
-that means you can directly use for example
-<code>\writetocentry{chapter}{&lt;chapter name&gt;}</code> without having to define
-<code>\tocchapterentry</code> all by yourself.
-</p>
-
-<p>
-Three macros are provided to write entries:
-</p>
-<ol class="org-ol">
-<li><code>\writetocentry{part}{text}</code> will translate to
-<code>\tocpartentry{text}{page number}</code>
-</li>
-<li><code>\writenumberedtocentry{part}{text}{&lt;tok1&gt;&lt;tok2&gt;...}</code> will be
-translated to <code>\tocpartentry{text}{&lt;exp1&gt;&lt;tok2&gt;...}{page
-      number}</code> while <code>&lt;exp1&gt;</code> means the expansion of <code>&lt;tok1&gt;</code>.
-</li>
-<li><code>\writenumberedtocline{part}{&lt;tok1&gt;&lt;tok2&gt;...}{text}</code> is just
-like <code>\writenumberedtocentry</code> except the argument position. It
-will be translated to <code>\tocpartentry{&lt;exp1&gt;&lt;tok2&gt;...}{text}{page
-      number}</code>.
-</li>
-</ol>
-<p>
-Note that all the above three macros behave differently when
-<code>{part}</code> is a number. In this case, the entry will expand to:
-</p>
-<ol class="org-ol">
-<li><code>\writetocentry{1}{text}</code> to <code>\tocentry{1}{text}{pagenumber}</code>
-</li>
-<li><code>\writenumberedtocentry{10}{text}{&lt;tok1&gt;&lt;tok2&gt;...}</code> to
-<code>\tocentry{10}{text}{&lt;exp1&gt;&lt;tok2&gt;...}{page number}</code>
-</li>
-<li><code>\writenumberedtocline{5}{&lt;tok1&gt;&lt;tok2&gt;...}{text}</code> to
-<code>\tocentry{10}{&lt;exp1&gt;&lt;tok2&gt;...}{text}{page number}</code>
-</li>
-</ol>
-<p>
-i.e. <code>\tocpartentry...</code> becomes <code>\tocentry{part}</code>.
-</p>
-</div>
-<div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1">Example</h4>
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">xetex is not compatible with color/graphic{s,x} packages</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <p>
-Here is a short example which make use of the predefined
-<code>\tocchapterentry</code> routine:
+Given the following error:
 </p>
-
+<pre class="example">
+Runaway definition?
+#1-&gt;\message {&lt;#1&gt;}\bgroup 
+! Forbidden control sequence found while scanning definition of \Ginclude@eps.
+</pre>
+<p>
+According to
+<a href="http://tex.stackexchange.com/questions/191489/latex-graphicsx-package-with-eplain-fails-with-driver-dvipdfmx">LaTeX
+graphic{sx} package with eplain fails with driver dvipdfmx</a>, this
+error is caused by plain TeX which defines <code>\newif</code> to be
+<code>\outer</code>. The following snippet fix it:
+</p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="font-weight: bold; font-style: italic;">% </span><span style="font-weight: bold; font-style: italic;">run:</span>
-<span style="font-weight: bold; font-style: italic;">%   </span><span style="font-weight: bold; font-style: italic;">tex xxx.tex</span>
-<span style="font-weight: bold; font-style: italic;">%   </span><span style="font-weight: bold; font-style: italic;">tex xxx.tex</span>
-<span style="font-weight: bold; font-style: italic;">% </span><span style="font-weight: bold; font-style: italic;">two runs is needed.</span>
-<span style="font-weight: bold;">\</span><span style="font-weight: bold;">input</span> eplain
-\readtocfile  
-
-\writetocentry{chapter}{Introduction}
-\writetocentry{chapter}{Related Work}
-\writetocentry{section}{Twenty Years ago}
-\writetocentry{section}{Ten Years ago}
-\writetocentry{chapter}{My Work}
-\writetocentry{section}{Some Important Bases}
-\writetocentry{section}{The idea}
-\writetocentry{subsection}{Idea part I}
-\writetocentry{subsection}{Idea part II}
-\writetocentry{chapter}{Experiment}
-\writetocentry{chapter}{Conclution}
-\writetocentry{chapter}{Reference}
+<pre class="src src-tex">\let\plainnewif=\newif
+\def\newif{\csname plainnewif\endcsname}
 </pre>
 </div>
 <p>
-Note that there will be no chapter numbers or section numbers. You
-should program to implement it if needed.
+Add them before loading <code>color</code> or <code>graphic{sx}</code> packages.
 </p>
 </div>
 </div>

@@ -49,80 +49,25 @@ An example of using =\special=:
 #+END_SRC
 
 * eplain package
-** Contents
-Eplain add _table of contents_ support to plain tex. It will use
-multiple runs of =tex= command to get the table of contents.
-1. On the first run, contents are written into a =.aux= file.
-2. On the second run, control sequence =/readtocfile= will actually
-   read the ouputted =.aux= file.
-Note that on the first run, eplain will actually read the existing
-=.aux= file no matter what exists in it. So in order to get the
-right result, the second run is required.
 
-The macros provided work as follows:
-1. macros such as =\writetocentry{part}{some text}= are give, so
-   you should invoke it wherever you want to output an content entry.
-2. on the first run of tex, these macros will generate new macros
-   and ouput it to the =.aux= file. New macros have the form like
-   =\toc part entry{some text}{page number}=, =part= here is
-   sperated by the author to note that it is taken from step 1.
-3. You should implement the =\tocpartentry= macro for whatever
-   =part= you intend to use so that it will give out the format you
-   want.
-4. on the second run, =\readtocfile= will read =.aux= file and
-   executed all the entry macros according to your own definition
-   in step 3.
-=eplain= provided some predefined macros for convenience:
-=\tocchapterentry=, =\tocsectionentry= and =\tocsubsectionentry=,
-that means you can directly use for example
-=\writetocentry{chapter}{<chapter name>}= without having to define
-=\tocchapterentry= all by yourself.
-
-Three macros are provided to write entries:
-1. =\writetocentry{part}{text}= will translate to
-   =\tocpartentry{text}{page number}=
-2. =\writenumberedtocentry{part}{text}{<tok1><tok2>...}= will be
-   translated to =\tocpartentry{text}{<exp1><tok2>...}{page
-         number}= while =<exp1>= means the expansion of =<tok1>=.
-3. =\writenumberedtocline{part}{<tok1><tok2>...}{text}= is just
-   like =\writenumberedtocentry= except the argument position. It
-   will be translated to =\tocpartentry{<exp1><tok2>...}{text}{page
-         number}=.
-Note that all the above three macros behave differently when
-={part}= is a number. In this case, the entry will expand to:
-1. =\writetocentry{1}{text}= to =\tocentry{1}{text}{pagenumber}=
-2. =\writenumberedtocentry{10}{text}{<tok1><tok2>...}= to
-   =\tocentry{10}{text}{<exp1><tok2>...}{page number}=
-3. =\writenumberedtocline{5}{<tok1><tok2>...}{text}= to
-   =\tocentry{10}{<exp1><tok2>...}{text}{page number}=
-i.e. =\tocpartentry...= becomes =\tocentry{part}=.
-*** Example
-Here is a short example which make use of the predefined
-=\tocchapterentry= routine:
-
+** FAQs
+*** xetex is not compatible with color/graphic{s,x} packages
+Given the following error:
+#+BEGIN_EXAMPLE
+Runaway definition?
+#1->\message {<#1>}\bgroup 
+! Forbidden control sequence found while scanning definition of \Ginclude@eps.
+#+END_EXAMPLE
+According to
+[[http://tex.stackexchange.com/questions/191489/latex-graphicsx-package-with-eplain-fails-with-driver-dvipdfmx][LaTeX
+graphic{sx} package with eplain fails with driver dvipdfmx]], this
+error is caused by plain TeX which defines =\newif= to be
+=\outer=. The following snippet fix it:
 #+BEGIN_SRC tex
-  % run:
-  %   tex xxx.tex
-  %   tex xxx.tex
-  % two runs is needed.
-  \input eplain
-  \readtocfile  
-
-  \writetocentry{chapter}{Introduction}
-  \writetocentry{chapter}{Related Work}
-  \writetocentry{section}{Twenty Years ago}
-  \writetocentry{section}{Ten Years ago}
-  \writetocentry{chapter}{My Work}
-  \writetocentry{section}{Some Important Bases}
-  \writetocentry{section}{The idea}
-  \writetocentry{subsection}{Idea part I}
-  \writetocentry{subsection}{Idea part II}
-  \writetocentry{chapter}{Experiment}
-  \writetocentry{chapter}{Conclution}
-  \writetocentry{chapter}{Reference}
+  \let\plainnewif=\newif
+  \def\newif{\csname plainnewif\endcsname}
 #+END_SRC
-Note that there will be no chapter numbers or section numbers. You
-should program to implement it if needed.
+Add them before loading =color= or =graphic{sx}= packages.
 ** Generic references
 =eplain= added support for defining generic references and way to
 refer to them.
