@@ -15,6 +15,7 @@
 - [[file:slackware_notes.org][Slackware Notes]]
 - [[file:test_org.org][Test Org Syntax]]
 - [[file:tex_notes.org][TeX/LaTeX Notes]]
+- [[file:tex_resources.org][TeX/LaTeX 资源]]
 - [[file:Thinking_In_Cpp.org][Thinking In C++ Notes]]
 - [[file:tikz.org][Tikz Notes]]
 - [[file:Unix_Network_Programming_v2.org][UNIX Network Programming Vol.2 Notes]]
