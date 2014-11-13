@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>LaTeX 笔记</title>
-<!-- 2014-11-10 -->
+<!-- 2014-11-13 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -79,6 +79,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">FAQs</a>
 <ul>
 <li><a href="#sec-1-1">CJK 中文支持</a></li>
+<li><a href="#sec-1-2">CJK PDF 书签乱码</a></li>
 </ul>
 </li>
 </ul>
@@ -96,6 +97,17 @@ for the JavaScript code in this tag.
 其中， <code>CJK*</code> 代表引用CJK环境， <code>UTF8</code> 表示编码， <code>gbsn</code> 表示选用的
 字体。Linux 中安装 texlive 后带的字体有： <code>gbsn</code>: 宋体， <code>gkai</code> 楷
 体。繁体字体： <code>bkai</code> 繁体楷体， <code>bsmi</code> 繁体明体。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">CJK PDF 书签乱码</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+（CJK哪来这么多问题嘛）
+首先，由于在Linux下，所以基本不上文档都是使用UTF8而非GBK。而书签支
+持的宏包hyperref中的选项 <code>CJKbookmarks</code> 是为GBK准备的，因此在UTF8编
+码下，切勿设置该选项。那么下面给个例子：
 </p>
 </div>
 </div>
