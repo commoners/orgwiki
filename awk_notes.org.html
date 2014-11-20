@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>awk_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-code {
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-verbatim {
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Awk &#31508;&#35760;
+</span></span>
+<span class="org-level-1">* FAQs</span>
+<span class="org-level-2">** awk specify FS(field seperator)</span>
+   awk's internal variable <span class="org-verbatim">=FS=</span> defines awk's seperator, and it is
+   actually a regular expression. Thus, for the following sample:
+<span class="org-block-begin-line">   #+begin_example
+</span><span class="org-block">     filenameA,filenameB 0
+</span><span class="org-block-end-line">   #+end_example
+</span>   We specify different <span class="org-verbatim">=FS=</span>:
+<span class="org-block-begin-line">   #+begin_src sh :export both :results output
+</span><span class="org-block">     awk 'BEGIN{FS = ","}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}' &lt;&lt; EOF
+     filenameA,filenameB 0
+     EOF
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 0=filenameA,filenameB 0
+</span>   <span class="org-code">: 1=filenameA
+</span>   <span class="org-code">: 2=filenameB 0
+</span>   <span class="org-code">: 3=
+</span>
+   Now, use regular expression to specify both "," and "&lt;space&gt;" as seperator.
+<span class="org-block-begin-line">   #+begin_src sh :export both :results output
+</span><span class="org-block">     awk 'BEGIN{FS = "[, ]"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}' &lt;&lt; EOF
+     filenameA,filenameB 0
+     EOF
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 0=filenameA,filenameB 0
+</span>   <span class="org-code">: 1=filenameA
+</span>   <span class="org-code">: 2=filenameB
+</span>   <span class="org-code">: 3=0
+</span>
+   However, if <span class="org-verbatim">=filenameB=</span> and <span class="org-verbatim">=0=</span> are seperated by more than one
+   space, we will get more than three fields, and as we may expected,
+   we'll have to expand the <span class="org-verbatim">=FS=</span> even more:
+<span class="org-block-begin-line">   #+begin_src sh :export both :results output
+</span><span class="org-block">     awk 'BEGIN{FS = "[, ]+"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}' &lt;&lt; EOF
+     filenameA, filenameB     0
+     EOF
+</span><span class="org-block-end-line">   #+end_src
+</span>
+<span class="org-meta-line">   #+RESULTS:</span>
+   <span class="org-code">: 0=filenameA, filenameB     0
+</span>   <span class="org-code">: 1=filenameA
+</span>   <span class="org-code">: 2=filenameB
+</span>   <span class="org-code">: 3=0
+</span>
+   Note that, the <span class="org-verbatim">=FS=</span> variable can also be specified by command line
+   options:
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     awk -F "[, ]+" '{print "0="$0;print "1="$1;print "2="$2; print "3="$3}' &lt;&lt; EOF
+     filenameA, filenameB     0
+     EOF
+</span><span class="org-block-end-line">   #+end_src
+</span></pre>
+  </body>
+</html>

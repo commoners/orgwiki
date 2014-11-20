@@ -48,3 +48,9 @@ There's a couple of things to keep in mind:
   pango-querymodules-32 > '/etc/pango/i486-slackware-linux/pango.modules'
 #+END_SRC
 - [[http://drunkedcat.diandian.com/post/2012-04-26/40047144778][amd64 gentoo acroread 字体方框问题]]
+- 
+** wine 三国志11出错
+错误：fixme:service:scmdatabase_autostart_services Auto-start service L"SecDrv" failed to start: 2
+
+这个问题要把游戏目录的SECDRV.SYS
+复制到windows/system32/drivers里面就行了。

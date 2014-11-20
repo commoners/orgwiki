@@ -240,7 +240,24 @@
 <span class="org-level-3">*** Typesetting an index</span>
     <span class="org-verbatim">=\readindexfile{i}=</span>
    
+<span class="org-level-1">* XeTeX support</span>
+<span class="org-level-2">** convenient xetex zhspcing font selection</span>
+   Select font like <span class="org-verbatim">=\rm=</span>, <span class="org-verbatim">=\it=</span> etc. for chinese fonts using zhspacing.
+   Add the following codes after loading <span class="org-verbatim">=zhspacing=</span>
+<span class="org-block-begin-line">   #+begin_src tex
+</span><span class="org-block">     \font\zhrmfont = "SimSun" at 10pt
+     \font\zhbffont = "SimHei" at 10pt
+     \font\zhitfont = "KaiTi" at 10pt
+     \font\zhttfont = "KaiTi" at 10pt
 
+     \def\zhfont{%
+       \ifnum\fam=\bffam \zhbffont 
+       \else\ifnum\fam=\ttfam \zhttfont
+       \else\ifnum\fam=\itfam \zhitfont  
+       \else \zhrmfont
+       \fi\fi\fi}
+</span><span class="org-block-end-line">   #+end_src
+</span>
 <span class="org-level-1">* Gentle Introduction</span>
 <span class="org-level-2">** The shape of things to come</span>
 <span class="org-level-3">*** Fonts</span>

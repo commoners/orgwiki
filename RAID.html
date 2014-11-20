@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Slackware Notes</title>
+<title>Linux RAID 设置</title>
 <!-- 2014-11-20 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,122 +71,202 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Slackware Notes</h1>
+<h1 class="title">Linux RAID 设置</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">FAQs</a>
+<li><a href="#sec-1">RAID是什么</a>
 <ul>
-<li><a href="#sec-1-1">How to send soft rfkill(especially when using USB card with PC)</a></li>
-<li><a href="#sec-1-2">Compiling 32-bit programs</a></li>
-<li><a href="#sec-1-3">acroread(Adobe Reader)界面方框</a></li>
-<li><a href="#sec-1-4">wine 三国志11出错</a></li>
+<li><a href="#sec-1-1">RAID 的分类</a></li>
+<li><a href="#sec-1-2">RAID 的级别</a></li>
 </ul>
 </li>
+<li><a href="#sec-2">软RAID管理</a>
+<ul>
+<li><a href="#sec-2-1">删除已有的fakeRAID</a></li>
+<li><a href="#sec-2-2">用mdadm创建软RAID</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">参考</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">FAQs</h2>
+<h2 id="sec-1">RAID是什么</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">How to send soft rfkill(especially when using USB card with PC)</h3>
+<p>
+RAID（Redundant Arrays of Inexpensive Disks），英文翻译为容错式廉价磁
+盘阵列。简单地说，就是通过某种技术，将多个磁盘整合成一个大的磁盘，且这
+个磁盘有容错的能力。那么通过RAID的方式处理之后，不论原先有多少个磁盘，
+在用户的眼里，就变成了一个大的磁盘。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">RAID 的分类</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-There is a commandline tool called <code>rfkill</code>, that would do.
+一般可以简单分成三种，硬RAID，软RAID及假RAID（fakeRAID）。
 </p>
 
 <p>
-<code>rfkill block wlan</code> to block all wlan device.
-<code>rfkill unblock wlan</code> to unblock all wlan device.
+硬RAID是构买专门的RAID卡，由该卡提供RAID所需要的运算功能。只要预算够，
+这基本上是最好的方案。
+</p>
+
+<p>
+软RAID就是通过软件实现RAID功能，这就需要CPU提供额外的计算。这也就是穷
+人的RAID了。
+</p>
+
+<p>
+FakeRAID是由主板提供的RAID功能，但RAID需要的计算仍然由CPU实现，所以性
+能上与软RAID无异，它的优点是如果有多个操作系统，使用同一个RAID存储，那
+么fakeRAID就能发挥作用，否则使用软RAID更优。
 </p>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">Compiling 32-bit programs</h3>
+<h3 id="sec-1-2">RAID 的级别</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-In case you need to compile a 32-bit program (wine and grub are two examples
-of open source programs that are 32-bit only) you first configure your
-shell environment by running the command:
+常用的有三种：RAID-0, RAID-1, RAID-5
 </p>
 
-<div class="org-src-container">
+<p>
+RIAD-0:相当于提供的逻辑卷的功能，将多个硬盘连接在一起，构建成一个大的
+硬盘，性能相当不错，但没有容错的功能。
+</p>
 
-<pre class="src src-sh"><span style="font-weight: bold;">.</span> /etc/profile.d/32dev.sh
-</pre>
+<p>
+RAID-1:也叫镜像模式，如果有N个磁盘，则需要另外N个磁盘，存储相同的内容。
+这样如果其中一份数据出错，则可以由另一个磁盘得到。性能比较低。磁盘的利
+用率也比较低。
+</p>
+
+<p>
+RAID-5:这是性能与容错的一个均衡，如果有N个磁盘，则需要额外1个磁盘来存
+放冗余信息，如果其中一个磁盘损坏，则可以通过该冗余信息恢复。冗余信息是
+平均存储在N+1个磁盘中而非单独存储在某个磁盘。RAID-5仅支持一个磁盘的损
+坏。
+</p>
+</div>
+</div>
 </div>
 
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">软RAID管理</h2>
+<div class="outline-text-2" id="text-2">
 <p>
-Note the 'dot' in front of the filename - that is actually part of the
-commandline!  It will change or create several environment variables so
-that 32-bit versions of binaries are preferred.  Once you are done compiling
-32-bit software, you should logout of your root shell in order to get rid of
-the modified build environment.
+这里记录一下一些实际操作。 <code>dmraid</code> 一般用于管理fakeRAID， <code>mdadm</code> 用
+于管理软RAID，是现在推荐使用的工具。
 </p>
 
 <p>
-In this changed environment, you will be able to use standard SlackBuilds to
-build 32-bit packages for Slackware64.
-There's a couple of things to keep in mind:
+切记，创建和删除的过程中，硬盘的数据会丢失，所以请提前做好备份。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">删除已有的fakeRAID</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">dmraid -r               <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#26597;&#30475;RAID&#20449;&#24687;</span>
+dmsetup remove_all      <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#37322;&#25918;&#23545;&#30913;&#30424;&#30340;&#20351;&#29992;</span>
+dmraid -a no            <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#20572;&#29992;&#30913;&#30424;&#38453;&#21015;</span>
+dmraid -x               <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#28165;&#38500;&#30913;&#30424;&#19978;&#30340;RAID&#20449;&#24687;</span>
+</pre>
+</div>
+<p>
+参考<a href="http://ju.outofmemory.cn/entry/76466">清除RAID磁盘信息</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">用mdadm创建软RAID</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+首先我们需要准备好磁盘或分区（参见本节参考1）
 </p>
 
 <ol class="org-ol">
-<li>You have to define the ARCH variable as 'i486' because even on your
-'x86_64' computer you are compiling a 32-bit program! 
-This is related to the triplet of '$ARCH-slackware-linux' which 
-is normally used in the 'configure' command.
-a. As an exception, you will have to compile the 'wine' package with
-    'ARCH=x86_64' because you will install this package directly on
-    your multilib computer without converting to a 'compat32' package.
-</li>
+<li>用mdadm创建RAID设备
+<div class="org-src-container">
 
-<li>If you want to install this 32-bit package on Slackware64-multilib,
-you will have to convert it to a 'compat32' package: 
+<pre class="src src-sh">mdadm -C /dev/md0 -a yes -l 5 -n 3 -x 0 /dev/sd[bcd] 
+<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">-C&#34920;&#31034;&#21019;&#24314;&#65288;create&#30340;&#24847;&#24605;&#65289;&#65292;-l&#34920;&#31034;raid&#32423;&#21035;&#65288;level&#24847;&#24605;&#65289; </span>
+<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">-n&#34920;&#31034;&#35774;&#22791;&#30340;&#25968;&#25454;&#65288;number&#65289;  -x &#25351;&#23450;&#21021;&#22987;&#38453;&#21015;&#30340;&#23500;&#20313;device &#25968;&#30446;</span>
+</pre>
+</div>
+</li>
+<li>保存mdadm设置
+<div class="org-src-container">
+
+<pre class="src src-sh">mdadm --detail --scan &gt;&gt; /etc/mdadm/mdadm.conf
+</pre>
+</div>
+</li>
+<li>对RAID设备分区格式化
+</li>
+<li>添加挂载项
+</li>
+<li>重启看是否自动挂载
 </li>
 </ol>
 
-<div class="org-src-container">
-
-<pre class="src src-sh"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">convertpkg-compat32 -i /path/to/your/fresh/foo-VERSION-i486-BUILD.tgz</span>
-<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">upgradepkg --install-new /tmp/foo-compat32-VERSION-x86_64-BUILDcompat32.txz</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">acroread(Adobe Reader)界面方框</h3>
-<div class="outline-text-3" id="text-1-3">
 <p>
-原因是pango modules没有正确设置和加载，用下列命令生成：
+如果重启后不自动挂载，可能需要额外的步骤（这里列出两种方法）
 </p>
-<div class="org-src-container">
-
-<pre class="src src-sh">pango-querymodules-32 &gt; <span style="font-style: italic;">'/etc/pango/i486-slackware-linux/pango.modules'</span>
+<ol class="org-ol">
+<li>在 <code>/etc/mdadm/mdadm.conf</code> 中加入
+<pre class="example">
+#AUTOSTART:
+#   should mdadm start arrays listed in /etc/mdadm/mdadm.conf automatically
+#   during boot?
+AUTOSTART=true
 </pre>
-</div>
-<ul class="org-ul">
-<li><a href="http://drunkedcat.diandian.com/post/2012-04-26/40047144778">amd64 gentoo acroread 字体方框问题</a>
 </li>
-<li></li>
-</ul>
+<li>在正确挂载RAID后（即上述步骤4后）更新initramfs
+<div class="org-src-container">
+
+<pre class="src src-sh">update-initramfs -u
+</pre>
 </div>
-</div>
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">wine 三国志11出错</h3>
-<div class="outline-text-3" id="text-1-4">
-<p>
-错误：fixme:service:scmdatabase_autostart_services Auto-start service L"SecDrv" failed to start: 2
-</p>
+</li>
+</ol>
 
 <p>
-这个问题要把游戏目录的SECDRV.SYS
-复制到windows/system32/drivers里面就行了。
+参考：
 </p>
+<ol class="org-ol">
+<li><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">Linux下用mdadm命令创建软RAID5</a>
+</li>
+<li><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">Raid Setup</a>
+</li>
+<li><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">How can I make mdadm auto-assemble RAID after each boot</a>
+</li>
+</ol>
 </div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">参考</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">鸟哥的Linux私房菜</a>
+</li>
+<li><a href="http://www.zhihu.com/question/19613331">知乎：软RAID与硬RAID各有什
+么优劣</a>
+</li>
+<li><a href="https://raid.wiki.kernel.org/index.php/RAID_setup">RAID setup</a>
+</li>
+</ul>
 </div>
 </div>
 </div>

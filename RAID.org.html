@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>RAID.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-link {
+        /* org-link */
+        text-decoration: underline;
+      }
+      .org-verbatim {
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Linux RAID &#35774;&#32622;
+</span></span>
+<span class="org-level-1">* RAID&#26159;&#20160;&#20040;</span>
+RAID&#65288;Redundant Arrays of Inexpensive Disks&#65289;&#65292;&#33521;&#25991;&#32763;&#35793;&#20026;&#23481;&#38169;&#24335;&#24265;&#20215;&#30913;
+&#30424;&#38453;&#21015;&#12290;&#31616;&#21333;&#22320;&#35828;&#65292;&#23601;&#26159;&#36890;&#36807;&#26576;&#31181;&#25216;&#26415;&#65292;&#23558;&#22810;&#20010;&#30913;&#30424;&#25972;&#21512;&#25104;&#19968;&#20010;&#22823;&#30340;&#30913;&#30424;&#65292;&#19988;&#36825;
+&#20010;&#30913;&#30424;&#26377;&#23481;&#38169;&#30340;&#33021;&#21147;&#12290;&#37027;&#20040;&#36890;&#36807;RAID&#30340;&#26041;&#24335;&#22788;&#29702;&#20043;&#21518;&#65292;&#19981;&#35770;&#21407;&#20808;&#26377;&#22810;&#23569;&#20010;&#30913;&#30424;&#65292;
+&#22312;&#29992;&#25143;&#30340;&#30524;&#37324;&#65292;&#23601;&#21464;&#25104;&#20102;&#19968;&#20010;&#22823;&#30340;&#30913;&#30424;&#12290;
+
+<span class="org-level-2">** RAID &#30340;&#20998;&#31867;</span>
+&#19968;&#33324;&#21487;&#20197;&#31616;&#21333;&#20998;&#25104;&#19977;&#31181;&#65292;&#30828;RAID&#65292;&#36719;RAID&#21450;&#20551;RAID&#65288;fakeRAID&#65289;&#12290;
+
+&#30828;RAID&#26159;&#26500;&#20080;&#19987;&#38376;&#30340;RAID&#21345;&#65292;&#30001;&#35813;&#21345;&#25552;&#20379;RAID&#25152;&#38656;&#35201;&#30340;&#36816;&#31639;&#21151;&#33021;&#12290;&#21482;&#35201;&#39044;&#31639;&#22815;&#65292;
+&#36825;&#22522;&#26412;&#19978;&#26159;&#26368;&#22909;&#30340;&#26041;&#26696;&#12290;
+
+&#36719;RAID&#23601;&#26159;&#36890;&#36807;&#36719;&#20214;&#23454;&#29616;RAID&#21151;&#33021;&#65292;&#36825;&#23601;&#38656;&#35201;CPU&#25552;&#20379;&#39069;&#22806;&#30340;&#35745;&#31639;&#12290;&#36825;&#20063;&#23601;&#26159;&#31351;
+&#20154;&#30340;RAID&#20102;&#12290;
+
+FakeRAID&#26159;&#30001;&#20027;&#26495;&#25552;&#20379;&#30340;RAID&#21151;&#33021;&#65292;&#20294;RAID&#38656;&#35201;&#30340;&#35745;&#31639;&#20173;&#28982;&#30001;CPU&#23454;&#29616;&#65292;&#25152;&#20197;&#24615;
+&#33021;&#19978;&#19982;&#36719;RAID&#26080;&#24322;&#65292;&#23427;&#30340;&#20248;&#28857;&#26159;&#22914;&#26524;&#26377;&#22810;&#20010;&#25805;&#20316;&#31995;&#32479;&#65292;&#20351;&#29992;&#21516;&#19968;&#20010;RAID&#23384;&#20648;&#65292;&#37027;
+&#20040;fakeRAID&#23601;&#33021;&#21457;&#25381;&#20316;&#29992;&#65292;&#21542;&#21017;&#20351;&#29992;&#36719;RAID&#26356;&#20248;&#12290;
+
+<span class="org-level-2">** RAID &#30340;&#32423;&#21035;</span>
+&#24120;&#29992;&#30340;&#26377;&#19977;&#31181;&#65306;RAID-0, RAID-1, RAID-5
+
+RIAD-0:&#30456;&#24403;&#20110;&#25552;&#20379;&#30340;&#36923;&#36753;&#21367;&#30340;&#21151;&#33021;&#65292;&#23558;&#22810;&#20010;&#30828;&#30424;&#36830;&#25509;&#22312;&#19968;&#36215;&#65292;&#26500;&#24314;&#25104;&#19968;&#20010;&#22823;&#30340;
+&#30828;&#30424;&#65292;&#24615;&#33021;&#30456;&#24403;&#19981;&#38169;&#65292;&#20294;&#27809;&#26377;&#23481;&#38169;&#30340;&#21151;&#33021;&#12290;
+
+RAID-1:&#20063;&#21483;&#38236;&#20687;&#27169;&#24335;&#65292;&#22914;&#26524;&#26377;N&#20010;&#30913;&#30424;&#65292;&#21017;&#38656;&#35201;&#21478;&#22806;N&#20010;&#30913;&#30424;&#65292;&#23384;&#20648;&#30456;&#21516;&#30340;&#20869;&#23481;&#12290;
+&#36825;&#26679;&#22914;&#26524;&#20854;&#20013;&#19968;&#20221;&#25968;&#25454;&#20986;&#38169;&#65292;&#21017;&#21487;&#20197;&#30001;&#21478;&#19968;&#20010;&#30913;&#30424;&#24471;&#21040;&#12290;&#24615;&#33021;&#27604;&#36739;&#20302;&#12290;&#30913;&#30424;&#30340;&#21033;
+&#29992;&#29575;&#20063;&#27604;&#36739;&#20302;&#12290;
+
+RAID-5:&#36825;&#26159;&#24615;&#33021;&#19982;&#23481;&#38169;&#30340;&#19968;&#20010;&#22343;&#34913;&#65292;&#22914;&#26524;&#26377;N&#20010;&#30913;&#30424;&#65292;&#21017;&#38656;&#35201;&#39069;&#22806;1&#20010;&#30913;&#30424;&#26469;&#23384;
+&#25918;&#20887;&#20313;&#20449;&#24687;&#65292;&#22914;&#26524;&#20854;&#20013;&#19968;&#20010;&#30913;&#30424;&#25439;&#22351;&#65292;&#21017;&#21487;&#20197;&#36890;&#36807;&#35813;&#20887;&#20313;&#20449;&#24687;&#24674;&#22797;&#12290;&#20887;&#20313;&#20449;&#24687;&#26159;
+&#24179;&#22343;&#23384;&#20648;&#22312;N+1&#20010;&#30913;&#30424;&#20013;&#32780;&#38750;&#21333;&#29420;&#23384;&#20648;&#22312;&#26576;&#20010;&#30913;&#30424;&#12290;RAID-5&#20165;&#25903;&#25345;&#19968;&#20010;&#30913;&#30424;&#30340;&#25439;
+&#22351;&#12290;
+
+<span class="org-level-1">* &#36719;RAID&#31649;&#29702;</span>
+&#36825;&#37324;&#35760;&#24405;&#19968;&#19979;&#19968;&#20123;&#23454;&#38469;&#25805;&#20316;&#12290; <span class="org-verbatim">=dmraid=</span> &#19968;&#33324;&#29992;&#20110;&#31649;&#29702;fakeRAID&#65292; <span class="org-verbatim">=mdadm=</span> &#29992;
+&#20110;&#31649;&#29702;&#36719;RAID&#65292;&#26159;&#29616;&#22312;&#25512;&#33616;&#20351;&#29992;&#30340;&#24037;&#20855;&#12290;
+
+&#20999;&#35760;&#65292;&#21019;&#24314;&#21644;&#21024;&#38500;&#30340;&#36807;&#31243;&#20013;&#65292;&#30828;&#30424;&#30340;&#25968;&#25454;&#20250;&#20002;&#22833;&#65292;&#25152;&#20197;&#35831;&#25552;&#21069;&#20570;&#22909;&#22791;&#20221;&#12290;
+
+<span class="org-level-2">** &#21024;&#38500;&#24050;&#26377;&#30340;fakeRAID</span>
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  dmraid -r               # &#26597;&#30475;RAID&#20449;&#24687;
+  dmsetup remove_all      # &#37322;&#25918;&#23545;&#30913;&#30424;&#30340;&#20351;&#29992;
+  dmraid -a no            # &#20572;&#29992;&#30913;&#30424;&#38453;&#21015;
+  dmraid -x               # &#28165;&#38500;&#30913;&#30424;&#19978;&#30340;RAID&#20449;&#24687;
+</span><span class="org-block-end-line">#+end_src
+</span>&#21442;&#32771;<span class="org-link"><a href="http://ju.outofmemory.cn/entry/76466">[[http://ju.outofmemory.cn/entry/76466][</a><a href="http://ju.outofmemory.cn/entry/76466">&#28165;&#38500;RAID&#30913;&#30424;&#20449;&#24687;</a><a href="http://ju.outofmemory.cn/entry/76466">]]</a></span>
+
+<span class="org-level-2">** &#29992;mdadm&#21019;&#24314;&#36719;RAID</span>
+
+&#39318;&#20808;&#25105;&#20204;&#38656;&#35201;&#20934;&#22791;&#22909;&#30913;&#30424;&#25110;&#20998;&#21306;&#65288;&#21442;&#35265;&#26412;&#33410;&#21442;&#32771;1&#65289;
+
+1. &#29992;mdadm&#21019;&#24314;RAID&#35774;&#22791;
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     mdadm -C /dev/md0 -a yes -l 5 -n 3 -x 0 /dev/sd[bcd] 
+     # -C&#34920;&#31034;&#21019;&#24314;&#65288;create&#30340;&#24847;&#24605;&#65289;&#65292;-l&#34920;&#31034;raid&#32423;&#21035;&#65288;level&#24847;&#24605;&#65289; 
+     # -n&#34920;&#31034;&#35774;&#22791;&#30340;&#25968;&#25454;&#65288;number&#65289;  -x &#25351;&#23450;&#21021;&#22987;&#38453;&#21015;&#30340;&#23500;&#20313;device &#25968;&#30446;
+</span><span class="org-block-end-line">   #+end_src
+</span>2. &#20445;&#23384;mdadm&#35774;&#32622;
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     mdadm --detail --scan &gt;&gt; /etc/mdadm/mdadm.conf
+</span><span class="org-block-end-line">   #+end_src
+</span>3. &#23545;RAID&#35774;&#22791;&#20998;&#21306;&#26684;&#24335;&#21270;
+4. &#28155;&#21152;&#25346;&#36733;&#39033;
+5. &#37325;&#21551;&#30475;&#26159;&#21542;&#33258;&#21160;&#25346;&#36733;
+
+&#22914;&#26524;&#37325;&#21551;&#21518;&#19981;&#33258;&#21160;&#25346;&#36733;&#65292;&#21487;&#33021;&#38656;&#35201;&#39069;&#22806;&#30340;&#27493;&#39588;&#65288;&#36825;&#37324;&#21015;&#20986;&#20004;&#31181;&#26041;&#27861;&#65289;
+1. &#22312; <span class="org-verbatim">=/etc/mdadm/mdadm.conf=</span> &#20013;&#21152;&#20837;
+<span class="org-block-begin-line">   #+begin_example
+</span><span class="org-block">     #AUTOSTART:
+     #   should mdadm start arrays listed in /etc/mdadm/mdadm.conf automatically
+     #   during boot?
+     AUTOSTART=true
+</span><span class="org-block-end-line">   #+end_example
+</span>2. &#22312;&#27491;&#30830;&#25346;&#36733;RAID&#21518;&#65288;&#21363;&#19978;&#36848;&#27493;&#39588;4&#21518;&#65289;&#26356;&#26032;initramfs
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     update-initramfs -u
+</span><span class="org-block-end-line">   #+end_src
+</span>
+&#21442;&#32771;&#65306;
+1. <span class="org-link"><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">[[http://www.linuxidc.com/Linux/2012-06/62354.htm][</a><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">Linux&#19979;&#29992;mdadm&#21629;&#20196;&#21019;&#24314;&#36719;RAID5</a><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">]]</a></span>
+2. <span class="org-link"><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">[[https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device][</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">Raid Setup</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">]]</a></span>
+3. <span class="org-link"><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">[[http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot][</a><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">How can I make mdadm auto-assemble RAID after each boot</a><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">]]</a></span>
+
+<span class="org-level-1">* &#21442;&#32771;</span>
+- <span class="org-link"><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">[[http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php][</a><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">&#40479;&#21733;&#30340;Linux&#31169;&#25151;&#33756;</a><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">]]</a></span>
+- <span class="org-link"><a href="http://www.zhihu.com/question/19613331">[[http://www.zhihu.com/question/19613331][</a><a href="http://www.zhihu.com/question/19613331">&#30693;&#20046;&#65306;&#36719;RAID&#19982;&#30828;RAID&#21508;&#26377;&#20160;
+  &#20040;&#20248;&#21155;</a><a href="http://www.zhihu.com/question/19613331">]]</a></span>
+- <span class="org-link"><a href="https://raid.wiki.kernel.org/index.php/RAID_setup">[[https://raid.wiki.kernel.org/index.php/RAID_setup][</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup">RAID setup</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup">]]</a></span>
+</pre>
+  </body>
+</html>

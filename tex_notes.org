@@ -149,6 +149,23 @@ silent version will only add the index.
 *** Typesetting an index
 =\readindexfile{i}=
 
+* XeTeX support
+** convenient xetex zhspcing font selection
+Select font like =\rm=, =\it= etc. for chinese fonts using zhspacing.
+Add the following codes after loading =zhspacing=
+#+BEGIN_SRC tex
+  \font\zhrmfont = "SimSun" at 10pt
+  \font\zhbffont = "SimHei" at 10pt
+  \font\zhitfont = "KaiTi" at 10pt
+  \font\zhttfont = "KaiTi" at 10pt
+
+  \def\zhfont{%
+    \ifnum\fam=\bffam \zhbffont 
+    \else\ifnum\fam=\ttfam \zhttfont
+    \else\ifnum\fam=\itfam \zhitfont  
+    \else \zhrmfont
+    \fi\fi\fi}
+#+END_SRC
 
 * Gentle Introduction
 ** The shape of things to come
