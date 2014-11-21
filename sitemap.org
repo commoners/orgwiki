@@ -23,5 +23,6 @@
 - [[file:Unix_Network_Programming_v2.org][UNIX Network Programming Vol.2 Notes]]
 - [[file:wine_notes.org][wine 笔记]]
 - [[file:Books.org][书籍]]
+- [[file:Information_Retrieval.org][信息检索]]
 - [[file:how_wiki_is_built.org][本站是如何搭建的]]
 - [[file:interview.org][面试技能收集]]
