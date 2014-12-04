@@ -138,15 +138,64 @@ RAID-5:&#36825;&#26159;&#24615;&#33021;&#19982;&#23481;&#38169;&#30340;&#19968;&
      #   during boot?
      AUTOSTART=true
 </span><span class="org-block-end-line">   #+end_example
-</span>2. &#22312;&#27491;&#30830;&#25346;&#36733;RAID&#21518;&#65288;&#21363;&#19978;&#36848;&#27493;&#39588;4&#21518;&#65289;&#26356;&#26032;initramfs
+</span>   
+3. &#22312;&#27491;&#30830;&#25346;&#36733;RAID&#21518;&#65288;&#21363;&#19978;&#36848;&#27493;&#39588;4&#21518;&#65289;&#26356;&#26032;initramfs
 <span class="org-block-begin-line">   #+begin_src sh
 </span><span class="org-block">     update-initramfs -u
 </span><span class="org-block-end-line">   #+end_src
-</span>
+</span><span class="org-level-2">** &#20851;&#20110;&#37325;&#21551;&#21518;RAID&#28040;&#22833;&#30340;&#38382;&#39064;</span>
+&#23454;&#38469;&#25805;&#20316;&#32456;&#20110;&#26159;&#25104;&#21151;&#20102;&#65292;&#20294;&#38382;&#39064;&#30340;&#26681;&#28304;&#20173;&#28982;&#19981;&#28165;&#26970;&#65292;&#36825;&#37324;&#38598;&#20013;&#35752;&#35770;&#19968;&#19979;&#12290;
+
+&#25454;&#21442;&#32771;4&#25152;&#35828;&#65292;&#21407;&#22240;&#26377;&#20004;&#23618;&#12290;
+1. &#38453;&#21015;&#32452;&#35013;&#21457;&#29983;&#22312;&#26681;&#25991;&#20214;&#31995;&#32479;&#25346;&#36733;&#20043;&#21069;&#65292;&#22240;&#27492;&#20445;&#23384;&#21518;&#30340; <span class="org-verbatim">=mdadm.conf=</span> &#24182;&#27809;&#26377;
+   &#34987;&#35835;&#21462;&#12290;&#22240;&#27492;&#31995;&#32479;&#21482;&#20250;&#35835;&#21462;&#22312; <span class="org-verbatim">=initramfs=</span> &#20013;&#30340;&#30456;&#24212;&#25991;&#20214;&#12290;&#22240;&#27492;&#21487;&#20197;&#22312;&#19968;&#20999;
+   &#37117;&#24037;&#20316;&#20043;&#21518;&#65292;&#25191;&#34892; <span class="org-verbatim">=update-initramfs -u=</span> &#12290;
+2. RAID &#35774;&#22791;&#22312;&#21551;&#21160;&#30340;&#26102;&#20505;&#27809;&#26377;&#34987;&#35782;&#21035;&#12290;&#27492;&#26102;&#65292;&#25105;&#20204;&#21487;&#20197;&#23558;&#29992;&#20110;RAID&#30340;&#20998;&#21306;&#31867;&#22411;
+   &#25913;&#20026; <span class="org-verbatim">=0xFD=</span> &#65288;Linux Raid Autodetect&#65289;&#12290;
+
+   mdadm &#22312;&#21551;&#21160;&#26102;&#36816;&#34892;&#65288;&#22312; <span class="org-verbatim">=initramfs=</span> &#21069;&#65289;&#65292;&#20250;&#35782;&#21035;&#25152;&#26377;&#31867;&#22411;&#20026; <span class="org-verbatim">=0xFD=</span> &#30340;
+   &#20998;&#21306;&#24182;&#23558;&#36825;&#20123;&#20998;&#21306;&#32452;&#35013;&#25104;&#19968;&#20010;RAID&#65292;&#36825;&#31181;&#26041;&#24335;&#20043;&#19979;&#65292;&#24182;&#19981;&#38656;&#35201;&#26368;&#26032;&#29256;&#30340;
+   <span class="org-verbatim">=mdadm.conf=</span> &#12290;&#19981;&#36807;&#20063;&#22240;&#27492;&#65292;&#29983;&#25104;&#30340;&#35774;&#22791;&#21517;&#26080;&#27861;&#30001;&#37197;&#32622;&#25991;&#20214;&#25511;&#21046;&#12290;
+
+&#19978;&#36848;&#20004;&#31181;&#26041;&#27861;&#20219;&#21462;&#20854;&#19968;&#29702;&#35770;&#19978;&#23601;&#21487;&#20197;&#20102;&#12290;
+
 &#21442;&#32771;&#65306;
 1. <span class="org-link"><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">[[http://www.linuxidc.com/Linux/2012-06/62354.htm][</a><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">Linux&#19979;&#29992;mdadm&#21629;&#20196;&#21019;&#24314;&#36719;RAID5</a><a href="http://www.linuxidc.com/Linux/2012-06/62354.htm">]]</a></span>
 2. <span class="org-link"><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">[[https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device][</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">Raid Setup</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Create_RAID_device">]]</a></span>
 3. <span class="org-link"><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">[[http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot][</a><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">How can I make mdadm auto-assemble RAID after each boot</a><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">]]</a></span>
+4. <span class="org-link"><a href="http://superuser.com/questions/801826/new-mdadm-raid-vanish-after-reboot">[[http://superuser.com/questions/801826/new-mdadm-raid-vanish-after-reboot][</a><a href="http://superuser.com/questions/801826/new-mdadm-raid-vanish-after-reboot">New mdadm RAID vanish after reboot</a><a href="http://superuser.com/questions/801826/new-mdadm-raid-vanish-after-reboot">]]</a></span>
+
+<span class="org-level-2">** RAID &#30340;&#20351;&#29992;</span>
+&#19978;&#38754;&#20171;&#32461;&#20102; RAID &#30340;&#21019;&#24314;&#65292;&#20294;&#23427;&#20204;&#23436;&#25104;&#30340;&#24037;&#20316;&#30456;&#24403;&#20110;&#25351;&#23450;&#20102;&#38453;&#21015;&#38656;&#35201;&#30340;&#19968;&#20123;&#36164;&#28304;
+&#65288;&#22914;&#23454;&#38469;&#29992;&#30340;&#20998;&#21306;&#65289;&#65292;&#20197;&#21450;&#35760;&#24405;&#19968;&#20123;RAID&#30456;&#20851;&#30340;&#20449;&#24687;&#65288;&#22914; <span class="org-verbatim">=mdadm.conf=</span> &#37197;&#32622;&#25991;
+&#20214;&#65289;&#12290;&#24182;&#27809;&#26377;&#23454;&#38469;&#19978;&#20351;RAID&#24037;&#20316;&#12290;&#37027;&#20040;&#26412;&#33410;&#35760;&#24405;&#22914;&#20309;&#20351;&#29992;RAID&#12290;
+
+&#26681;&#25454;
+<span class="org-link"><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Using_the_Array">[[https://raid.wiki.kernel.org/index.php/RAID_setup#Using_the_Array][</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Using_the_Array">RAID
+setup</a><a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Using_the_Array">]]</a></span> &#25991;&#26723;&#65292;&#35201;&#20572;&#27490;&#19968;&#20010;&#24037;&#20316;&#20013;&#30340;RAID&#65292;&#38656;&#35201;&#19979;&#38754;&#21629;&#20196;&#65306;
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  mdadm --stop /dev/md0
+</span><span class="org-block-end-line">#+end_src
+</span>&#25105;&#20204;&#21487;&#33021;&#35748;&#20026;&#65292;&#22914;&#26524;&#35201;&#21551;&#29992;RAID&#65292;&#21482;&#38656;&#35201;&#65306;
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  mdadm --run /dev/md0
+</span><span class="org-block-end-line">#+end_src
+</span>&#20294;&#20107;&#23454;&#19978;&#24182;&#38750;&#22914;&#27492;&#65292;&#22312;&#20572;&#27490;RAID&#21518;&#65292;&#30456;&#24212;&#30340;&#35774;&#22791;&#25991;&#20214; <span class="org-verbatim">=/dev/md0=</span> &#20063;&#20250;&#28040;&#22833;&#12290;&#20063;
+&#23601;&#26159;RAID&#35774;&#22791;&#24182;&#38750;&#22825;&#28982;&#23384;&#22312;&#30340;&#65292;&#27599;&#27425;&#20351;&#29992;&#23427;&#30340;&#26102;&#20505;&#37117;&#38656;&#35201;&#37325;&#26032;&#32452;&#35013;&#65288;assemble&#65289;&#12290;
+&#32452;&#35013;&#21644;&#21019;&#24314;&#31867;&#20284;&#65292;&#38500;&#20102;&#35828;&#23427;&#20165;&#20165;&#26159;&#23558;&#35774;&#22791;&#25597;&#22312;&#19968;&#22359;&#12290;&#25105;&#20204;&#21487;&#20197;&#25191;&#34892;&#20004;&#27493;&#26469;&#23436;&#25104;&#32452;
+&#35013;&#65306;
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  mdadm --create /dev/md0 --level=5 --raid-devices=4 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
+  mdadm --assemble /dev/md0 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
+</span><span class="org-block-end-line">#+end_src
+</span>&#20063;&#26377;&#26356;&#31616;&#21333;&#30340;&#26041;&#24335;&#65288;&#29468;&#27979;&#26159;&#36890;&#36807;&#35835;&#21462; <span class="org-verbatim">=mdadm.conf=</span> &#23454;&#29616;&#30340;&#65289;
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  mdadm --assemble --scan 
+</span><span class="org-block-end-line">#+end_src
+</span>
+&#22240;&#27492;&#21363;&#20351;&#37325;&#21551;&#21518;&#30475;&#19981;&#35265;&#20043;&#21069;&#21019;&#24314;&#30340;RAID&#65292;&#20063;&#19981;&#24517;&#24908;&#24352;&#65292;&#20043;&#21069;&#21019;&#24314;&#30340;&#20449;&#24687;&#20381;&#26087;&#20445;&#30041;
+&#30528;&#65292;&#21482;&#38656;&#35201;&#37325;&#26032;&#32452;&#35013;&#21363;&#21487;&#12290;&#19988;&#22914;&#26524; <span class="org-verbatim">=mdadm --assemble --scan=</span> &#19981;&#25104;&#21151;&#65292;&#20063;&#21487;
+&#20197;&#26681;&#25454;&#20043;&#21069;&#21019;&#24314;RAID&#30340;&#21442;&#25968;&#37325;&#26032; <span class="org-verbatim">=create=</span> &#21363;&#21487;&#12290;
 
 <span class="org-level-1">* &#21442;&#32771;</span>
 - <span class="org-link"><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">[[http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php][</a><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">&#40479;&#21733;&#30340;Linux&#31169;&#25151;&#33756;</a><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">]]</a></span>

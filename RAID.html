@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Linux RAID 设置</title>
-<!-- 2014-11-20 -->
+<!-- 2014-12-04 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -86,6 +86,8 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-2-1">删除已有的fakeRAID</a></li>
 <li><a href="#sec-2-2">用mdadm创建软RAID</a></li>
+<li><a href="#sec-2-3">关于重启后RAID消失的问题</a></li>
+<li><a href="#sec-2-4">RAID 的使用</a></li>
 </ul>
 </li>
 <li><a href="#sec-3">参考</a></li>
@@ -231,6 +233,7 @@ dmraid -x               <span style="font-weight: bold; font-style: italic;"># <
 AUTOSTART=true
 </pre>
 </li>
+
 <li>在正确挂载RAID后（即上述步骤4后）更新initramfs
 <div class="org-src-container">
 
@@ -239,6 +242,37 @@ AUTOSTART=true
 </div>
 </li>
 </ol>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">关于重启后RAID消失的问题</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+实际操作终于是成功了，但问题的根源仍然不清楚，这里集中讨论一下。
+</p>
+
+<p>
+据参考4所说，原因有两层。
+</p>
+<ol class="org-ol">
+<li>阵列组装发生在根文件系统挂载之前，因此保存后的 <code>mdadm.conf</code> 并没有
+被读取。因此系统只会读取在 <code>initramfs</code> 中的相应文件。因此可以在一切
+都工作之后，执行 <code>update-initramfs -u</code> 。
+</li>
+<li>RAID 设备在启动的时候没有被识别。此时，我们可以将用于RAID的分区类型
+改为 <code>0xFD</code> （Linux Raid Autodetect）。
+
+<p>
+mdadm 在启动时运行（在 <code>initramfs</code> 前），会识别所有类型为 <code>0xFD</code> 的
+分区并将这些分区组装成一个RAID，这种方式之下，并不需要最新版的
+<code>mdadm.conf</code> 。不过也因此，生成的设备名无法由配置文件控制。
+</p>
+</li>
+</ol>
+
+<p>
+上述两种方法任取其一理论上就可以了。
+</p>
 
 <p>
 参考：
@@ -250,7 +284,65 @@ AUTOSTART=true
 </li>
 <li><a href="http://superuser.com/questions/287462/how-can-i-make-mdadm-auto-assemble-raid-after-each-boot">How can I make mdadm auto-assemble RAID after each boot</a>
 </li>
+<li><a href="http://superuser.com/questions/801826/new-mdadm-raid-vanish-after-reboot">New mdadm RAID vanish after reboot</a>
+</li>
 </ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">RAID 的使用</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+上面介绍了 RAID 的创建，但它们完成的工作相当于指定了阵列需要的一些资源
+（如实际用的分区），以及记录一些RAID相关的信息（如 <code>mdadm.conf</code> 配置文
+件）。并没有实际上使RAID工作。那么本节记录如何使用RAID。
+</p>
+
+<p>
+根据
+<a href="https://raid.wiki.kernel.org/index.php/RAID_setup#Using_the_Array">RAID
+setup</a> 文档，要停止一个工作中的RAID，需要下面命令：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">mdadm --stop /dev/md0
+</pre>
+</div>
+<p>
+我们可能认为，如果要启用RAID，只需要：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">mdadm --run /dev/md0
+</pre>
+</div>
+<p>
+但事实上并非如此，在停止RAID后，相应的设备文件 <code>/dev/md0</code> 也会消失。也
+就是RAID设备并非天然存在的，每次使用它的时候都需要重新组装（assemble）。
+组装和创建类似，除了说它仅仅是将设备揽在一块。我们可以执行两步来完成组
+装：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">mdadm --create /dev/md0 --level=5 --raid-devices=4 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
+mdadm --assemble /dev/md0 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
+</pre>
+</div>
+<p>
+也有更简单的方式（猜测是通过读取 <code>mdadm.conf</code> 实现的）
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">mdadm --assemble --scan
+</pre>
+</div>
+
+<p>
+因此即使重启后看不见之前创建的RAID，也不必慌张，之前创建的信息依旧保留
+着，只需要重新组装即可。且如果 <code>mdadm --assemble --scan</code> 不成功，也可
+以根据之前创建RAID的参数重新 <code>create</code> 即可。
+</p>
 </div>
 </div>
 </div>
