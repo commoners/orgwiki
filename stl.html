@@ -187,35 +187,35 @@ vector(中译向量)抽象的是一个序列容器，代表的是可以改变大
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;cstdlib&gt;</span> <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">for rand</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;cstdlib&gt;</span> <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">for rand</span>
 <span class="linenr"> 4: </span>
-<span class="linenr"> 5: </span><span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
+<span class="linenr"> 5: </span><span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
 <span class="linenr"> 6: </span>
-<span class="linenr"> 7: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
+<span class="linenr"> 7: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
 <span class="linenr"> 8: </span>{
-<span class="linenr"> 9: </span>    srand(time(<span style="font-weight: bold; text-decoration: underline;">NULL</span>));
-<span id="coderef-vec-def" class="coderef-off"><span class="linenr">10: </span>    <span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">vec</span>;  <span style="font-weight: bold; font-style: italic;">//</span></span>
-<span class="linenr">11: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>;
-<span class="linenr">12: </span>    <span style="font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
-<span id="coderef-vec-push" class="coderef-off"><span class="linenr">13: </span>        vec.push_back(rand()%1000); <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">generate a random number</span></span>
+<span class="linenr"> 9: </span>    srand(time(<span style="color: #bfebbf;">NULL</span>));
+<span id="coderef-vec-def" class="coderef-off"><span class="linenr">10: </span>    <span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">vec</span>;  <span style="color: #7f9f7f;">//</span></span>
+<span class="linenr">11: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>;
+<span class="linenr">12: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
+<span id="coderef-vec-push" class="coderef-off"><span class="linenr">13: </span>        vec.push_back(rand()%1000); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">generate a random number</span></span>
 <span class="linenr">14: </span>    }
 <span class="linenr">15: </span>
-<span class="linenr">16: </span>    cout &lt;&lt; <span style="font-style: italic;">"vec: "</span>;
-<span class="linenr">17: </span>    <span style="font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
-<span id="coderef-vec-access" class="coderef-off"><span class="linenr">18: </span>        cout &lt;&lt; vec[i] &lt;&lt; <span style="font-style: italic;">" "</span>; <span style="font-weight: bold; font-style: italic;">//</span></span>
+<span class="linenr">16: </span>    cout &lt;&lt; <span style="color: #cc9393;">"vec: "</span>;
+<span class="linenr">17: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
+<span id="coderef-vec-access" class="coderef-off"><span class="linenr">18: </span>        cout &lt;&lt; vec[i] &lt;&lt; <span style="color: #cc9393;">" "</span>; <span style="color: #7f9f7f;">//</span></span>
 <span class="linenr">19: </span>    }
 <span class="linenr">20: </span>    cout &lt;&lt; endl;
 <span class="linenr">21: </span>
-<span class="linenr">22: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">sum</span> = 0;
-<span class="linenr">23: </span>    <span style="font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
+<span class="linenr">22: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">sum</span> = 0;
+<span class="linenr">23: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (i = 0; i &lt; 10; i++) {
 <span class="linenr">24: </span>        sum += vec[i];
 <span class="linenr">25: </span>    }
 <span class="linenr">26: </span>
-<span class="linenr">27: </span>    cout &lt;&lt; <span style="font-style: italic;">"sum = "</span> &lt;&lt; sum &lt;&lt; endl;
+<span class="linenr">27: </span>    cout &lt;&lt; <span style="color: #cc9393;">"sum = "</span> &lt;&lt; sum &lt;&lt; endl;
 <span class="linenr">28: </span>
-<span class="linenr">29: </span>    <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">29: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">30: </span>}
 </pre>
 </div>
@@ -255,36 +255,36 @@ vector(中译向量)抽象的是一个序列容器，代表的是可以改变大
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>     <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::cout</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;algorithm&gt;</span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::sort</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>       <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::vector</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::cout</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;algorithm&gt;</span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::sort</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>       <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::vector</span>
 <span class="linenr"> 4: </span>
-<span class="linenr"> 5: </span><span style="font-weight: bold; text-decoration: underline;">bool</span> <span style="font-weight: bold;">myfunction</span> (<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>,<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">j</span>) { <span style="font-weight: bold;">return</span> (i&lt;j); }
+<span class="linenr"> 5: </span><span style="color: #8cd0d3;">bool</span> <span style="color: #8cd0d3;">myfunction</span> (<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>,<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>) { <span style="color: #f0dfaf; font-weight: bold;">return</span> (i&lt;j); }
 <span class="linenr"> 6: </span>
-<span class="linenr"> 7: </span><span style="font-weight: bold;">struct</span> <span style="font-weight: bold; text-decoration: underline;">myclass</span> {
-<span class="linenr"> 8: </span>  <span style="font-weight: bold; text-decoration: underline;">bool</span> <span style="font-weight: bold;">operator</span><span style="font-weight: bold;">()</span> (<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">i</span>,<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">j</span>) { <span style="font-weight: bold;">return</span> (i&lt;j);}
-<span class="linenr"> 9: </span>} <span style="font-weight: bold; font-style: italic;">myobject</span>;
+<span class="linenr"> 7: </span><span style="color: #f0dfaf; font-weight: bold;">struct</span> <span style="color: #8cd0d3;">myclass</span> {
+<span class="linenr"> 8: </span>  <span style="color: #8cd0d3;">bool</span> <span style="color: #f0dfaf; font-weight: bold;">operator</span><span style="color: #8cd0d3;">()</span> (<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">i</span>,<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">j</span>) { <span style="color: #f0dfaf; font-weight: bold;">return</span> (i&lt;j);}
+<span class="linenr"> 9: </span>} <span style="color: #dfaf8f;">myobject</span>;
 <span class="linenr">10: </span>
-<span class="linenr">11: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span> () {
-<span class="linenr">12: </span>  <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">myints</span>[] = {32,71,12,45,26,80,53,33};
-<span class="linenr">13: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">myvector</span> (myints, myints+8);               <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">32 71 12 45 26 80 53 33</span>
+<span class="linenr">11: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span> () {
+<span class="linenr">12: </span>  <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">myints</span>[] = {32,71,12,45,26,80,53,33};
+<span class="linenr">13: </span>  <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">myvector</span> (myints, myints+8);               <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">32 71 12 45 26 80 53 33</span>
 <span class="linenr">14: </span>
-<span class="linenr">15: </span>  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">using default comparison (operator &lt;):</span>
-<span class="linenr">16: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (myvector.begin(), myvector.begin()+4);           <span style="font-weight: bold; font-style: italic;">//</span><span style="font-weight: bold; font-style: italic;">(12 32 45 71)26 80 53 33</span>
+<span class="linenr">15: </span>  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">using default comparison (operator &lt;):</span>
+<span class="linenr">16: </span>  <span style="color: #bfebbf;">std</span>::sort (myvector.begin(), myvector.begin()+4);           <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">(12 32 45 71)26 80 53 33</span>
 <span class="linenr">17: </span>
-<span class="linenr">18: </span>  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">using function as comp</span>
-<span id="coderef-sort-func" class="coderef-off"><span class="linenr">19: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (myvector.begin()+4, myvector.end(), myfunction); <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">12 32 45 71(26 33 53 80)</span></span>
+<span class="linenr">18: </span>  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">using function as comp</span>
+<span id="coderef-sort-func" class="coderef-off"><span class="linenr">19: </span>  <span style="color: #bfebbf;">std</span>::sort (myvector.begin()+4, myvector.end(), myfunction); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">12 32 45 71(26 33 53 80)</span></span>
 <span class="linenr">20: </span>
-<span class="linenr">21: </span>  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">using object as comp</span>
-<span class="linenr">22: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (myvector.begin(), myvector.end(), myobject);     <span style="font-weight: bold; font-style: italic;">//</span><span style="font-weight: bold; font-style: italic;">(12 26 32 33 45 53 71 80)</span>
+<span class="linenr">21: </span>  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">using object as comp</span>
+<span class="linenr">22: </span>  <span style="color: #bfebbf;">std</span>::sort (myvector.begin(), myvector.end(), myobject);     <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">(12 26 32 33 45 53 71 80)</span>
 <span class="linenr">23: </span>
-<span class="linenr">24: </span>  <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">print out content:</span>
-<span class="linenr">25: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">"myvector contains:"</span>;
-<span class="linenr">26: </span>  <span style="font-weight: bold;">for</span> (<span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">it</span>=myvector.begin(); it!=myvector.end(); ++it)
-<span class="linenr">27: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">' '</span> &lt;&lt; *it;
-<span class="linenr">28: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">'\n'</span>;
+<span class="linenr">24: </span>  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">print out content:</span>
+<span class="linenr">25: </span>  <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">"myvector contains:"</span>;
+<span class="linenr">26: </span>  <span style="color: #f0dfaf; font-weight: bold;">for</span> (<span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">it</span>=myvector.begin(); it!=myvector.end(); ++it)
+<span class="linenr">27: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">' '</span> &lt;&lt; *it;
+<span class="linenr">28: </span>  <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">'\n'</span>;
 <span class="linenr">29: </span>
-<span class="linenr">30: </span>  <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">30: </span>  <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">31: </span>}
 </pre>
 </div>
@@ -365,26 +365,26 @@ containers, functional, and iterators <sup><a id="fnr.1.100" name="fnr.1.100" cl
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold; text-decoration: underline;">int</span> *<span style="font-weight: bold;">find_in_array</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">A</span>[], <span style="font-weight: bold; text-decoration: underline;">int</span> *<span style="font-weight: bold; font-style: italic;">end</span>, <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">target</span>)
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #8cd0d3;">int</span> *<span style="color: #8cd0d3;">find_in_array</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">A</span>[], <span style="color: #8cd0d3;">int</span> *<span style="color: #dfaf8f;">end</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">target</span>)
 <span class="linenr"> 2: </span>{
-<span class="linenr"> 3: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> *<span style="font-weight: bold; font-style: italic;">p</span>;
-<span class="linenr"> 4: </span>    <span style="font-weight: bold;">for</span> (p = A; p != end; p ++) {
-<span class="linenr"> 5: </span>        <span style="font-weight: bold;">if</span> (*p == target) {
-<span class="linenr"> 6: </span>            <span style="font-weight: bold;">return</span> p;
+<span class="linenr"> 3: </span>    <span style="color: #8cd0d3;">int</span> *<span style="color: #dfaf8f;">p</span>;
+<span class="linenr"> 4: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (p = A; p != end; p ++) {
+<span class="linenr"> 5: </span>        <span style="color: #f0dfaf; font-weight: bold;">if</span> (*p == target) {
+<span class="linenr"> 6: </span>            <span style="color: #f0dfaf; font-weight: bold;">return</span> p;
 <span class="linenr"> 7: </span>        }
 <span class="linenr"> 8: </span>    }
-<span class="linenr"> 9: </span>    <span style="font-weight: bold;">return</span> p; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">return *end* if not found</span>
+<span class="linenr"> 9: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> p; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">return *end* if not found</span>
 <span class="linenr">10: </span>}
 <span class="linenr">11: </span>
-<span class="linenr">12: </span><span style="font-weight: bold; text-decoration: underline;">node</span> *<span style="font-weight: bold;">find_in_list</span>(<span style="font-weight: bold; text-decoration: underline;">node</span> *<span style="font-weight: bold; font-style: italic;">start</span>, <span style="font-weight: bold; text-decoration: underline;">node</span> *<span style="font-weight: bold; font-style: italic;">end</span>, <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">target</span>)
+<span class="linenr">12: </span><span style="color: #8cd0d3;">node</span> *<span style="color: #8cd0d3;">find_in_list</span>(<span style="color: #8cd0d3;">node</span> *<span style="color: #dfaf8f;">start</span>, <span style="color: #8cd0d3;">node</span> *<span style="color: #dfaf8f;">end</span>, <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">target</span>)
 <span class="linenr">13: </span>{
-<span class="linenr">14: </span>    <span style="font-weight: bold; text-decoration: underline;">node</span> *<span style="font-weight: bold; font-style: italic;">p</span>;
-<span class="linenr">15: </span>    <span style="font-weight: bold;">for</span> (p = start; p != end; p = p-&gt;next) {
-<span class="linenr">16: </span>        <span style="font-weight: bold;">if</span> (p-&gt;data == target) {
-<span class="linenr">17: </span>            <span style="font-weight: bold;">return</span> p;
+<span class="linenr">14: </span>    <span style="color: #8cd0d3;">node</span> *<span style="color: #dfaf8f;">p</span>;
+<span class="linenr">15: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (p = start; p != end; p = p-&gt;next) {
+<span class="linenr">16: </span>        <span style="color: #f0dfaf; font-weight: bold;">if</span> (p-&gt;data == target) {
+<span class="linenr">17: </span>            <span style="color: #f0dfaf; font-weight: bold;">return</span> p;
 <span class="linenr">18: </span>        }
 <span class="linenr">19: </span>    }
-<span class="linenr">20: </span>    <span style="font-weight: bold;">return</span> p; <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">return *end if not found</span>
+<span class="linenr">20: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> p; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">return *end if not found</span>
 <span class="linenr">21: </span>}
 </pre>
 </div>
@@ -394,15 +394,15 @@ containers, functional, and iterators <sup><a id="fnr.1.100" name="fnr.1.100" cl
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold; text-decoration: underline;">Type</span> <span style="font-weight: bold;">find</span>(<span style="font-weight: bold; text-decoration: underline;">Type</span> <span style="font-weight: bold; font-style: italic;">start</span>, <span style="font-weight: bold; text-decoration: underline;">Type</span> <span style="font-weight: bold; font-style: italic;">end</span>, <span style="font-weight: bold;">const</span> <span style="font-weight: bold; text-decoration: underline;">AnotherType</span> <span style="font-weight: bold; font-style: italic;">target</span>)
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #8cd0d3;">Type</span> <span style="color: #8cd0d3;">find</span>(<span style="color: #8cd0d3;">Type</span> <span style="color: #dfaf8f;">start</span>, <span style="color: #8cd0d3;">Type</span> <span style="color: #dfaf8f;">end</span>, <span style="color: #f0dfaf; font-weight: bold;">const</span> <span style="color: #8cd0d3;">AnotherType</span> <span style="color: #dfaf8f;">target</span>)
 <span class="linenr"> 2: </span>{
-<span class="linenr"> 3: </span>    <span style="font-weight: bold; text-decoration: underline;">Type</span> <span style="font-weight: bold; font-style: italic;">tmp</span>;
-<span class="linenr"> 4: </span>    <span style="font-weight: bold;">for</span> (tmp = start; tmp != end; tmp++) {
-<span class="linenr"> 5: </span>        <span style="font-weight: bold;">if</span> (*tmp == target) {
-<span class="linenr"> 6: </span>            <span style="font-weight: bold;">return</span> tmp;
+<span class="linenr"> 3: </span>    <span style="color: #8cd0d3;">Type</span> <span style="color: #dfaf8f;">tmp</span>;
+<span class="linenr"> 4: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (tmp = start; tmp != end; tmp++) {
+<span class="linenr"> 5: </span>        <span style="color: #f0dfaf; font-weight: bold;">if</span> (*tmp == target) {
+<span class="linenr"> 6: </span>            <span style="color: #f0dfaf; font-weight: bold;">return</span> tmp;
 <span class="linenr"> 7: </span>        }
 <span class="linenr"> 8: </span>    }
-<span class="linenr"> 9: </span>    <span style="font-weight: bold;">return</span> tmp;
+<span class="linenr"> 9: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> tmp;
 <span class="linenr">10: </span>}
 </pre>
 </div>
@@ -442,10 +442,10 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">vit</span>;
-<span style="font-weight: bold; text-decoration: underline;">set</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">sit</span>;
-<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">const_iterator</span> <span style="font-weight: bold; font-style: italic;">cvit</span>;
-<span style="font-weight: bold; text-decoration: underline;">set</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">const_iterator</span> <span style="font-weight: bold; font-style: italic;">csit</span>;
+<pre class="src src-cpp"><span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">vit</span>;
+<span style="color: #bfebbf;">set</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">sit</span>;
+<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">const_iterator</span> <span style="color: #dfaf8f;">cvit</span>;
+<span style="color: #bfebbf;">set</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">const_iterator</span> <span style="color: #dfaf8f;">csit</span>;
 </pre>
 </div>
 
@@ -454,37 +454,37 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;set&gt;</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;set&gt;</span>
 <span class="linenr"> 4: </span>
-<span class="linenr"> 5: </span><span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
+<span class="linenr"> 5: </span><span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
 <span class="linenr"> 6: </span>
-<span class="linenr"> 7: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
+<span class="linenr"> 7: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
 <span class="linenr"> 8: </span>{
-<span class="linenr"> 9: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">array</span>[] = {1,1,1,2,3,4,5,6};
-<span class="linenr">10: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">len</span> = <span style="font-weight: bold;">sizeof</span>(array)/<span style="font-weight: bold;">sizeof</span>(array[0]);
+<span class="linenr"> 9: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">array</span>[] = {1,1,1,2,3,4,5,6};
+<span class="linenr">10: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">len</span> = <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(array)/<span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(array[0]);
 <span class="linenr">11: </span>
-<span class="linenr">12: </span>    <span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">myvec</span>(array, array+len);
-<span class="linenr">13: </span>    <span style="font-weight: bold; text-decoration: underline;">set</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">myset</span>(array, array+len);
+<span class="linenr">12: </span>    <span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">myvec</span>(array, array+len);
+<span class="linenr">13: </span>    <span style="color: #8cd0d3;">set</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">myset</span>(array, array+len);
 <span class="linenr">14: </span>
-<span class="linenr">15: </span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">get the corresponding iterator</span>
-<span class="linenr">16: </span>    <span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">vit</span>;
-<span class="linenr">17: </span>    <span style="font-weight: bold; text-decoration: underline;">set</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">sit</span>;
+<span class="linenr">15: </span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">get the corresponding iterator</span>
+<span class="linenr">16: </span>    <span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">vit</span>;
+<span class="linenr">17: </span>    <span style="color: #bfebbf;">set</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">sit</span>;
 <span class="linenr">18: </span>
-<span class="linenr">19: </span>    cout &lt;&lt; <span style="font-style: italic;">"The elements of vector are:"</span> &lt;&lt; endl;
-<span class="linenr">20: </span>    <span style="font-weight: bold;">for</span> (vit = myvec.begin(); vit != myvec.end(); vit++) {
-<span class="linenr">21: </span>        cout &lt;&lt; *vit &lt;&lt; <span style="font-style: italic;">" "</span>;
+<span class="linenr">19: </span>    cout &lt;&lt; <span style="color: #cc9393;">"The elements of vector are:"</span> &lt;&lt; endl;
+<span class="linenr">20: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (vit = myvec.begin(); vit != myvec.end(); vit++) {
+<span class="linenr">21: </span>        cout &lt;&lt; *vit &lt;&lt; <span style="color: #cc9393;">" "</span>;
 <span class="linenr">22: </span>    }
 <span class="linenr">23: </span>    cout &lt;&lt; endl;
 <span class="linenr">24: </span>
-<span class="linenr">25: </span>    cout &lt;&lt; <span style="font-style: italic;">"The elements of set are:"</span> &lt;&lt; endl;
-<span class="linenr">26: </span>    <span style="font-weight: bold;">for</span> (sit = myset.begin(); sit != myset.end(); sit++) {
-<span class="linenr">27: </span>        cout &lt;&lt; *sit &lt;&lt; <span style="font-style: italic;">" "</span>;
+<span class="linenr">25: </span>    cout &lt;&lt; <span style="color: #cc9393;">"The elements of set are:"</span> &lt;&lt; endl;
+<span class="linenr">26: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (sit = myset.begin(); sit != myset.end(); sit++) {
+<span class="linenr">27: </span>        cout &lt;&lt; *sit &lt;&lt; <span style="color: #cc9393;">" "</span>;
 <span class="linenr">28: </span>    }
 <span class="linenr">29: </span>    cout &lt;&lt; endl;
 <span class="linenr">30: </span>
-<span class="linenr">31: </span>    <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">31: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">32: </span>}
 </pre>
 </div>
@@ -524,10 +524,10 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="font-weight: bold;">template</span> &lt;<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">InputIterator1</span>, <span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">InputIterator2</span>, <span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">OutputIterator</span>&gt;
-  <span style="font-weight: bold; text-decoration: underline;">OutputIterator</span> <span style="font-weight: bold;">set_union</span> (<span style="font-weight: bold; text-decoration: underline;">InputIterator1</span> <span style="font-weight: bold; font-style: italic;">first1</span>, <span style="font-weight: bold; text-decoration: underline;">InputIterator1</span> <span style="font-weight: bold; font-style: italic;">last1</span>,
-                            <span style="font-weight: bold; text-decoration: underline;">InputIterator2</span> <span style="font-weight: bold; font-style: italic;">first2</span>, <span style="font-weight: bold; text-decoration: underline;">InputIterator2</span> <span style="font-weight: bold; font-style: italic;">last2</span>,
-                            <span style="font-weight: bold; text-decoration: underline;">OutputIterator</span> <span style="font-weight: bold; font-style: italic;">result</span>);
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">template</span> &lt;<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">InputIterator1</span>, <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">InputIterator2</span>, <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">OutputIterator</span>&gt;
+  <span style="color: #8cd0d3;">OutputIterator</span> <span style="color: #8cd0d3;">set_union</span> (<span style="color: #8cd0d3;">InputIterator1</span> <span style="color: #dfaf8f;">first1</span>, <span style="color: #8cd0d3;">InputIterator1</span> <span style="color: #dfaf8f;">last1</span>,
+                            <span style="color: #8cd0d3;">InputIterator2</span> <span style="color: #dfaf8f;">first2</span>, <span style="color: #8cd0d3;">InputIterator2</span> <span style="color: #dfaf8f;">last2</span>,
+                            <span style="color: #8cd0d3;">OutputIterator</span> <span style="color: #dfaf8f;">result</span>);
 </pre>
 </div>
 <p>
@@ -539,34 +539,34 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">set_union example</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>     <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::cout</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;algorithm&gt;</span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::set_union, std::sort</span>
-<span class="linenr"> 4: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>       <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::vector</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">set_union example</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::cout</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;algorithm&gt;</span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::set_union, std::sort</span>
+<span class="linenr"> 4: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>       <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::vector</span>
 <span class="linenr"> 5: </span>
-<span class="linenr"> 6: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span> () {
-<span class="linenr"> 7: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">array1</span>[] = {5,10,15,20,25};
-<span class="linenr"> 8: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">array2</span>[] = {50,40,30,20,10};
-<span class="linenr"> 9: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">first</span>(array1, array1+5);
-<span class="linenr">10: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">second</span>(array2, array2+5);
-<span class="linenr">11: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">v</span>(10);                      <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">0  0  0  0  0  0  0  0  0  0</span>
-<span class="linenr">12: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">it</span>;
+<span class="linenr"> 6: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span> () {
+<span class="linenr"> 7: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">array1</span>[] = {5,10,15,20,25};
+<span class="linenr"> 8: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">array2</span>[] = {50,40,30,20,10};
+<span class="linenr"> 9: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">first</span>(array1, array1+5);
+<span class="linenr">10: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">second</span>(array2, array2+5);
+<span class="linenr">11: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">v</span>(10);                      <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">0  0  0  0  0  0  0  0  0  0</span>
+<span class="linenr">12: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">it</span>;
 <span class="linenr">13: </span>
-<span class="linenr">14: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (first.begin(),first.begin()+5);     <span style="font-weight: bold; font-style: italic;">//  </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25</span>
-<span class="linenr">15: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (second.begin(),second.begin()+5);   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">10 20 30 40 50</span>
+<span class="linenr">14: </span>    <span style="color: #bfebbf;">std</span>::sort (first.begin(),first.begin()+5);     <span style="color: #7f9f7f;">//  </span><span style="color: #7f9f7f;">5 10 15 20 25</span>
+<span class="linenr">15: </span>    <span style="color: #bfebbf;">std</span>::sort (second.begin(),second.begin()+5);   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">10 20 30 40 50</span>
 <span class="linenr">16: </span>
-<span class="linenr">17: </span>    it=<span style="font-weight: bold; text-decoration: underline;">std</span>::set_union (first.begin(), first.begin()+5,
+<span class="linenr">17: </span>    it=<span style="color: #bfebbf;">std</span>::set_union (first.begin(), first.begin()+5,
 <span class="linenr">18: </span>                       second.begin(), second.begin()+5,
-<span class="linenr">19: </span>                       v.begin()); <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">(ref-union)</span>
-<span class="linenr">20: </span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50  0  0</span>
-<span id="coderef-union-minus" class="coderef-off"><span class="linenr">21: </span>    v.resize(it-v.begin());        <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50</span></span>
+<span class="linenr">19: </span>                       v.begin()); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">(ref-union)</span>
+<span class="linenr">20: </span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50  0  0</span>
+<span id="coderef-union-minus" class="coderef-off"><span class="linenr">21: </span>    v.resize(it-v.begin());        <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50</span></span>
 <span class="linenr">22: </span>
-<span class="linenr">23: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="font-style: italic;">" elements:\n"</span>;
-<span class="linenr">24: </span>    <span style="font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
-<span class="linenr">25: </span>        <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">' '</span> &lt;&lt; *it;
-<span class="linenr">26: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">'\n'</span>;
+<span class="linenr">23: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="color: #cc9393;">" elements:\n"</span>;
+<span class="linenr">24: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
+<span class="linenr">25: </span>        <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">' '</span> &lt;&lt; *it;
+<span class="linenr">26: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">'\n'</span>;
 <span class="linenr">27: </span>
-<span class="linenr">28: </span>    <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">28: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">29: </span>}
 </pre>
 </div>
@@ -600,30 +600,30 @@ iterator，在如 <code>list</code> 这样的容器就不能使用，因此，it
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">set_union example</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>     <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::cout</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;algorithm&gt;</span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::set_union, std::sort</span>
-<span class="linenr"> 4: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>       <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::vector</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">set_union example</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::cout</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;algorithm&gt;</span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::set_union, std::sort</span>
+<span class="linenr"> 4: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>       <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::vector</span>
 <span class="linenr"> 5: </span>
-<span class="linenr"> 6: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span> () {
-<span class="linenr"> 7: </span>  <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">first</span>[] = {5,10,15,20,25};
-<span class="linenr"> 8: </span>  <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">second</span>[] = {50,40,30,20,10};
-<span class="linenr"> 9: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">v</span>(10);                      <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">0  0  0  0  0  0  0  0  0  0</span>
-<span class="linenr">10: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">it</span>;
+<span class="linenr"> 6: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span> () {
+<span class="linenr"> 7: </span>  <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">first</span>[] = {5,10,15,20,25};
+<span class="linenr"> 8: </span>  <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">second</span>[] = {50,40,30,20,10};
+<span class="linenr"> 9: </span>  <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">v</span>(10);                      <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">0  0  0  0  0  0  0  0  0  0</span>
+<span class="linenr">10: </span>  <span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">it</span>;
 <span class="linenr">11: </span>
-<span id="coderef-union-sort" class="coderef-off"><span class="linenr">12: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (first,first+5);     <span style="font-weight: bold; font-style: italic;">//  </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25</span></span>
-<span class="linenr">13: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (second,second+5);   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">10 20 30 40 50</span>
+<span id="coderef-union-sort" class="coderef-off"><span class="linenr">12: </span>  <span style="color: #bfebbf;">std</span>::sort (first,first+5);     <span style="color: #7f9f7f;">//  </span><span style="color: #7f9f7f;">5 10 15 20 25</span></span>
+<span class="linenr">13: </span>  <span style="color: #bfebbf;">std</span>::sort (second,second+5);   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">10 20 30 40 50</span>
 <span class="linenr">14: </span>
-<span id="coderef-union-array" class="coderef-off"><span class="linenr">15: </span>  it=<span style="font-weight: bold; text-decoration: underline;">std</span>::set_union (first, first+5, second, second+5, v.begin()); <span style="font-weight: bold; font-style: italic;">//</span></span>
-<span class="linenr">16: </span>                                               <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50  0  0</span>
-<span class="linenr">17: </span>  v.resize(it-v.begin());                      <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50</span>
+<span id="coderef-union-array" class="coderef-off"><span class="linenr">15: </span>  it=<span style="color: #bfebbf;">std</span>::set_union (first, first+5, second, second+5, v.begin()); <span style="color: #7f9f7f;">//</span></span>
+<span class="linenr">16: </span>                                               <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50  0  0</span>
+<span class="linenr">17: </span>  v.resize(it-v.begin());                      <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50</span>
 <span class="linenr">18: </span>
-<span class="linenr">19: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="font-style: italic;">" elements:\n"</span>;
-<span class="linenr">20: </span>  <span style="font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
-<span class="linenr">21: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">' '</span> &lt;&lt; *it;
-<span class="linenr">22: </span>  <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">'\n'</span>;
+<span class="linenr">19: </span>  <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="color: #cc9393;">" elements:\n"</span>;
+<span class="linenr">20: </span>  <span style="color: #f0dfaf; font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
+<span class="linenr">21: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">' '</span> &lt;&lt; *it;
+<span class="linenr">22: </span>  <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">'\n'</span>;
 <span class="linenr">23: </span>
-<span class="linenr">24: </span>  <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">24: </span>  <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">25: </span>}
 </pre>
 </div>
@@ -674,8 +674,8 @@ iterator也进行了相应的抽象，但并不是所有容器都支持。
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="font-weight: bold;">template</span> &lt;<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">RandomAccessIterator</span>&gt;
-  <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">sort</span> (<span style="font-weight: bold; text-decoration: underline;">RandomAccessIterator</span> <span style="font-weight: bold; font-style: italic;">first</span>, <span style="font-weight: bold; text-decoration: underline;">RandomAccessIterator</span> <span style="font-weight: bold; font-style: italic;">last</span>);
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">template</span> &lt;<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">RandomAccessIterator</span>&gt;
+  <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">sort</span> (<span style="color: #8cd0d3;">RandomAccessIterator</span> <span style="color: #dfaf8f;">first</span>, <span style="color: #8cd0d3;">RandomAccessIterator</span> <span style="color: #dfaf8f;">last</span>);
 </pre>
 </div>
 <p>
@@ -707,12 +707,12 @@ iterator也进行了相应的抽象，但并不是所有容器都支持。
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="font-weight: bold;">template</span> &lt;<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">InputIterator</span>, <span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Distance</span>&gt;
-  <span style="font-weight: bold; text-decoration: underline;">void</span> <span style="font-weight: bold;">advance</span> (<span style="font-weight: bold; text-decoration: underline;">InputIterator</span>&amp; <span style="font-weight: bold; font-style: italic;">it</span>, <span style="font-weight: bold; text-decoration: underline;">Distance</span> <span style="font-weight: bold; font-style: italic;">n</span>);
+<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">template</span> &lt;<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">InputIterator</span>, <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Distance</span>&gt;
+  <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">advance</span> (<span style="color: #8cd0d3;">InputIterator</span>&amp; <span style="color: #dfaf8f;">it</span>, <span style="color: #8cd0d3;">Distance</span> <span style="color: #dfaf8f;">n</span>);
 
-<span style="font-weight: bold;">template</span>&lt;<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">InputIterator</span>&gt;
-  <span style="font-weight: bold;">typename</span> <span style="font-weight: bold; text-decoration: underline;">iterator_traits</span>&lt;<span style="font-weight: bold; text-decoration: underline;">InputIterator</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">difference_type</span>
-    <span style="font-weight: bold;">distance</span> (<span style="font-weight: bold; text-decoration: underline;">InputIterator</span> <span style="font-weight: bold; font-style: italic;">first</span>, <span style="font-weight: bold; text-decoration: underline;">InputIterator</span> <span style="font-weight: bold; font-style: italic;">last</span>);
+<span style="color: #f0dfaf; font-weight: bold;">template</span>&lt;<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">InputIterator</span>&gt;
+  <span style="color: #f0dfaf; font-weight: bold;">typename</span> <span style="color: #bfebbf;">iterator_traits</span>&lt;<span style="color: #8cd0d3;">InputIterator</span>&gt;::<span style="color: #8cd0d3;">difference_type</span>
+    <span style="color: #8cd0d3;">distance</span> (<span style="color: #8cd0d3;">InputIterator</span> <span style="color: #dfaf8f;">first</span>, <span style="color: #8cd0d3;">InputIterator</span> <span style="color: #dfaf8f;">last</span>);
 </pre>
 </div>
 
@@ -723,36 +723,36 @@ iterator也进行了相应的抽象，但并不是所有容器都支持。
 
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">set_union example</span>
-<span class="linenr"> 2: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>     <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::cout</span>
-<span class="linenr"> 3: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;algorithm&gt;</span>    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::set_union, std::sort</span>
-<span class="linenr"> 4: </span><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>       <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">std::vector</span>
+<pre class="src src-cpp"><span class="linenr"> 1: </span><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">set_union example</span>
+<span class="linenr"> 2: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>     <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::cout</span>
+<span class="linenr"> 3: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;algorithm&gt;</span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::set_union, std::sort</span>
+<span class="linenr"> 4: </span><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>       <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">std::vector</span>
 <span class="linenr"> 5: </span>
-<span class="linenr"> 6: </span><span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span> () {
-<span class="linenr"> 7: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">array1</span>[] = {5,10,15,20,25};
-<span class="linenr"> 8: </span>    <span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">array2</span>[] = {50,40,30,20,10};
-<span class="linenr"> 9: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">first</span>(array1, array1+5);
-<span class="linenr">10: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">second</span>(array2, array2+5);
-<span class="linenr">11: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">v</span>(10);                      <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">0  0  0  0  0  0  0  0  0  0</span>
-<span class="linenr">12: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">it</span>;
-<span class="linenr">13: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">fend</span> = first.begin();
-<span class="linenr">14: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::<span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt;::<span style="font-weight: bold; text-decoration: underline;">iterator</span> <span style="font-weight: bold; font-style: italic;">send</span> = second.begin();
+<span class="linenr"> 6: </span><span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span> () {
+<span class="linenr"> 7: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">array1</span>[] = {5,10,15,20,25};
+<span class="linenr"> 8: </span>    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">array2</span>[] = {50,40,30,20,10};
+<span class="linenr"> 9: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">first</span>(array1, array1+5);
+<span class="linenr">10: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">second</span>(array2, array2+5);
+<span class="linenr">11: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">v</span>(10);                      <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">0  0  0  0  0  0  0  0  0  0</span>
+<span class="linenr">12: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">it</span>;
+<span class="linenr">13: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">fend</span> = first.begin();
+<span class="linenr">14: </span>    <span style="color: #bfebbf;">std</span>::<span style="color: #bfebbf;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt;::<span style="color: #8cd0d3;">iterator</span> <span style="color: #dfaf8f;">send</span> = second.begin();
 <span class="linenr">15: </span>
 <span class="linenr">16: </span>    advance(fend, 5);
-<span class="linenr">17: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (first.begin(),fend);     <span style="font-weight: bold; font-style: italic;">//  </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25</span>
+<span class="linenr">17: </span>    <span style="color: #bfebbf;">std</span>::sort (first.begin(),fend);     <span style="color: #7f9f7f;">//  </span><span style="color: #7f9f7f;">5 10 15 20 25</span>
 <span class="linenr">18: </span>    advance(send, 5);
-<span class="linenr">19: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::sort (second.begin(),send);   <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">10 20 30 40 50</span>
+<span class="linenr">19: </span>    <span style="color: #bfebbf;">std</span>::sort (second.begin(),send);   <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">10 20 30 40 50</span>
 <span class="linenr">20: </span>
-<span class="linenr">21: </span>    it=<span style="font-weight: bold; text-decoration: underline;">std</span>::set_union (first.begin(), fend, second.begin(), send, v.begin());
-<span class="linenr">22: </span>                                       <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50  0  0</span>
-<span class="linenr">23: </span>    v.resize(distance(v.begin(), it)); <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">5 10 15 20 25 30 40 50</span>
+<span class="linenr">21: </span>    it=<span style="color: #bfebbf;">std</span>::set_union (first.begin(), fend, second.begin(), send, v.begin());
+<span class="linenr">22: </span>                                       <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50  0  0</span>
+<span class="linenr">23: </span>    v.resize(distance(v.begin(), it)); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50</span>
 <span class="linenr">24: </span>
-<span class="linenr">25: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="font-style: italic;">" elements:\n"</span>;
-<span class="linenr">26: </span>    <span style="font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
-<span class="linenr">27: </span>        <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">' '</span> &lt;&lt; *it;
-<span class="linenr">28: </span>    <span style="font-weight: bold; text-decoration: underline;">std</span>::cout &lt;&lt; <span style="font-style: italic;">'\n'</span>;
+<span class="linenr">25: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">"The union has "</span> &lt;&lt; (v.size()) &lt;&lt; <span style="color: #cc9393;">" elements:\n"</span>;
+<span class="linenr">26: </span>    <span style="color: #f0dfaf; font-weight: bold;">for</span> (it=v.begin(); it!=v.end(); ++it)
+<span class="linenr">27: </span>        <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">' '</span> &lt;&lt; *it;
+<span class="linenr">28: </span>    <span style="color: #bfebbf;">std</span>::cout &lt;&lt; <span style="color: #cc9393;">'\n'</span>;
 <span class="linenr">29: </span>
-<span class="linenr">30: </span>    <span style="font-weight: bold;">return</span> 0;
+<span class="linenr">30: </span>    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
 <span class="linenr">31: </span>}
 </pre>
 </div>
@@ -799,9 +799,9 @@ iterator也进行了相应的抽象，但并不是所有容器都支持。
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="font-weight: bold; text-decoration: underline;">iterator_type</span> <span style="font-weight: bold; font-style: italic;">it</span>;
-<span style="font-weight: bold;">for</span> (it = container.begin(); it != container.end(); it++) {
-    <span style="font-weight: bold; font-style: italic;">// </span><span style="font-weight: bold; font-style: italic;">do something</span>
+<pre class="src src-cpp"><span style="color: #8cd0d3;">iterator_type</span> <span style="color: #dfaf8f;">it</span>;
+<span style="color: #f0dfaf; font-weight: bold;">for</span> (it = container.begin(); it != container.end(); it++) {
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">do something</span>
 }
 </pre>
 </div>
