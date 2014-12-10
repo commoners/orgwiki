@@ -13,34 +13,11 @@
         /* bold */
         font-weight: bold;
       }
-      .comment {
-        /* font-lock-comment-face */
-        font-weight: bold;
-        font-style: italic;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        font-weight: bold;
-        font-style: italic;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        font-weight: bold;
-        text-decoration: underline;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        font-weight: bold;
-      }
       .hl-line {
         /* hl-line */
         background-color: #404040;
       }
-      .keyword {
-        /* font-lock-keyword-face */
-        font-weight: bold;
-      }
-      .org-block-background {
+      .org-block {
       }
       .org-block-begin-line {
         /* org-block-begin-line */
@@ -88,24 +65,6 @@
       }
       .org-verbatim {
       }
-      .preprocessor {
-        /* font-lock-preprocessor-face */
-        font-weight: bold;
-      }
-      .string {
-        /* font-lock-string-face */
-        font-style: italic;
-      }
-      .type {
-        /* font-lock-type-face */
-        font-weight: bold;
-        text-decoration: underline;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        font-weight: bold;
-        font-style: italic;
-      }
 
       a {
         color: inherit;
@@ -135,7 +94,7 @@ Standard Template Library(STL)&#20013;&#25991;&#35793;&#20026;&#26631;&#20934;&#
 &#21040;&#30340;&#22806;&#24310;&#12290;
 
 <span class="org-level-2">** STL&#30340;&#19968;&#28857;&#28857;&#21382;&#21490;</span>
-&#23454;&#38469;&#19978;&#65292;STL&#30340;&#20986;&#29616;&#19982;C++&#30340;&#27169;&#26495;&#25903;&#25345;&#26159;&#30456;&#23545;&#29420;&#31435;&#30340;<span class="org-footnote">[fn:1]</span>&#65292;&#23427;&#26368;&#21021;&#30340;&#30446;&#30340;&#26159;<span class="org-link"><a href="http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B">[[http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B][</a><a href="http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B">&#27867;&#22411;&#31243;&#24207;
+&#23454;&#38469;&#19978;&#65292;STL&#30340;&#20986;&#29616;&#19982;C++&#30340;&#27169;&#26495;&#25903;&#25345;&#26159;&#30456;&#23545;&#29420;&#31435;&#30340; <span class="org-footnote">[fn:1]</span> &#65292;&#23427;&#26368;&#21021;&#30340;&#30446;&#30340;&#26159;<span class="org-link"><a href="http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B">[[http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B][</a><a href="http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B">&#27867;&#22411;&#31243;&#24207;
 &#35774;&#35745;</a><a href="http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B">]]</a></span>
 (<span class="org-link"><a href="http://en.wikipedia.org/wiki/Generic_programming">[[http://en.wikipedia.org/wiki/Generic_programming][</a><a href="http://en.wikipedia.org/wiki/Generic_programming">Generic
 Programming</a><a href="http://en.wikipedia.org/wiki/Generic_programming">]]</a></span>). &#31616;&#21333;&#22320;&#35828;&#65292;&#26159;&#24076;&#26395;&#20570;&#19968;&#20010;&#25277;&#35937;&#65292;&#23545;&#31243;&#24207;&#35774;&#35745;&#20013;&#29992;&#21040;&#30340;&#25968;&#25454;&#32467;&#26500;
@@ -143,7 +102,7 @@ Programming</a><a href="http://en.wikipedia.org/wiki/Generic_programming">]]</a>
 &#25105;&#20204;&#23601;&#33021;&#23545;&#23427;&#20204;&#36827;&#34892;&#25490;&#24207;&#65292;&#32780;&#20803;&#32032;&#30340;&#31867;&#22411;&#26159;&#20160;&#20040;&#24182;&#19981;&#37325;&#35201;&#12290;
 
 &#36825;&#26679;&#30340;&#25277;&#35937;&#36807;&#31243;&#22312;&#21160;&#24577;&#31867;&#22411;&#35821;&#35328;&#65288;&#22914;scheme&#65289;&#26159;&#24456;&#33258;&#28982;&#30340;&#65292;&#23481;&#26131;&#23454;&#29616;&#30340;&#65292;&#20294;&#23545;&#24378;
-&#31867;&#22411;&#30340;&#35821;&#35328;&#65288;&#22914;C++&#12289;java&#65289;&#31561;&#26159;&#21313;&#20998;&#22256;&#38590;&#30340;<span class="org-footnote">[fn:2]</span>&#12290;&#20043;&#21518;C++&#20013;&#28155;&#21152;&#20102;&#27169;&#26495;&#30340;&#26426;
+&#31867;&#22411;&#30340;&#35821;&#35328;&#65288;&#22914;C++&#12289;java&#65289;&#31561;&#26159;&#21313;&#20998;&#22256;&#38590;&#30340; <span class="org-footnote">[fn:2]</span> &#12290;&#20043;&#21518;C++&#20013;&#28155;&#21152;&#20102;&#27169;&#26495;&#30340;&#26426;
 &#21046;&#65292;&#20351;&#24471;STL&#30340;&#23454;&#29616;&#25104;&#20026;&#21487;&#33021;&#12290;
 
 &#34429;&#28982;&#23427;&#26159;&#20351;&#29992;&#27169;&#26495;&#23454;&#29616;&#30340;&#65292;&#20351;&#29992;&#26102;&#21364;&#19981;&#38656;&#35201;&#22826;&#22810;&#20851;&#20110;&#27169;&#26495;&#30340;&#30693;&#35782;&#12290;&#20294;&#22312;&#23398;&#20064;&#26102;&#35201;
@@ -158,42 +117,43 @@ Programming</a><a href="http://en.wikipedia.org/wiki/Generic_programming">]]</a>
 &#23376;&#65292;&#20998;&#21035;&#23545;&#24212;&#32467;&#26500;&#25277;&#35937;&#21644;&#25805;&#20316;&#25277;&#35937;&#12290;
 
 <span class="org-level-3">*** vector</span>
-vector(&#20013;&#35793;&#21521;&#37327;)&#25277;&#35937;&#30340;&#26159;&#19968;&#20010;&#24207;&#21015;&#23481;&#22120;&#65292;&#20195;&#34920;&#30340;&#26159;&#21487;&#20197;&#25913;&#21464;&#22823;&#23567;&#30340;&#25968;&#32452;<span class="org-footnote">[fn:3]</span>&#12290;
+vector(&#20013;&#35793;&#21521;&#37327;)&#25277;&#35937;&#30340;&#26159;&#19968;&#20010;&#24207;&#21015;&#23481;&#22120;&#65292;&#20195;&#34920;&#30340;&#26159;&#21487;&#20197;&#25913;&#21464;&#22823;&#23567;&#30340;&#25968;
+&#32452; <span class="org-footnote">[fn:3]</span> &#12290;
 &#20063;&#23601;&#26159;&#35828;&#65292;vector&#21487;&#20197;&#35748;&#20026;&#26159;&#23545;&#25968;&#32452;&#36825;&#31181;&#24207;&#21015;&#32467;&#26500;&#30340;&#19968;&#20010;&#25277;&#35937;&#65292;&#24182;&#19988;&#36824;&#21253;&#21547;&#20102;&#22823;
 &#23567;&#21487;&#21464;&#36825;&#20010;&#24615;&#36136;&#12290;&#24403;&#28982;&#65292;&#23427;&#21516;&#26102;&#20063;&#25277;&#35937;&#20102;&#23545;&#24207;&#21015;&#30340;&#19968;&#20123;&#25805;&#20316;&#65292;&#22914; <span class="org-verbatim">=push_back=</span>
 &#20195;&#34920;&#22312;&#24207;&#21015;&#26411;&#23614;&#28155;&#21152;&#19968;&#20010;&#26032;&#30340;&#20803;&#32032;&#12290;
 
 &#19979;&#38754;&#30475;&#19968;&#20010;&#31616;&#21333;&#30340;&#20363;&#23376;&#65306;
 <span class="org-block-begin-line">#+begin_src cpp -n -r :export both :results output
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;cstdlib&gt;</span></span><span class="org-block-background"> </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">for rand
-</span></span><span class="org-block-background">
-  </span><span class="keyword"><span class="org-block-background">using</span></span><span class="org-block-background"> </span><span class="keyword"><span class="org-block-background">namespace</span></span><span class="org-block-background"> </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">;
+</span><span class="org-block">  #include &lt;iostream&gt;
+  #include &lt;vector&gt;
+  #include &lt;cstdlib&gt; // for rand
 
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background">(</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">argc</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">char</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">argv</span></span><span class="org-block-background">[])
+  using namespace std;
+
+  int main(int argc, char *argv[])
   {
-      srand(time(</span><span class="constant"><span class="org-block-background">NULL</span></span><span class="org-block-background">));
-      </span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">vec</span></span><span class="org-block-background">;  </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">(ref:vec-def)
-</span></span><span class="org-block-background">      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">i</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (i = 0; i &lt; 10; i++) {
-          vec.push_back(rand()%1000); </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">generate a random number (ref:vec-push)
-</span></span><span class="org-block-background">      }
+      srand(time(NULL));
+      vector&lt;int&gt; vec;  // (ref:vec-def)
+      int i;
+      for (i = 0; i &lt; 10; i++) {
+          vec.push_back(rand()%1000); // generate a random number (ref:vec-push)
+      }
 
-      cout &lt;&lt; </span><span class="string"><span class="org-block-background">"vec: "</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (i = 0; i &lt; 10; i++) {
-          cout &lt;&lt; vec[i] &lt;&lt; </span><span class="string"><span class="org-block-background">" "</span></span><span class="org-block-background">; </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">(ref:vec-access)
-</span></span><span class="org-block-background">      }
+      cout &lt;&lt; "vec: ";
+      for (i = 0; i &lt; 10; i++) {
+          cout &lt;&lt; vec[i] &lt;&lt; " "; // (ref:vec-access)
+      }
       cout &lt;&lt; endl;
 
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">sum</span></span><span class="org-block-background"> = 0;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (i = 0; i &lt; 10; i++) {
+      int sum = 0;
+      for (i = 0; i &lt; 10; i++) {
           sum += vec[i];
       }
 
-      cout &lt;&lt; </span><span class="string"><span class="org-block-background">"sum = "</span></span><span class="org-block-background"> &lt;&lt; sum &lt;&lt; endl;
+      cout &lt;&lt; "sum = " &lt;&lt; sum &lt;&lt; endl;
 
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+      return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>
@@ -221,36 +181,36 @@ vector(&#20013;&#35793;&#21521;&#37327;)&#25277;&#35937;&#30340;&#26159;&#19968;
 <span class="org-link"><a href="http://www.cplusplus.com/reference/algorithm/sort/?kw%3Dsort">[[http://www.cplusplus.com/reference/algorithm/sort/?kw%3Dsort][</a><a href="http://www.cplusplus.com/reference/algorithm/sort/?kw%3Dsort">cplusplus</a><a href="http://www.cplusplus.com/reference/algorithm/sort/?kw%3Dsort">]]</a></span>
 &#65289;&#65306;
 <span class="org-block-begin-line">#+begin_src cpp -n -r
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">     </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::cout
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;algorithm&gt;</span></span><span class="org-block-background">    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::sort
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">       </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::vector
-</span></span><span class="org-block-background">
-  </span><span class="type"><span class="org-block-background">bool</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">myfunction</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">i</span></span><span class="org-block-background">,</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">j</span></span><span class="org-block-background">) { </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> (i&lt;j); }
+</span><span class="org-block">  #include &lt;iostream&gt;     // std::cout
+  #include &lt;algorithm&gt;    // std::sort
+  #include &lt;vector&gt;       // std::vector
 
-  </span><span class="keyword"><span class="org-block-background">struct</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">myclass</span></span><span class="org-block-background"> {
-    </span><span class="type"><span class="org-block-background">bool</span></span><span class="org-block-background"> </span><span class="keyword"><span class="org-block-background">operator</span></span><span class="function-name"><span class="org-block-background">()</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">i</span></span><span class="org-block-background">,</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">j</span></span><span class="org-block-background">) { </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> (i&lt;j);}
-  } </span><span class="variable-name"><span class="org-block-background">myobject</span></span><span class="org-block-background">;
+  bool myfunction (int i,int j) { return (i&lt;j); }
 
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background"> () {
-    </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">myints</span></span><span class="org-block-background">[] = {32,71,12,45,26,80,53,33};
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">myvector</span></span><span class="org-block-background"> (myints, myints+8);               </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">32 71 12 45 26 80 53 33
-</span></span><span class="org-block-background">
-    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">using default comparison (operator &lt;):
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (myvector.begin(), myvector.begin()+4);           </span><span class="comment-delimiter"><span class="org-block-background">//</span></span><span class="comment"><span class="org-block-background">(12 32 45 71)26 80 53 33
-</span></span><span class="org-block-background">
-    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">using function as comp
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (myvector.begin()+4, myvector.end(), myfunction); </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">12 32 45 71(26 33 53 80) (ref:sort-func)
-</span></span><span class="org-block-background">
-    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">using object as comp
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (myvector.begin(), myvector.end(), myobject);     </span><span class="comment-delimiter"><span class="org-block-background">//</span></span><span class="comment"><span class="org-block-background">(12 26 32 33 45 53 71 80)
-</span></span><span class="org-block-background">
-    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">print out content:
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">"myvector contains:"</span></span><span class="org-block-background">;
-    </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (</span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">=myvector.begin(); it!=myvector.end(); ++it)
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">' '</span></span><span class="org-block-background"> &lt;&lt; *it;
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">'\n'</span></span><span class="org-block-background">;
+  struct myclass {
+    bool operator() (int i,int j) { return (i&lt;j);}
+  } myobject;
 
-    </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+  int main () {
+    int myints[] = {32,71,12,45,26,80,53,33};
+    std::vector&lt;int&gt; myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
+
+    // using default comparison (operator &lt;):
+    std::sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
+
+    // using function as comp
+    std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80) (ref:sort-func)
+
+    // using object as comp
+    std::sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
+
+    // print out content:
+    std::cout &lt;&lt; "myvector contains:";
+    for (std::vector&lt;int&gt;::iterator it=myvector.begin(); it!=myvector.end(); ++it)
+      std::cout &lt;&lt; ' ' &lt;&lt; *it;
+    std::cout &lt;&lt; '\n';
+
+    return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>
@@ -271,11 +231,11 @@ vector(&#20013;&#35793;&#21521;&#37327;)&#25277;&#35937;&#30340;&#26159;&#19968;
 &#19978;&#30340;&#35843;&#29992;&#26041;&#24335;&#65292;&#33258;&#24049;&#20889;&#20195;&#30721;&#26102;&#21364;&#20381;&#26087;&#26080;&#20174;&#20889;&#36215;&#12290;&#37027;&#20040;&#36825;&#21448;&#26159;&#20026;&#20160;&#20040;&#21602;&#65311;
 
 &#23454;&#38469;&#19978;&#21602;&#65292;STL&#25277;&#35937;&#20102;4&#20010;&#37096;&#20998;&#65306;&#31639;&#27861;&#65292;&#23481;&#22120;&#65292;&#20989;&#25968;&#21450;&#36845;&#20195;&#22120;&#65288;Algorithms,
-containers, functional, and iterators <span class="org-link"><a href="fn:1">[[</a><a href="fn:1">fn:1</a><a href="fn:1">]]</a></span>&#65289;&#12290;&#37027;&#20040;&#38500;&#20102;&#20989;&#25968;&#36825;&#37096;&#20998;
+containers, functional, and iterators <span class="org-footnote">[fn:1]</span> &#65289;&#12290;&#37027;&#20040;&#38500;&#20102;&#20989;&#25968;&#36825;&#37096;&#20998;
 &#65288;&#31508;&#32773;&#20063;&#19981;&#29087;&#65289;&#20043;&#22806;&#65292;&#31639;&#27861;&#21644;&#23481;&#22120;&#24456;&#22823;&#31243;&#24230;&#19978;&#26159;&#24314;&#31435;&#22312;&#36845;&#20195;&#22120;&#20043;&#19978;&#30340;&#65292;&#25152;&#20197;&#22312;&#20351;
 &#29992;&#36807;&#31243;&#20013;&#24635;&#20250;&#28041;&#21450;&#21040;&#36845;&#20195;&#22120;&#30340;&#20869;&#23481;&#12290;&#25152;&#20197;&#29702;&#35299;&#23427;&#20063;&#21313;&#20998;&#20851;&#38190;&#12290;
 
-&#22914;&#26524;&#20320;&#25026;&#33521;&#25991;&#30340;&#35805;&#65292;[ <span class="org-link"><a href="fn:4">[[</a><a href="fn:4">fn:4</a><a href="fn:4">]]</a></span> ]&#26159;&#20010;&#24456;&#22909;&#30340;&#25945;&#31243;&#65292;&#19979;&#25991;&#30340;&#20869;&#23481;&#20174;&#20013;&#20511;&#37492;&#37096;&#20998;&#20869;
+&#22914;&#26524;&#20320;&#25026;&#33521;&#25991;&#30340;&#35805;&#65292;[ <span class="org-footnote">[fn:4]</span>, <span class="org-footnote">[fn:5]</span> ]&#26159;&#20010;&#24456;&#22909;&#30340;&#25945;&#31243;&#65292;&#19979;&#25991;&#30340;&#20869;&#23481;&#20174;&#20013;&#20511;&#37492;&#37096;&#20998;&#20869;
 &#23481;&#12290;
 
 <span class="org-level-2">** iterator &#26159;&#20160;&#20040;</span>
@@ -298,41 +258,41 @@ containers, functional, and iterators <span class="org-link"><a href="fn:1">[[</
 &#25105;&#20204;&#24456;&#33258;&#28982;&#22320;&#23601;&#23558;&#36825;&#20010;&#36941;&#21382;&#30340;&#25805;&#20316;&#36827;&#34892;&#25277;&#35937;&#65292;&#31216;&#20043;&#20026;&#36845;&#20195;&#22120;&#12290;
 
 &#20363;&#22914;&#65292;&#25105;&#20204;&#38656;&#35201;&#22312;&#25968;&#32452;&#25110;&#38142;&#34920;&#20013;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#19979;&#38754;&#26159;&#19968;&#20010;&#20363;&#23376;&#65306;
-<span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> *</span><span class="function-name"><span class="org-block-background">find_in_array</span></span><span class="org-block-background">(</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">A</span></span><span class="org-block-background">[], </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">end</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">target</span></span><span class="org-block-background">)
+<span class="org-block-begin-line">#+begin_src cpp -n
+</span><span class="org-block">  int *find_in_array(int A[], int *end, int target)
   {
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">p</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (p = A; p != end; p ++) {
-          </span><span class="keyword"><span class="org-block-background">if</span></span><span class="org-block-background"> (*p == target) {
-              </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> p;
+      int *p;
+      for (p = A; p != end; p ++) {
+          if (*p == target) {
+              return p;
           }
       }
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> p; </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">return *end* if not found
-</span></span><span class="org-block-background">  }
+      return p; // return *end* if not found
+  }
 
-  </span><span class="type"><span class="org-block-background">node</span></span><span class="org-block-background"> *</span><span class="function-name"><span class="org-block-background">find_in_list</span></span><span class="org-block-background">(</span><span class="type"><span class="org-block-background">node</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">start</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">node</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">end</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">target</span></span><span class="org-block-background">)
+  node *find_in_list(node *start, node *end, int target)
   {
-      </span><span class="type"><span class="org-block-background">node</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">p</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (p = start; p != end; p = p-&gt;next) {
-          </span><span class="keyword"><span class="org-block-background">if</span></span><span class="org-block-background"> (p-&gt;data == target) {
-              </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> p;
+      node *p;
+      for (p = start; p != end; p = p-&gt;next) {
+          if (p-&gt;data == target) {
+              return p;
           }
       }
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> p; </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">return *end if not found
-</span></span><span class="org-block-background">  }
+      return p; // return *end if not found
+  }
 </span><span class="org-block-end-line">#+end_src
 </span>&#20174;&#36825;&#20010;&#20266;&#20195;&#30721;&#20013;&#21487;&#20197;&#30475;&#21040;&#65292;&#23427;&#20204;&#25805;&#20316;&#24778;&#20154;&#22320;&#30456;&#20284;&#65292;&#25152;&#20197;&#65292;&#25105;&#20204;&#24076;&#26395;&#33021;&#26377;&#36825;&#26679;&#30340;&#20989;
 &#25968;&#65306;
-<span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="type"><span class="org-block-background">Type</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">find</span></span><span class="org-block-background">(</span><span class="type"><span class="org-block-background">Type</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">start</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">Type</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">end</span></span><span class="org-block-background">, </span><span class="keyword"><span class="org-block-background">const</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">AnotherType</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">target</span></span><span class="org-block-background">)
+<span class="org-block-begin-line">#+begin_src cpp -n
+</span><span class="org-block">  Type find(Type start, Type end, const AnotherType target)
   {
-      </span><span class="type"><span class="org-block-background">Type</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">tmp</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (tmp = start; tmp != end; tmp++) {
-          </span><span class="keyword"><span class="org-block-background">if</span></span><span class="org-block-background"> (*tmp == target) {
-              </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> tmp;
+      Type tmp;
+      for (tmp = start; tmp != end; tmp++) {
+          if (*tmp == target) {
+              return tmp;
           }
       }
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> tmp;
+      return tmp;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>&#21363;&#65292;&#22914;&#26524;&#31867;&#22411; <span class="org-verbatim">=Type=</span> &#25903;&#25345;&#36890;&#36807; <span class="org-verbatim">=tmp++=</span> &#26469;&#24471;&#21040;&#24207;&#21015;&#20013;&#30340;&#19979;&#19968;&#20010;&#20803;&#32032;&#65292;&#36824;&#25903;&#25345;
@@ -355,45 +315,45 @@ iterator&#38656;&#35201;&#26377; <span class="org-verbatim">=*tmp=</span> &#3682
 &#20063;&#38656;&#35201;&#26377;&#23545;&#24212;&#30340;iterator&#31867;&#22411;&#65292;&#25191;&#34892;&#22914; <span class="org-verbatim">=*tmp=</span> &#25805;&#20316;&#26102;&#25165;&#33021;&#36820;&#22238;&#27491;&#30830;&#31867;&#22411;&#12290;
 
 <span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">vit</span></span><span class="org-block-background">;
-  </span><span class="constant"><span class="org-block-background">set</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">sit</span></span><span class="org-block-background">;
-  </span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">const_iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">cvit</span></span><span class="org-block-background">;
-  </span><span class="constant"><span class="org-block-background">set</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">const_iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">csit</span></span><span class="org-block-background">;
+</span><span class="org-block">  vector&lt;int&gt;::iterator vit;
+  set&lt;int&gt;::iterator sit;
+  vector&lt;int&gt;::const_iterator cvit;
+  set&lt;int&gt;::const_iterator csit;
 </span><span class="org-block-end-line">#+end_src
 </span>
 &#26377;&#20102;iterator&#20043;&#21518;&#65292;&#23601;&#21487;&#20197;&#36890;&#36807; <span class="org-verbatim">=++=</span> &#25805;&#20316;&#21644; <span class="org-verbatim">=*=</span> &#25805;&#20316;&#23545;&#23481;&#22120;&#36827;&#34892;&#36941;&#21382;&#20102;&#12290;
-<span class="org-block-begin-line">#+begin_src cpp :results output :export both
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">
-</span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;set&gt;</span></span><span class="org-block-background">
+<span class="org-block-begin-line">#+begin_src cpp -n :results output :export both
+</span><span class="org-block">  #include &lt;iostream&gt;
+  #include &lt;vector&gt;
+  #include &lt;set&gt;
 
-  </span><span class="keyword"><span class="org-block-background">using</span></span><span class="org-block-background"> </span><span class="keyword"><span class="org-block-background">namespace</span></span><span class="org-block-background"> </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">;
+  using namespace std;
 
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background">(</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">argc</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">char</span></span><span class="org-block-background"> *</span><span class="variable-name"><span class="org-block-background">argv</span></span><span class="org-block-background">[])
+  int main(int argc, char *argv[])
   {
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">array</span></span><span class="org-block-background">[] = {1,1,1,2,3,4,5,6};
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">len</span></span><span class="org-block-background"> = </span><span class="keyword"><span class="org-block-background">sizeof</span></span><span class="org-block-background">(array)/</span><span class="keyword"><span class="org-block-background">sizeof</span></span><span class="org-block-background">(array[0]);
+      int array[] = {1,1,1,2,3,4,5,6};
+      int len = sizeof(array)/sizeof(array[0]);
 
-      </span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">myvec</span></span><span class="org-block-background">(array, array+len);
-      </span><span class="type"><span class="org-block-background">set</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">myset</span></span><span class="org-block-background">(array, array+len);
+      vector&lt;int&gt; myvec(array, array+len);
+      set&lt;int&gt; myset(array, array+len);
 
-      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">get the corresponding iterator
-</span></span><span class="org-block-background">      </span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">vit</span></span><span class="org-block-background">;
-      </span><span class="constant"><span class="org-block-background">set</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">sit</span></span><span class="org-block-background">;
+      // get the corresponding iterator
+      vector&lt;int&gt;::iterator vit;
+      set&lt;int&gt;::iterator sit;
 
-      cout &lt;&lt; </span><span class="string"><span class="org-block-background">"The elements of vector are:"</span></span><span class="org-block-background"> &lt;&lt; endl;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (vit = myvec.begin(); vit != myvec.end(); vit++) {
-          cout &lt;&lt; *vit &lt;&lt; </span><span class="string"><span class="org-block-background">" "</span></span><span class="org-block-background">;
+      cout &lt;&lt; "The elements of vector are:" &lt;&lt; endl;
+      for (vit = myvec.begin(); vit != myvec.end(); vit++) {
+          cout &lt;&lt; *vit &lt;&lt; " ";
       }
       cout &lt;&lt; endl;
 
-      cout &lt;&lt; </span><span class="string"><span class="org-block-background">"The elements of set are:"</span></span><span class="org-block-background"> &lt;&lt; endl;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (sit = myset.begin(); sit != myset.end(); sit++) {
-          cout &lt;&lt; *sit &lt;&lt; </span><span class="string"><span class="org-block-background">" "</span></span><span class="org-block-background">;
+      cout &lt;&lt; "The elements of set are:" &lt;&lt; endl;
+      for (sit = myset.begin(); sit != myset.end(); sit++) {
+          cout &lt;&lt; *sit &lt;&lt; " ";
       }
       cout &lt;&lt; endl;
 
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+      return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>
@@ -423,10 +383,10 @@ iterator&#38656;&#35201;&#26377; <span class="org-verbatim">=*tmp=</span> &#3682
 
 &#39318;&#20808;&#26597;&#30475; <span class="org-verbatim">=set_union=</span> &#30340;API&#65306;
 <span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="keyword"><span class="org-block-background">template</span></span><span class="org-block-background"> &lt;</span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">InputIterator1</span></span><span class="org-block-background">, </span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">InputIterator2</span></span><span class="org-block-background">, </span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">OutputIterator</span></span><span class="org-block-background">&gt;
-    </span><span class="type"><span class="org-block-background">OutputIterator</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">set_union</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">InputIterator1</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">first1</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">InputIterator1</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">last1</span></span><span class="org-block-background">,
-                              </span><span class="type"><span class="org-block-background">InputIterator2</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">first2</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">InputIterator2</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">last2</span></span><span class="org-block-background">,
-                              </span><span class="type"><span class="org-block-background">OutputIterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">result</span></span><span class="org-block-background">);
+</span><span class="org-block">  template &lt;class InputIterator1, class InputIterator2, class OutputIterator&gt;
+    OutputIterator set_union (InputIterator1 first1, InputIterator1 last1,
+                              InputIterator2 first2, InputIterator2 last2,
+                              OutputIterator result);
 </span><span class="org-block-end-line">#+end_src
 </span>&#20174;&#20013;&#21487;&#20197;&#30475;&#21040;&#65292;&#25105;&#20204;&#38656;&#35201;&#30340;&#26159;&#20004;&#20010;&#24207;&#21015;&#65292;&#20998;&#21035;&#20026;&#65306; <span class="org-verbatim">=[first1, last1)=</span> &#21644;
 <span class="org-verbatim">=[first2, last)=</span> &#12290;&#27880;&#24847;&#30001;iterator&#25351;&#23450;&#30340;&#33539;&#22260;&#20013;&#65292;&#24182;&#19981;&#21253;&#21547; <span class="org-verbatim">=last1=</span> &#25351;&#21521;&#30340;
@@ -434,34 +394,34 @@ iterator&#38656;&#35201;&#26377; <span class="org-verbatim">=*tmp=</span> &#3682
 &#21442;&#25968;&#25351;&#21521; <span class="org-verbatim">=result=</span> &#32467;&#26463;&#30340;&#20301;&#32622;&#12290;
 
 <span class="org-block-begin-line">#+begin_src cpp -n -r :results output :export both
-</span><span class="org-block-background">  </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">set_union example
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">     </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::cout
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;algorithm&gt;</span></span><span class="org-block-background">    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::set_union, std::sort
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">       </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::vector
-</span></span><span class="org-block-background">
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background"> () {
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">array1</span></span><span class="org-block-background">[] = {5,10,15,20,25};
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">array2</span></span><span class="org-block-background">[] = {50,40,30,20,10};
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">first</span></span><span class="org-block-background">(array1, array1+5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">second</span></span><span class="org-block-background">(array2, array2+5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">v</span></span><span class="org-block-background">(10);                      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">0  0  0  0  0  0  0  0  0  0
-</span></span><span class="org-block-background">      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">;
+</span><span class="org-block">  // set_union example
+  #include &lt;iostream&gt;     // std::cout
+  #include &lt;algorithm&gt;    // std::set_union, std::sort
+  #include &lt;vector&gt;       // std::vector
 
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (first.begin(),first.begin()+5);     </span><span class="comment-delimiter"><span class="org-block-background">//  </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25
-</span></span><span class="org-block-background">      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (second.begin(),second.begin()+5);   </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">10 20 30 40 50
-</span></span><span class="org-block-background">
-      it=</span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::set_union (first.begin(), first.begin()+5,
+  int main () {
+      int array1[] = {5,10,15,20,25};
+      int array2[] = {50,40,30,20,10};
+      std::vector&lt;int&gt; first(array1, array1+5);
+      std::vector&lt;int&gt; second(array2, array2+5);
+      std::vector&lt;int&gt; v(10);                      // 0  0  0  0  0  0  0  0  0  0
+      std::vector&lt;int&gt;::iterator it;
+
+      std::sort (first.begin(),first.begin()+5);     //  5 10 15 20 25
+      std::sort (second.begin(),second.begin()+5);   // 10 20 30 40 50
+
+      it=std::set_union (first.begin(), first.begin()+5,
                          second.begin(), second.begin()+5,
-                         v.begin()); </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">(ref-union)
-</span></span><span class="org-block-background">      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50  0  0
-</span></span><span class="org-block-background">      v.resize(it-v.begin());        </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50 (ref:union-minus)
-</span></span><span class="org-block-background">
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">"The union has "</span></span><span class="org-block-background"> &lt;&lt; (v.size()) &lt;&lt; </span><span class="string"><span class="org-block-background">" elements:\n"</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (it=v.begin(); it!=v.end(); ++it)
-          </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">' '</span></span><span class="org-block-background"> &lt;&lt; *it;
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">'\n'</span></span><span class="org-block-background">;
+                         v.begin()); // (ref-union)
+      // 5 10 15 20 25 30 40 50  0  0
+      v.resize(it-v.begin());        // 5 10 15 20 25 30 40 50 (ref:union-minus)
 
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+      std::cout &lt;&lt; "The union has " &lt;&lt; (v.size()) &lt;&lt; " elements:\n";
+      for (it=v.begin(); it!=v.end(); ++it)
+          std::cout &lt;&lt; ' ' &lt;&lt; *it;
+      std::cout &lt;&lt; '\n';
+
+      return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>
@@ -487,30 +447,30 @@ iterator&#65292;&#22312;&#22914; <span class="org-verbatim">=list=</span> &#3682
 &#26159;&#19978;&#23567;&#33410;&#20363;&#23376;&#30340;&#21407;&#29256;&#65306;
 
 <span class="org-block-begin-line">#+begin_src cpp -n -r
-</span><span class="org-block-background">  </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">set_union example
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">     </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::cout
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;algorithm&gt;</span></span><span class="org-block-background">    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::set_union, std::sort
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">       </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::vector
-</span></span><span class="org-block-background">
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background"> () {
-    </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">first</span></span><span class="org-block-background">[] = {5,10,15,20,25};
-    </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">second</span></span><span class="org-block-background">[] = {50,40,30,20,10};
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">v</span></span><span class="org-block-background">(10);                      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">0  0  0  0  0  0  0  0  0  0
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">;
+</span><span class="org-block">  // set_union example
+  #include &lt;iostream&gt;     // std::cout
+  #include &lt;algorithm&gt;    // std::set_union, std::sort
+  #include &lt;vector&gt;       // std::vector
 
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (first,first+5);     </span><span class="comment-delimiter"><span class="org-block-background">//  </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 (ref:union-sort)
-</span></span><span class="org-block-background">    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (second,second+5);   </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">10 20 30 40 50
-</span></span><span class="org-block-background">
-    it=</span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::set_union (first, first+5, second, second+5, v.begin()); </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">(ref:union-array)
-</span></span><span class="org-block-background">                                                 </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50  0  0
-</span></span><span class="org-block-background">    v.resize(it-v.begin());                      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50
-</span></span><span class="org-block-background">
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">"The union has "</span></span><span class="org-block-background"> &lt;&lt; (v.size()) &lt;&lt; </span><span class="string"><span class="org-block-background">" elements:\n"</span></span><span class="org-block-background">;
-    </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (it=v.begin(); it!=v.end(); ++it)
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">' '</span></span><span class="org-block-background"> &lt;&lt; *it;
-    </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">'\n'</span></span><span class="org-block-background">;
+  int main () {
+    int first[] = {5,10,15,20,25};
+    int second[] = {50,40,30,20,10};
+    std::vector&lt;int&gt; v(10);                      // 0  0  0  0  0  0  0  0  0  0
+    std::vector&lt;int&gt;::iterator it;
 
-    </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+    std::sort (first,first+5);     //  5 10 15 20 25 (ref:union-sort)
+    std::sort (second,second+5);   // 10 20 30 40 50
+
+    it=std::set_union (first, first+5, second, second+5, v.begin()); // (ref:union-array)
+                                                 // 5 10 15 20 25 30 40 50  0  0
+    v.resize(it-v.begin());                      // 5 10 15 20 25 30 40 50
+
+    std::cout &lt;&lt; "The union has " &lt;&lt; (v.size()) &lt;&lt; " elements:\n";
+    for (it=v.begin(); it!=v.end(); ++it)
+      std::cout &lt;&lt; ' ' &lt;&lt; *it;
+    std::cout &lt;&lt; '\n';
+
+    return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>&#37027;&#20040;&#19978;&#38754;&#20363;&#23376;&#20013;&#65292;&#31532;<span class="org-link"><a href="(union-sort)">[[</a><a href="(union-sort)">(union-sort)</a><a href="(union-sort)">]]</a></span>&#34892;&#20013;&#65292;&#25105;&#20204;&#30452;&#25509;&#20351;&#29992;&#20102;&#25968;&#32452;&#30340;&#22320;&#22336;
@@ -541,8 +501,8 @@ iterator&#20063;&#36827;&#34892;&#20102;&#30456;&#24212;&#30340;&#25277;&#35937;
 &#26377;&#25928;&#65292;&#22914;<span class="org-link"><a href="http://www.cplusplus.com/reference/algorithm/sort/">[[http://www.cplusplus.com/reference/algorithm/sort/][</a><a href="http://www.cplusplus.com/reference/algorithm/sort/">sort</a><a href="http://www.cplusplus.com/reference/algorithm/sort/">]]</a></span>&#65292;
 &#23427;&#30340;&#21407;&#24418;&#22914;&#19979;&#65306;
 <span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="keyword"><span class="org-block-background">template</span></span><span class="org-block-background"> &lt;</span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">RandomAccessIterator</span></span><span class="org-block-background">&gt;
-    </span><span class="type"><span class="org-block-background">void</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">sort</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">RandomAccessIterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">first</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">RandomAccessIterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">last</span></span><span class="org-block-background">);
+</span><span class="org-block">  template &lt;class RandomAccessIterator&gt;
+    void sort (RandomAccessIterator first, RandomAccessIterator last);
 </span><span class="org-block-end-line">#+end_src
 </span>&#21487;&#35265;&#65292;&#23427;&#33021;&#22815;&#23545;&#38543;&#26426;&#35775;&#38382;&#31867;&#22411;&#30340;iterator&#36827;&#34892;&#25805;&#20316;&#65292;&#22914;vector&#65292;&#20294;&#23545;&#38750;&#38543;&#26426;&#35775;&#38382;
 &#31867;&#22411;&#21017;&#19981;&#36215;&#20316;&#29992;&#65292;&#22914;list&#12290;&#35201;&#27880;&#24847;&#30340;&#26159;&#65292;STL&#26377;&#35768;&#22810;&#23481;&#22120;&#23646;&#20110; <span class="bold">*&#38750;*</span> &#38543;&#26426;&#35775;&#38382;&#22411;&#65292;
@@ -562,48 +522,48 @@ iterator&#20063;&#36827;&#34892;&#20102;&#30456;&#24212;&#30340;&#25277;&#35937;
  <span class="org-link"><a href="www.cplusplus.com/reference/iterator/distance/">[[www.cplusplus.com/reference/iterator/distance/][</a><a href="www.cplusplus.com/reference/iterator/distance/">distance</a><a href="www.cplusplus.com/reference/iterator/distance/">]]</a></span> &#12290;&#21407;&#22411;&#22914;&#19979;&#65306;
 
 <span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="keyword"><span class="org-block-background">template</span></span><span class="org-block-background"> &lt;</span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background">, </span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">Distance</span></span><span class="org-block-background">&gt;
-    </span><span class="type"><span class="org-block-background">void</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">advance</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background">&amp; </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">Distance</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">n</span></span><span class="org-block-background">);
+</span><span class="org-block">  template &lt;class InputIterator, class Distance&gt;
+    void advance (InputIterator&amp; it, Distance n);
 
-  </span><span class="keyword"><span class="org-block-background">template</span></span><span class="org-block-background">&lt;</span><span class="keyword"><span class="org-block-background">class</span></span><span class="org-block-background"> </span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background">&gt;
-    </span><span class="keyword"><span class="org-block-background">typename</span></span><span class="org-block-background"> </span><span class="constant"><span class="org-block-background">iterator_traits</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">difference_type</span></span><span class="org-block-background">
-      </span><span class="function-name"><span class="org-block-background">distance</span></span><span class="org-block-background"> (</span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">first</span></span><span class="org-block-background">, </span><span class="type"><span class="org-block-background">InputIterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">last</span></span><span class="org-block-background">);
+  template&lt;class InputIterator&gt;
+    typename iterator_traits&lt;InputIterator&gt;::difference_type
+      distance (InputIterator first, InputIterator last);
 </span><span class="org-block-end-line">#+end_src
 </span>
 &#27880;&#24847;&#65292;&#22312;&#23454;&#29616;&#19978;&#65292;&#23481;&#22120;&#38656;&#35201;&#32487;&#25215;iterator&#24182;&#25552;&#20379;&#20855;&#20307;&#20989;&#25968;&#30340;&#23454;&#29616;&#12290;&#19979;&#38754;&#25105;&#20204;&#23558;&#19978;
 &#38754;&#30340;&#19968;&#20010;&#20363;&#23376;&#29992;&#36825;&#33410;&#20171;&#32461;&#30340;&#20989;&#25968;&#36827;&#34892;&#20462;&#25913;&#65306;
 
-<span class="org-block-begin-line">#+begin_src cpp :results output :export both
-</span><span class="org-block-background">  </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">set_union example
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;iostream&gt;</span></span><span class="org-block-background">     </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::cout
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;algorithm&gt;</span></span><span class="org-block-background">    </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::set_union, std::sort
-</span></span><span class="preprocessor"><span class="org-block-background">  #include</span></span><span class="org-block-background"> </span><span class="string"><span class="org-block-background">&lt;vector&gt;</span></span><span class="org-block-background">       </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">std::vector
-</span></span><span class="org-block-background">
-  </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="function-name"><span class="org-block-background">main</span></span><span class="org-block-background"> () {
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">array1</span></span><span class="org-block-background">[] = {5,10,15,20,25};
-      </span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">array2</span></span><span class="org-block-background">[] = {50,40,30,20,10};
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">first</span></span><span class="org-block-background">(array1, array1+5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">second</span></span><span class="org-block-background">(array2, array2+5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="type"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt; </span><span class="variable-name"><span class="org-block-background">v</span></span><span class="org-block-background">(10);                      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">0  0  0  0  0  0  0  0  0  0
-</span></span><span class="org-block-background">      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">;
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">fend</span></span><span class="org-block-background"> = first.begin();
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::</span><span class="constant"><span class="org-block-background">vector</span></span><span class="org-block-background">&lt;</span><span class="type"><span class="org-block-background">int</span></span><span class="org-block-background">&gt;::</span><span class="type"><span class="org-block-background">iterator</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">send</span></span><span class="org-block-background"> = second.begin();
+<span class="org-block-begin-line">#+begin_src cpp -n :results output :export both
+</span><span class="org-block">  // set_union example
+  #include &lt;iostream&gt;     // std::cout
+  #include &lt;algorithm&gt;    // std::set_union, std::sort
+  #include &lt;vector&gt;       // std::vector
+
+  int main () {
+      int array1[] = {5,10,15,20,25};
+      int array2[] = {50,40,30,20,10};
+      std::vector&lt;int&gt; first(array1, array1+5);
+      std::vector&lt;int&gt; second(array2, array2+5);
+      std::vector&lt;int&gt; v(10);                      // 0  0  0  0  0  0  0  0  0  0
+      std::vector&lt;int&gt;::iterator it;
+      std::vector&lt;int&gt;::iterator fend = first.begin();
+      std::vector&lt;int&gt;::iterator send = second.begin();
 
       advance(fend, 5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (first.begin(),fend);     </span><span class="comment-delimiter"><span class="org-block-background">//  </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25
-</span></span><span class="org-block-background">      advance(send, 5);
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::sort (second.begin(),send);   </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">10 20 30 40 50
-</span></span><span class="org-block-background">
-      it=</span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::set_union (first.begin(), fend, second.begin(), send, v.begin());
-                                         </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50  0  0
-</span></span><span class="org-block-background">      v.resize(distance(v.begin(), it)); </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">5 10 15 20 25 30 40 50
-</span></span><span class="org-block-background">
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">"The union has "</span></span><span class="org-block-background"> &lt;&lt; (v.size()) &lt;&lt; </span><span class="string"><span class="org-block-background">" elements:\n"</span></span><span class="org-block-background">;
-      </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (it=v.begin(); it!=v.end(); ++it)
-          </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">' '</span></span><span class="org-block-background"> &lt;&lt; *it;
-      </span><span class="constant"><span class="org-block-background">std</span></span><span class="org-block-background">::cout &lt;&lt; </span><span class="string"><span class="org-block-background">'\n'</span></span><span class="org-block-background">;
+      std::sort (first.begin(),fend);     //  5 10 15 20 25
+      advance(send, 5);
+      std::sort (second.begin(),send);   // 10 20 30 40 50
 
-      </span><span class="keyword"><span class="org-block-background">return</span></span><span class="org-block-background"> 0;
+      it=std::set_union (first.begin(), fend, second.begin(), send, v.begin());
+                                         // 5 10 15 20 25 30 40 50  0  0
+      v.resize(distance(v.begin(), it)); // 5 10 15 20 25 30 40 50
+
+      std::cout &lt;&lt; "The union has " &lt;&lt; (v.size()) &lt;&lt; " elements:\n";
+      for (it=v.begin(); it!=v.end(); ++it)
+          std::cout &lt;&lt; ' ' &lt;&lt; *it;
+      std::cout &lt;&lt; '\n';
+
+      return 0;
   }
 </span><span class="org-block-end-line">#+end_src
 </span>
@@ -631,10 +591,10 @@ iterator&#20063;&#36827;&#34892;&#20102;&#30456;&#24212;&#30340;&#25277;&#35937;
 &#20294;&#23427;&#19981;&#30452;&#25509;&#25552;&#20379;iterator&#31867;&#22411;&#65292;&#32780;&#26159;&#29992;&#20869;&#32622;&#30340; <span class="org-verbatim">=for x in container:=</span> &#30340;&#35821;&#27861;
 &#26469;&#25903;&#25345;iterator&#30340;&#36941;&#21382;&#65292;&#30456;&#24403;&#20110;&#19979;&#21015;c++&#20195;&#30721;&#65306;
 <span class="org-block-begin-line">#+begin_src cpp
-</span><span class="org-block-background">  </span><span class="type"><span class="org-block-background">iterator_type</span></span><span class="org-block-background"> </span><span class="variable-name"><span class="org-block-background">it</span></span><span class="org-block-background">;
-  </span><span class="keyword"><span class="org-block-background">for</span></span><span class="org-block-background"> (it = container.begin(); it != container.end(); it++) {
-      </span><span class="comment-delimiter"><span class="org-block-background">// </span></span><span class="comment"><span class="org-block-background">do something
-</span></span><span class="org-block-background">  }
+</span><span class="org-block">  iterator_type it;
+  for (it = container.begin(); it != container.end(); it++) {
+      // do something
+  }
 </span><span class="org-block-end-line">#+end_src
 </span>
 &#37027;&#20040;&#36825;&#37324;&#20030;&#36825;&#20010;&#20363;&#23376;&#26159;&#24076;&#26395;&#35835;&#32773;&#24605;&#32771;&#19977;&#20010;&#38382;&#39064;&#65306;

@@ -12,7 +12,7 @@ Standard Template Library(STL)中文译为标准模板库。当我们从标准C�
 到的外延。
 
 ** STL的一点点历史
-实际上，STL的出现与C++的模板支持是相对独立的[fn:1]，它最初的目的是[[http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B][泛型程序
+实际上，STL的出现与C++的模板支持是相对独立的 [fn:1] ，它最初的目的是[[http://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B][泛型程序
 设计]]
 ([[http://en.wikipedia.org/wiki/Generic_programming][Generic
 Programming]]). 简单地说，是希望做一个抽象，对程序设计中用到的数据结构
@@ -20,7 +20,7 @@ Programming]]). 简单地说，是希望做一个抽象，对程序设计中用�
 我们就能对它们进行排序，而元素的类型是什么并不重要。
 
 这样的抽象过程在动态类型语言（如scheme）是很自然的，容易实现的，但对强
-类型的语言（如C++、java）等是十分困难的[fn:2]。之后C++中添加了模板的机
+类型的语言（如C++、java）等是十分困难的 [fn:2] 。之后C++中添加了模板的机
 制，使得STL的实现成为可能。
 
 虽然它是使用模板实现的，使用时却不需要太多关于模板的知识。但在学习时要
@@ -39,7 +39,8 @@ Programming]]). 简单地说，是希望做一个抽象，对程序设计中用�
 子，分别对应结构抽象和操作抽象。
 
 *** vector
-vector(中译向量)抽象的是一个序列容器，代表的是可以改变大小的数组[fn:3]。
+vector(中译向量)抽象的是一个序列容器，代表的是可以改变大小的数
+组 [fn:3] 。
 也就是说，vector可以认为是对数组这种序列结构的一个抽象，并且还包含了大
 小可变这个性质。当然，它同时也抽象了对序列的一些操作，如 =push_back=
 代表在序列末尾添加一个新的元素。
@@ -150,12 +151,16 @@ vector(中译向量)抽象的是一个序列容器，代表的是可以改变大
 上的调用方式，自己写代码时却依旧无从写起。那么这又是为什么呢？
 
 实际上呢，STL抽象了4个部分：算法，容器，函数及迭代器（Algorithms,
-containers, functional, and iterators [[fn:1]]）。那么除了函数这部分
+containers, functional, and iterators [fn:1] ）。那么除了函数这部分
 （笔者也不熟）之外，算法和容器很大程度上是建立在迭代器之上的，所以在使
 用过程中总会涉及到迭代器的内容。所以理解它也十分关键。
 
-如果你懂英文的话，[ [[fn:4]] ]是个很好的教程，下文的内容从中借鉴部分内
+如果你懂英文的话，[ [fn:4], [fn:5] ]是个很好的教程，下文的内容从中借鉴部分内
 容。
+
+[fn:4] [[http://www.mochima.com/tutorials/STL.html][tutorial:STL:containers and iterators]]
+
+[fn:5] [[http://www.mochima.com/tutorials/STL_algorithms.html][tutorial: STL: Algorithms and Function Objects]]
 
 ** iterator 是什么
 那么什么是迭代器（iterator）？在回答这个问题之前，先回想一下STL的目的，
@@ -177,7 +182,7 @@ containers, functional, and iterators [[fn:1]]）。那么除了函数这部分
 我们很自然地就将这个遍历的操作进行抽象，称之为迭代器。
 
 例如，我们需要在数组或链表中寻找一个元素，下面是一个例子：
-#+BEGIN_SRC cpp
+#+BEGIN_SRC cpp -n
   int *find_in_array(int A[], int *end, int target)
   {
       int *p;
@@ -202,7 +207,7 @@ containers, functional, and iterators [[fn:1]]）。那么除了函数这部分
 #+END_SRC
 从这个伪代码中可以看到，它们操作惊人地相似，所以，我们希望能有这样的函
 数：
-#+BEGIN_SRC cpp
+#+BEGIN_SRC cpp -n
   Type find(Type start, Type end, const AnotherType target)
   {
       Type tmp;
@@ -241,7 +246,7 @@ iterator需要有 =*tmp= 这样的操作，但是容器元素的类型是多种�
 #+END_SRC
 
 有了iterator之后，就可以通过 =++= 操作和 =*= 操作对容器进行遍历了。
-#+BEGIN_SRC cpp
+#+BEGIN_SRC cpp -n
   #include <iostream>
   #include <vector>
   #include <set>
@@ -442,7 +447,7 @@ iterator也进行了相应的抽象，但并不是所有容器都支持。
 注意，在实现上，容器需要继承iterator并提供具体函数的实现。下面我们将上
 面的一个例子用这节介绍的函数进行修改：
 
-#+BEGIN_SRC cpp
+#+BEGIN_SRC cpp -n
   // set_union example
   #include <iostream>     // std::cout
   #include <algorithm>    // std::set_union, std::sort
