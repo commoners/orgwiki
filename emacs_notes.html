@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Emacs Notes</title>
-<!-- 2014-11-06 -->
+<!-- 2014-12-10 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -96,6 +96,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-3">FAQs</a>
 <ul>
 <li><a href="#sec-3-1">How to insert not graphic characters?</a></li>
+<li><a href="#sec-3-2">How to swap values by regexp-replace</a></li>
 </ul>
 </li>
 </ul>
@@ -220,8 +221,46 @@ into <code>eshell-visual-commands</code> to make eshell invoke <code>term</code>
 </ol>
 </div>
 </div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">How to swap values by regexp-replace</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+The idea is mixing elisp expressions in regular expressions.
+</p>
+
+<p>
+For example, we want to swap all ocurrences of word <code>left</code> and
+<code>right</code>, the we can specify the pattern to be:
+</p>
+<pre class="example">
+Replace: \(left\)\|right
+</pre>
+<p>
+And the next step is to correctly specify the replace string, note
+that by the previous pattern, we can capture the matches of <code>left</code> by
+<code>\1</code> as we shall see later. Now replace with:
+</p>
+<pre class="example">
+Replace with: \,(if \1 "right" "left")
+</pre>
+<p>
+We use =\,= to insert elisp expression. For more information, check <sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>
+</p>
 </div>
 </div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">Evaluating Lisp Forms in Regular Expressions</a>
+</p></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>
 

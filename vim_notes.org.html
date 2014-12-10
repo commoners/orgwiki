@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>vim_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-document-info-keyword {
+      }
+      .org-document-title {
+        /* org-document-title */
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        font-weight: bold;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-verbatim {
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">vim &#31508;&#35760;
+</span></span>
+&#35760;&#24405;&#20351;&#29992; vim &#36807;&#31243;&#20013;&#30340;&#30097;&#38590;&#26434;&#30151;&#12290;
+<span class="org-level-1">* FAQs</span>
+<span class="org-level-2">** how to swap two strings?</span>
+For example, we have a code snippets with two identifiers: <span class="org-verbatim">=tmp_1=</span> and
+<span class="org-verbatim">=tmp_2=</span>, then we want to swap them in all occurrences. Like
+implementing <span class="org-verbatim">=swap=</span> in normal programming languages, we can:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  :s/tmp_1/tmp_X/g
+  :s/tmp_2/tmp_1/g
+  :s/tmp_X/tmp_2/g
+</span><span class="org-block-end-line">#+end_example
+</span>This method is inefficient and killing. There is a plugin named
+<span class="org-verbatim">=abolish=</span> which enhances the substitution utilities, with its help, we
+can simply type:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  :S/{tmp_1,tmp_2}/{tmp_2,tmp_1}/g
+</span><span class="org-block-end-line">#+end_example
+</span>Note the upper case <span class="org-verbatim">=S=</span>.
+</pre>
+  </body>
+</html>

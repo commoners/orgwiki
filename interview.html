@@ -2,10 +2,9 @@
 <html>
 <head>
 <title>面试技能收集</title>
-<!-- 2014-10-02 -->
+<!-- 2014-12-10 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
-<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -207,10 +206,10 @@ non-portable. For example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">A</span> { <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">... */</span> };
-<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">B</span> { <span style="color: #7f9f7f;">/* </span><span style="color: #7f9f7f;">... */</span> };
-<span style="color: #8cd0d3;">A</span> * <span style="color: #dfaf8f;">a</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">A</span>;
-<span style="color: #8cd0d3;">B</span> * <span style="color: #dfaf8f;">b</span> = <span style="color: #f0dfaf; font-weight: bold;">reinterpret_cast</span>&lt;B*&gt;(a);
+<pre class="src src-cpp"><span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">A</span> { <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">... */</span> };
+<span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">B</span> { <span style="font-weight: bold; font-style: italic;">/* </span><span style="font-weight: bold; font-style: italic;">... */</span> };
+<span style="font-weight: bold; text-decoration: underline;">A</span> * <span style="font-weight: bold; font-style: italic;">a</span> = <span style="font-weight: bold;">new</span> <span style="font-weight: bold; text-decoration: underline;">A</span>;
+<span style="font-weight: bold; text-decoration: underline;">B</span> * <span style="font-weight: bold; font-style: italic;">b</span> = <span style="font-weight: bold;">reinterpret_cast</span>&lt;B*&gt;(a);
 </pre>
 </div>
 </div>
@@ -282,22 +281,22 @@ container itself instead of the size of all its elements. Example
 </p>
 <div class="org-src-container">
 
-<pre class="src src-cpp"><span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;iostream&gt;</span>
-<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;string&gt;</span>
-<span style="color: #8cd0d3;">#include</span> <span style="color: #cc9393;">&lt;vector&gt;</span>
+<pre class="src src-cpp"><span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;iostream&gt;</span>
+<span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;string&gt;</span>
+<span style="font-weight: bold;">#include</span> <span style="font-style: italic;">&lt;vector&gt;</span>
 
-<span style="color: #f0dfaf; font-weight: bold;">using</span> <span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #bfebbf;">std</span>;
+<span style="font-weight: bold;">using</span> <span style="font-weight: bold;">namespace</span> <span style="font-weight: bold; text-decoration: underline;">std</span>;
 
-<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">argc</span>, <span style="color: #8cd0d3;">char</span> *<span style="color: #dfaf8f;">argv</span>[])
+<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold;">main</span>(<span style="font-weight: bold; text-decoration: underline;">int</span> <span style="font-weight: bold; font-style: italic;">argc</span>, <span style="font-weight: bold; text-decoration: underline;">char</span> *<span style="font-weight: bold; font-style: italic;">argv</span>[])
 {
-    <span style="color: #8cd0d3;">string</span> <span style="color: #dfaf8f;">str</span> = <span style="color: #cc9393;">"abcdefgaaaaaaaaaaaa"</span>;
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(str) = "</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(str) &lt;&lt; endl;
-    <span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">int</span>&gt; <span style="color: #dfaf8f;">vec</span>(100);
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(vec(100)) = "</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(vec) &lt;&lt; endl;
-    <span style="color: #8cd0d3;">vector</span>&lt;<span style="color: #8cd0d3;">char</span>&gt; <span style="color: #dfaf8f;">cvec</span>(100);
-    cout &lt;&lt; <span style="color: #cc9393;">"sizeof(cvec(100)) = "</span> &lt;&lt; <span style="color: #f0dfaf; font-weight: bold;">sizeof</span>(cvec) &lt;&lt; endl;
+    <span style="font-weight: bold; text-decoration: underline;">string</span> <span style="font-weight: bold; font-style: italic;">str</span> = <span style="font-style: italic;">"abcdefgaaaaaaaaaaaa"</span>;
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(str) = "</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(str) &lt;&lt; endl;
+    <span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">int</span>&gt; <span style="font-weight: bold; font-style: italic;">vec</span>(100);
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(vec(100)) = "</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(vec) &lt;&lt; endl;
+    <span style="font-weight: bold; text-decoration: underline;">vector</span>&lt;<span style="font-weight: bold; text-decoration: underline;">char</span>&gt; <span style="font-weight: bold; font-style: italic;">cvec</span>(100);
+    cout &lt;&lt; <span style="font-style: italic;">"sizeof(cvec(100)) = "</span> &lt;&lt; <span style="font-weight: bold;">sizeof</span>(cvec) &lt;&lt; endl;
 
-    <span style="color: #f0dfaf; font-weight: bold;">return</span> 0;
+    <span style="font-weight: bold;">return</span> 0;
 }
 </pre>
 </div>
@@ -352,15 +351,15 @@ python 中的decorator本质上就是包装函数 <code>wrap</code> ，以被包
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">hello</span>(fn):
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">wrapper</span>():
-        <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"hello, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
+<pre class="src src-python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">hello</span>(fn):
+<span style="background-color: #bebebe;"> </span>   <span style="font-weight: bold;">def</span> <span style="font-weight: bold;">wrapper</span>():
+        <span style="font-weight: bold;">print</span> <span style="font-style: italic;">"hello, %s"</span> % fn.<span style="font-weight: bold;">__name__</span>
         fn()
-        <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"goodby, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">return</span> wrapper
-<span style="color: #8cd0d3;">@hello</span>
-<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">foo</span>():
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"i am foo"</span>
+        <span style="font-weight: bold;">print</span> <span style="font-style: italic;">"goodby, %s"</span> % fn.<span style="font-weight: bold;">__name__</span>
+<span style="background-color: #bebebe;"> </span>   <span style="font-weight: bold;">return</span> wrapper
+<span style="font-weight: bold; text-decoration: underline;">@hello</span>
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">foo</span>():
+<span style="background-color: #bebebe;"> </span>   <span style="font-weight: bold;">print</span> <span style="font-style: italic;">"i am foo"</span>
 
 foo()
 </pre>
@@ -379,9 +378,9 @@ foo()
 
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="color: #8cd0d3;">@decorator</span>(arg1, arg2)
-<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">func</span>():
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">pass</span>
+<pre class="src src-python"><span style="font-weight: bold; text-decoration: underline;">@decorator</span>(arg1, arg2)
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">func</span>():
+<span style="background-color: #bebebe;"> </span>   <span style="font-weight: bold;">pass</span>
 </pre>
 </div>
 <p>
@@ -389,7 +388,7 @@ foo()
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="color: #dfaf8f;">func</span> = decorator(arg1, arg2)(func)
+<pre class="src src-python"><span style="font-weight: bold; font-style: italic;">func</span> = decorator(arg1, arg2)(func)
 </pre>
 </div>
 </div>
@@ -725,7 +724,7 @@ Queue, Shared Memory, Semaphore)，socket通信。这些方法同样适用于
 </p></div>
 
 <div class="footdef"><sup><a id="fn.4" name="fn.4" class="footnum" href="#fnr.4">4</a></sup> <p class="footpara">
-<a href="racket_notes.html">racket_notes.html</a>
+<a href="racket_notes.html#sec-4-1">racket_notes.html#sec-4-1</a>
 </p></div>
 
 

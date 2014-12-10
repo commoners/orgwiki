@@ -1,0 +1,20 @@
+#+TITLE: vim 笔记
+
+记录使用 vim 过程中的疑难杂症。
+* FAQs
+** how to swap two strings?
+For example, we have a code snippets with two identifiers: =tmp_1= and
+=tmp_2=, then we want to swap them in all occurrences. Like
+implementing =swap= in normal programming languages, we can:
+#+BEGIN_EXAMPLE
+:s/tmp_1/tmp_X/g
+:s/tmp_2/tmp_1/g
+:s/tmp_X/tmp_2/g
+#+END_EXAMPLE
+This method is inefficient and killing. There is a plugin named
+=abolish= which enhances the substitution utilities, with its help, we
+can simply type:
+#+BEGIN_EXAMPLE
+:S/{tmp_1,tmp_2}/{tmp_2,tmp_1}/g
+#+END_EXAMPLE
+Note the upper case =S=.

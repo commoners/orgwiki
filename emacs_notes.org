@@ -40,3 +40,21 @@ into =eshell-visual-commands= to make eshell invoke =term= mode automatically.
 ** How to insert not graphic characters?
 1. Insert =C-q= First.
 2. =C-x 8 <RET> <unicode>= to insert unicode characters.
+
+** How to swap values by regexp-replace
+The idea is mixing elisp expressions in regular expressions.
+
+For example, we want to swap all ocurrences of word =left= and
+=right=, the we can specify the pattern to be:
+#+BEGIN_EXAMPLE
+Replace: \(left\)\|right
+#+END_EXAMPLE
+And the next step is to correctly specify the replace string, note
+that by the previous pattern, we can capture the matches of =left= by
+=\1= as we shall see later. Now replace with:
+#+BEGIN_EXAMPLE
+Replace with: \,(if \1 "right" "left")
+#+END_EXAMPLE
+We use =\,= to insert elisp expression. For more information, check [fn:elfre]
+
+[fn:elfre] [[http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions][Evaluating Lisp Forms in Regular Expressions]]

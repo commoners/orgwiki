@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index</title>
+<title>vim 笔记</title>
 <!-- 2014-12-10 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -71,8 +71,52 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">Index</h1>
-
+<h1 class="title">vim 笔记</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">FAQs</a>
+<ul>
+<li><a href="#sec-1-1">how to swap two strings?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+记录使用 vim 过程中的疑难杂症。
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">FAQs</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">how to swap two strings?</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+For example, we have a code snippets with two identifiers: <code>tmp_1</code> and
+<code>tmp_2</code>, then we want to swap them in all occurrences. Like
+implementing <code>swap</code> in normal programming languages, we can:
+</p>
+<pre class="example">
+:s/tmp_1/tmp_X/g
+:s/tmp_2/tmp_1/g
+:s/tmp_X/tmp_2/g
+</pre>
+<p>
+This method is inefficient and killing. There is a plugin named
+<code>abolish</code> which enhances the substitution utilities, with its help, we
+can simply type:
+</p>
+<pre class="example">
+:S/{tmp_1,tmp_2}/{tmp_2,tmp_1}/g
+</pre>
+<p>
+Note the upper case <code>S</code>.
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>

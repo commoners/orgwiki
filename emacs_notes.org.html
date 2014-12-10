@@ -17,11 +17,27 @@
         /* hl-line */
         background-color: #404040;
       }
+      .org-block {
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        font-weight: bold;
+        font-style: italic;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        font-weight: bold;
+        font-style: italic;
+      }
       .org-document-info-keyword {
       }
       .org-document-title {
         /* org-document-title */
         font-weight: bold;
+      }
+      .org-footnote {
+        /* org-footnote */
+        text-decoration: underline;
       }
       .org-level-1 {
         /* org-level-1 */
@@ -95,6 +111,27 @@
 <span class="org-level-2">** How to insert not graphic characters?</span>
 1. Insert <span class="org-verbatim">=C-q=</span> First.
 2. <span class="org-verbatim">=C-x 8 &lt;RET&gt; &lt;unicode&gt;=</span> to insert unicode characters.
+
+<span class="org-level-2">** How to swap values by regexp-replace</span>
+The idea is mixing elisp expressions in regular expressions.
+
+For example, we want to swap all ocurrences of word <span class="org-verbatim">=left=</span> and
+<span class="org-verbatim">=right=</span>, the we can specify the pattern to be:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  Replace: \(left\)\|right
+</span><span class="org-block-end-line">#+end_example
+</span>And the next step is to correctly specify the replace string, note
+that by the previous pattern, we can capture the matches of <span class="org-verbatim">=left=</span> by
+<span class="org-verbatim">=\1=</span> as we shall see later. Now replace with:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  Replace with: \,(if \1 "right" "left")
+</span><span class="org-block-end-line">#+end_example
+</span>We use =\,= to insert elisp expression. For more information, check <span class="org-footnote">[fn:elfre]</span>
+
+<span class="org-footnote">[fn:elfre]</span> <span class="org-link"><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">[[http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions][</a><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">Evaluating Lisp Forms in Regular Expressions</a><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">]]</a></span>
+
+
+
 
 </pre>
   </body>
