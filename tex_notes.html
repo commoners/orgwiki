@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>TeX/LaTeX Notes</title>
-<!-- 2014-11-20 -->
+<!-- 2014-12-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -242,10 +242,10 @@ If you only need eps files, package <code>epsf</code> is ready to use:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="font-weight: bold;">\</span><span style="font-weight: bold;">input</span> epsf
-\epsfbox{subdir/fig_tex.eps}
-<span style="font-weight: bold; font-style: italic;">% </span><span style="font-weight: bold; font-style: italic;">scale version</span>
-\epsfxsize\hsize \epsfysize=0.5\hsize \epsfbox{subdir/fig_tex.eps}
+<pre class="src src-tex"><span style="color: #ff0000; font-weight: bold;">\</span><span style="color: #f0dfaf; font-weight: bold;">input</span> epsf
+<span style="color: #d3d3d3;">\epsfbox</span>{subdir/fig_tex.eps}
+<span style="color: #7f9f7f;">% </span><span style="color: #7f9f7f;">scale version</span>
+<span style="color: #d3d3d3;">\epsfxsize\hsize</span> <span style="color: #d3d3d3;">\epsfysize</span>=0.5<span style="color: #d3d3d3;">\hsize</span> <span style="color: #d3d3d3;">\epsfbox</span>{subdir/fig_tex.eps}
 </pre>
 </div>
 <p>
@@ -253,9 +253,9 @@ Or take advantage of LaTeX <code>graphicx</code> package:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="font-weight: bold;">\</span><span style="font-weight: bold;">input</span> miniltx <span style="font-weight: bold; font-style: italic;">% add minimal latex support</span>
-<span style="font-weight: bold;">\</span><span style="font-weight: bold;">input</span> graphicx.sty
-\includegraphics[width=\hsize,height=3pc]{test/fig_tex.eps}
+<pre class="src src-tex"><span style="color: #ff0000; font-weight: bold;">\</span><span style="color: #f0dfaf; font-weight: bold;">input</span> miniltx <span style="color: #7f9f7f;">% add minimal latex support</span>
+<span style="color: #ff0000; font-weight: bold;">\</span><span style="color: #f0dfaf; font-weight: bold;">input</span> graphicx.sty
+<span style="color: #d3d3d3;">\includegraphics</span>[width=<span style="color: #d3d3d3;">\hsize</span>,height=3pc]{test/fig_tex.eps}
 </pre>
 </div>
 </div>
@@ -316,9 +316,9 @@ An example of using <code>\special</code>:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="font-weight: bold;">\</span><span style="font-weight: bold;">chapter</span>#1{
- \hbox{\special{pdf: outline 1 <span style="font-style: italic;">&lt;&lt; /Title (#1) /Dest [</span>
-<span style="font-style: italic;"> @thispage /FitH @ypos ] &gt;&gt;</span> }}<span style="font-weight: bold; font-style: italic;">%</span>
+<pre class="src src-tex"><span style="color: #ff0000; font-weight: bold;">\</span><span style="color: #f0dfaf; font-weight: bold;">chapter</span>#1{
+ <span style="color: #d3d3d3;">\hbox</span>{<span style="color: #d3d3d3;">\special</span>{pdf: outline 1 <span style="color: #00ff00;">&lt;&lt; /Title (#1) /Dest [</span>
+<span style="color: #00ff00;"> @thispage /FitH @ypos ] &gt;&gt;</span> }}<span style="color: #7f9f7f;">%</span>
 }
 </pre>
 </div>
@@ -352,8 +352,8 @@ error is caused by plain TeX which defines <code>\newif</code> to be
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\let\plainnewif=\newif
-\def\newif{\csname plainnewif\endcsname}
+<pre class="src src-tex"><span style="color: #d3d3d3;">\let\plainnewif</span>=<span style="color: #d3d3d3;">\newif</span>
+<span style="color: #d3d3d3;">\def\newif</span>{<span style="color: #d3d3d3;">\csname</span> plainnewif<span style="color: #d3d3d3;">\endcsname</span>}
 </pre>
 </div>
 <p>
@@ -378,8 +378,8 @@ The Syntax is as follows:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\definexref{&lt;label&gt;}{&lt;value of label&gt;}{&lt;class&gt;}
-\definexref{sec-intro}{3.1}{section}
+<pre class="src src-tex"><span style="color: #d3d3d3;">\definexref</span>{&lt;label&gt;}{&lt;value of label&gt;}{&lt;class&gt;}
+<span style="color: #d3d3d3;">\definexref</span>{sec-intro}{3.1}{section}
 </pre>
 </div>
 <p>
@@ -418,10 +418,10 @@ For example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\def\xxxword{Orz}
-\definexref{xxx-intro}{3.1}{xxx}
-\definexref{xxx-next}{3.2}{xxx}
-See \refs{xxx-intro} and \refn{xxx-next} ...
+<pre class="src src-tex"><span style="color: #d3d3d3;">\def\xxxword</span>{Orz}
+<span style="color: #d3d3d3;">\definexref</span>{xxx-intro}{3.1}{xxx}
+<span style="color: #d3d3d3;">\definexref</span>{xxx-next}{3.2}{xxx}
+See <span style="color: #d3d3d3;">\refs</span>{xxx-intro} and <span style="color: #d3d3d3;">\refn</span>{xxx-next} ...
 </pre>
 </div>
 <p>
@@ -536,17 +536,17 @@ Add the following codes after loading <code>zhspacing</code>
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\font\zhrmfont = "SimSun" at 10pt
-\font\zhbffont = "SimHei" at 10pt
-\font\zhitfont = "KaiTi" at 10pt
-\font\zhttfont = "KaiTi" at 10pt
+<pre class="src src-tex"><span style="color: #d3d3d3;">\font\zhrmfont</span> = "SimSun" at 10pt
+<span style="color: #d3d3d3;">\font\zhbffont</span> = "SimHei" at 10pt
+<span style="color: #d3d3d3;">\font\zhitfont</span> = "KaiTi" at 10pt
+<span style="color: #d3d3d3;">\font\zhttfont</span> = "KaiTi" at 10pt
 
-\def\zhfont{<span style="font-weight: bold; font-style: italic;">%</span>
-  \ifnum\fam=\bffam \zhbffont 
-  \else\ifnum\fam=\ttfam \zhttfont
-  \else\ifnum\fam=\itfam \zhitfont  
-  \else \zhrmfont
-  \fi\fi\fi}
+<span style="color: #d3d3d3;">\def\zhfont</span>{<span style="color: #7f9f7f;">%</span>
+  <span style="color: #d3d3d3;">\ifnum\fam</span>=<span style="color: #d3d3d3;">\bffam</span> <span style="color: #d3d3d3;">\zhbffont</span> 
+  <span style="color: #d3d3d3;">\else\ifnum\fam</span>=<span style="color: #d3d3d3;">\ttfam</span> <span style="color: #d3d3d3;">\zhttfont</span>
+  <span style="color: #d3d3d3;">\else\ifnum\fam</span>=<span style="color: #d3d3d3;">\itfam</span> <span style="color: #d3d3d3;">\zhitfont</span>  
+  <span style="color: #d3d3d3;">\else</span> <span style="color: #d3d3d3;">\zhrmfont</span>
+  <span style="color: #d3d3d3;">\fi\fi\fi</span>}
 </pre>
 </div>
 </div>
@@ -567,7 +567,7 @@ Define new fonts.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\font\bigrm = cmr10 scaled \magstep 1
+<pre class="src src-tex"><span style="color: #d3d3d3;">\font\bigrm</span> = cmr10 scaled <span style="color: #d3d3d3;">\magstep</span> 1
 </pre>
 </div>
 <p>
@@ -734,10 +734,10 @@ environment <code>\topinsert</code> and <code>\endinsert</code>:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\topinsert
-\vskip 1 in
-\centerline{Figure 1}
-\endinsert
+<pre class="src src-tex"><span style="color: #d3d3d3;">\topinsert</span>
+<span style="color: #d3d3d3;">\vskip</span> 1 in
+<span style="color: #d3d3d3;">\centerline</span>{Figure 1}
+<span style="color: #d3d3d3;">\endinsert</span>
 </pre>
 </div>
 <p>
@@ -794,7 +794,7 @@ following manner:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\headline={\ifodd \pageno {...}\else {...} \fi}
+<pre class="src src-tex"><span style="color: #d3d3d3;">\headline</span>={<span style="color: #d3d3d3;">\ifodd</span> <span style="color: #d3d3d3;">\pageno</span> {...}<span style="color: #d3d3d3;">\else</span> {...} <span style="color: #d3d3d3;">\fi</span>}
 </pre>
 </div>
 </div>
@@ -843,12 +843,12 @@ made  in the text that are only temporary:
 <div class="org-src-container">
 
 <pre class="src src-tex">{
-  \hsize = 4in
-  \parindent = 0pt
-  \leftskip = 1in
+  <span style="color: #d3d3d3;">\hsize</span> = 4in
+  <span style="color: #d3d3d3;">\parindent</span> = 0pt
+  <span style="color: #d3d3d3;">\leftskip</span> = 1in
   Some text...
-  /par <span style="font-weight: bold; font-style: italic;">% This is an easy mistake to make</span>
-       <span style="font-weight: bold; font-style: italic;">% use a </span><span style="font-weight: bold; font-style: italic;">\par</span><span style="font-weight: bold; font-style: italic;"> or a blank line here to indicate the end of a paragraph</span>
+  /par <span style="color: #7f9f7f;">% This is an easy mistake to make</span>
+       <span style="color: #7f9f7f;">% use a </span><span style="color: #7f9f7f;">\par</span><span style="color: #7f9f7f;"> or a blank line here to indicate the end of a paragraph</span>
 }
 </pre>
 </div>
@@ -1133,7 +1133,7 @@ propositions and the like.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\proclaim Theorem 1(H.<span style="font-style: italic;">``G.''</span>Wells). In the country of the blind, the
+<pre class="src src-tex"><span style="color: #d3d3d3;">\proclaim</span> Theorem 1(H.<span style="color: #00ff00;">``G.''</span>Wells). In the country of the blind, the
 one-eyed man is king.
 </pre>
 </div>
@@ -1150,12 +1150,12 @@ line. Start with <code>$$\pmatrix{...}$$</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\pmatrix</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">  a &amp; b &amp; c &amp; d </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  b &amp; a &amp; c+d &amp; c-d </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">}$$</span>
+<pre class="src src-tex"><span style="color: #deb887;">$$</span><span style="color: #deb887;">\pmatrix</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">  a &amp; b &amp; c &amp; d </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  b &amp; a &amp; c+d &amp; c-d </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">}$$</span>
 </pre>
 </div>
 <p>
@@ -1169,14 +1169,14 @@ the delimiters must be explicitly included using <code>\left</code> and <code>\r
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\left</span><span style="text-decoration: underline;"> |</span>
-<span style="text-decoration: underline;">\matrix</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">  a &amp; b &amp; c &amp; d </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  b &amp; a &amp; c+d &amp; c-d </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">\right</span><span style="text-decoration: underline;"> | $$</span>
+<pre class="src src-tex"><span style="color: #deb887;">$$</span><span style="color: #deb887;">\left</span><span style="color: #deb887;"> |</span>
+<span style="color: #deb887;">\matrix</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">  a &amp; b &amp; c &amp; d </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  b &amp; a &amp; c+d &amp; c-d </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  0 &amp; 0 &amp; a+b &amp; a-b </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  0 &amp; 0 &amp; ab &amp; cd </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">}</span>
+<span style="color: #deb887;">\right</span><span style="color: #deb887;"> | $$</span>
 </pre>
 </div>
 <p>
@@ -1202,11 +1202,11 @@ the control word <code>\cr</code> and <code>\eqalign</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="text-decoration: underline;">$$ </span><span style="text-decoration: underline;">\eqalign</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">  a+b &amp;= c+d </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  x &amp;= w+y+x </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  m+n+o+p &amp;= q </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">} $$</span>
+<pre class="src src-tex"><span style="color: #deb887;">$$ </span><span style="color: #deb887;">\eqalign</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">  a+b &amp;= c+d </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  x &amp;= w+y+x </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  m+n+o+p &amp;= q </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">} $$</span>
 </pre>
 </div>
 
@@ -1221,11 +1221,11 @@ word <code>\eqalignno</code> and <code>\leqalignno</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="text-decoration: underline;">$$ </span><span style="text-decoration: underline;">\eqalignno</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">  a+b &amp;= c+d &amp; (1)</span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  x &amp;= w+y+x </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">  m+n+o+p &amp;= q &amp; * </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">} $$</span>
+<pre class="src src-tex"><span style="color: #deb887;">$$ </span><span style="color: #deb887;">\eqalignno</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">  a+b &amp;= c+d &amp; (1)</span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  x &amp;= w+y+x </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">  m+n+o+p &amp;= q &amp; * </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">} $$</span>
 </pre>
 </div>
 </div>
@@ -1250,10 +1250,10 @@ with the control symbol <code>\+</code> and ends with <code>\cr</code>.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\settabs 4 \columns
-\+ British Columbia <span style="font-weight: bold;">&amp;</span> Alberta <span style="font-weight: bold;">&amp;</span> Saskatchewan <span style="font-weight: bold;">&amp;</span> Manitoba \cr
-\+ Ontario <span style="font-weight: bold;">&amp;</span> Quebec <span style="font-weight: bold;">&amp;</span> New Brunswick <span style="font-weight: bold;">&amp;</span> Nova Scotia \cr
-\+ <span style="font-weight: bold;">&amp;</span> Prince Edward Island <span style="font-weight: bold;">&amp;</span> Newfoundland \cr
+<pre class="src src-tex"><span style="color: #d3d3d3;">\settabs</span> 4 <span style="color: #d3d3d3;">\columns</span>
+\+ British Columbia <span style="color: #ff0000; font-weight: bold;">&amp;</span> Alberta <span style="color: #ff0000; font-weight: bold;">&amp;</span> Saskatchewan <span style="color: #ff0000; font-weight: bold;">&amp;</span> Manitoba <span style="color: #d3d3d3;">\cr</span>
+\+ Ontario <span style="color: #ff0000; font-weight: bold;">&amp;</span> Quebec <span style="color: #ff0000; font-weight: bold;">&amp;</span> New Brunswick <span style="color: #ff0000; font-weight: bold;">&amp;</span> Nova Scotia <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #ff0000; font-weight: bold;">&amp;</span> Prince Edward Island <span style="color: #ff0000; font-weight: bold;">&amp;</span> Newfoundland <span style="color: #d3d3d3;">\cr</span>
 </pre>
 </div>
 <p>
@@ -1261,13 +1261,13 @@ We can also set tab positions to a given string
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\settabs \+ <span style="font-weight: bold;">\quad</span> Year <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Price <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Dividend <span style="font-weight: bold;">&amp;</span> \cr 
-\+ \hfill Year <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Price <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> Dividend \cr
-\+ \hfill 1971 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 41--54 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.60 \cr
-\+ \hfill 2 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 41--54 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.70 \cr
-\+ \hfill 3 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 46--55 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$2.87 \cr
-\+ \hfill 4 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 40--53 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$3.24 \cr
-\+ \hfill 5 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\quad</span> 45--52 <span style="font-weight: bold;">\quad</span> <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> \$3.40 \cr
+<pre class="src src-tex"><span style="color: #d3d3d3;">\settabs</span> \+ <span style="color: #f0dfaf; font-weight: bold;">\quad</span> Year <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> Price <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> Dividend <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\cr</span> 
+\+ <span style="color: #d3d3d3;">\hfill</span> Year <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> Price <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> Dividend <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #d3d3d3;">\hfill</span> 1971 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> 41--54 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> \$2.60 <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #d3d3d3;">\hfill</span> 2 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> 41--54 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> \$2.70 <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #d3d3d3;">\hfill</span> 3 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> 46--55 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> \$2.87 <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #d3d3d3;">\hfill</span> 4 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> 40--53 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> \$3.24 <span style="color: #d3d3d3;">\cr</span>
+\+ <span style="color: #d3d3d3;">\hfill</span> 5 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> 45--52 <span style="color: #f0dfaf; font-weight: bold;">\quad</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> \$3.40 <span style="color: #d3d3d3;">\cr</span>
 </pre>
 </div>
 </div>
@@ -1281,11 +1281,11 @@ The general pattern in the <code>\halign</code> is as follows:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\halign{ &lt;template line&gt; \cr
-&lt;first display line&gt; \cr
-&lt;second display line&gt; \cr
+<pre class="src src-tex"><span style="color: #d3d3d3;">\halign</span>{ &lt;template line&gt; <span style="color: #d3d3d3;">\cr</span>
+&lt;first display line&gt; <span style="color: #d3d3d3;">\cr</span>
+&lt;second display line&gt; <span style="color: #d3d3d3;">\cr</span>
 ...
-&lt;last display line&gt; \cr
+&lt;last display line&gt; <span style="color: #d3d3d3;">\cr</span>
 }
 </pre>
 </div>
@@ -1296,10 +1296,10 @@ corresponding section in display line and thus must appear in each section.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\halign{\hskip 2 in <span style="text-decoration: underline;">$#$</span><span style="font-weight: bold;">&amp;</span> \hfil <span style="font-weight: bold;">\quad</span> # \hfil <span style="font-weight: bold;">&amp;</span> <span style="font-weight: bold;">\qquad</span> <span style="text-decoration: underline;">$#$</span> <span style="font-weight: bold;">&amp;</span> \hfil <span style="font-weight: bold;">\quad</span> # \hfil \cr
-\alpha <span style="font-weight: bold;">&amp;</span> alpha <span style="font-weight: bold;">&amp;</span> \beta <span style="font-weight: bold;">&amp;</span> beta \cr
-\gamma <span style="font-weight: bold;">&amp;</span> gamma <span style="font-weight: bold;">&amp;</span> \delta <span style="font-weight: bold;">&amp;</span> delta \cr
-\epsilon <span style="font-weight: bold;">&amp;</span> epsilon <span style="font-weight: bold;">&amp;</span> \zeta <span style="font-weight: bold;">&amp;</span> zeta \cr
+<pre class="src src-tex"><span style="color: #d3d3d3;">\halign</span>{<span style="color: #d3d3d3;">\hskip</span> 2 in <span style="color: #deb887;">$#$</span><span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\hfil</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> # <span style="color: #d3d3d3;">\hfil</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #f0dfaf; font-weight: bold;">\qquad</span> <span style="color: #deb887;">$#$</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\hfil</span> <span style="color: #f0dfaf; font-weight: bold;">\quad</span> # <span style="color: #d3d3d3;">\hfil</span> <span style="color: #d3d3d3;">\cr</span>
+<span style="color: #d3d3d3;">\alpha</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> alpha <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\beta</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> beta <span style="color: #d3d3d3;">\cr</span>
+<span style="color: #d3d3d3;">\gamma</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> gamma <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\delta</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> delta <span style="color: #d3d3d3;">\cr</span>
+<span style="color: #d3d3d3;">\epsilon</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> epsilon <span style="color: #ff0000; font-weight: bold;">&amp;</span> <span style="color: #d3d3d3;">\zeta</span> <span style="color: #ff0000; font-weight: bold;">&amp;</span> zeta <span style="color: #d3d3d3;">\cr</span>
 }
 </pre>
 </div>
@@ -1314,19 +1314,19 @@ Below is a general pattern to generate table:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex"><span style="text-decoration: underline;">$$</span><span style="text-decoration: underline;">\vbox</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">\offinterlineskip</span>
-<span style="text-decoration: underline;">\halign</span><span style="text-decoration: underline;">{</span>
-<span style="text-decoration: underline;">\strut</span><span style="text-decoration: underline;"> </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # &amp; </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # &amp; . . . &amp; </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> # </span><span style="text-decoration: underline;">\vrule</span><span style="text-decoration: underline;"> </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">...</span>
-<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="text-decoration: underline;">\cr</span>
-<span style="text-decoration: underline;">\noalign</span><span style="text-decoration: underline;">{</span><span style="text-decoration: underline;">\hrule</span><span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">}</span>
-<span style="text-decoration: underline;">}$$</span>
+<pre class="src src-tex"><span style="color: #deb887;">$$</span><span style="color: #deb887;">\vbox</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">\offinterlineskip</span>
+<span style="color: #deb887;">\halign</span><span style="color: #deb887;">{</span>
+<span style="color: #deb887;">\strut</span><span style="color: #deb887;"> </span><span style="color: #deb887;">\vrule</span><span style="color: #deb887;"> # &amp; </span><span style="color: #deb887;">\vrule</span><span style="color: #deb887;"> # &amp; . . . &amp; </span><span style="color: #deb887;">\vrule</span><span style="color: #deb887;"> # </span><span style="color: #deb887;">\vrule</span><span style="color: #deb887;"> </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">\noalign</span><span style="color: #deb887;">{</span><span style="color: #deb887;">\hrule</span><span style="color: #deb887;">}</span>
+<span style="color: #deb887;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">\noalign</span><span style="color: #deb887;">{</span><span style="color: #deb887;">\hrule</span><span style="color: #deb887;">}</span>
+<span style="color: #deb887;">...</span>
+<span style="color: #deb887;">\noalign</span><span style="color: #deb887;">{</span><span style="color: #deb887;">\hrule</span><span style="color: #deb887;">}</span>
+<span style="color: #deb887;">&lt;first column entry&gt; &amp; &lt;second column entry&gt; &amp; . . . &amp; &lt;last column entry&gt; </span><span style="color: #deb887;">\cr</span>
+<span style="color: #deb887;">\noalign</span><span style="color: #deb887;">{</span><span style="color: #deb887;">\hrule</span><span style="color: #deb887;">}</span>
+<span style="color: #deb887;">}</span>
+<span style="color: #deb887;">}$$</span>
 </pre>
 </div>
 </div>
@@ -1427,10 +1427,10 @@ to put some space above or below the hrule:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\parindent = 0pt \parskip=12pt
+<pre class="src src-tex"><span style="color: #d3d3d3;">\parindent</span> = 0pt <span style="color: #d3d3d3;">\parskip</span>=12pt
 Here is the text before the hrule
-\bigskip
-\hrule width 3 in
+<span style="color: #d3d3d3;">\bigskip</span>
+<span style="color: #d3d3d3;">\hrule</span> width 3 in
 And here is some text after the hrule
 </pre>
 </div>
@@ -1444,7 +1444,7 @@ being set). For example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\hrule width 3 in height 2 pt depth 3pt
+<pre class="src src-tex"><span style="color: #d3d3d3;">\hrule</span> width 3 in height 2 pt depth 3pt
 </pre>
 </div>
 <p>
@@ -1573,10 +1573,10 @@ shrinkability. For example, <code>\vfil</code>, <code>\vfill</code>, <code>\vss<
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\vskip 0pt plus 1fil
-\vskip 0pt plus 1fill
-\vskip 0pt plus 1fil minus 1fil
-\vskip 0pt plus -fil
+<pre class="src src-tex"><span style="color: #d3d3d3;">\vskip</span> 0pt plus 1fil
+<span style="color: #d3d3d3;">\vskip</span> 0pt plus 1fill
+<span style="color: #d3d3d3;">\vskip</span> 0pt plus 1fil minus 1fil
+<span style="color: #d3d3d3;">\vskip</span> 0pt plus -fil
 </pre>
 </div>
 
@@ -1604,13 +1604,13 @@ this character is taken from the current font.
 generic term <code>&lt;box&gt;</code>, A box has one of the following seven forms:
 <div class="org-src-container">
 
-<pre class="src src-tex">\hbox&lt;box specification&gt;{&lt;horizontal material&gt;}
-\vbox&lt;box specification&gt;{&lt;vertical material&gt;}
-\vtop&lt;box specification&gt;{&lt;vertical material&gt;}
-\box&lt;register number&gt;
-\copy&lt;register number&gt;
-\vsplit&lt;register number&gt; to &lt;dimen&gt;
-\lastbox
+<pre class="src src-tex"><span style="color: #d3d3d3;">\hbox</span>&lt;box specification&gt;{&lt;horizontal material&gt;}
+<span style="color: #d3d3d3;">\vbox</span>&lt;box specification&gt;{&lt;vertical material&gt;}
+<span style="color: #d3d3d3;">\vtop</span>&lt;box specification&gt;{&lt;vertical material&gt;}
+<span style="color: #d3d3d3;">\box</span>&lt;register number&gt;
+<span style="color: #d3d3d3;">\copy</span>&lt;register number&gt;
+<span style="color: #d3d3d3;">\vsplit</span>&lt;register number&gt; to &lt;dimen&gt;
+<span style="color: #d3d3d3;">\lastbox</span>
 </pre>
 </div>
 <p>
@@ -1675,7 +1675,7 @@ called <span class="underline">pre-break</span>, <span class="underline">post-br
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">\discretionary{&lt;pre-break text&gt;}{&lt;post-break text&gt;}{&lt;no-break text&gt;}
+<pre class="src src-tex"><span style="color: #d3d3d3;">\discretionary</span>{&lt;pre-break text&gt;}{&lt;post-break text&gt;}{&lt;no-break text&gt;}
 </pre>
 </div>
 <p>
@@ -1687,7 +1687,7 @@ the word "difficult" is provided as:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-tex">di\discretionary{f-}{fi}{ffi}cult
+<pre class="src src-tex">di<span style="color: #d3d3d3;">\discretionary</span>{f-}{fi}{ffi}cult
 </pre>
 </div>
 

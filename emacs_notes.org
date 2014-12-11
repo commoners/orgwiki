@@ -58,3 +58,31 @@ Replace with: \,(if \1 "right" "left")
 We use =\,= to insert elisp expression. For more information, check [fn:elfre]
 
 [fn:elfre] [[http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions][Evaluating Lisp Forms in Regular Expressions]]
+
+** org mode extra spaces in chinese
+Normally, we'll divide text of a paragraph into lines. When org-mode
+exports them, the text will be concatenated with a space between them:
+#+BEGIN_EXAMPLE
+line 1
+line 2
+=> line 1 line 2
+中文
+测试
+=> 中文 测试
+#+END_EXAMPLE
+Note the extra space between chinese characters. This is unexpected
+for chinese characters. Thus, we'll need this workaround.
+
+#+BEGIN_SRC elisp
+  (defun han/org-html-delete-extra-space (string backend info)
+    "Let chinese word to a line if match /han\newline/"
+    (when (and (org-export-derived-backend-p backend 'html)
+  	     (string-match "\\cc\n" string))
+      (replace-regexp-in-string "\\(\\cc\\)\n\\(\\cc\\)" "\\1\\2" string)))
+
+  (eval-after-load 'ox-html
+    '(add-to-list 'org-export-filter-final-output-functions
+  		'han/org-html-delete-extra-space))
+#+END_SRC
+
+Cited from [[http://xuhaojun.github.io/blog/2013-08-19-han-extra-space-org-mode.html]]

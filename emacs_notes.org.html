@@ -130,9 +130,33 @@ that by the previous pattern, we can capture the matches of <span class="org-ver
 
 <span class="org-footnote">[fn:elfre]</span> <span class="org-link"><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">[[http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions][</a><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">Evaluating Lisp Forms in Regular Expressions</a><a href="http://www.masteringemacs.org/article/evaluating-lisp-forms-regular-expressions">]]</a></span>
 
+<span class="org-level-2">** org mode extra spaces in chinese</span>
+Normally, we'll divide text of a paragraph into lines. When org-mode
+exports them, the text will be concatenated with a space between them:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">line 1
+line 2
+=&gt; line 1 line 2
+&#20013;&#25991;
+&#27979;&#35797;
+=&gt; &#20013;&#25991; &#27979;&#35797;
+</span><span class="org-block-end-line">#+end_example
+</span>Note the extra space between chinese characters. This is unexpected
+for chinese characters. Thus, we'll need this workaround.
 
+<span class="org-block-begin-line">#+begin_src elisp
+</span><span class="org-block">  (defun han/org-html-delete-extra-space (string backend info)
+    "Let chinese word to a line if match /han\newline/"
+    (when (and (org-export-derived-backend-p backend 'html)
+               (string-match "\\cc\n" string))
+      (replace-regexp-in-string "\\(\\cc\\)\n\\(\\cc\\)" "\\1\\2" string)))
 
-
+  (eval-after-load 'ox-html
+    '(add-to-list 'org-export-filter-final-output-functions
+                  'han/org-html-delete-extra-space))
+</span><span class="org-block-end-line">#+end_src
+</span>
+Cited from <span class="org-link"><a href="http://xuhaojun.github.io/blog/2013-08-19-han-extra-space-org-mode.html">[[</a><a href="http://xuhaojun.github.io/blog/2013-08-19-han-extra-space-org-mode.html">http://xuhaojun.github.io/blog/2013-08-19-han-extra-space-org-mode.html</a><a href="http://xuhaojun.github.io/blog/2013-08-19-han-extra-space-org-mode.html">]]</a></span>
 </pre>
   </body>
 </html>
