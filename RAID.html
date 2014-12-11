@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Linux RAID 设置</title>
-<!-- 2014-12-04 -->
+<!-- 2014-12-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -99,10 +99,7 @@ for the JavaScript code in this tag.
 <h2 id="sec-1">RAID是什么</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-RAID（Redundant Arrays of Inexpensive Disks），英文翻译为容错式廉价磁
-盘阵列。简单地说，就是通过某种技术，将多个磁盘整合成一个大的磁盘，且这
-个磁盘有容错的能力。那么通过RAID的方式处理之后，不论原先有多少个磁盘，
-在用户的眼里，就变成了一个大的磁盘。
+RAID（Redundant Arrays of Inexpensive Disks），英文翻译为容错式廉价磁盘阵列。简单地说，就是通过某种技术，将多个磁盘整合成一个大的磁盘，且这个磁盘有容错的能力。那么通过RAID的方式处理之后，不论原先有多少个磁盘，在用户的眼里，就变成了一个大的磁盘。
 </p>
 </div>
 
@@ -114,19 +111,15 @@ RAID（Redundant Arrays of Inexpensive Disks），英文翻译为容错式廉价
 </p>
 
 <p>
-硬RAID是构买专门的RAID卡，由该卡提供RAID所需要的运算功能。只要预算够，
-这基本上是最好的方案。
+硬RAID是构买专门的RAID卡，由该卡提供RAID所需要的运算功能。只要预算够，这基本上是最好的方案。
 </p>
 
 <p>
-软RAID就是通过软件实现RAID功能，这就需要CPU提供额外的计算。这也就是穷
-人的RAID了。
+软RAID就是通过软件实现RAID功能，这就需要CPU提供额外的计算。这也就是穷人的RAID了。
 </p>
 
 <p>
-FakeRAID是由主板提供的RAID功能，但RAID需要的计算仍然由CPU实现，所以性
-能上与软RAID无异，它的优点是如果有多个操作系统，使用同一个RAID存储，那
-么fakeRAID就能发挥作用，否则使用软RAID更优。
+FakeRAID是由主板提供的RAID功能，但RAID需要的计算仍然由CPU实现，所以性能上与软RAID无异，它的优点是如果有多个操作系统，使用同一个RAID存储，那么fakeRAID就能发挥作用，否则使用软RAID更优。
 </p>
 </div>
 </div>
@@ -139,21 +132,15 @@ FakeRAID是由主板提供的RAID功能，但RAID需要的计算仍然由CPU实�
 </p>
 
 <p>
-RIAD-0:相当于提供的逻辑卷的功能，将多个硬盘连接在一起，构建成一个大的
-硬盘，性能相当不错，但没有容错的功能。
+RIAD-0:相当于提供的逻辑卷的功能，将多个硬盘连接在一起，构建成一个大的硬盘，性能相当不错，但没有容错的功能。
 </p>
 
 <p>
-RAID-1:也叫镜像模式，如果有N个磁盘，则需要另外N个磁盘，存储相同的内容。
-这样如果其中一份数据出错，则可以由另一个磁盘得到。性能比较低。磁盘的利
-用率也比较低。
+RAID-1:也叫镜像模式，如果有N个磁盘，则需要另外N个磁盘，存储相同的内容。这样如果其中一份数据出错，则可以由另一个磁盘得到。性能比较低。磁盘的利用率也比较低。
 </p>
 
 <p>
-RAID-5:这是性能与容错的一个均衡，如果有N个磁盘，则需要额外1个磁盘来存
-放冗余信息，如果其中一个磁盘损坏，则可以通过该冗余信息恢复。冗余信息是
-平均存储在N+1个磁盘中而非单独存储在某个磁盘。RAID-5仅支持一个磁盘的损
-坏。
+RAID-5:这是性能与容错的一个均衡，如果有N个磁盘，则需要额外1个磁盘来存放冗余信息，如果其中一个磁盘损坏，则可以通过该冗余信息恢复。冗余信息是平均存储在N+1个磁盘中而非单独存储在某个磁盘。RAID-5仅支持一个磁盘的损坏。
 </p>
 </div>
 </div>
@@ -163,8 +150,7 @@ RAID-5:这是性能与容错的一个均衡，如果有N个磁盘，则需要额
 <h2 id="sec-2">软RAID管理</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-这里记录一下一些实际操作。 <code>dmraid</code> 一般用于管理fakeRAID， <code>mdadm</code> 用
-于管理软RAID，是现在推荐使用的工具。
+这里记录一下一些实际操作。 <code>dmraid</code> 一般用于管理fakeRAID， <code>mdadm</code> 用于管理软RAID，是现在推荐使用的工具。
 </p>
 
 <p>
@@ -177,10 +163,10 @@ RAID-5:这是性能与容错的一个均衡，如果有N个磁盘，则需要额
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 
-<pre class="src src-sh">dmraid -r               <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#26597;&#30475;RAID&#20449;&#24687;</span>
-dmsetup remove_all      <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#37322;&#25918;&#23545;&#30913;&#30424;&#30340;&#20351;&#29992;</span>
-dmraid -a no            <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#20572;&#29992;&#30913;&#30424;&#38453;&#21015;</span>
-dmraid -x               <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">&#28165;&#38500;&#30913;&#30424;&#19978;&#30340;RAID&#20449;&#24687;</span>
+<pre class="src src-sh">dmraid -r               <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">&#26597;&#30475;RAID&#20449;&#24687;</span>
+dmsetup remove_all      <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">&#37322;&#25918;&#23545;&#30913;&#30424;&#30340;&#20351;&#29992;</span>
+dmraid -a no            <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">&#20572;&#29992;&#30913;&#30424;&#38453;&#21015;</span>
+dmraid -x               <span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">&#28165;&#38500;&#30913;&#30424;&#19978;&#30340;RAID&#20449;&#24687;</span>
 </pre>
 </div>
 <p>
@@ -201,8 +187,8 @@ dmraid -x               <span style="font-weight: bold; font-style: italic;"># <
 <div class="org-src-container">
 
 <pre class="src src-sh">mdadm -C /dev/md0 -a yes -l 5 -n 3 -x 0 /dev/sd[bcd] 
-<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">-C&#34920;&#31034;&#21019;&#24314;&#65288;create&#30340;&#24847;&#24605;&#65289;&#65292;-l&#34920;&#31034;raid&#32423;&#21035;&#65288;level&#24847;&#24605;&#65289; </span>
-<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">-n&#34920;&#31034;&#35774;&#22791;&#30340;&#25968;&#25454;&#65288;number&#65289;  -x &#25351;&#23450;&#21021;&#22987;&#38453;&#21015;&#30340;&#23500;&#20313;device &#25968;&#30446;</span>
+<span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">-C&#34920;&#31034;&#21019;&#24314;&#65288;create&#30340;&#24847;&#24605;&#65289;&#65292;-l&#34920;&#31034;raid&#32423;&#21035;&#65288;level&#24847;&#24605;&#65289; </span>
+<span style="color: #7f9f7f;"># </span><span style="color: #7f9f7f;">-n&#34920;&#31034;&#35774;&#22791;&#30340;&#25968;&#25454;&#65288;number&#65289;  -x &#25351;&#23450;&#21021;&#22987;&#38453;&#21015;&#30340;&#23500;&#20313;device &#25968;&#30446;</span>
 </pre>
 </div>
 </li>
@@ -255,16 +241,12 @@ AUTOSTART=true
 据参考4所说，原因有两层。
 </p>
 <ol class="org-ol">
-<li>阵列组装发生在根文件系统挂载之前，因此保存后的 <code>mdadm.conf</code> 并没有
-被读取。因此系统只会读取在 <code>initramfs</code> 中的相应文件。因此可以在一切
-都工作之后，执行 <code>update-initramfs -u</code> 。
+<li>阵列组装发生在根文件系统挂载之前，因此保存后的 <code>mdadm.conf</code> 并没有被读取。因此系统只会读取在 <code>initramfs</code> 中的相应文件。因此可以在一切都工作之后，执行 <code>update-initramfs -u</code> 。
 </li>
-<li>RAID 设备在启动的时候没有被识别。此时，我们可以将用于RAID的分区类型
-改为 <code>0xFD</code> （Linux Raid Autodetect）。
+<li>RAID 设备在启动的时候没有被识别。此时，我们可以将用于RAID的分区类型改为 <code>0xFD</code> （Linux Raid Autodetect）。
 
 <p>
-mdadm 在启动时运行（在 <code>initramfs</code> 前），会识别所有类型为 <code>0xFD</code> 的
-分区并将这些分区组装成一个RAID，这种方式之下，并不需要最新版的
+mdadm 在启动时运行（在 <code>initramfs</code> 前），会识别所有类型为 <code>0xFD</code> 的分区并将这些分区组装成一个RAID，这种方式之下，并不需要最新版的
 <code>mdadm.conf</code> 。不过也因此，生成的设备名无法由配置文件控制。
 </p>
 </li>
@@ -294,9 +276,7 @@ mdadm 在启动时运行（在 <code>initramfs</code> 前），会识别所有�
 <h3 id="sec-2-4">RAID 的使用</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
-上面介绍了 RAID 的创建，但它们完成的工作相当于指定了阵列需要的一些资源
-（如实际用的分区），以及记录一些RAID相关的信息（如 <code>mdadm.conf</code> 配置文
-件）。并没有实际上使RAID工作。那么本节记录如何使用RAID。
+上面介绍了 RAID 的创建，但它们完成的工作相当于指定了阵列需要的一些资源（如实际用的分区），以及记录一些RAID相关的信息（如 <code>mdadm.conf</code> 配置文件）。并没有实际上使RAID工作。那么本节记录如何使用RAID。
 </p>
 
 <p>
@@ -318,10 +298,7 @@ setup</a> 文档，要停止一个工作中的RAID，需要下面命令：
 </pre>
 </div>
 <p>
-但事实上并非如此，在停止RAID后，相应的设备文件 <code>/dev/md0</code> 也会消失。也
-就是RAID设备并非天然存在的，每次使用它的时候都需要重新组装（assemble）。
-组装和创建类似，除了说它仅仅是将设备揽在一块。我们可以执行两步来完成组
-装：
+但事实上并非如此，在停止RAID后，相应的设备文件 <code>/dev/md0</code> 也会消失。也就是RAID设备并非天然存在的，每次使用它的时候都需要重新组装（assemble）。组装和创建类似，除了说它仅仅是将设备揽在一块。我们可以执行两步来完成组装：
 </p>
 <div class="org-src-container">
 
@@ -339,9 +316,7 @@ mdadm --assemble /dev/md0 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
 </div>
 
 <p>
-因此即使重启后看不见之前创建的RAID，也不必慌张，之前创建的信息依旧保留
-着，只需要重新组装即可。且如果 <code>mdadm --assemble --scan</code> 不成功，也可
-以根据之前创建RAID的参数重新 <code>create</code> 即可。
+因此即使重启后看不见之前创建的RAID，也不必慌张，之前创建的信息依旧保留着，只需要重新组装即可。且如果 <code>mdadm --assemble --scan</code> 不成功，也可以根据之前创建RAID的参数重新 <code>create</code> 即可。
 </p>
 </div>
 </div>
@@ -353,8 +328,7 @@ mdadm --assemble /dev/md0 /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
 <ul class="org-ul">
 <li><a href="http://vbird.dic.ksu.edu.tw/linux_basic/0420quota.php">鸟哥的Linux私房菜</a>
 </li>
-<li><a href="http://www.zhihu.com/question/19613331">知乎：软RAID与硬RAID各有什
-么优劣</a>
+<li><a href="http://www.zhihu.com/question/19613331">知乎：软RAID与硬RAID各有什么优劣</a>
 </li>
 <li><a href="https://raid.wiki.kernel.org/index.php/RAID_setup">RAID setup</a>
 </li>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Awk 笔记</title>
-<!-- 2014-11-20 -->
+<!-- 2014-12-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
@@ -103,9 +103,9 @@ We specify different <code>FS</code>:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">awk <span style="font-style: italic;">'BEGIN{FS = ","}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
-<span style="font-weight: bold;">filenameA,filenameB 0</span>
-<span style="font-weight: bold;">EOF</span>
+<pre class="src src-sh">awk <span style="color: #cc9393;">'BEGIN{FS = ","}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
+<span style="color: #ffff00; font-weight: bold;">filenameA,filenameB 0</span>
+<span style="color: #ffff00; font-weight: bold;">EOF</span>
 </pre>
 </div>
 
@@ -114,9 +114,9 @@ Now, use regular expression to specify both "," and "&lt;space&gt;" as seperator
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">awk <span style="font-style: italic;">'BEGIN{FS = "[, ]"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
-<span style="font-weight: bold;">filenameA,filenameB 0</span>
-<span style="font-weight: bold;">EOF</span>
+<pre class="src src-sh">awk <span style="color: #cc9393;">'BEGIN{FS = "[, ]"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
+<span style="color: #ffff00; font-weight: bold;">filenameA,filenameB 0</span>
+<span style="color: #ffff00; font-weight: bold;">EOF</span>
 </pre>
 </div>
 
@@ -127,9 +127,9 @@ we'll have to expand the <code>FS</code> even more:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">awk <span style="font-style: italic;">'BEGIN{FS = "[, ]+"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
-<span style="font-weight: bold;">filenameA, filenameB     0</span>
-<span style="font-weight: bold;">EOF</span>
+<pre class="src src-sh">awk <span style="color: #cc9393;">'BEGIN{FS = "[, ]+"}{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
+<span style="color: #ffff00; font-weight: bold;">filenameA, filenameB     0</span>
+<span style="color: #ffff00; font-weight: bold;">EOF</span>
 </pre>
 </div>
 
@@ -139,9 +139,9 @@ options:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">awk -F <span style="font-style: italic;">"[, ]+"</span> <span style="font-style: italic;">'{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
-<span style="font-weight: bold;">filenameA, filenameB     0</span>
-<span style="font-weight: bold;">EOF</span>
+<pre class="src src-sh">awk -F <span style="color: #cc9393;">"[, ]+"</span> <span style="color: #cc9393;">'{print "0="$0;print "1="$1;print "2="$2; print "3="$3}'</span> &lt;&lt; EOF
+<span style="color: #ffff00; font-weight: bold;">filenameA, filenameB     0</span>
+<span style="color: #ffff00; font-weight: bold;">EOF</span>
 </pre>
 </div>
 </div>

@@ -272,11 +272,11 @@ for chinese characters. Thus, we'll need this workaround.
 
 <div class="org-src-container">
 
-<pre class="src src-elisp">(<span style="font-weight: bold;">defun</span> <span style="font-weight: bold;">han/org-html-delete-extra-space</span> (string backend info)
-  <span style="font-style: italic;">"Let chinese word to a line if match /han\newline/"</span>
-  (<span style="font-weight: bold;">when</span> (and (org-export-derived-backend-p backend 'html)
-             (string-match <span style="font-style: italic;">"\\cc\n"</span> string))
-    (replace-regexp-in-string <span style="font-style: italic;">"</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">(</span><span style="font-style: italic;">\\cc</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">)</span><span style="font-style: italic;">\n</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">(</span><span style="font-style: italic;">\\cc</span><span style="font-weight: bold; font-style: italic;">\\</span><span style="font-weight: bold; font-style: italic;">)</span><span style="font-style: italic;">"</span> <span style="font-style: italic;">"\\1\\2"</span> string)))
+<pre class="src src-elisp">(<span style="color: #f0dfaf; font-weight: bold;">defun</span> <span style="color: #8cd0d3;">han/org-html-delete-extra-space</span> (string backend info)
+  <span style="color: #8fb28f;">"Let chinese word to a line if match /han\newline/"</span>
+  (<span style="color: #f0dfaf; font-weight: bold;">when</span> (and (org-export-derived-backend-p backend 'html)
+             (string-match <span style="color: #cc9393;">"\\cc\n"</span> string))
+    (replace-regexp-in-string <span style="color: #cc9393;">"</span><span style="color: #cc9393; font-weight: bold;">\\</span><span style="color: #cc9393; font-weight: bold;">(</span><span style="color: #cc9393;">\\cc</span><span style="color: #cc9393; font-weight: bold;">\\</span><span style="color: #cc9393; font-weight: bold;">)</span><span style="color: #cc9393;">\n</span><span style="color: #cc9393; font-weight: bold;">\\</span><span style="color: #cc9393; font-weight: bold;">(</span><span style="color: #cc9393;">\\cc</span><span style="color: #cc9393; font-weight: bold;">\\</span><span style="color: #cc9393; font-weight: bold;">)</span><span style="color: #cc9393;">"</span> <span style="color: #cc9393;">"\\1\\2"</span> string)))
 
 (eval-after-load 'ox-html
   '(add-to-list 'org-export-filter-final-output-functions

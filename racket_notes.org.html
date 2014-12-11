@@ -37,22 +37,18 @@
       .org-level-1 {
         /* org-level-1 */
         color: #dfaf8f;
-        background-color: #3f3f3f;
       }
       .org-level-2 {
         /* org-level-2 */
         color: #8fb28f;
-        background-color: #3f3f3f;
       }
       .org-level-3 {
         /* org-level-3 */
         color: #7cb8bb;
-        background-color: #3f3f3f;
       }
       .org-link {
         /* org-link */
         color: #d0bf8f;
-        font-weight: bold;
         text-decoration: underline;
       }
       .org-verbatim {
@@ -133,14 +129,14 @@
 <span class="org-level-1">* Racket Reference</span>
 <span class="org-level-2">** for</span>
    <span class="org-verbatim">=for=</span> clause will not run at all if no sequence is specified:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     (with-input-from-string "appleppppl"
        (lambda ()
          (for (#:break (eof-object? (peek-char (current-input-port))))
            (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   Instead, feed it with an infinite sequence:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     (with-input-from-string "appleppppl"
        (lambda ()
          (for ([i (in-naturals 1)]
@@ -151,14 +147,14 @@
    Note that the position of <span class="org-verbatim">=#:when=</span>, <span class="org-verbatim">=#:unless=</span>, <span class="org-verbatim">=#:break=</span>,
    <span class="org-verbatim">=#:final=</span> matters. As the document says, if one of the above
    appears, racket will refactor the <span class="org-verbatim">=for=</span> clause with:
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket
 </span><span class="org-block">     (for (for-clauses-above ...)
        (when guard-expr
          (for (for-clause-remains ...) body ...+)))
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   That would suprise you somehow, consider the following example(from
    the reference):
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket
 </span><span class="org-block">     (for ([i '(1 2 3)]
            [j "abc"]
            #:break (not (odd? i))
@@ -167,7 +163,7 @@
 </span><span class="org-block-end-line">   #+end_src
 </span>   it will produce <span class="org-verbatim">=(1 a 1)(1 a 2)(1 a 3)=</span> instead of <span class="org-verbatim">=(1 a 1)=</span>, if
    the latter is what you expected, check the following code:
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket
 </span><span class="org-block">     (for ([i '(1 2 3)]
            [j "abc"]
            [k '(1 2 3)]
@@ -212,14 +208,14 @@
 </span>   
    Another way to implement this is using wrapper function plus
    assignment. Wrapper function is as follows:
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket 
 </span><span class="org-block">     (define (memo fn)
        (let ([ht (make-hash)])
          (lambda args
            (hash-ref! ht args (thunk (apply fn args))))))
 </span><span class="org-block-end-line">   #+end_src
 </span>   And then we can use the wrapper function like:
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket
 </span><span class="org-block">     (define mfibo (memo fibo))
      (time (mfibo 30))  ; =&gt; Slow
      (time (mfibo 30))  ; =&gt; Fast
@@ -230,7 +226,7 @@
    that is explicitly called by <span class="org-verbatim">=mfibo=</span> (that is 30 in the above
    example). In order to get the full memorized version, we can use
    the following:
-<span class="org-block-begin-line">   #+begin_src scheme
+<span class="org-block-begin-line">   #+begin_src racket
 </span><span class="org-block">     (set! fibo (memo fibo))
      (time (fibo 30))  ; =&gt; Fast
      (time (fibo 30))  ; =&gt; Fast

@@ -2,10 +2,9 @@
 <html>
 <head>
 <title>Racket Notes</title>
-<!-- 2014-10-02 -->
+<!-- 2014-12-11 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
-<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -233,10 +232,10 @@ Example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(with-input-from-string <span style="color: #cc9393;">"appleppppl"</span>
-  (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> ()
-    (for (<span style="color: #8cd0d3;">#:break</span> (eof-object? (peek-char (current-input-port))))
-      (printf <span style="color: #cc9393;">"~a~n"</span> (regexp-match #rx<span style="color: #cc9393;">"p+(.)"</span> (current-input-port))))))
+<pre class="src src-racket">(with-input-from-string "appleppppl"
+  (lambda ()
+    (for (#:break (eof-object? (peek-char (current-input-port))))
+      (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
 </pre>
 </div>
 <p>
@@ -244,11 +243,11 @@ Instead, feed it with an infinite sequence:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(with-input-from-string <span style="color: #cc9393;">"appleppppl"</span>
-  (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> ()
+<pre class="src src-racket">(with-input-from-string "appleppppl"
+  (lambda ()
     (for ([i (in-naturals 1)]
-          <span style="color: #8cd0d3;">#:break</span> (eof-object? (peek-char (current-input-port))))
-      (printf <span style="color: #cc9393;">"~a~n"</span> (regexp-match #rx<span style="color: #cc9393;">"p+(.)"</span> (current-input-port))))))
+	  #:break (eof-object? (peek-char (current-input-port))))
+      (printf "~a~n" (regexp-match #rx"p+(.)" (current-input-port))))))
 </pre>
 </div>
 
@@ -259,8 +258,8 @@ appears, racket will refactor the <code>for</code> clause with:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(for (for-clauses-above ...)
-  (<span style="color: #f0dfaf; font-weight: bold;">when</span> guard-expr
+<pre class="src src-racket">(for (for-clauses-above ...)
+  (when guard-expr
     (for (for-clause-remains ...) body ...+)))
 </pre>
 </div>
@@ -270,9 +269,9 @@ the reference):
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(for ([i '(1 2 3)]
-      [j <span style="color: #cc9393;">"abc"</span>]
-      <span style="color: #8cd0d3;">#:break</span> (not (odd? i))
+<pre class="src src-racket">(for ([i '(1 2 3)]
+      [j "abc"]
+      #:break (not (odd? i))
       [k '(1 2 3)])
   (display (list i j k)))
 </pre>
@@ -283,10 +282,10 @@ the latter is what you expected, check the following code:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(for ([i '(1 2 3)]
-      [j <span style="color: #cc9393;">"abc"</span>]
+<pre class="src src-racket">(for ([i '(1 2 3)]
+      [j "abc"]
       [k '(1 2 3)]
-      <span style="color: #8cd0d3;">#:break</span> (not (odd? i)))
+      #:break (not (odd? i)))
   (display (list i j k)))
 </pre>
 </div>
@@ -353,9 +352,9 @@ assignment. Wrapper function is as follows:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">memo</span> fn)
-  (<span style="color: #f0dfaf; font-weight: bold;">let</span> ([ht (make-hash)])
-    (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> args
+<pre class="src src-racket">(define (memo fn)
+  (let ([ht (make-hash)])
+    (lambda args
       (hash-ref! ht args (thunk (apply fn args))))))
 </pre>
 </div>
@@ -364,10 +363,10 @@ And then we can use the wrapper function like:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">define</span> <span style="color: #8cd0d3;">mfibo</span> (memo fibo))
-(time (mfibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Slow</span>
-(time (mfibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
-(time (mfibo 31))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Slow</span>
+<pre class="src src-racket">(define mfibo (memo fibo))
+(time (mfibo 30))  ; =&gt; Slow
+(time (mfibo 30))  ; =&gt; Fast
+(time (mfibo 31))  ; =&gt; Slow
 </pre>
 </div>
 <p>
@@ -379,10 +378,10 @@ the following:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(set! fibo (memo fibo))
-(time (fibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
-(time (fibo 30))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
-(time (ibo 31))  <span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">=&gt; Fast</span>
+<pre class="src src-racket">(set! fibo (memo fibo))
+(time (fibo 30))  ; =&gt; Fast
+(time (fibo 30))  ; =&gt; Fast
+(time (ibo 31))  ; =&gt; Fast
 </pre>
 </div>
 <p>
