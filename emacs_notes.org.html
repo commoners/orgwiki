@@ -102,16 +102,49 @@
    Emacs will save the contens yanked by <span class="org-verbatim">=C-k=</span> or <span class="org-verbatim">=M-w=</span>. We can
    paste/yank the contents last killed by press <span class="org-verbatim">=C-y=</span>. But if we want
    the contens earlier, we can press <span class="org-verbatim">=M-y=</span> multiple times after press
-   <span class="org-verbatim">=C=y=</span>. 
-   
+   <span class="org-verbatim">=C=y=</span>.
+
 <span class="org-level-1">* Eshell</span>
 <span class="org-level-2">** Visual Commands</span>
    Some commands are not sufficient to run inside eshell, such as
    <span class="org-verbatim">=top=</span>. They are supported by <span class="org-verbatim">=Term=</span> mode. We can add these commands
    into <span class="org-verbatim">=eshell-visual-commands=</span> to make eshell invoke <span class="org-verbatim">=term=</span> mode automatically.
-   
+
 <span class="org-level-2">** References</span>
    - <span class="org-link"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">[[http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/][</a><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">Complete Guide to Mastering Eshell</a><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">]]</a></span>
+
+<span class="org-level-1">* eclim</span>
+In order to use emacs-eclim, you will have to do the following:
+1. install eclipse (this is the huge backend)
+2. install eclim (the middleware that provide integration to eclipse)
+3. install emacs-eclim since eclim is for vim by default.
+4. Follow the emacs-eclim's doc and add configurations such as eclipse-dirs
+   etc.
+
+After all the components are installed, some configurations had to made. Note
+that the main aim here is to add <span class="org-verbatim">=eclim=</span> support to <span class="org-verbatim">=company-mode=</span> to provide
+completion.
+
+Company mode had a default backend for eclim: <span class="org-verbatim">=company-eclim=</span>. Which, I don't
+know how to make it work. emacs-eclim provides another backend:
+"emacscompany-emacs-eclim". So I have the following configuration.
+<span class="org-block-begin-line">#+begin_src elisp
+</span><span class="org-block">  (defun company-emacs-eclim-local ()
+    (make-local-variable 'company-backends)
+    (company-emacs-eclim-setup))
+  (when (package-installed-p 'emacs-eclim)
+    (require 'eclim)
+    (global-eclim-mode)
+    (require 'company-emacs-eclim)
+    (add-hook 'java-mode-hook
+              'company-emacs-eclim-local))
+</span><span class="org-block-end-line">#+end_src
+</span>This configuration add "emacs-eclim" support only for java-mode. Because unlike
+all the other company-mode backends, "emacs-eclim" will not exit properly if
+eclim is not provided and fallback to other backends.
+
+After all these configuration, one last thing to remember: start up the eclim
+server manually, i.e. "eclimd".
 
 <span class="org-level-1">* FAQs</span>
 <span class="org-level-2">** How to insert not graphic characters?</span>

@@ -78,6 +78,13 @@
 </span></span>
 Notes Using Python./Python&#20351;&#29992;&#31508;&#35760;&#12290;
 
+<span class="org-level-1">* FAQ</span>
+<span class="org-level-2">** How to call shell commands</span>
+1. use <span class="org-verbatim">=os.system=</span>
+2. use <span class="org-verbatim">=call=</span> from <span class="org-verbatim">=subprocesses=</span> module.
+
+- <span class="org-link"><a href="http://blog.sina.com.cn/s/blog_5357c0af0100yzet.html">[[http://blog.sina.com.cn/s/blog_5357c0af0100yzet.html][</a><a href="http://blog.sina.com.cn/s/blog_5357c0af0100yzet.html">Python &#20013;&#22914;&#20309;&#35843;&#29992; Shell</a><a href="http://blog.sina.com.cn/s/blog_5357c0af0100yzet.html">]]</a></span>
+
 <span class="org-level-1">* Input/Output</span>
 
   Two ways of formatting:
@@ -184,6 +191,28 @@ Notes Using Python./Python&#20351;&#29992;&#31508;&#35760;&#12290;
      &gt;&gt;&gt; f.read(1)
      'd'
 </span><span class="org-block-end-line">   #+END_SRC
-</span></pre>
+</span>
+<span class="org-level-1">* urllib2</span>
+<span class="org-level-2">** adding socks proxy to urllib2</span>
+First we need to install <span class="org-verbatim">=PySocks=</span>, then import socks
+
+<span class="org-block-begin-line">#+begin_src python
+</span><span class="org-block">import socket
+import socks
+import urllib2
+
+PORT = 1080
+#No authentication
+#socks.set_default_proxy(socks.SOCKS5, "localhost")
+#With Authentication
+socks.set_default_proxy(socks.SOCKS5, "my.proxyserver.com",PORT,True,"proxy_user","proxy_pass")
+socket.socket = socks.socksocket  #dont add ()!!!
+
+urllib2.urlopen("<a href="http://">http://</a>...") # All requests will now pass through the SOCKS proxy
+</span><span class="org-block-end-line">#+end_src
+</span>
+- <span class="org-link"><a href="http://moxone.me/post?pid%3D3">[[http://moxone.me/post?pid%3D3][</a><a href="http://moxone.me/post?pid%3D3">How to proxy urllib2 and more in Python</a><a href="http://moxone.me/post?pid%3D3">]]</a></span>
+
+</pre>
   </body>
 </html>

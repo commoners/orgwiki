@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>hibernate.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Hibernate Notes
+</span></span>
+<span class="org-level-1">* Hibernate Tools with maven</span>
+The key here is a plugin named
+<span class="org-link"><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">[[http://mojo.codehaus.org/hibernate3-maven-plugin/][</a><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">hibernate3-maven-plugin</a><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">]]</a></span>. We
+can run hibernate tools in maven with its help.
+
+The current version is 3.0. and the conguration is changed to direct usage of
+the ant hibernate tool plugin according to
+<span class="org-link"><a href="http://stackoverflow.com/questions/9276808/unable-to-generate-hbm2ddl-using-hibernate3-maven-plugin-3-0/9331423#9331423">[[http://stackoverflow.com/questions/9276808/unable-to-generate-hbm2ddl-using-hibernate3-maven-plugin-3-0/9331423#9331423][</a><a href="http://stackoverflow.com/questions/9276808/unable-to-generate-hbm2ddl-using-hibernate3-maven-plugin-3-0/9331423#9331423">Stackoverflow</a><a href="http://stackoverflow.com/questions/9276808/unable-to-generate-hbm2ddl-using-hibernate3-maven-plugin-3-0/9331423#9331423">]]</a></span>.
+And its reference can be found in <span class="org-link"><a href="http://docs.jboss.org/tools/3.3.0.Final/en/hibernatetools/html_single/index.html#ant">[[</a><a href="http://docs.jboss.org/tools/3.3.0.Final/en/hibernatetools/html_single/index.html#ant">http://docs.jboss.org/tools/3.3.0.Final/en/hibernatetools/html_single/index.html#ant</a><a href="http://docs.jboss.org/tools/3.3.0.Final/en/hibernatetools/html_single/index.html#ant">]]</a></span>.
+
+Sample configuration of Version <span class="bold">*2.2*</span>:
+
+<span class="org-block-begin-line">#+begin_src xml
+</span><span class="org-block">  &lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate3-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;components&gt;
+        &lt;component&gt;
+          &lt;name&gt;hbm2java&lt;/name&gt;
+          &lt;implementation&gt;jdbcconfiguration&lt;/implementation&gt;
+          &lt;outputDirectory&gt;src/main/java/com/mkyong/dto&lt;/outputDirectory&gt;
+        &lt;/component&gt;
+      &lt;/components&gt;
+      &lt;componentProperties&gt;
+        &lt;revengfile&gt;src/main/resources/reveng.xml&lt;/revengfile&gt;
+        &lt;propertyfile&gt;src/main/resources/hibernate.properties&lt;/propertyfile&gt;
+        &lt;packagename&gt;com.mkyong.dto&lt;/packagename&gt;
+        &lt;jdk5&gt;true&lt;/jdk5&gt;
+        &lt;ejb3&gt;true&lt;/ejb3&gt;
+      &lt;/componentProperties&gt;
+    &lt;/configuration&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;cglib&lt;/groupId&gt;
+        &lt;artifactId&gt;cglib-nodep&lt;/artifactId&gt;
+        &lt;version&gt;2.2.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;5.1.9&lt;/version&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/plugin&gt;
+</span><span class="org-block-end-line">#+end_src
+</span>
+Sample configuration of Version <span class="bold">*3.0*</span>:
+<span class="org-block-begin-line">#+begin_src xml
+</span><span class="org-block">  &lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate3-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.0&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;hibernatetool
+          destdir="${project.build.sourceDirectory}"&gt;
+        &lt;classpath&gt;
+          &lt;path location="${project.build.sourceDirectory}/classes"/&gt;
+        &lt;/classpath&gt;
+        &lt;jdbcconfiguration
+            packagename="com.mkyong.dto"
+            revengfile="src/main/resources/reveng.xml" /&gt;
+        &lt;hbm2java jdk5="true" ejb3="true"/&gt;
+      &lt;/hibernatetool&gt;
+    &lt;/configuration&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+        &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+        &lt;version&gt;3.3.2.GA&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;cglib&lt;/groupId&gt;
+        &lt;artifactId&gt;cglib-nodep&lt;/artifactId&gt;
+        &lt;version&gt;2.2.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;5.1.9&lt;/version&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/plugin&gt;
+</span><span class="org-block-end-line">#+end_src
+</span>
+Note that hibernate-tools may have conflictions with hibernate 3.5+. The
+<span class="org-verbatim">=3.3.2.GA=</span> version used here is the known version that works. The generated
+resource can be used with higer version. So we only need <span class="org-verbatim">=3.3.2.GA=</span> to reverse
+engineering
+</pre>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+#+TITLE: maven
+
+* FAQs
+** how to run a main class
+
+*** Running from command line
+First we'll need to compile and install our code by:
+
+#+BEGIN_SRC sh
+  mvn compile
+  mvn install
+#+END_SRC
+
+Then, run with:
+#+BEGIN_SRC sh
+  mvn exec:java -Dexec.mainClass="com.xxxx.xxx"
+  mvn exec:java -Dexec.mainClass="com.xxxx.xxx" -Dexec.args="arg0 arg1 arg2"
+#+END_SRC
+
+we can also save it in the pom file:
+#+BEGIN_SRC xml
+  <project>
+      <build>
+  	<plugins>
+  	    <plugin>
+  		<groupId>org.codehaus.mojo</groupId>
+  		<artifactId>exec-maven-plugin</artifactId>
+  		<version>1.2.1</version>
+  		<configuration>
+  		    <mainClass>com.example.Main</mainClass>
+  		    <arguments>
+  			<argument>argument1</argument>
+  		    </arguments>
+  		</configuration>
+  	    </plugin>
+  	</plugins>
+      </build>
+  </project>
+#+END_SRC
+
+*** Running in a phase in pom.xml
+#+BEGIN_SRC xml
+  <build>  
+   <plugins>  
+    <plugin>  
+     <groupId>org.codehaus.mojo</groupId>  
+     <artifactId>exec-maven-plugin</artifactId>  
+     <version>1.1.1</version>  
+     <executions>  
+      <execution>  
+       <phase>test</phase>  
+       <goals>  
+        <goal>java</goal>  
+       </goals>  
+       <configuration>  
+        <mainClass>com.vineetmanohar.module.CodeGenerator</mainClass>  
+        <arguments>  
+         <argument>arg0</argument>  
+         <argument>arg1</argument>  
+        </arguments>  
+       </configuration>  
+      </execution>  
+     </executions>  
+    </plugin>  
+   </plugins>  
+  </build>  
+#+END_SRC
+
+Then =CodeGenerator.main()= will be run while executing:
+#+BEGIN_SRC sh
+  mvn test
+#+END_SRC
+
+
+- [[http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/][3 ways to run Java main from Maven]]

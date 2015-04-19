@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>Emacs Notes</title>
-<!-- 2014-12-11 -->
+<!-- 2015-04-19 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -93,11 +94,12 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-2">References</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">FAQs</a>
+<li><a href="#sec-3">eclim</a></li>
+<li><a href="#sec-4">FAQs</a>
 <ul>
-<li><a href="#sec-3-1">How to insert not graphic characters?</a></li>
-<li><a href="#sec-3-2">How to swap values by regexp-replace</a></li>
-<li><a href="#sec-3-3">org mode extra spaces in chinese</a></li>
+<li><a href="#sec-4-1">How to insert not graphic characters?</a></li>
+<li><a href="#sec-4-2">How to swap values by regexp-replace</a></li>
+<li><a href="#sec-4-3">org mode extra spaces in chinese</a></li>
 </ul>
 </li>
 </ul>
@@ -177,7 +179,7 @@ that KEY is bound to.
 Emacs will save the contens yanked by <code>C-k</code> or <code>M-w</code>. We can
 paste/yank the contents last killed by press <code>C-y</code>. But if we want
 the contens earlier, we can press <code>M-y</code> multiple times after press
-<code>C=y</code>. 
+<code>C=y</code>.
 </p>
 </div>
 </div>
@@ -209,11 +211,66 @@ into <code>eshell-visual-commands</code> to make eshell invoke <code>term</code>
 </div>
 
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">FAQs</h2>
+<h2 id="sec-3">eclim</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">How to insert not graphic characters?</h3>
-<div class="outline-text-3" id="text-3-1">
+<p>
+In order to use emacs-eclim, you will have to do the following:
+</p>
+<ol class="org-ol">
+<li>install eclipse (this is the huge backend)
+</li>
+<li>install eclim (the middleware that provide integration to eclipse)
+</li>
+<li>install emacs-eclim since eclim is for vim by default.
+</li>
+<li>Follow the emacs-eclim's doc and add configurations such as eclipse-dirs
+etc.
+</li>
+</ol>
+
+<p>
+After all the components are installed, some configurations had to made. Note
+that the main aim here is to add <code>eclim</code> support to <code>company-mode</code> to provide
+completion.
+</p>
+
+<p>
+Company mode had a default backend for eclim: <code>company-eclim</code>. Which, I don't
+know how to make it work. emacs-eclim provides another backend:
+"emacscompany-emacs-eclim". So I have the following configuration.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp">(<span style="color: #f0dfaf; font-weight: bold;">defun</span> <span style="color: #8cd0d3;">company-emacs-eclim-local</span> ()
+  (make-local-variable 'company-backends)
+  (company-emacs-eclim-setup))
+(<span style="color: #f0dfaf; font-weight: bold;">when</span> (package-installed-p 'emacs-eclim)
+  (<span style="color: #f0dfaf; font-weight: bold;">require</span> '<span style="color: #bfebbf;">eclim</span>)
+  (global-eclim-mode)
+  (<span style="color: #f0dfaf; font-weight: bold;">require</span> '<span style="color: #bfebbf;">company-emacs-eclim</span>)
+  (add-hook 'java-mode-hook
+            'company-emacs-eclim-local))
+</pre>
+</div>
+<p>
+This configuration add "emacs-eclim" support only for java-mode. Because unlike
+all the other company-mode backends, "emacs-eclim" will not exit properly if
+eclim is not provided and fallback to other backends.
+</p>
+
+<p>
+After all these configuration, one last thing to remember: start up the eclim
+server manually, i.e. "eclimd".
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">FAQs</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">How to insert not graphic characters?</h3>
+<div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li>Insert <code>C-q</code> First.
 </li>
@@ -223,9 +280,9 @@ into <code>eshell-visual-commands</code> to make eshell invoke <code>term</code>
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">How to swap values by regexp-replace</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">How to swap values by regexp-replace</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 The idea is mixing elisp expressions in regular expressions.
 </p>
@@ -251,9 +308,9 @@ We use =\,= to insert elisp expression. For more information, check <sup><a id="
 </div>
 </div>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3">org mode extra spaces in chinese</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">org mode extra spaces in chinese</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 Normally, we'll divide text of a paragraph into lines. When org-mode
 exports them, the text will be concatenated with a space between them:

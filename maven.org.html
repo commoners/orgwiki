@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>maven.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">maven
+</span></span>
+<span class="org-level-1">* FAQs</span>
+<span class="org-level-2">** how to run a main class</span>
+
+<span class="org-level-3">*** Running from command line</span>
+First we'll need to compile and install our code by:
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">mvn compile
+mvn install
+</span><span class="org-block-end-line">#+end_src
+</span>
+Then, run with:
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">mvn exec:java -Dexec.mainClass="com.xxxx.xxx"
+mvn exec:java -Dexec.mainClass="com.xxxx.xxx" -Dexec.args="arg0 arg1 arg2"
+</span><span class="org-block-end-line">#+end_src
+</span>
+we can also save it in the pom file:
+<span class="org-block-begin-line">#+begin_src xml
+</span><span class="org-block">&lt;project&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.2.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;mainClass&gt;com.example.Main&lt;/mainClass&gt;
+                    &lt;arguments&gt;
+                        &lt;argument&gt;argument1&lt;/argument&gt;
+                    &lt;/arguments&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-3">*** Running in a phase in pom.xml</span>
+<span class="org-block-begin-line">#+begin_src xml
+</span><span class="org-block">&lt;build&gt;  
+ &lt;plugins&gt;  
+  &lt;plugin&gt;  
+   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;  
+   &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;  
+   &lt;version&gt;1.1.1&lt;/version&gt;  
+   &lt;executions&gt;  
+    &lt;execution&gt;  
+     &lt;phase&gt;test&lt;/phase&gt;  
+     &lt;goals&gt;  
+      &lt;goal&gt;java&lt;/goal&gt;  
+     &lt;/goals&gt;  
+     &lt;configuration&gt;  
+      &lt;mainClass&gt;com.vineetmanohar.module.CodeGenerator&lt;/mainClass&gt;  
+      &lt;arguments&gt;  
+       &lt;argument&gt;arg0&lt;/argument&gt;  
+       &lt;argument&gt;arg1&lt;/argument&gt;  
+      &lt;/arguments&gt;  
+     &lt;/configuration&gt;  
+    &lt;/execution&gt;  
+   &lt;/executions&gt;  
+  &lt;/plugin&gt;  
+ &lt;/plugins&gt;  
+&lt;/build&gt;  
+</span><span class="org-block-end-line">#+end_src
+</span>
+Then <span class="org-verbatim">=CodeGenerator.main()=</span> will be run while executing:
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">mvn test
+</span><span class="org-block-end-line">#+end_src
+</span>
+
+- <span class="org-link"><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">[[http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/][</a><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">3 ways to run Java main from Maven</a><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">]]</a></span>
+</pre>
+  </body>
+</html>

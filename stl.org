@@ -178,7 +178,7 @@ containers, functional, and iterators [fn:1] ）。那么除了函数这部分
 都可以称为容器。
 
 在实际的程序设计中，我们几乎总是需要使用到容器（如数组），而几乎所有我
-们使用的容器，都在遍历所有元素的需求，如遍历数组或链表的所有元素。那么
+们使用的容器，都有遍历所有元素的需求，如遍历数组或链表的所有元素。那么
 我们很自然地就将这个遍历的操作进行抽象，称之为迭代器。
 
 例如，我们需要在数组或链表中寻找一个元素，下面是一个例子：
@@ -330,7 +330,7 @@ iterator需要有 =*tmp= 这样的操作，但是容器元素的类型是多种�
 
       it=std::set_union (first.begin(), first.begin()+5,
   		       second.begin(), second.begin()+5,
-  		       v.begin()); // (ref-union)
+  		       v.begin()); // (ref:union)
       // 5 10 15 20 25 30 40 50  0  0
       v.resize(it-v.begin());        // 5 10 15 20 25 30 40 50 (ref:union-minus)
 

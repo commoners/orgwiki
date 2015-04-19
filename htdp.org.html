@@ -173,7 +173,7 @@ We can conclude it into 4 elements when designing:
   
 <span class="org-level-2">** Conditional Computations</span>
    Review the <span class="org-verbatim">=cond=</span> expression:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     (cond
       [condition-expr-1 result-expr-1]
       [condition-expr-2 result-expr-2]
@@ -210,7 +210,7 @@ We can conclude it into 4 elements when designing:
    <span class="bold">*template*</span> of dealing with enumerations.
    
    Example(From the book):
-<span class="org-block-begin-line">#+BEGIN_SRC scheme
+<span class="org-block-begin-line">#+BEGIN_SRC racket
 </span><span class="org-block">; A TrafficLight shows one of three colors:
 ; &#8211; "red"
 ; &#8211; "green"
@@ -255,7 +255,7 @@ We can conclude it into 4 elements when designing:
    
    That means when contruct <span class="org-verbatim">=cond=</span> expression for these two cases, the
    main difference is how to write the <span class="underline">_condition expressions_</span>.
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; for enumeration
      (define (iter-enumeration x)
        (cond
@@ -373,7 +373,7 @@ self-referential data.
    It is critical to have unified concept.
 
    For the definition below:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; A List-of-tmperatures is one of:
      ; - empty
      ; - (cons CTemperature List-of-temperatures)
@@ -382,7 +382,7 @@ self-referential data.
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   It will lead to inconsistancy when the List is <span class="org-verbatim">=empty=</span>. Define an
    <span class="org-verbatim">=average=</span> function for example
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; List-of-tempeartures -&gt; Number
      ; compute the average tempearture
      (define (average alot)
@@ -391,7 +391,7 @@ self-referential data.
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   
    One solution is treat this definition as an itemization:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; List-of-temperatures -&gt; Number
      ; compute the average tempearture
      (define (average alot)
@@ -405,7 +405,7 @@ self-referential data.
    broke this intuition.
    
    So, a better way would be refine the definition:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; A NEList-of-temperatures is one of:
      ; &#8211; (cons CTemperature empty)
      ; &#8211; (cons CTemperature NEList-of-temperatures)
@@ -477,14 +477,14 @@ self-referential data.
    
 <span class="org-level-2">** Similarities In Data Definition</span>
    For the following two data definition:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; A List-of-numbers(short Lon) is one of: ; A List-of-String(short Los) is one of:
      ; - empty                                 ; - empty
      ; - (cons Number List-of-numbers)         ; - (cons Number List-of-String)
 </span><span class="org-block-end-line">   #+END_SRC
 </span>   
    We can abstract it as:
-<span class="org-block-begin-line">   #+BEGIN_SRC scheme
+<span class="org-block-begin-line">   #+BEGIN_SRC racket
 </span><span class="org-block">     ; A [List-of ITEM] is one of:
      ; - empty
      ; - (cons ITEM [List-of ITEM])
@@ -527,7 +527,7 @@ self-referential data.
   Once we view <span class="underline">_lambda_</span> as the primitive concept, functions becomes
   first class value. And function definitions are just syntax suger
   for define a lambda values. And <span class="underline">_lambda_</span> is like a constructor.
-<span class="org-block-begin-line">  #+begin_src scheme
+<span class="org-block-begin-line">  #+begin_src racket
 </span><span class="org-block">    (define (f x)
       (+ (sin x) x (* 3 x)))
     ; is syntax suger for the following:

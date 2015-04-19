@@ -25,7 +25,7 @@ use =C-x z= (repeat).
 Emacs will save the contens yanked by =C-k= or =M-w=. We can
 paste/yank the contents last killed by press =C-y=. But if we want
 the contens earlier, we can press =M-y= multiple times after press
-=C=y=. 
+=C=y=.
 
 * Eshell
 ** Visual Commands
@@ -35,6 +35,39 @@ into =eshell-visual-commands= to make eshell invoke =term= mode automatically.
 
 ** References
 - [[http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/][Complete Guide to Mastering Eshell]]
+
+* eclim
+In order to use emacs-eclim, you will have to do the following:
+1. install eclipse (this is the huge backend)
+2. install eclim (the middleware that provide integration to eclipse)
+3. install emacs-eclim since eclim is for vim by default.
+4. Follow the emacs-eclim's doc and add configurations such as eclipse-dirs
+   etc.
+
+After all the components are installed, some configurations had to made. Note
+that the main aim here is to add =eclim= support to =company-mode= to provide
+completion.
+
+Company mode had a default backend for eclim: =company-eclim=. Which, I don't
+know how to make it work. emacs-eclim provides another backend:
+"emacscompany-emacs-eclim". So I have the following configuration.
+#+BEGIN_SRC elisp
+  (defun company-emacs-eclim-local ()
+    (make-local-variable 'company-backends)
+    (company-emacs-eclim-setup))
+  (when (package-installed-p 'emacs-eclim)
+    (require 'eclim)
+    (global-eclim-mode)
+    (require 'company-emacs-eclim)
+    (add-hook 'java-mode-hook
+  	    'company-emacs-eclim-local))
+#+END_SRC
+This configuration add "emacs-eclim" support only for java-mode. Because unlike
+all the other company-mode backends, "emacs-eclim" will not exit properly if
+eclim is not provided and fallback to other backends.
+
+After all these configuration, one last thing to remember: start up the eclim
+server manually, i.e. "eclimd".
 
 * FAQs
 ** How to insert not graphic characters?

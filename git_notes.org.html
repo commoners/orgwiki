@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>git_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Git &#31508;&#35760;
+</span></span>
+<span class="org-level-1">* Tasks</span>
+<span class="org-level-2">** Change commit message of past git commits.</span>
+To change the most recent commit message, use <span class="org-verbatim">=git commit
+--amend=</span>. Change message of (unpushed) commits further in the past,
+
+<span class="org-block-begin-line">#+begin_src bash
+</span><span class="org-block"> git rebase -i [COMMIT BEFORE THE FIRST YOU WANT TO EDIT]
+</span><span class="org-block-end-line">#+end_src
+</span>
+Mark all messages to be changed with "edit". Git will start the
+rebasing and stop at every marked commit. For each of those, do a =git
+commit &#8211;amend -m 'new messag'= and <span class="org-verbatim">=git rebase --continue=</span>
+
+- <span class="org-link"><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">[[http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits][</a><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">Change commit message of past git commits</a><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">]]</a></span>
+</pre>
+  </body>
+</html>

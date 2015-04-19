@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>make.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Make FAQ
+</span></span>
+<span class="org-level-1">* Make FAQs</span>
+
+<span class="org-level-2">** how to write makefile rules to support debug/release builds</span>
+
+<span class="org-block-begin-line">#+begin_src makefile
+</span><span class="org-block">  $(CXX) = g++ -g3 -gdwarf2
+  $(CC) = gcc -g3 -gdwarf2
+
+  all: executable
+
+  debug: CXX += -DDEBUG -g
+  debug: CC += -DDEBUG -g
+  debug: executable
+
+  executable: CommandParser.tab.o CommandParser.yy.o Command.o
+      $(CXX) -o output CommandParser.yy.o CommandParser.tab.o Command.o -lfl
+
+  CommandParser.yy.o: CommandParser.l 
+      flex -o CommandParser.yy.c CommandParser.l
+      $(CC) -c CommandParser.yy.c
+</span><span class="org-block-end-line">#+end_src
+</span>
+- <span class="org-link"><a href="http://stackoverflow.com/questions/1079832/how-can-i-configure-my-makefile-for-debug-and-release-builds">[[http://stackoverflow.com/questions/1079832/how-can-i-configure-my-makefile-for-debug-and-release-builds][</a><a href="http://stackoverflow.com/questions/1079832/how-can-i-configure-my-makefile-for-debug-and-release-builds">How can I configure my makefile for debug and release builds?</a><a href="http://stackoverflow.com/questions/1079832/how-can-i-configure-my-makefile-for-debug-and-release-builds">]]</a></span>
+</pre>
+  </body>
+</html>

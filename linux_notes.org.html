@@ -90,6 +90,44 @@ Key sequence <span class="org-verbatim">=~.=</span> for disconnect.
 <span class="org-block-begin-line">#+begin_src sh
 </span><span class="org-block">  at -c &lt;job&gt;
 </span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-1">* shadowsock</span>
+<span class="org-level-2">** Turn shadowsocks into http proxy</span>
+<span class="org-block-begin-line">#+begin_example 
+</span><span class="org-block">  First run polipo with parent proxy set to Shadowsocks:
+
+  apt-get install polipo
+  service polipo stop
+  polipo socksParentProxy=localhost:1080
+
+  Then you can play with the HTTP proxy:
+
+  http_proxy=<a href="http://localhost:8123">http://localhost:8123</a> apt-get update
+
+  http_proxy=<a href="http://localhost:8123">http://localhost:8123</a> curl www.google.com
+
+  http_proxy=<a href="http://localhost:8123">http://localhost:8123</a> wget www.google.com
+
+  git config --global http.proxy 127.0.0.1:8123
+  git clone <a href="https://github.com/xxx/xxx.git">https://github.com/xxx/xxx.git</a>
+  git xxx
+  git xxx
+  git config --global --unset-all http.proxy
+</span><span class="org-block-end-line">#+end_example
+</span>
+- <span class="org-link"><a href="https://github.com/clowwindy/shadowsocks/wiki/Convert-Shadowsocks-into-an-HTTP-proxy">[[https://github.com/clowwindy/shadowsocks/wiki/Convert-Shadowsocks-into-an-HTTP-proxy][</a><a href="https://github.com/clowwindy/shadowsocks/wiki/Convert-Shadowsocks-into-an-HTTP-proxy">Convert Shadowsocks into a HTTP Proxy</a><a href="https://github.com/clowwindy/shadowsocks/wiki/Convert-Shadowsocks-into-an-HTTP-proxy">]]</a></span>
+
+Note that some applications need to set https proxy, so we need to add
+the following:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  export https_proxy=<a href="http://localhost:8123">http://localhost:8123</a>
+</span><span class="org-block-end-line">#+end_example
+</span>
+<span class="org-level-1">* unzip</span>
+<span class="org-level-2">** turn all filenames to lowercases</span>
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  unzip -LL xxx.zip
+</span><span class="org-block-end-line">#+end_src
 </span></pre>
   </body>
 </html>

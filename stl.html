@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>STL 简明教程</title>
-<!-- 2014-12-11 -->
+<!-- 2015-04-19 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -320,7 +321,7 @@ containers, functional, and iterators <sup><a id="fnr.1.100" name="fnr.1.100" cl
 </p>
 
 <p>
-在实际的程序设计中，我们几乎总是需要使用到容器（如数组），而几乎所有我们使用的容器，都在遍历所有元素的需求，如遍历数组或链表的所有元素。那么我们很自然地就将这个遍历的操作进行抽象，称之为迭代器。
+在实际的程序设计中，我们几乎总是需要使用到容器（如数组），而几乎所有我们使用的容器，都有遍历所有元素的需求，如遍历数组或链表的所有元素。那么我们很自然地就将这个遍历的操作进行抽象，称之为迭代器。
 </p>
 
 <p>
@@ -504,7 +505,7 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 <span class="linenr">16: </span>
 <span class="linenr">17: </span>    it=<span style="color: #bfebbf;">std</span>::set_union (first.begin(), first.begin()+5,
 <span class="linenr">18: </span>                       second.begin(), second.begin()+5,
-<span class="linenr">19: </span>                       v.begin()); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">(ref-union)</span>
+<span id="coderef-union" class="coderef-off"><span class="linenr">19: </span>                       v.begin()); <span style="color: #7f9f7f;">//</span></span>
 <span class="linenr">20: </span>    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50  0  0</span>
 <span id="coderef-union-minus" class="coderef-off"><span class="linenr">21: </span>    v.resize(it-v.begin());        <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">5 10 15 20 25 30 40 50</span></span>
 <span class="linenr">22: </span>
@@ -519,7 +520,7 @@ iterator需要有 <code>*tmp</code> 这样的操作，但是容器元素的类�
 </div>
 
 <p>
-这个例子里演示了如何为容器构建iterator，作为algorithm的参数。例子中直接使用 <code>first.begin()+5</code> 这样的方式<a href="#coderef-union"class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-union');" onmouseout="CodeHighlightOff(this, 'coderef-union');">nil</a>，这是有条件的，需要随机访问类型的
+这个例子里演示了如何为容器构建iterator，作为algorithm的参数。例子中直接使用 <code>first.begin()+5</code> 这样的方式<a href="#coderef-union"class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-union');" onmouseout="CodeHighlightOff(this, 'coderef-union');">19</a>，这是有条件的，需要随机访问类型的
 iterator，在如 <code>list</code> 这样的容器就不能使用，因此，iterator提供了更高层的一个操作： <code>advance</code> 我们在下面会进行介绍。同理，第<a href="#coderef-union-minus"class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-union-minus');" onmouseout="CodeHighlightOff(this, 'coderef-union-minus');">21</a>
 行用以计算两个iterator范围内的元素个数，也有对应的操作： <code>distance</code> 。
 </p>

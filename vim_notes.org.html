@@ -81,6 +81,16 @@ can simply type:
 </span><span class="org-block">  :S/{tmp_1,tmp_2}/{tmp_2,tmp_1}/g
 </span><span class="org-block-end-line">#+end_example
 </span>Note the upper case <span class="org-verbatim">=S=</span>.
-</pre>
+
+<span class="org-level-2">** How to substitute only for lines that matching a pattern</span>
+Use the 'g' command:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  :g/pat/s/src/target/
+</span><span class="org-block-end-line">#+end_example
+</span>If a range is specified, the syntax is similar:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  :'&lt;,'&gt;g/pat/s/src/target/
+</span><span class="org-block-end-line">#+end_example
+</span></pre>
   </body>
 </html>

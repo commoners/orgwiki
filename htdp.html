@@ -2,9 +2,10 @@
 <html>
 <head>
 <title>How to Design Programs Notes</title>
-<!-- 2014-12-11 -->
+<!-- 2015-04-19 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -312,7 +313,7 @@ Review the <code>cond</code> expression:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">cond</span>
+<pre class="src src-racket">(cond
  [condition-expr-1 result-expr-1]
  [condition-expr-2 result-expr-2]
  ...
@@ -373,23 +374,23 @@ Example(From the book):
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A TrafficLight shows one of three colors:</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">&#8211; "red"</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">&#8211; "green"</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">&#8211; "yellow"</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">interp. each element of TrafficLight represents which colored</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">bulb is currently turned on</span>
+<pre class="src src-racket">; A TrafficLight shows one of three colors:
+; – "red"
+; – "green"
+; – "yellow"
+; interp. each element of TrafficLight represents which colored
+; bulb is currently turned on
 
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">TrafficLight -&gt; TrafficLight</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">given state s, determine the next state of the traffic light</span>
+; TrafficLight -&gt; TrafficLight
+; given state s, determine the next state of the traffic light
 
-(check-expect (traffic-light-next <span style="color: #cc9393;">"red"</span>) <span style="color: #cc9393;">"green"</span>)
+(check-expect (traffic-light-next "red") "green")
 
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">traffic-light-next</span> s)
-  (<span style="color: #f0dfaf; font-weight: bold;">cond</span>
-    [(string=? <span style="color: #cc9393;">"red"</span> s) <span style="color: #cc9393;">"green"</span>]
-    [(string=? <span style="color: #cc9393;">"green"</span> s) <span style="color: #cc9393;">"yellow"</span>]
-    [(string=? <span style="color: #cc9393;">"yellow"</span> s) <span style="color: #cc9393;">"red"</span>]))
+(define (traffic-light-next s)
+  (cond
+    [(string=? "red" s) "green"]
+    [(string=? "green" s) "yellow"]
+    [(string=? "yellow" s) "red"]))
 </pre>
 </div>
 <p>
@@ -440,20 +441,20 @@ main difference is how to write the <span class="underline">condition expression
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">for enumeration</span>
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">iter-enumeration</span> x)
-  (<span style="color: #f0dfaf; font-weight: bold;">cond</span>
+<pre class="src src-racket">; for enumeration
+(define (iter-enumeration x)
+  (cond
    [(= x 1) 1]
    [(= x 2) 2]
-   [<span style="color: #f0dfaf; font-weight: bold;">else</span> 3]))
+   [else 3]))
 
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">for intervals</span>
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">iter-interval</span> x)
+; for intervals
+(define (iter-interval x)
   [(&lt; x 10) 1]
   [(&lt; x 100) 2]
-  [<span style="color: #f0dfaf; font-weight: bold;">else</span> 3])
+  [else 3])
 
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">the main difference here is *=* and *&lt;*</span>
+; the main difference here is *=* and *&lt;*
 </pre>
 </div>
 </div>
@@ -655,11 +656,11 @@ For the definition below:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A List-of-tmperatures is one of:</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- empty</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- (cons CTemperature List-of-temperatures)</span>
+<pre class="src src-racket">; A List-of-tmperatures is one of:
+; - empty
+; - (cons CTemperature List-of-temperatures)
 
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A CTemperature is a Number greater or equal to -256</span>
+; A CTemperature is a Number greater or equal to -256
 </pre>
 </div>
 <p>
@@ -668,9 +669,9 @@ It will lead to inconsistancy when the List is <code>empty</code>. Define an
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">List-of-tempeartures -&gt; Number</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">compute the average tempearture</span>
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">average</span> alot)
+<pre class="src src-racket">; List-of-tempeartures -&gt; Number
+; compute the average tempearture
+(define (average alot)
   (/ (sum alot)
      (how-many alot)))
 </pre>
@@ -681,13 +682,13 @@ One solution is treat this definition as an itemization:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">List-of-temperatures -&gt; Number</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">compute the average tempearture</span>
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">average</span> alot)
-  (<span style="color: #f0dfaf; font-weight: bold;">cond</span>
+<pre class="src src-racket">; List-of-temperatures -&gt; Number
+; compute the average tempearture
+(define (average alot)
+  (cond
    [(empty? alot) 0]
-   [<span style="color: #f0dfaf; font-weight: bold;">else</span> (/ (sum alot)
-            (how-many alot))]))
+   [else (/ (sum alot)
+	    (how-many alot))]))
 </pre>
 </div>
 <p>
@@ -701,10 +702,10 @@ So, a better way would be refine the definition:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A NEList-of-temperatures is one of:</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">&#8211; (cons CTemperature empty)</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">&#8211; (cons CTemperature NEList-of-temperatures)</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">interp.: non-empty lists of measured temperatures</span>
+<pre class="src src-racket">; A NEList-of-temperatures is one of:
+; – (cons CTemperature empty)
+; – (cons CTemperature NEList-of-temperatures)
+; interp.: non-empty lists of measured temperatures
 </pre>
 </div>
 
@@ -831,9 +832,9 @@ For the following two data definition:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A List-of-numbers(short Lon) is one of: ; A List-of-String(short Los) is one of:</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- empty                                 ; - empty</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- (cons Number List-of-numbers)         ; - (cons Number List-of-String)</span>
+<pre class="src src-racket">; A List-of-numbers(short Lon) is one of: ; A List-of-String(short Los) is one of:
+; - empty                                 ; - empty
+; - (cons Number List-of-numbers)         ; - (cons Number List-of-String)
 </pre>
 </div>
 
@@ -842,9 +843,9 @@ We can abstract it as:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme"><span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">A [List-of ITEM] is one of:</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- empty</span>
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">- (cons ITEM [List-of ITEM])</span>
+<pre class="src src-racket">; A [List-of ITEM] is one of:
+; - empty
+; - (cons ITEM [List-of ITEM])
 </pre>
 </div>
 <p>
@@ -931,11 +932,11 @@ for define a lambda values. And <span class="underline">lambda</span> is like a 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scheme">(<span style="color: #f0dfaf; font-weight: bold;">define</span> (<span style="color: #8cd0d3;">f</span> x)
+<pre class="src src-racket">(define (f x)
   (+ (sin x) x (* 3 x)))
-<span style="color: #7f9f7f;">; </span><span style="color: #7f9f7f;">is syntax suger for the following:</span>
-(<span style="color: #f0dfaf; font-weight: bold;">define</span> <span style="color: #8cd0d3;">f</span>
-  (<span style="color: #f0dfaf; font-weight: bold;">lambda</span> (x)
+; is syntax suger for the following:
+(define f
+  (lambda (x)
     (+ (sin x) x (* 3 x))))
 </pre>
 </div>
