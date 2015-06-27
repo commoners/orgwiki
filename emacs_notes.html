@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Emacs Notes</title>
-<!-- 2015-04-19 -->
+<!-- 2015-06-27 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Mark Wallace">
@@ -95,11 +95,17 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#sec-3">eclim</a></li>
-<li><a href="#sec-4">FAQs</a>
+<li><a href="#sec-4">Profiler</a>
 <ul>
-<li><a href="#sec-4-1">How to insert not graphic characters?</a></li>
-<li><a href="#sec-4-2">How to swap values by regexp-replace</a></li>
-<li><a href="#sec-4-3">org mode extra spaces in chinese</a></li>
+<li><a href="#sec-4-1">Emacs Native Profiler</a></li>
+<li><a href="#sec-4-2">ELP</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">FAQs</a>
+<ul>
+<li><a href="#sec-5-1">How to insert not graphic characters?</a></li>
+<li><a href="#sec-5-2">How to swap values by regexp-replace</a></li>
+<li><a href="#sec-5-3">org mode extra spaces in chinese</a></li>
 </ul>
 </li>
 </ul>
@@ -266,11 +272,67 @@ server manually, i.e. "eclimd".
 </div>
 
 <div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">FAQs</h2>
+<h2 id="sec-4">Profiler</h2>
 <div class="outline-text-2" id="text-4">
 </div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">How to insert not graphic characters?</h3>
+<h3 id="sec-4-1">Emacs Native Profiler</h3>
 <div class="outline-text-3" id="text-4-1">
+<p>
+<a href="http://cx4a.org/hack/emacs-native-profiler.html">Emacs Native
+Profiler</a> is directly included in Emacs 24.
+</p>
+
+<p>
+Usage:
+</p>
+<ol class="org-ol">
+<li><code>M-x profiler-start</code>
+</li>
+<li>do something you want to profiling
+</li>
+<li><code>M-x profiler-stop</code> (Optional)
+</li>
+<li><code>M-x profiler-report</code>
+</li>
+</ol>
+
+<p>
+Then use <code>M-x profiler-report-expand-entry</code> to expand the entry(don't
+know if there is a default key binding).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">ELP</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+This is also a build in profiler, it can be used to profile a specific
+package, function etc.
+</p>
+
+<p>
+Usage:
+</p>
+<ol class="org-ol">
+<li><code>M-x elp-instrument-xxx</code> (xxx refers to the mode you want to use,
+such as "package" or "function")
+</li>
+<li>do something
+</li>
+<li><code>M-x elp-results</code> to check the results.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">FAQs</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">How to insert not graphic characters?</h3>
+<div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li>Insert <code>C-q</code> First.
 </li>
@@ -280,9 +342,9 @@ server manually, i.e. "eclimd".
 </div>
 </div>
 
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2">How to swap values by regexp-replace</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2">How to swap values by regexp-replace</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 The idea is mixing elisp expressions in regular expressions.
 </p>
@@ -308,9 +370,9 @@ We use =\,= to insert elisp expression. For more information, check <sup><a id="
 </div>
 </div>
 
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3">org mode extra spaces in chinese</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3">org mode extra spaces in chinese</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 Normally, we'll divide text of a paragraph into lines. When org-mode
 exports them, the text will be concatenated with a space between them:

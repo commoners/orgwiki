@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Hibernate Notes</title>
-<!-- 2015-04-19 -->
+<!-- 2015-06-27 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="Mark Wallace">
@@ -77,14 +77,298 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Hibernate Tools with maven</a></li>
+<li><a href="#sec-1">Hibernate Annotations</a>
+<ul>
+<li><a href="#sec-1-1">Mapping Entities</a>
+<ul>
+<li><a href="#sec-1-1-1">Mapping with JPA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2">Hibernate Tools</a>
+<ul>
+<li><a href="#sec-2-1">Use Hibernate Tools with Maven</a></li>
+<li><a href="#sec-2-2">Some Notes on Reverse Engineering</a>
+<ul>
+<li><a href="#sec-2-2-1">How to set the "owner" of a many-to-many relationship</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Hibernate Tools with maven</h2>
+<h2 id="sec-1">Hibernate Annotations</h2>
 <div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Mapping Entities</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Mapping with JPA</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+JPA annotations are in the <code>javax.persistence.*</code> package.
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="sec-1-1-1-1" name="sec-1-1-1-1"></a>Marking a POJO as persistent entity<br ><div class="outline-text-5" id="text-1-1-1-1">
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Entity</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Flight</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+    <span style="color: #8cd0d3;">Long</span> <span style="color: #dfaf8f;">id</span>;
+
+    <span style="color: #bfebbf;">@Id</span>
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Long</span> <span style="color: #8cd0d3;">getId</span>() { <span style="color: #f0dfaf; font-weight: bold;">return</span> id; }
+
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">setId</span>(<span style="color: #8cd0d3;">Long</span> <span style="color: #dfaf8f;">id</span>) { <span style="color: #f0dfaf; font-weight: bold;">this</span>.id = id; }
+}
+</pre>
+</div>
+
+<p>
+<code>@Entity</code> declares the class as an entity(i.e. a persistent POJO class). <code>@Id</code>
+declares the identifier property of this entity.
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="sec-1-1-1-1-1" name="sec-1-1-1-1-1"></a>Defining the table<br ><div class="outline-text-6" id="text-1-1-1-1-1">
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Entity</span>
+<span style="color: #bfebbf;">@Table</span>(name=<span style="color: #cc9393;">"tbl_sky"</span>,
+    uniqueConstraints = {<span style="color: #bfebbf;">@UniqueConstraint</span>(columnNames={<span style="color: #cc9393;">"month"</span>, <span style="color: #cc9393;">"day"</span>})}
+)
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Sky</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+   ...
+}
+</pre>
+</div>
+<p>
+If no <code>@Table</code> is specified, then the default values are used: the unqualified
+class name of the entity.
+</p>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-1-1-1-2" name="sec-1-1-1-2"></a>Mapping simple properties<br ><ul class="org-ul"><li><a id="sec-1-1-1-2-1" name="sec-1-1-1-2-1"></a>Declaring basic property mappings<br ><div class="outline-text-6" id="text-1-1-1-2-1">
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">transient</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">counter</span>; <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">transient property</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">firstname</span>; <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">persistent property</span>
+
+<span style="color: #bfebbf;">@Transient</span>
+<span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getLengthInMeter</span>() { ... } <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">transient property</span>
+
+<span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getName</span>() {... } <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">persistent property</span>
+
+<span style="color: #bfebbf;">@Basic</span>
+<span style="color: #8cd0d3;">int</span> <span style="color: #8cd0d3;">getLength</span>() { ... } <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">persistent property</span>
+
+<span style="color: #bfebbf;">@Basic</span>(fetch = <span style="color: #bfebbf;">FetchType</span>.LAZY)
+<span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getDetailedComment</span>() { ... } <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">persistent property</span>
+
+<span style="color: #bfebbf;">@Temporal</span>(<span style="color: #bfebbf;">TemporalType</span>.<span style="color: #8cd0d3;">TIME</span>)
+<span style="color: #bfebbf;">java</span>.<span style="color: #bfebbf;">util</span>.<span style="color: #8cd0d3;">Date</span> <span style="color: #8cd0d3;">getDepartureTime</span>() { ... } <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">persistent property</span>
+
+<span style="color: #bfebbf;">@Enumerated</span>(<span style="color: #bfebbf;">EnumType</span>.<span style="color: #8cd0d3;">STRING</span>)
+<span style="color: #8cd0d3;">Starred</span> <span style="color: #8cd0d3;">getNote</span>() { ... } <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">enum persisted as String in database</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-1-1-2-2" name="sec-1-1-1-2-2"></a>Declaring column attributes<br ><div class="outline-text-6" id="text-1-1-1-2-2">
+<p>
+The column(s) used for a property mapping can be defined using the <code>@Column</code>
+annotation. Use it to override default values.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Entity</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Flight</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+...
+<span style="color: #bfebbf;">@Column</span>(updatable = <span style="color: #bfebbf;">false</span>, name = <span style="color: #cc9393;">"flight_name"</span>, nullable = <span style="color: #bfebbf;">false</span>, length=50)
+<span style="color: #f0dfaf; font-weight: bold;">public</span> String getName() { ... }
+</pre>
+</div>
+
+<p>
+Default values:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Column</span>(
+    name=<span style="color: #cc9393;">"colu(1)mnName"</span>;
+    <span style="color: #8cd0d3;">boolean</span> <span style="color: #dfaf8f;">un</span>(2)ique() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #bfebbf;">false</span>;
+    <span style="color: #8cd0d3;">boolean</span> <span style="color: #dfaf8f;">nu</span>(3)llable() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #bfebbf;">true</span>;
+    <span style="color: #8cd0d3;">boolean</span> <span style="color: #dfaf8f;">in</span>(4)sertable() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #bfebbf;">true</span>;
+    <span style="color: #8cd0d3;">boolean</span> <span style="color: #dfaf8f;">up</span>(5)datable() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #bfebbf;">true</span>;
+    <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">col</span>(6)umnDefinition() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #cc9393;">""</span>;
+    <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">tab</span>(7)le() <span style="color: #f0dfaf; font-weight: bold;">default</span> <span style="color: #cc9393;">""</span>;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">length</span>(8)() <span style="color: #f0dfaf; font-weight: bold;">default</span> 255;
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">precis</span>(9)ion() <span style="color: #f0dfaf; font-weight: bold;">default</span> 0; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">decimal precision</span>
+    <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">scale</span>((10)) <span style="color: #f0dfaf; font-weight: bold;">default</span> 0; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">decimal scale</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-1-1-2-3" name="sec-1-1-1-2-3"></a>Embedded objects(aka components)<br ><div class="outline-text-6" id="text-1-1-1-2-3">
+<p>
+It is possible to declare an embedded component inside an entity and even
+override its column mapping. Component classes have to be annotated at the clas
+level with the <code>@Embeddable</code> annotation. It is possible to override the column
+mapping of an embedded object for a particular entry using the <code>@Embedded</code> and
+<code>@AttributeOverride</code> annotation in the associated property.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Entity</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Person</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Persistent component using defaults</span>
+    <span style="color: #8cd0d3;">Address</span> <span style="color: #dfaf8f;">homeAddress</span>;
+
+    <span style="color: #bfebbf;">@Embedded</span>
+    <span style="color: #bfebbf;">@AttributeOverrides</span>( {
+            <span style="color: #bfebbf;">@AttributeOverride</span>(name=<span style="color: #cc9393;">"iso2"</span>, column = <span style="color: #bfebbf;">@Column</span>(name=<span style="color: #cc9393;">"bornIso2"</span>) ),
+            <span style="color: #dfaf8f;">@AttributeOverride</span>(name=<span style="color: #cc9393;">"name"</span>, column = <span style="color: #bfebbf;">@Column</span>(name=<span style="color: #cc9393;">"bornCountryName"</span>) )
+    } )
+    <span style="color: #8cd0d3;">Country</span> <span style="color: #dfaf8f;">bornIn</span>;
+    ...
+}
+
+<span style="color: #bfebbf;">@Embeddable</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Address</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+    <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">city</span>;
+    <span style="color: #8cd0d3;">Country</span> <span style="color: #dfaf8f;">nationality</span>; <span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">no overriding here</span>
+}
+
+<span style="color: #bfebbf;">@Embeddable</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Country</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">iso2</span>;
+    <span style="color: #bfebbf;">@Column</span>(name=<span style="color: #cc9393;">"countryName"</span>) <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">name</span>;
+
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getIso2</span>() { <span style="color: #f0dfaf; font-weight: bold;">return</span> iso2; }
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">setIso2</span>(<span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">iso2</span>) { <span style="color: #f0dfaf; font-weight: bold;">this</span>.iso2 = iso2; }
+
+
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getName</span>() { <span style="color: #f0dfaf; font-weight: bold;">return</span> name; }
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">setName</span>(<span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">name</span>) { <span style="color: #f0dfaf; font-weight: bold;">this</span>.name = name; }
+    ...
+}
+</pre>
+</div>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-1-1-1-3" name="sec-1-1-1-3"></a>Mapping identifier properties<br ><ul class="org-ul"><li><a id="sec-1-1-1-3-1" name="sec-1-1-1-3-1"></a>Generating the identifier property<br ><div class="outline-text-6" id="text-1-1-1-3-1">
+<p>
+JPA defines five types of identifier generation strategies:
+</p>
+<ul class="org-ul">
+<li>AUTO &#x2013; either identify column, sequence or table depending on the underlying
+DB
+</li>
+<li>TABLE &#x2013; table holding the id
+</li>
+<li>IDENTITY &#x2013; identity column
+</li>
+<li>SEQUENCE &#x2013; sequence
+</li>
+<li>identity copy &#x2013; the identity is copied from another entity.
+</li>
+</ul>
+
+<p>
+Example usage:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Id</span> <span style="color: #bfebbf;">@GeneratedValue</span>(strategy=<span style="color: #bfebbf;">GenerationType</span>.IDENTITY)
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Long</span> <span style="color: #8cd0d3;">getId</span>() { ... }
+</pre>
+</div>
+
+<p>
+Application level generators:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java">&lt;table-generator name=<span style="color: #cc9393;">"EMP_GEN"</span>
+            table=<span style="color: #cc9393;">"GENERATOR_TABLE"</span>
+            pk-column-name=<span style="color: #cc9393;">"key"</span>
+            value-column-name=<span style="color: #cc9393;">"hi"</span>
+            pk-column-value=<span style="color: #cc9393;">"EMP"</span>
+            allocation-size=<span style="color: #cc9393;">"20"</span>/&gt;
+
+<span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">and the annotation equivalent</span>
+
+@<span style="color: #bfebbf;">javax</span>.<span style="color: #bfebbf;">persistence</span>.TableGenerator(
+    name=<span style="color: #cc9393;">"EMP_GEN"</span>,
+    table=<span style="color: #cc9393;">"GENERATOR_TABLE"</span>,
+    pkColumnName = <span style="color: #cc9393;">"key"</span>,
+    valueColumnName = <span style="color: #cc9393;">"hi"</span>
+    pkColumnValue=<span style="color: #cc9393;">"EMP"</span>,
+    allocationSize=20
+)
+
+&lt;sequence-generator name=<span style="color: #cc9393;">"SEQ_GEN"</span>
+    sequence-name=<span style="color: #cc9393;">"my_sequence"</span>
+    allocation-size=<span style="color: #cc9393;">"20"</span>/&gt;
+
+<span style="color: #7f9f7f;">//</span><span style="color: #7f9f7f;">and the annotation equivalent</span>
+
+@<span style="color: #bfebbf;">javax</span>.<span style="color: #bfebbf;">persistence</span>.SequenceGenerator(
+    name=<span style="color: #cc9393;">"SEQ_GEN"</span>,
+    sequenceName=<span style="color: #cc9393;">"my_sequence"</span>,
+    allocationSize=20
+)
+</pre>
+</div>
+
+<p>
+The next example shows the definition of a sequence generator in a class scope.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #bfebbf;">@Entity</span>
+@<span style="color: #bfebbf;">javax</span>.<span style="color: #bfebbf;">persistence</span>.SequenceGenerator(
+    name=<span style="color: #cc9393;">"SEQ_STORE"</span>,
+    sequenceName=<span style="color: #cc9393;">"my_sequence"</span>
+)
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Store</span> <span style="color: #f0dfaf; font-weight: bold;">implements</span> <span style="color: #8cd0d3;">Serializable</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">Long</span> <span style="color: #dfaf8f;">id</span>;
+
+    <span style="color: #bfebbf;">@Id</span> <span style="color: #bfebbf;">@GeneratedValue</span>(strategy=<span style="color: #bfebbf;">GenerationType</span>.SEQUENCE, generator=<span style="color: #cc9393;">"SEQ_STORE"</span>)
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Long</span> <span style="color: #8cd0d3;">getId</span>() { <span style="color: #f0dfaf; font-weight: bold;">return</span> id; }
+}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-1-1-3-2" name="sec-1-1-1-3-2"></a>Composite identifier<br ></li></ul>
+</li></ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Hibernate Tools</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Use Hibernate Tools with Maven</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 The key here is a plugin named
 <a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">hibernate3-maven-plugin</a>. We
@@ -188,6 +472,114 @@ Note that hibernate-tools may have conflictions with hibernate 3.5+. The
 resource can be used with higer version. So we only need <code>3.3.2.GA</code> to reverse
 engineering
 </p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Some Notes on Reverse Engineering</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1">How to set the "owner" of a many-to-many relationship</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+Perhaps we have a many-to-many relationship as:
+</p>
+<pre class="example">
++--------+                                            +---------+
+| User   | (1) ------- (n) +-----------+ (n) ---- (1) | Project |
++--------+                 | Applicant |              +---------+
+| UID(PK)|                 +-----------+              | PID (PK)|
++--------+                 | PID   (FK)|              +---------+
+                           | UID   (FK)|
+                           +-----------+
+</pre>
+
+<p>
+What is a "owner"? In the following example, "Project" is the owner:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">In class "Projects" (the owner side)</span>
+
+<span style="color: #bfebbf;">@ManyToMany</span>(fetch=<span style="color: #bfebbf;">FetchType</span>.LAZY)
+    <span style="color: #bfebbf;">@JoinTable</span>(name=<span style="color: #cc9393;">"applicants"</span>, catalog=<span style="color: #cc9393;">"hiber"</span>, joinColumns = {
+        <span style="color: #bfebbf;">@JoinColumn</span>(name=<span style="color: #cc9393;">"projectid"</span>, nullable=<span style="color: #bfebbf;">false</span>, updatable=<span style="color: #bfebbf;">false</span>) }, inverseJoinColumns = {
+        <span style="color: #bfebbf;">@JoinColumn</span>(name=<span style="color: #cc9393;">"username"</span>, nullable=<span style="color: #bfebbf;">false</span>, updatable=<span style="color: #bfebbf;">false</span>) })
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Set</span>&lt;<span style="color: #8cd0d3;">Users</span>&gt; <span style="color: #8cd0d3;">getUserses</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #f0dfaf; font-weight: bold;">this</span>.userses;
+    }
+</pre>
+</div>
+
+<p>
+while the "owning side" is:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">in class "Users" (the owning side)</span>
+
+<span style="color: #bfebbf;">@ManyToMany</span>(fetch=<span style="color: #bfebbf;">FetchType</span>.LAZY, mappedBy=<span style="color: #cc9393;">"userses"</span>)
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #8cd0d3;">Set</span>&lt;<span style="color: #8cd0d3;">Projects</span>&gt; <span style="color: #8cd0d3;">getProjectses</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #f0dfaf; font-weight: bold;">this</span>.projectses;
+    }
+</pre>
+</div>
+
+<p>
+Being the "owner side" means that update the <code>userses</code> fields of a <code>Project</code> will
+add or update the required "users" in "User" table and add/update corresponding
+rows in the association table "Applicant".
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #8cd0d3;">Users</span> <span style="color: #dfaf8f;">user</span> = (<span style="color: #8cd0d3;">Users</span>)session.get(Users.<span style="color: #f0dfaf; font-weight: bold;">class</span>, <span style="color: #cc9393;">"root"</span>);  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">must be existed.</span>
+<span style="color: #8cd0d3;">Projects</span> <span style="color: #dfaf8f;">project</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">Projects</span>(10, <span style="color: #cc9393;">"another project"</span>);
+project.setUserses(<span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">HashSet</span>&lt;<span style="color: #8cd0d3;">Users</span>&gt;());
+project.getUserses().add(user);
+
+session.saveOrUpdate(project);
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">=&gt; add Projects(10, "another project") to "Project" table</span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">=&gt; add (10, "root") to "Applicant"</span>
+</pre>
+</div>
+
+<p>
+Being the "owning side" means that any update on the <code>projectses</code> fields of a
+<code>User</code> will do noting at all.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #8cd0d3;">Projects</span> <span style="color: #dfaf8f;">project1</span> = (<span style="color: #8cd0d3;">Projects</span>)session.get(Projects.<span style="color: #f0dfaf; font-weight: bold;">class</span>, <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">Long</span>(1));
+<span style="color: #8cd0d3;">Users</span> <span style="color: #dfaf8f;">user</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">Users</span>(<span style="color: #cc9393;">"another"</span>, <span style="color: #cc9393;">"password"</span>);
+user.setProjectses(<span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">HashSet</span>&lt;<span style="color: #8cd0d3;">Projects</span>&gt;());
+user.getProjectses().add(project1);
+
+session.saveOrUpdate(user);
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">=&gt; add  Users("another", "password") to table "User".</span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">=&gt; hava no effect on table "Applicant"</span>
+</pre>
+</div>
+
+<p>
+The "Applicant" table is the association table. If a many-to-many relationship
+is a defined by association table like "applicant", it will set the table <code>Project</code>
+as the "owner side" of this relationship while <code>User</code> is set as the "owning
+side".
+</p>
+
+<p>
+That is: Hibernate will set the table which the first foreign key of association
+table refers to as the owner of a many-to-many relationship. So if you want to
+make "user" the "owner side", just put "UID" at the first column of table
+"Applicant" when creating it.
+</p>
+</div>
+</div>
 </div>
 </div>
 </div>

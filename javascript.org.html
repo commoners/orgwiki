@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>javascript.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-list-dt {
+        /* org-list-dt */
+        font-weight: bold;
+      }
+      .org-target {
+        /* org-target */
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">JavaScript Notes
+</span></span>
+<span class="org-level-1">* JS Box metrics</span>
+<span class="org-target">&lt;&lt;sec:js-box-metrics&gt;&gt;</span>
+
+There are several concepts of metrics used in javascript.
+
+<span class="org-level-2">** CSS width/height</span>
+
+Without <span class="org-verbatim">=box-sizing: border-box=</span> being set, it is the size of the
+<span class="underline">_content area_</span>, which lies inside the padding. CSS properties can be
+set using <span class="org-verbatim">=element.style=</span> property and retrieved using
+<span class="org-verbatim">=getComputedStyle()/currentStyle=</span>.
+
+<span class="org-level-2">** clientWidth/Height</span>
+
+Size of the <span class="org-verbatim">=client area=</span>: content area with padding, but without scrollbars.
+
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  clientWidth = CSS-width + paddings - scrollbar-width;
+  clientHeight = CSS-height + paddings - scrollbar-height;
+</span><span class="org-block-end-line">#+end_example
+</span>
+NOTE: the scrollbars will first occupy the padding area, and if the
+padding area is not large enough, it will further occupy the content
+area, meanwhile the CSS width/height stays unchanged. Thus as in the
+following image where <span class="org-verbatim">=padding &gt; scrollbar-width=</span>:
+
+<span class="org-link"><a href="http://javascript.info/files/tutorial/browser/dom/metric2.png">[[</a><a href="http://javascript.info/files/tutorial/browser/dom/metric2.png">http://javascript.info/files/tutorial/browser/dom/metric2.png</a><a href="http://javascript.info/files/tutorial/browser/dom/metric2.png">]]</a></span>
+
+The size can be calculated:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  clientWidth = 300(width) + 40(paddings) - 16(scrollbar) = 324
+  clientHeight = 200(height) + 40(paddings) = 240
+</span><span class="org-block-end-line">#+end_example
+</span>
+However, if the <span class="org-verbatim">=padding &lt; scrollbar-width=</span>:
+
+<span class="org-link"><a href="http://javascript.info/files/tutorial/browser/dom/metricClientWidth.png">[[</a><a href="http://javascript.info/files/tutorial/browser/dom/metricClientWidth.png">http://javascript.info/files/tutorial/browser/dom/metricClientWidth.png</a><a href="http://javascript.info/files/tutorial/browser/dom/metricClientWidth.png">]]</a></span>
+
+The <span class="underline">_CSS width_</span> stays unchanged(300px), while the client width:
+
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  clientWidth = 300(width) + 0(paddings) - 16(scrollbar) = 284
+</span><span class="org-block-end-line">#+end_example
+</span>
+Thus the <span class="org-verbatim">=clientWidth/clientHeight=</span> reflect the real size of the content.
+
+<span class="org-level-2">** scrollWidth/Height</span>
+Content area width and height <span class="underline">_including_</span> the scrolled out part. That
+means they are the same as clientWidth/Height, but includes full
+scrollable area.
+
+<span class="org-level-2">** scrollTop/scrollLeft</span>
+The size of scrolled out part: vertical and horizontal. The value is
+always in pixels.
+
+NOTE that you can set values to this property, the browser will scroll
+the document accordingly.
+
+<span class="org-level-2">** offsetWidth/Height</span>
+Outer box width/height, full size with borders, but without margins.
+
+<span class="org-level-2">** clientTop/Left</span>
+The indent of <span class="underline">_client area_</span> from box outer corner.
+
+<span class="org-link"><a href="http://javascript.info/files/tutorial/browser/dom/metric3.png">[[</a><a href="http://javascript.info/files/tutorial/browser/dom/metric3.png">http://javascript.info/files/tutorial/browser/dom/metric3.png</a><a href="http://javascript.info/files/tutorial/browser/dom/metric3.png">]]</a></span>
+
+Normally, the value is:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">clientTop = border-top-width
+clientLeft = border-left-width
+</span><span class="org-block-end-line">#+end_example
+</span>
+However, in case of a <span class="underline">_right-to-left_</span> document, where the scrollbar
+appears on the top and left, the value is:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">clientTop = border-top-width + scrollbar-width
+clientLeft = border-left-width + scrollbar-width
+</span><span class="org-block-end-line">#+end_example
+</span>
+<span class="org-level-2">** offsetParent, offsetLeft/Top</span>
+Properties <span class="org-verbatim">=offsetLeft=</span> and <span class="org-verbatim">=offsetTop=</span> reflects a relative shift of
+an element from its <span class="org-verbatim">=offsetParent=</span>.
+
+The <span class="org-verbatim">=offsetParent=</span> is the closest(nearest in the containment
+hierarchy) <span class="bold">*positioned*</span> containing element. If the element is
+non-positioned, but the ancestor is a table cell(<span class="org-verbatim">=td=</span>, <span class="org-verbatim">=th=</span> or
+<span class="org-verbatim">=table=</span>) or root element (<span class="org-verbatim">=html=</span> in standards compliant mode; <span class="org-verbatim">=body=</span>
+in quirks rendering mode) is the <span class="org-verbatim">=offsetParent=</span>. See
+<span class="org-link"><a href="http://dev.w3.org/csswg/cssom-view/#dom-htmlelement-offsetparent">[[http://dev.w3.org/csswg/cssom-view/#dom-htmlelement-offsetparent][</a><a href="http://dev.w3.org/csswg/cssom-view/#dom-htmlelement-offsetparent">DOM
+HTML Element -- offsetparent</a><a href="http://dev.w3.org/csswg/cssom-view/#dom-htmlelement-offsetparent">]]</a></span> for specification.
+
+<span class="org-link"><a href="http://javascript.info/files/tutorial/browser/dom/metricOffset.png">[[</a><a href="http://javascript.info/files/tutorial/browser/dom/metricOffset.png">http://javascript.info/files/tutorial/browser/dom/metricOffset.png</a><a href="http://javascript.info/files/tutorial/browser/dom/metricOffset.png">]]</a></span>
+
+<span class="org-level-2">** Summary</span>
+1. The <span class="underline">_CSS width/height_</span> is the width of the content area, and will
+   stick to the value it is.
+2. The <span class="org-verbatim">=Client Area=</span> is the content area plus padding, but do not include
+   the scrollbar.
+3. The <span class="org-verbatim">=Offset Area=</span> is the whole content of an element except the margin.
+4. All the width/height and left/top properties are calculated
+   according to what they are(client/offset area).
+
+<span class="org-link"><a href="http://javascript.info/files/tutorial/browser/dom/metricSummary.png">[[</a><a href="http://javascript.info/files/tutorial/browser/dom/metricSummary.png">http://javascript.info/files/tutorial/browser/dom/metricSummary.png</a><a href="http://javascript.info/files/tutorial/browser/dom/metricSummary.png">]]</a></span>
+
+
+
+<span class="org-level-2">** References</span>
+<span class="org-link"><a href="http://javascript.info/tutorial/metrics">[[http://javascript.info/tutorial/metrics][</a><a href="http://javascript.info/tutorial/metrics">JS metrics</a><a href="http://javascript.info/tutorial/metrics">]]</a></span>
+
+<span class="org-level-1">* JS Position/Offset</span>
+
+The <span class="org-link"><a href="sec:js-box-metrics">[[sec:js-box-metrics][</a><a href="sec:js-box-metrics">previous section</a><a href="sec:js-box-metrics">]]</a></span> introduced the box model
+of javascript. However, there are still two important requirement we
+have: get the position of current element.
+
+Two concept will be involed here: document and viewport.
+
+<span class="org-link"><a href="https://developer.mozilla.org/en/docs/Web/API/Document">[[https://developer.mozilla.org/en/docs/Web/API/Document][</a><a href="https://developer.mozilla.org/en/docs/Web/API/Document">Document</a><a href="https://developer.mozilla.org/en/docs/Web/API/Document">]]</a></span>
+serves as an entry point into the web page's content(The DOM
+tree). You can treat it as the <span class="org-verbatim">=&lt;html&gt;=</span> object in HTML source
+code. And JS provide a variable <span class="org-verbatim">=document=</span> for it.
+
+<span class="org-link"><a href="https://developer.mozilla.org/en-US/docs/Glossary/Viewport">[[https://developer.mozilla.org/en-US/docs/Glossary/Viewport][</a><a href="https://developer.mozilla.org/en-US/docs/Glossary/Viewport">Viewport</a><a href="https://developer.mozilla.org/en-US/docs/Glossary/Viewport">]]</a></span>
+represents a polygonal(normally rectangular) area in computer graphics
+currently being viewed. So we can treat it as the browser that
+displays contents. 
+
+I actually cannot distinguish viewport from
+<span class="org-link"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window">[[https://developer.mozilla.org/en-US/docs/Web/API/Window][</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window">window</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window">]]</a></span>,
+it seems that viewport is an abstract concept that refer to any
+view-able area, while window refers to the actual "physical" object.
+
+Because the window size can scroll, so the position of an element
+could be relative to either document or viewport.
+
+As for those relative to the <span class="bold">*viewport*</span>, JS provide us a handy function:
+<span class="org-link"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">[[https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect][</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">getBoundingClientRect()</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect">]]</a></span>
+that will return the size of an element and its position relative to viewport.
+
+As for those relative to the <span class="bold">*document*</span>, JS do not have direct answer,
+however the JQuery function <span class="org-link"><a href="http://api.jquery.com/offset/">[[http://api.jquery.com/offset/][</a><a href="http://api.jquery.com/offset/">.offset</a><a href="http://api.jquery.com/offset/">]]</a></span>
+is an alternate to that. Of course you can implement it in plain JS as
+well, You can check the JQuery implementation
+<span class="org-link"><a href="http://james.padolsey.com/jquery/#v%3D1.11.2&amp;fn%3DjQuery.fn.offset">[[http://james.padolsey.com/jquery/#v%3D1.11.2&amp;fn%3DjQuery.fn.offset][</a><a href="http://james.padolsey.com/jquery/#v%3D1.11.2&amp;fn%3DjQuery.fn.offset">here</a><a href="http://james.padolsey.com/jquery/#v%3D1.11.2&amp;fn%3DjQuery.fn.offset">]]</a></span>.
+
+<span class="org-level-1">* Event Position</span>
+- <span class="org-list-dt">clientX/clientY ::</span> the coordinate of the mouse pointer relative
+     to the current window(viewport), when the event was triggered.
+- <span class="org-list-dt">screenX/screenY ::</span> the coordinate of the mouse pointer, relative to
+     the screen, when the event was triggered.
+- <span class="org-list-dt">pageX/pageY ::</span> the coordinate of the event relative to the whole
+                 document. This is non-standard.
+- <span class="org-list-dt">layerX/layerY ::</span> the coordinate of the event relative to the current
+                   layer. Non-standard.
+
+<span class="org-link"><a href="http://web.jobbole.com/82419/">[[http://web.jobbole.com/82419/][</a><a href="http://web.jobbole.com/82419/">About JS event</a><a href="http://web.jobbole.com/82419/">]]</a></span>
+</pre>
+  </body>
+</html>

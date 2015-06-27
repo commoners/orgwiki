@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>maven</title>
+<title>My installtion process of installing Arch Linux</title>
 <!-- 2015-06-27 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -72,158 +72,67 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">maven</h1>
+<h1 class="title">My installtion process of installing Arch Linux</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Maven with Web application</a>
-<ul>
-<li><a href="#sec-1-1">Notes</a>
-<ul>
-<li><a href="#sec-1-1-1">Generate JSF eclipse application</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-2">FAQs</a>
-<ul>
-<li><a href="#sec-2-1">how to run a main class</a>
-<ul>
-<li><a href="#sec-2-1-1">Running from command line</a></li>
-<li><a href="#sec-2-1-2">Running in a phase in pom.xml</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#sec-1">Preparation</a></li>
+<li><a href="#sec-2">Burn the ISO to the USB</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Maven with Web application</h2>
+<h2 id="sec-1">Preparation</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Notes</h3>
-<div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1">Generate JSF eclipse application</h4>
-<div class="outline-text-4" id="text-1-1-1">
-<p>
-It seems that using only <code>mvn eclipse:eclipse</code> will have some
-problems generating the project, instead use <code>mvn eclipse:eclipse
--Dwtpversion=2.0</code> to include WTP support.
-</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">FAQs</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">how to run a main class</h3>
-<div class="outline-text-3" id="text-2-1">
-</div><div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1">Running from command line</h4>
-<div class="outline-text-4" id="text-2-1-1">
-<p>
-First we'll need to compile and install our code by:
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn compile
-mvn install
-</pre>
-</div>
-
-<p>
-Then, run with:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span>
-mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span> -Dexec.args=<span style="color: #cc9393;">"arg0 arg1 arg2"</span>
-</pre>
-</div>
-
-<p>
-we can also save it in the pom file:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">project</span>&gt;
-    &lt;<span style="color: #8cd0d3;">build</span>&gt;
-        &lt;<span style="color: #8cd0d3;">plugins</span>&gt;
-            &lt;<span style="color: #8cd0d3;">plugin</span>&gt;
-                &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">version</span>&gt;1.2.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;
-                &lt;<span style="color: #8cd0d3;">configuration</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.example.Main&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">arguments</span>&gt;
-                        &lt;<span style="color: #8cd0d3;">argument</span>&gt;argument1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;
-                    &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;
-                &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;
-            &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;
-        &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;
-    &lt;/<span style="color: #8cd0d3;">build</span>&gt;
-&lt;/<span style="color: #8cd0d3;">project</span>&gt;
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2">Running in a phase in pom.xml</h4>
-<div class="outline-text-4" id="text-2-1-2">
-<div class="org-src-container">
-
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">build</span>&gt;  
- &lt;<span style="color: #8cd0d3;">plugins</span>&gt;  
-  &lt;<span style="color: #8cd0d3;">plugin</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">version</span>&gt;1.1.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">executions</span>&gt;  
-    &lt;<span style="color: #8cd0d3;">execution</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">phase</span>&gt;test&lt;/<span style="color: #8cd0d3;">phase</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">goals</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">goal</span>&gt;java&lt;/<span style="color: #8cd0d3;">goal</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">goals</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">configuration</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.vineetmanohar.module.CodeGenerator&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">arguments</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg0&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-      &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;  
-    &lt;/<span style="color: #8cd0d3;">execution</span>&gt;  
-   &lt;/<span style="color: #8cd0d3;">executions</span>&gt;  
-  &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;  
- &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;  
-&lt;/<span style="color: #8cd0d3;">build</span>&gt;
-</pre>
-</div>
-
-<p>
-Then <code>CodeGenerator.main()</code> will be run while executing:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn test
-</pre>
-</div>
-
-
 <ul class="org-ul">
-<li><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">3 ways to run Java main from Maven</a>
+<li><code>[&#xa0;]</code> download iso.
+</li>
+<li><code>[&#xa0;]</code> prepare for partition to install
+</li>
+<li><code>[&#xa0;]</code> a USB for booting the ISO.
 </li>
 </ul>
 </div>
 </div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Burn the ISO to the USB</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+According to
+<a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">Arch
+Wiki</a>, the ISO file can be directly <code>dd</code> into a USB flash media.
+</p>
+
+<p>
+so I execute the following command to do that
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">dd <span style="color: #dfaf8f;">bs</span>=4M <span style="color: #dfaf8f;">if</span>=archlinux-2015.06.01-dual.iso <span style="color: #dfaf8f;">of</span>=/dev/sdb &amp;&amp; sync
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><code>bs</code> means how many bytes <code>dd</code> would read or write at a time.
+</li>
+<li><code>if</code> is used to specify the input file, the ISO file name is used here.
+</li>
+<li><code>of</code> is used to specify the output file. The USB device is <code>/dev/sdb</code> in my case.
+</li>
+<li><code>sync</code> is used to flush file system buffers to ensure that all the files are
+written to the USB flash.
+</li>
+</ul>
+
+<p>
+Now I am waiting for the process to finish. Writing this post and learn the next
+installation step.
+</p>
 </div>
 </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>maven</title>
+<title>JSF Notes</title>
 <!-- 2015-06-27 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -72,157 +72,121 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">maven</h1>
+<h1 class="title">JSF Notes</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Maven with Web application</a>
+<li><a href="#sec-1">FAQ</a>
 <ul>
-<li><a href="#sec-1-1">Notes</a>
-<ul>
-<li><a href="#sec-1-1-1">Generate JSF eclipse application</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-2">FAQs</a>
-<ul>
-<li><a href="#sec-2-1">how to run a main class</a>
-<ul>
-<li><a href="#sec-2-1-1">Running from command line</a></li>
-<li><a href="#sec-2-1-2">Running in a phase in pom.xml</a></li>
-</ul>
-</li>
+<li><a href="#sec-1-1">How to find components by ID?</a></li>
+<li><a href="#sec-1-2">How is the beans connected with UI components?</a></li>
+<li><a href="#sec-1-3">where does JSF validate the input?</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+
+
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Maven with Web application</h2>
+<h2 id="sec-1">FAQ</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Notes</h3>
+<h3 id="sec-1-1">How to find components by ID?</h3>
 <div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1">Generate JSF eclipse application</h4>
-<div class="outline-text-4" id="text-1-1-1">
 <p>
-It seems that using only <code>mvn eclipse:eclipse</code> will have some
-problems generating the project, instead use <code>mvn eclipse:eclipse
--Dwtpversion=2.0</code> to include WTP support.
-</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">FAQs</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">how to run a main class</h3>
-<div class="outline-text-3" id="text-2-1">
-</div><div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1">Running from command line</h4>
-<div class="outline-text-4" id="text-2-1-1">
-<p>
-First we'll need to compile and install our code by:
+(These contexts are copied from the link below)
 </p>
 
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn compile
-mvn install
-</pre>
-</div>
-
 <p>
-Then, run with:
+A search expression consists of either an identifier (which is matched
+exactly against the id property of a UIComponent, or a series of such
+identifiers linked by the UINamingContainer#getSeparatorChar character
+value. The search algorithm should operates as follows, though
+alternate alogrithms may be used as long as the end result is the
+same:
 </p>
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span>
-mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span> -Dexec.args=<span style="color: #cc9393;">"arg0 arg1 arg2"</span>
-</pre>
-</div>
-
-<p>
-we can also save it in the pom file:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">project</span>&gt;
-    &lt;<span style="color: #8cd0d3;">build</span>&gt;
-        &lt;<span style="color: #8cd0d3;">plugins</span>&gt;
-            &lt;<span style="color: #8cd0d3;">plugin</span>&gt;
-                &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">version</span>&gt;1.2.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;
-                &lt;<span style="color: #8cd0d3;">configuration</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.example.Main&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">arguments</span>&gt;
-                        &lt;<span style="color: #8cd0d3;">argument</span>&gt;argument1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;
-                    &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;
-                &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;
-            &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;
-        &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;
-    &lt;/<span style="color: #8cd0d3;">build</span>&gt;
-&lt;/<span style="color: #8cd0d3;">project</span>&gt;
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2">Running in a phase in pom.xml</h4>
-<div class="outline-text-4" id="text-2-1-2">
-<div class="org-src-container">
-
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">build</span>&gt;  
- &lt;<span style="color: #8cd0d3;">plugins</span>&gt;  
-  &lt;<span style="color: #8cd0d3;">plugin</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">version</span>&gt;1.1.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">executions</span>&gt;  
-    &lt;<span style="color: #8cd0d3;">execution</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">phase</span>&gt;test&lt;/<span style="color: #8cd0d3;">phase</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">goals</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">goal</span>&gt;java&lt;/<span style="color: #8cd0d3;">goal</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">goals</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">configuration</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.vineetmanohar.module.CodeGenerator&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">arguments</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg0&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-      &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;  
-    &lt;/<span style="color: #8cd0d3;">execution</span>&gt;  
-   &lt;/<span style="color: #8cd0d3;">executions</span>&gt;  
-  &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;  
- &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;  
-&lt;/<span style="color: #8cd0d3;">build</span>&gt;
-</pre>
-</div>
-
-<p>
-Then <code>CodeGenerator.main()</code> will be run while executing:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn test
-</pre>
-</div>
-
 
 <ul class="org-ul">
-<li><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">3 ways to run Java main from Maven</a>
+<li>Identify the UIComponent that will be the base for searching, by
+stopping as soon as one of the following conditions is met:
+<ul class="org-ul">
+<li>If the search expression begins with the the separator character 
+(called an "absolute" search expression), the base will be the
+root UIComponent of the component tree. The leading separator
+character will be stripped off, and the remainder of the search
+expression will be treated as a "relative" search expression as
+described below.
+</li>
+<li>Otherwise, if this UIComponent is a NamingContainer it will serve
+as the basis.
+</li>
+<li>Otherwise, search up the parents of this component. If a
+NamingContainer is encountered, it will be the base.
+</li>
+</ul>
+</li>
+<li>Otherwise (if no NamingContainer is encountered) the root
+UIComponent will be the base.
+<ul class="org-ul">
+<li>The search expression (possibly modified in the previous step) is
+now a "relative" search expression that will be used to locate the
+component (if any) that has an id that matches, within the scope
+of the base component. The match is performed as follows:
+</li>
+<li>If the search expression is a simple identifier, this value is
+compared to the id property, and then recursively through the
+facets and children of the base UIComponent (except that if a
+descendant NamingContainer is found, its own facets and children
+are not searched).
+</li>
+<li>If the search expression includes more than one identifier
+separated by the separator character, the first identifier is used
+to locate a NamingContainer by the rules in the previous bullet
+point. Then, the findComponent() method of this NamingContainer
+will be called, passing the remainder of the search expression.
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Check the following link for the rules of finding components.
+</p>
+<ul class="org-ul">
+<li><a href="http://stackoverflow.com/questions/8634156/cannot-find-component-with-expression-foo-referenced-from-bar-fajax-con">Cannot find component with expression&#x2026;</a>
 </li>
 </ul>
 </div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">How is the beans connected with UI components?</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+It seems that when some actions are taken and the bean is updated
+then the UI will be updated also.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">where does JSF validate the input?</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+JSF as it is, <b>always perform the validation on server side</b>. The
+input validation is a part of component lifecycle. The validation that
+feels like client-side validation is when we use Ajax support in
+JSF. It submits only the necessary part of fields and they are still
+validated on the server side.
+</p>
+
+<ul class="org-ul">
+<li><a href="http://stackoverflow.com/questions/10297853/where-does-jsf-validate-the-input-values-back-end-or-front-end">Where does JSF validate the input values? Back-End or Front-end?</a>
+</li>
+</ul>
 </div>
 </div>
 </div>

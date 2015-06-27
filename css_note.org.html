@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>css_note.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #7f9f7f;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">CSS Notes
+</span></span>
+<span class="org-level-1">* Elements</span>
+
+<span class="org-level-2">** background</span>
+1. background-image can stack.
+2. we can use transition on background-size and background-position, but we
+   have to manually set the begin value and end value(instead of leaving it blank.)
+3. If we use percentage value on <span class="org-verbatim">=background-position=</span>, it refer to the size of
+   the background positioning area minus size of background image; size refers
+   to the width for horizontal offsets and to the height for vertical offsets. 
+
+<span class="org-level-1">* Base Concept</span>
+
+<span class="org-level-2">** Replaced element</span>
+In short: it is an element whose content are replaced by outside source.
+
+For example: an <span class="org-verbatim">=&lt;img&gt;=</span> or <span class="org-verbatim">=&lt;video&gt;=</span> will depends on the <span class="org-verbatim">=src=</span> that the page
+specified. 
+
+By reference:
+<span class="org-block-begin-line">#+begin_quote
+</span>A replaced element is any element whose appearance and dimensions are defined by
+an external resource. Examples include images (&lt;img&gt; tags), plugins (&lt;object&gt;
+tags), and form elements (&lt;button&gt;, &lt;textarea&gt;, &lt;input&gt;, and &lt;select&gt; tags). All
+other elements types can be referred to as non-replaced elements.<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+So why form elements are replaced elements? take <span class="org-verbatim">=&lt;select&gt;=</span> as an example, the
+width of a combobox are determined by the longest item in it. That means
+different combox can have different appearance and dimensions, and that depends
+on the external resource(i.e. the options).
+
+- <span class="org-link"><a href="http://reference.sitepoint.com/css/replacedelements">[[http://reference.sitepoint.com/css/replacedelements][</a><a href="http://reference.sitepoint.com/css/replacedelements">Replaced Elements</a><a href="http://reference.sitepoint.com/css/replacedelements">]]</a></span>
+- <span class="org-link"><a href="http://demosthenes.info/blog/461/What-The-Heck-Is-A-Replaced-Element">[[http://demosthenes.info/blog/461/What-The-Heck-Is-A-Replaced-Element][</a><a href="http://demosthenes.info/blog/461/What-The-Heck-Is-A-Replaced-Element">What the Heck is Replaced Element</a><a href="http://demosthenes.info/blog/461/What-The-Heck-Is-A-Replaced-Element">]]</a></span>
+- 
+
+<span class="org-level-2">** Inline element</span>
+An inline element occupies only the space bounded by the tags that define the
+inline element.
+
+The following elements are "inline":
+- b, big, i, small, tt
+- abbr, acronym, cite, code, dfn, em, kbd, strong, samp, var
+- a, bdo, br, img, map, object, q, script, span, sub, sup
+- button, input, label, select, textarea
+
+References:
+- <span class="org-link"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elemente">[[https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elemente][</a><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elemente">Inline element</a><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elemente">]]</a></span>
+
+<span class="org-level-2">** Intrinsic &amp; Extrinsic Sizing</span>
+Intrinsic sizing determines sizes based on the contents of an element, without
+regard for its context.
+
+<span class="org-level-3">*** Intrinsic Sizes of Replaced Elements</span>
+
+- <span class="org-link"><a href="http://www.w3.org/TR/css3-sizing/">[[http://www.w3.org/TR/css3-sizing/][</a><a href="http://www.w3.org/TR/css3-sizing/">CSS 3 sizing</a><a href="http://www.w3.org/TR/css3-sizing/">]]</a></span>
+
+
+<span class="org-level-1">* Rules</span>
+
+<span class="org-level-2">** Calculating width and margin</span>
+
+<span class="org-level-3">*** Inline non-replaced elements</span>
+The <span class="underline">_width_</span> property does not apply. A computed value of <span class="underline">_auto_</span> for
+<span class="underline">_margin-left_</span> or <span class="underline">_margin-right_</span> becomes a used value of '0'.
+
+Such as <span class="org-verbatim">=b=</span>, <span class="org-verbatim">=small=</span>, <span class="org-verbatim">=code=</span> etc.
+
+<span class="org-level-3">*** Inline, replaced elements</span>
+1: A computed value of <span class="underline">_auto_</span> for <span class="underline">_margin-left_</span> or <span class="underline">_margin-right_</span> becomes a used
+value of '0'.
+
+2: If <span class="underline">_height_</span> and <span class="underline">_width_</span> both have computed values of 'auto' and the element also
+has an intrinsic width, then the intrinsic width is the used value of 'width'
+
+=&gt; that means the natrual width of the content is used.
+
+3: If <span class="underline">_height_</span> and <span class="underline">_width_</span> both have computed values of 'auto' and the element has
+no intrinsic width, but does have an intrinsic height and intrinsic ratio; or if
+<span class="underline">_width_</span> has a computed value of 'auto', <span class="underline">_height_</span> has some other computed value,
+and the element does have an intrinsic ratio, then the used value of <span class="underline">_width_</span> is:
+
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">(used height) * (intrinsic ratio)
+</span><span class="org-block-end-line">#+end_example
+</span>
+=&gt; the problem is how to specify the intrinsic ratio? After searched for a
+while, I found that the intrinsic ratio is defined by setting percentage of <span class="underline">_padding_</span>.
+
+TODO: add more concrete example.
+
+4: too long, see the reference
+
+
+5: Otherwise if <span class="underline">_width_</span> has a computed value of 'auto', and the element has an
+intrinsic width, then that intrinsic width is the used value of <span class="underline">_width_</span>.
+
+6: Don't care for now.
+
+<span class="org-level-3">*** Block-level, non-replaced elements in normal flow</span>
+
+Constraints:
+
+<span class="org-block-begin-line">#+begin_quote
+</span>'margin-left' + 'border-left-width' + 'padding-left' + 'width' +
+'padding-right' + 'border-right-width' + 'margin-right' = width of the
+containing block<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+=&gt; i.e. check for the Box Model of CSS.
+
+1: If <span class="underline">_width_</span> is not 'auto' and 'border-left-width' + 'padding-left' + 'width' +
+'padding-right' + 'border-right-width'(plus any of 'margin-left' or
+'margin-right' that are not 'auto') is larger than the width of the containing
+block, then any 'auto' values for 'margin-left' or 'margin-right' are, for the
+following rules, treated as zero.
+
+=&gt; that means the 'auto' value is used for stretch.
+
+2: If all of the above have a computed value other than 'auto', the values are
+said to be "over-constrained" and one of the used values will have to be
+different from its computed value. If the <span class="underline">_direction_</span> property of the containing
+block has the value 'ltr', the specified value of <span class="underline">_margin-right_</span> is ignored and
+the value is calulated so as to make the equality true. Do the same for
+<span class="underline">_margin-left_</span> when <span class="underline">_direction_</span> is 'rtl'.
+
+=&gt; that means one side of the margin is auto-ajusted(thus can be negative) to
+fit the containing block.
+
+3: If there is exactly one value specified as 'auto', its used value follows
+from the equality.
+
+4: If <span class="underline">_width_</span> is set to 'auto', any other 'auto' values become '0' and <span class="underline">_width_</span>
+follows from the resulting equality. 
+
+5: If both <span class="underline">_margin-left_</span> and <span class="underline">_margin-right_</span> are 'auto', their used values are
+equal. Thus makes the element center.
+
+This rule is actually used for calculating the actual margin width, because the
+content is non-replaced, thus other component is not changable.
+
+- <span class="org-link"><a href="http://www.w3.org/TR/CSS21/visudet.html#the-width-property">[[http://www.w3.org/TR/CSS21/visudet.html#the-width-property][</a><a href="http://www.w3.org/TR/CSS21/visudet.html#the-width-property">The Width Property</a><a href="http://www.w3.org/TR/CSS21/visudet.html#the-width-property">]]</a></span>
+
+<span class="org-level-3">*** Blcok-level, replaced elements in normal flow</span>
+The used value of <span class="underline">_width_</span> is determined as for "inline replaced elements", then
+the rules for "non-replaced block-level elements" are applied to determin the margins.
+
+<span class="org-level-3">*** Floating, non-replaced elements</span>
+1: If <span class="underline">_margin-left_</span> or <span class="underline">_margin-right_</span> are computed as 'auto', their used value is '0'.
+
+2: If <span class="underline">_width_</span> is computed as 'auto', the used value is the "shrink-to-fit" width.
+
+<span class="org-level-3">*** Floating, replaced elements</span>
+If <span class="underline">_margin-left_</span> or <span class="underline">_margin-right_</span> are computed as 'auto', their used value is
+'0'. The used value of <span class="underline">_width_</span> is determined as for "inline replaced elements".
+
+<span class="org-level-3">*** Absolutely positioned, non-replaced elements</span>
+The constraint that determins the used value for these elements is:
+<span class="org-block-begin-line">#+begin_quote
+</span>'left' + 'margin-left' + 'border-left-width' + 'padding-left' + 'width' +
+'padding-right' + 'border-right-width' + 'margin-right' + 'right' = width of
+containing block<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+<span class="org-level-3">*** Summary</span>
+=&gt; Normally, the <span class="underline">_width_</span> of a element is calculated from outside(container) to
+inside, while the margin is calculated from inside to outside. Only with
+replaced elements care the width of the elements inside it.
+
+=&gt; <span class="underline">_width_</span> of absolutely positioned elements also depends on its <span class="underline">_left_</span> and
+<span class="underline">_right_</span> property.
+
+=&gt; The used <span class="underline">_margin_</span> are used to decide the actually position to place
+elements. (such as calculate to be negtive, etc.)
+
+<span class="org-level-2">** Calculating height and margins</span>
+
+<span class="org-level-3">*** Inline, non-replaced elements</span>
+
+The <span class="underline">_height_</span> rproperty does not apply. The height of the content area should be
+based on the font, but this specification does not specify how.
+
+The vertical padding, border and margin of an inline, non-replaced box start at
+the top and bottom of the content area, and has nothing to do with the
+<span class="underline">_line-height_</span>. But only the <span class="underline">_line-height_</span> is used when calculating the height of
+the line box.
+
+<span class="org-level-3">*** Inline replaced elements, block-level replaced elements in normal flow, 'inline-block' replaced elements in normal flow and floating replaced elements</span>
+If <span class="underline">_margin-top_</span> or <span class="underline">_margin-bottom_</span> are 'auto', their used value is 0.
+
+If <span class="underline">_height_</span> and <span class="underline">_width_</span> both have computed values of 'auto' and the element also
+has an intrinsic height, then that intrinsic height is the used value of <span class="underline">_height_</span>.
+
+Otherwise, if <span class="underline">_height_</span> has a computed value of 'auto', and the element has an
+intrinsic ratio then the used value of <span class="underline">_height_</span> is:
+<span class="org-block-begin-line">#+begin_quote
+</span>(used width) / (intrinsic ratio)<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+Otherwise, If <span class="underline">_height_</span> has a computed value of 'auto', and the element has an
+intrinsic height, then that intrinsic height is the used value of <span class="underline">_height_</span>.
+
+Otherwise, "currently don't care".
+
+<span class="org-level-3">*** Block-level non-replaced elements in normal flow when 'overflow' computes to 'visiable'</span>
+If <span class="underline">_margin-top_</span> or <span class="underline">_margin-bottom_</span> are 'auto', their used value is 0. If
+<span class="underline">_height_</span> is 'auto', the height depends on whether the element has any
+block-level children and whether it has padding or borders:
+
+The element's height is the distance from its top content edge to the first
+applicable of the following:
+1. the bottom edge of the last line box, if the box establishes an inline
+   formatting context with one or more lines.
+2. the bottom edge of the bottom(possibly collapsed) margin of its last in-flow
+   child, if the child's bottom margin does not collapse with the element's
+   bottom margin.
+3. the bottom border edge of the last in-flow child whose top margin doesn't
+   collapse with the element's bottom margin
+4. zero, otherwise
+</pre>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>archlinux_installation.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-checkbox {
+        /* org-checkbox */
+        color: #ffffff;
+        background-color: #5f5f5f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">My installtion process of installing Arch Linux
+</span></span>
+<span class="org-level-1">* Preparation</span>
+- <span class="org-checkbox">[ ]</span> download iso.
+- <span class="org-checkbox">[ ]</span> prepare for partition to install
+- <span class="org-checkbox">[ ]</span> a USB for booting the ISO.
+
+
+<span class="org-level-1">* Burn the ISO to the USB</span>
+According to
+<span class="org-link"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">[[https://wiki.archlinux.org/index.php/USB_flash_installation_media][</a><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">Arch
+Wiki</a><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media">]]</a></span>, the ISO file can be directly <span class="org-verbatim">=dd=</span> into a USB flash media.
+
+so I execute the following command to do that
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">dd bs=4M if=archlinux-2015.06.01-dual.iso of=/dev/sdb &amp;&amp; sync
+</span><span class="org-block-end-line">#+end_src
+</span>
+- <span class="org-verbatim">=bs=</span> means how many bytes <span class="org-verbatim">=dd=</span> would read or write at a time.
+- <span class="org-verbatim">=if=</span> is used to specify the input file, the ISO file name is used here.
+- <span class="org-verbatim">=of=</span> is used to specify the output file. The USB device is <span class="org-verbatim">=/dev/sdb=</span> in my case.
+- <span class="org-verbatim">=sync=</span> is used to flush file system buffers to ensure that all the files are
+  written to the USB flash.
+
+Now I am waiting for the process to finish. Writing this post and learn the next
+installation step.
+
+</pre>
+  </body>
+</html>

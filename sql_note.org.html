@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>sql_note.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-target {
+        /* org-target */
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">SQL Notes
+</span></span>
+<span class="org-level-1">* Pagination</span>
+
+<span class="org-level-2">** Pagination in Hibernate</span>
+The article <span class="org-link"><a href="http://www.baeldung.com/hibernate-pagination">[[http://www.baeldung.com/hibernate-pagination][</a><a href="http://www.baeldung.com/hibernate-pagination">Hibernate
+pagination</a><a href="http://www.baeldung.com/hibernate-pagination">]]</a></span> talked about 3 way of pagination in hibernate, but there
+are actually two.
+
+The first one use the <span class="org-verbatim">=setFirstResult/setMaxResults=</span> API, the other
+uses the <span class="org-verbatim">=scrollableResult=</span> API. 
+
+The first one will translate the query into SQL that directly controls
+the rownumber to be fetched(described in section
+<span class="org-link"><a href="sec:sql-pagination-rownum">[[</a><a href="sec:sql-pagination-rownum">sec:sql-pagination-rownum</a><a href="sec:sql-pagination-rownum">]]</a></span>). Thus it will need several query to the
+database to retrieve all the results.
+
+The <span class="org-verbatim">=scrollableResult=</span> API will retrieve all the result in one query
+and save them in the memory. Then utilize the java programe to
+implement the pagination feature.
+
+So it is a matter of balance between the speed and size. If your data
+size is fairly small, <span class="org-verbatim">=scrollableResult=</span> will provide more flexiable
+control of the result. However large dataset will blow your RAM
+off. So consider use <span class="org-verbatim">=setFirstResult/setMaxResults=</span> in this case.
+
+<span class="org-level-2">** SQL Pagination</span>
+
+<span class="org-level-3">*** Pagination through rownum</span>
+<span class="org-target">&lt;&lt;sec:sql-pagination-rownum&gt;&gt;</span>
+This method is how the hibernate translated its query into SQL pagination.
+
+We begin with <span class="org-link"><a href="http://www.w3schools.com/sql/sql_top.asp">[[http://www.w3schools.com/sql/sql_top.asp][</a><a href="http://www.w3schools.com/sql/sql_top.asp">SQL RowNum</a><a href="http://www.w3schools.com/sql/sql_top.asp">]]</a></span>
+which limit the lines of the  result of the <span class="org-verbatim">=select=</span> query.
+
+<span class="org-block-begin-line">#+begin_src sql
+</span><span class="org-block">// this is oracle syntax
+select * from table_name where rownum &lt;= number;
+</span><span class="org-block-end-line">#+end_src
+</span>
+Note that that(at least in oracle) <span class="org-verbatim">=rownum=</span> is not actually refered to
+the row number, thus the following query that trys to get rows whose
+row number is greater than <span class="org-verbatim">=number=</span> will not work:
+<span class="org-block-begin-line">#+begin_src sql
+</span><span class="org-block">SELECT * FROM table_name WHERE ROWNUM &gt; number;
+</span><span class="org-block-end-line">#+end_src
+</span>
+Thus, we tries to get the actual row number of the query
+results. According to
+<span class="org-link"><a href="http://stackoverflow.com/questions/4552769/sql-rownum-how-to-return-rows-between-a-specific-range">[[http://stackoverflow.com/questions/4552769/sql-rownum-how-to-return-rows-between-a-specific-range][</a><a href="http://stackoverflow.com/questions/4552769/sql-rownum-how-to-return-rows-between-a-specific-range">this
+stackoverflow question</a><a href="http://stackoverflow.com/questions/4552769/sql-rownum-how-to-return-rows-between-a-specific-range">]]</a></span>, we can select records whose row number
+between a specific range by:
+
+<span class="org-block-begin-line">#+begin_src sql
+</span><span class="org-block">SELECT * from (SELECT t.*, ROWNUM r FROM table_name t ) WHERE r &gt;= 2 AND r &lt; 10;
+</span><span class="org-block-end-line">#+end_src
+</span>
+In Transact-SQL syntax:
+
+<span class="org-block-begin-line">#+begin_src sql
+</span><span class="org-block">SELECT * from (SELECT t.*, ROW_NUMBER() OVER(ORDER BY column_name) AS r FROM table_name t ) WHERE r &gt;= 2 AND r &lt; 10;
+</span><span class="org-block-end-line">#+end_src
+</span>
+Note that the above two result will contain the row number in their
+result.
+
+This is it, you can manually control over the row number range to be
+fetched. Thus implements the pagination.
+
+<span class="org-level-3">*** Further Reading</span>
+- <span class="org-link"><a href="http://www.inf.unideb.hu/~gabora/pagination/results.html">[[http://www.inf.unideb.hu/~gabora/pagination/results.html][</a><a href="http://www.inf.unideb.hu/~gabora/pagination/results.html">Techniques for pagination in SQL</a><a href="http://www.inf.unideb.hu/~gabora/pagination/results.html">]]</a></span>
+</pre>
+  </body>
+</html>

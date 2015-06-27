@@ -72,6 +72,14 @@
     <pre>
 <span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">maven
 </span></span>
+<span class="org-level-1">* Maven with Web application</span>
+
+<span class="org-level-2">** Notes</span>
+<span class="org-level-3">*** Generate JSF eclipse application</span>
+It seems that using only <span class="org-verbatim">=mvn eclipse:eclipse=</span> will have some
+problems generating the project, instead use <span class="org-verbatim">=mvn eclipse:eclipse
+-Dwtpversion=2.0=</span> to include WTP support.
+
 <span class="org-level-1">* FAQs</span>
 <span class="org-level-2">** how to run a main class</span>
 

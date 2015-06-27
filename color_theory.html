@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>maven</title>
+<title>Notes on Color Theory</title>
 <!-- 2015-06-27 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
@@ -72,26 +72,18 @@ for the JavaScript code in this tag.
 </nav>
 </div>
 <div id="content">
-<h1 class="title">maven</h1>
+<h1 class="title">Notes on Color Theory</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Maven with Web application</a>
+<li><a href="#sec-1">How to apply color scheme into design</a>
 <ul>
-<li><a href="#sec-1-1">Notes</a>
+<li><a href="#sec-1-1">Material Design color guide</a></li>
+<li><a href="#sec-1-2">Top 10 Tips for adding color to Your space</a>
 <ul>
-<li><a href="#sec-1-1-1">Generate JSF eclipse application</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-2">FAQs</a>
-<ul>
-<li><a href="#sec-2-1">how to run a main class</a>
-<ul>
-<li><a href="#sec-2-1-1">Running from command line</a></li>
-<li><a href="#sec-2-1-2">Running in a phase in pom.xml</a></li>
+<li><a href="#sec-1-2-1">Use the 60-30-10 Rule.</a></li>
+<li><a href="#sec-1-2-2">Don't forget the black.</a></li>
 </ul>
 </li>
 </ul>
@@ -101,132 +93,176 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Maven with Web application</h2>
+<h2 id="sec-1">How to apply color scheme into design</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Notes</h3>
+<h3 id="sec-1-1">Material Design color guide</h3>
 <div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1">Generate JSF eclipse application</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<blockquote>
 <p>
-It seems that using only <code>mvn eclipse:eclipse</code> will have some
-problems generating the project, instead use <code>mvn eclipse:eclipse
--Dwtpversion=2.0</code> to include WTP support.
+limit the selection of colors by choosing three hues from the primary
+palette and one accent color from the secondary pallete.
 </p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">FAQs</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">how to run a main class</h3>
-<div class="outline-text-3" id="text-2-1">
-</div><div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1">Running from command line</h4>
-<div class="outline-text-4" id="text-2-1-1">
-<p>
-First we'll need to compile and install our code by:
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-sh">mvn compile
-mvn install
-</pre>
-</div>
+</blockquote>
 
 <p>
-Then, run with:
+And according to <sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>, we need a "primary color" for brand; a darker
+version for status bar and contextual app bars; and an accent color
+for UI controls like checkboxes and text fields.
 </p>
-<div class="org-src-container">
 
-<pre class="src src-sh">mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span>
-mvn exec:java -Dexec.mainClass=<span style="color: #cc9393;">"com.xxxx.xxx"</span> -Dexec.args=<span style="color: #cc9393;">"arg0 arg1 arg2"</span>
-</pre>
-</div>
 
 <p>
-we can also save it in the pom file:
+And Use opacity for text, icons, and dividers.
 </p>
-<div class="org-src-container">
 
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">project</span>&gt;
-    &lt;<span style="color: #8cd0d3;">build</span>&gt;
-        &lt;<span style="color: #8cd0d3;">plugins</span>&gt;
-            &lt;<span style="color: #8cd0d3;">plugin</span>&gt;
-                &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;
-                &lt;<span style="color: #8cd0d3;">version</span>&gt;1.2.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;
-                &lt;<span style="color: #8cd0d3;">configuration</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.example.Main&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;
-                    &lt;<span style="color: #8cd0d3;">arguments</span>&gt;
-                        &lt;<span style="color: #8cd0d3;">argument</span>&gt;argument1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;
-                    &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;
-                &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;
-            &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;
-        &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;
-    &lt;/<span style="color: #8cd0d3;">build</span>&gt;
-&lt;/<span style="color: #8cd0d3;">project</span>&gt;
-</pre>
-</div>
-</div>
-</div>
+<table>
 
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2">Running in a phase in pom.xml</h4>
-<div class="outline-text-4" id="text-2-1-2">
-<div class="org-src-container">
 
-<pre class="src src-xml">&lt;<span style="color: #8cd0d3;">build</span>&gt;  
- &lt;<span style="color: #8cd0d3;">plugins</span>&gt;  
-  &lt;<span style="color: #8cd0d3;">plugin</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #8cd0d3;">groupId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #8cd0d3;">artifactId</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">version</span>&gt;1.1.1&lt;/<span style="color: #8cd0d3;">version</span>&gt;  
-   &lt;<span style="color: #8cd0d3;">executions</span>&gt;  
-    &lt;<span style="color: #8cd0d3;">execution</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">phase</span>&gt;test&lt;/<span style="color: #8cd0d3;">phase</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">goals</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">goal</span>&gt;java&lt;/<span style="color: #8cd0d3;">goal</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">goals</span>&gt;  
-     &lt;<span style="color: #8cd0d3;">configuration</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">mainClass</span>&gt;com.vineetmanohar.module.CodeGenerator&lt;/<span style="color: #8cd0d3;">mainClass</span>&gt;  
-      &lt;<span style="color: #8cd0d3;">arguments</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg0&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-       &lt;<span style="color: #8cd0d3;">argument</span>&gt;arg1&lt;/<span style="color: #8cd0d3;">argument</span>&gt;  
-      &lt;/<span style="color: #8cd0d3;">arguments</span>&gt;  
-     &lt;/<span style="color: #8cd0d3;">configuration</span>&gt;  
-    &lt;/<span style="color: #8cd0d3;">execution</span>&gt;  
-   &lt;/<span style="color: #8cd0d3;">executions</span>&gt;  
-  &lt;/<span style="color: #8cd0d3;">plugin</span>&gt;  
- &lt;/<span style="color: #8cd0d3;">plugins</span>&gt;  
-&lt;/<span style="color: #8cd0d3;">build</span>&gt;
-</pre>
-</div>
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">type</th>
+<th scope="col" class="right">black on white</th>
+<th scope="col" class="right">white on black</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">text</td>
+<td class="right">87%</td>
+<td class="right">100%</td>
+</tr>
+
+<tr>
+<td class="left">secondary text/Icons</td>
+<td class="right">54%</td>
+<td class="right">70%</td>
+</tr>
+
+<tr>
+<td class="left">Disabled/Hint Text</td>
+<td class="right">26%</td>
+<td class="right">30%</td>
+</tr>
+
+<tr>
+<td class="left">Dividers</td>
+<td class="right">12%</td>
+<td class="right">12%</td>
+</tr>
+</tbody>
+</table>
 
 <p>
-Then <code>CodeGenerator.main()</code> will be run while executing:
+These are for black(#000) and white(#FFF) colors. For black/white text
+on colored background, check the color palette.
 </p>
-<div class="org-src-container">
 
-<pre class="src src-sh">mvn test
-</pre>
-</div>
+<p>
+This rule however gives us some information:
+</p>
+<ol class="org-ol">
+<li>Never use pure white or black(except for 100% white).
+</li>
+<li>Normally keep using black or white for texts.
+</li>
+<li>Choose black or white text depending on the background color.
+</li>
+</ol>
 
+<blockquote>
+<p>
+use the accent color for your primary action button and components
+like switches or slides.
+</p>
+</blockquote>
+
+<p>
+A very important message from the examples on the web page is that
+accent colors are used in small area for grabbing the user's
+attention, usually used for primary actions.
+</p>
+
+<blockquote>
+<p>
+If your accent color is too light or dark to sufficiently contrast
+with the background color, use a darker or lighter tint of the accent
+color instead. If your accent color doesn’t work at all, use the 500
+version of your primary color on white backgrounds. If your background
+color is the 500 version of your primary color, make your accent color
+either white 100% or black 54%.
+</p>
+</blockquote>
+
+<p>
+So the key point here is to ensure enough contrast between the
+background and the accent color. Also note the <b>54% black</b>, another
+clue of avoiding usage of pure black.
+</p>
 
 <ul class="org-ul">
-<li><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">3 ways to run Java main from Maven</a>
+<li><a href="http://www.google.com/design/spec/style/color.html#color-ui-color-application">UI color application</a>
 </li>
 </ul>
 </div>
 </div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Top 10 Tips for adding color to Your space</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Article from <a href="http://www.hgtv.com/design/decorating/color/top-10-tips-for-adding-color-to-your-space">Top 10 Tips for Adding Colors to Your Space</a>
+</p>
+</div>
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Use the 60-30-10 Rule.</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Human tends to see an overall theme in the 60 percent hue, unifying
+the coloration. The 30 percent provides visual interest and the 10
+percent, not unlike jewelry, provides that little spark of sparkle.
+</p>
+
+<p>
+So:
+</p>
+<ul class="org-ul">
+<li>60% of a dominant color &#x2013; primary color
+</li>
+<li>30% of a secondary color
+</li>
+<li>10% of an accent color
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Don't forget the black.</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Adding small piece of black will claify and enhance all the other colors.
+</p>
 </div>
 </div>
 </div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<a href="http://developer.android.com/training/material/theme.html#ColorPalette">Color Palette in Android Development</a>
+</p></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <a href="#" class="back-to-top">Back to Top</a>
 

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>clojurescript.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">ClojureScript Notes
+</span></span>
+<span class="org-level-1">* How do the backend and frontend work together?</span>
+While I was studying reagent, a ClojureScript interface to React.js, I am
+confused about how the back-end and front-end worked together.
+
+<span class="org-level-2">** The original case</span>
+For example, the backend had a data table with several columns, how do the
+backend pass the data to the frontend? In normal HTML way, we can have a route
+that fetch the whole page, and the page render(backend) will read the saved data
+and use it to render a page that contains data and send it to the client(front-end).
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (def data
+    [{:username "CS001" :password "cs001"}
+     {:username "CS002" :password "cs002"}
+     {:username "CS003" :password "cs003"}])
+
+  (defn show-table [data]
+    [:table
+     [:tr
+      [:th "Username"]
+      [:th "Password"]]
+     (for [row data]
+       [:tr
+        [:td (:username row)]
+        [:td (:password row)]])])
+
+  (defn test-page []
+    (hiccup.core/html (show-table data)))
+
+  (defroutes test-routes
+    (GET "/test" [] (test-page)))
+</span><span class="org-block-end-line">#+end_src
+</span>
+Here when we request the page "/test", the server will render the page according
+to the <span class="org-verbatim">=data=</span> variable here. Imaging that we replace it with a retrieval call
+to database so that the data are transfered to the front-end.
+
+<span class="org-level-2">** New Scenario with Reagent</span>
+When use Reagent or React.js, the recommended behavior is to let React take over
+all the render tasks. That means instead of rendering the page in the backend
+like what we did with <span class="org-verbatim">=hiccup=</span> in the above example, we apply the new scenario:
+
+1. write all the components in the frontend code.
+2. backend provide interface for fetch data(mainly ajax)
+3. react.js retrieve the data via ajax.
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (def data
+      [{:username "CS001" :password "cs001"}
+       {:username "CS002" :password "cs002"}
+       {:username "CS003" :password "cs003"}
+       {:username "&#20013;&#25991;" :password 123}])
+
+  (defroutes home-routes
+    (GET "/test" [] (response {:data data})))
+</span><span class="org-block-end-line">#+end_src
+</span>
+Note that we use "luminus" here, and if the body of a response is a map, then
+the map will be transformed into json type. So that the client side's ajax
+request will get a json response.
+
+Now we compose the client side code:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn datatable []
+    (let [user-data (atom nil)]
+      (GET "/test" {:handler #(reset! user-data (% "data"))})
+      (fn []
+        (.log js/console (str "datatable: " @user-data))
+        [:table
+         [:tr
+          [:th "Username"]
+          [:th "Password"]]
+         (for [row @user-data]
+           ^{:key (row "username")}
+           [:tr
+            [:td (row "username")]
+            [:td (row "password")]])])))
+
+  (defn mount-components []
+    (reagent/render-component [datatable] (.getElementById js/document "playground")))
+</span><span class="org-block-end-line">#+end_src
+</span>
+In this way, it seems that we no longer uses the MVC pattern. The Model part can
+be all backend's work, and View part is now taken over by client side. And the
+Controller part can be implemented either by server side or client side.
+
+<span class="org-level-1">* Reagent tips</span>
+
+<span class="org-level-1">* cljs-ajax notes</span>
+
+An example of receiving <span class="org-verbatim">=edn=</span> response. Note that <span class="org-verbatim">=:format=</span> is used to specify
+the format to send to the server, and the <span class="org-verbatim">=:response-format=</span> is used to tell
+<span class="org-verbatim">=cljs-ajax=</span> about the response format from the server.
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (let [state (atom nil)]
+    (GET "/comments" {:response-format :edn
+                      :handler #(reset! state %)}))
+
+  (POST url {:headers {"x-csrf-token" (.-value (.getElementById js/document "token"))}
+                          :format :edn
+                          :params {:comment comment}
+                          :response-format :edn
+                          :handler #(reset! state %)})
+</span><span class="org-block-end-line">#+end_src
+</span>
+Note that Luminus use CSRF by default, so we need to specify CSRF token in the
+header, check <span class="org-link"><a href="http://www.luminusweb.net/docs/security.md">[[http://www.luminusweb.net/docs/security.md][</a><a href="http://www.luminusweb.net/docs/security.md">Luminus Security</a><a href="http://www.luminusweb.net/docs/security.md">]]</a></span>
+for more details.
+</pre>
+  </body>
+</html>

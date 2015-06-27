@@ -1,0 +1,27 @@
+#+TITLE: My installtion process of installing Arch Linux
+
+* Preparation
+- [ ] download iso.
+- [ ] prepare for partition to install
+- [ ] a USB for booting the ISO.
+
+
+* Burn the ISO to the USB
+According to
+[[https://wiki.archlinux.org/index.php/USB_flash_installation_media][Arch
+Wiki]], the ISO file can be directly =dd= into a USB flash media.
+
+so I execute the following command to do that
+
+#+BEGIN_SRC sh
+  dd bs=4M if=archlinux-2015.06.01-dual.iso of=/dev/sdb && sync
+#+END_SRC
+
+- =bs= means how many bytes =dd= would read or write at a time.
+- =if= is used to specify the input file, the ISO file name is used here.
+- =of= is used to specify the output file. The USB device is =/dev/sdb= in my case.
+- =sync= is used to flush file system buffers to ensure that all the files are
+  written to the USB flash.
+
+Now I am waiting for the process to finish. Writing this post and learn the next
+installation step.

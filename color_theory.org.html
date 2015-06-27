@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>color_theory.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-footnote {
+        /* org-footnote */
+        color: #00ffff;
+        text-decoration: underline;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-meta-line {
+        /* org-meta-line */
+        color: #7f9f7f;
+      }
+      .org-table {
+        /* org-table */
+        color: #9fc59f;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Notes on Color Theory
+</span></span>
+<span class="org-level-1">* How to apply color scheme into design</span>
+
+<span class="org-level-2">** Material Design color guide</span>
+
+<span class="org-block-begin-line">#+begin_quote
+</span>limit the selection of colors by choosing three hues from the primary
+palette and one accent color from the secondary pallete.<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+And according to <span class="org-footnote">[1]</span>, we need a "primary color" for brand; a darker
+version for status bar and contextual app bars; and an accent color
+for UI controls like checkboxes and text fields.
+
+
+And Use opacity for text, icons, and dividers.
+
+<span class="org-table">| type                 | black on white | white on black |</span>
+<span class="org-table">|----------------------+----------------+----------------|</span>
+<span class="org-table">| text                 |            87% |           100% |</span>
+<span class="org-table">| secondary text/Icons |            54% |            70% |</span>
+<span class="org-table">| Disabled/Hint Text   |            26% |            30% |</span>
+<span class="org-table">| Dividers             |            12% |            12% |</span>
+
+These are for black(#000) and white(#FFF) colors. For black/white text
+on colored background, check the color palette.
+
+This rule however gives us some information:
+1. Never use pure white or black(except for 100% white).
+2. Normally keep using black or white for texts.
+3. Choose black or white text depending on the background color.
+
+<span class="org-block-begin-line">#+begin_quote
+</span>use the accent color for your primary action button and components
+like switches or slides.<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+A very important message from the examples on the web page is that
+accent colors are used in small area for grabbing the user's
+attention, usually used for primary actions.
+
+<span class="org-block-begin-line">#+begin_quote
+</span>If your accent color is too light or dark to sufficiently contrast
+with the background color, use a darker or lighter tint of the accent
+color instead. If your accent color doesn&#8217;t work at all, use the 500
+version of your primary color on white backgrounds. If your background
+color is the 500 version of your primary color, make your accent color
+either white 100% or black 54%.<span class="org-meta-line">
+</span><span class="org-block-end-line">#+end_quote
+</span>
+So the key point here is to ensure enough contrast between the
+background and the accent color. Also note the <span class="bold">*54% black*</span>, another
+clue of avoiding usage of pure black.
+
+- <span class="org-link"><a href="http://www.google.com/design/spec/style/color.html#color-ui-color-application">[[http://www.google.com/design/spec/style/color.html#color-ui-color-application][</a><a href="http://www.google.com/design/spec/style/color.html#color-ui-color-application">UI color application</a><a href="http://www.google.com/design/spec/style/color.html#color-ui-color-application">]]</a></span>
+<span class="org-level-2">** Top 10 Tips for adding color to Your space</span>
+Article from <span class="org-link"><a href="http://www.hgtv.com/design/decorating/color/top-10-tips-for-adding-color-to-your-space">[[http://www.hgtv.com/design/decorating/color/top-10-tips-for-adding-color-to-your-space][</a><a href="http://www.hgtv.com/design/decorating/color/top-10-tips-for-adding-color-to-your-space">Top 10 Tips for Adding Colors to Your Space</a><a href="http://www.hgtv.com/design/decorating/color/top-10-tips-for-adding-color-to-your-space">]]</a></span>
+<span class="org-level-3">*** Use the 60-30-10 Rule.</span>
+Human tends to see an overall theme in the 60 percent hue, unifying
+the coloration. The 30 percent provides visual interest and the 10
+percent, not unlike jewelry, provides that little spark of sparkle.
+
+So:
+- 60% of a dominant color -- primary color
+- 30% of a secondary color
+- 10% of an accent color
+<span class="org-level-3">*** Don't forget the black.</span>
+Adding small piece of black will claify and enhance all the other colors.
+
+
+<span class="org-level-1">* Footnotes</span>
+
+<span class="org-footnote">[1]</span> <span class="org-link"><a href="http://developer.android.com/training/material/theme.html#ColorPalette">[[http://developer.android.com/training/material/theme.html#ColorPalette][</a><a href="http://developer.android.com/training/material/theme.html#ColorPalette">Color Palette in Android Development</a><a href="http://developer.android.com/training/material/theme.html#ColorPalette">]]</a></span>
+
+</pre>
+  </body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clojure Web Development</title>
+<!-- 2015-06-27 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="Mark Wallace">
+<link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+    function show_org_source(){
+       /* document.location.href = rpl(document.location.href,"html","org.html"); */
+       var url = document.location.href.split('#')[0];
+       document.location.href = url.replace(/.html$/, '.org.html');
+    }
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<!--<body onload="prettyPrint()">-->
+<nav>
+    <a href="index.html">Index</a>
+    <a href="about.html">About</a>
+    <a href="https://lotabout.github.io">Blog</a>
+    <a href="sitemap.html">SiteMap</a>
+</nav>
+</div>
+<div id="content">
+<h1 class="title">Clojure Web Development</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Ring</a>
+<ul>
+<li><a href="#sec-1-1">Middleware</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Compojure</a>
+<ul>
+<li><a href="#sec-2-1">Accessing Request Parameters</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Application Architecture</a></li>
+<li><a href="#sec-4">Liberator</a>
+<ul>
+<li><a href="#sec-4-1">Decision</a></li>
+<li><a href="#sec-4-2">Creating Handlers</a></li>
+<li><a href="#sec-4-3">Taking Actions</a></li>
+<li><a href="#sec-4-4">Declaration</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">Ring Notes</a></li>
+</ul>
+</div>
+</div>
+<p>
+Note that much of the contents are from book "Web Development with Clojure".
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Ring</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Ring applications contains four basic components: the <b>handler</b>, the <b>request</b>,
+the <b>response</b> and the <b>middleware</b>.
+</p>
+
+<p>
+The handler are functions that process the incoming requests. They accept
+request maps and return response maps.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">handler</span> [request-map]
+  {<span style="color: #bfebbf;">:status</span> 200
+   <span style="color: #bfebbf;">:headers</span> {<span style="color: #cc9393;">"Content-Type"</span> <span style="color: #cc9393;">"text/html"</span>}
+   <span style="color: #bfebbf;">:body</span> (str <span style="color: #cc9393;">"&lt;html&gt;&lt;body&gt; your IP is: "</span>
+              (<span style="color: #bfebbf;">:remote-addr</span> request-map)
+              <span style="color: #cc9393;">"&lt;/body&gt;&lt;/html&gt;"</span>)})
+</pre>
+</div>
+
+<p>
+The above code accept a HTTP request which is represented by a clojure map. Then
+it serves an HTML string with the client's IP address and sets the response
+status to 200.
+</p>
+
+<p>
+Note that the underground of Web Applications are parsing HTTP requests and
+generating HTTP responses. So the Ring is here to simplify this process.
+</p>
+
+<p>
+The above operation is so common that Ring API provides a helper function for
+generating such responses:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">handler</span> [request-map]
+  (response
+   (str <span style="color: #cc9393;">"&lt;html&gt;&lt;body&gt; your IP is: "</span>
+        (<span style="color: #bfebbf;">:remote-addr</span> request-map)
+        <span style="color: #cc9393;">"&lt;/body&gt;&lt;/html&gt;"</span>)))
+</pre>
+</div>
+
+<p>
+So all that <code>response</code> does is simplify the process of creating a response map
+just like we've did in the last example. And that's it and nothing else.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Middleware</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+A middleware handler is a function that accepts an existing handler with some
+optional parameters, then returns a new handler with some added
+behavior. Example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">handler</span> [request]
+  (response
+   (str <span style="color: #cc9393;">"&lt;html&gt;&lt;body&gt; your IP is:(:remote-addr request)</span>
+<span style="color: #cc9393;">"</span>&lt;/body&gt;&lt;/html&gt;<span style="color: #cc9393;">")))</span>
+<span style="color: #cc9393;">"</span>
+(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">wrap-nocache</span> [handler]
+  (<span style="color: #f0dfaf; font-weight: bold;">fn</span> [request]
+    (<span style="color: #f0dfaf; font-weight: bold;">let</span> [response (handler request)]
+      (assoc-in response [<span style="color: #bfebbf;">:headers</span> <span style="color: #cc9393;">"Pragma"</span>] <span style="color: #cc9393;">"no-cache"</span>))))
+(<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #dfaf8f;">app</span> (wrap-nocache handler))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Compojure</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Compojure is a routing library built on top of Ring. It provides an easy way to
+associate handler functions with a URL and an HTTP method. A route might look
+like:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/:id"</span> [id] (str <span style="color: #cc9393;">"&lt;p&gt;the id is "</span> id <span style="color: #cc9393;">"&lt;/p&gt;"</span>))
+</pre>
+</div>
+<p>
+There are several HTTP methods: GET, POST, PUT, DELETE and HEAD.
+</p>
+
+<p>
+In the above example, <code>GET</code> is a function provided by <code>compojure.core</code>. It takes
+some arguments and return a Ring handler. So we don't have to deal with the
+details of a HTTP request or response(such as status, headers) with the help of
+a route. We can think in a higer level, i.e. URL or HTTP method.
+</p>
+
+<p>
+Since we're likely to have more than one single route in our application,
+compojure provides the <code>routes</code> function that create a Ring handler from
+multiple routes.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">foo-handler</span> []
+  <span style="color: #cc9393;">"foo called"</span>)
+
+(<span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #8cd0d3;">bar-handler</span> [id]
+  (str <span style="color: #cc9393;">"bar called, id is: "</span> id))
+
+(<span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #dfaf8f;">handler</span>
+  (routes
+   (<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/foo"</span> [] (foo-hanler))
+   (<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/bar/:id"</span> [id] (bar-handler id))))
+</pre>
+</div>
+
+<p>
+Well, normally we'll need a route(or called a hander) to deal with one
+function(for example one HTML page). But we will want to have a hander to
+combine all these handlers and dispatch requests accordingly. So that is what
+<code>routes</code> does.
+</p>
+
+<p>
+Compojure simplify defining routes more over:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defroutes</span> <span style="color: #8cd0d3;">handler</span>
+  (<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/foo"</span> [] (foo-handler))
+  (<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/bar/:id"</span> [id] (bar-handler id)))
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Accessing Request Parameters</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+If some routes need to access the request map to access the request parameters,
+we can declare the map as the second argument to the route.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/foo"</span> request (interpose <span style="color: #cc9393;">", "</span> (keys request)))
+</pre>
+</div>
+
+<p>
+Fetching parameters from a request is quite common, so compojure support
+destructuring feature for route definition:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #bfebbf;">POST</span> <span style="color: #cc9393;">"/"</span> [name message] (save-message name message))
+
+<span style="color: #7f9f7f;">;;; </span><span style="color: #7f9f7f;">or</span>
+(<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/:foo"</span> {{value <span style="color: #cc9393;">"name"</span>} <span style="color: #bfebbf;">:params</span>} (str <span style="color: #cc9393;">"The value of name is "</span> value))
+(<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/"</span> [x y <span style="color: #bfebbf;">:as</span> r] (str x y r))
+</pre>
+</div>
+
+<p>
+Armed with Ring and Compojure, we can easily create pages and routes for our
+site. However, any nontrival application requires many other features, such as
+page templating, session management, and input validation. We'll seek for other
+utilities to finish that.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Application Architecture</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The major components that will be present in most applications are as follows:
+</p>
+<ul class="org-ul">
+<li>handler &#x2013; This namespace is responsible for handling requests and responses.
+</li>
+<li>routes &#x2013; The routes contain the core of our application, such as the logic to
+render pages and handle client requests
+</li>
+<li>model &#x2013; This namespace is reserved for the data model of the application and
+the persistencce layer
+</li>
+<li>views &#x2013; This namespace contains common logic for generating the applcation layout.
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Liberator</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+A set of keys defined by the Liberator application programming interface
+represents each resource. Specific actions are in turn associated with each
+key. A key can fall into one of four categories:
+</p>
+<ul class="org-ul">
+<li>Decision
+</li>
+<li>Handler
+</li>
+<li>Action
+</li>
+<li>Declaration
+</li>
+</ul>
+<p>
+Each key can be associated with either constants or fucntions. The functions
+should accept a single parameter that is the current contex, and return a
+variety of responses.
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Decision</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+The decisions are used to figure out how to handle the client request. The
+decision keys end with a question mark (?) and their handler must evaluate to a
+boolean value.
+</p>
+
+<ol class="org-ol">
+<li>A boolean value is returned indicating the result of the decision
+</li>
+<li>A map is returned. The decision is assumed to have been evaluated to <code>true</code>
+   and the contents of the map are merged with the response map.
+</li>
+<li>A vectore is returned. It must contain a boolean value indicating the
+outcome, followed by a map to be mreged with the response.
+</li>
+</ol>
+
+<p>
+When any decision has a negtive outime, its corresponding HTTP code will be
+returned to the client.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defresource</span> <span style="color: #8cd0d3;">home</span>
+  <span style="color: #bfebbf;">:service-available?</span> <span style="color: #bfebbf;">false</span>
+  <span style="color: #bfebbf;">:handle-ok</span> <span style="color: #cc9393;">"Hello World"</span>
+  <span style="color: #bfebbf;">:etag</span> <span style="color: #cc9393;">"fixed-etag"</span>
+  <span style="color: #bfebbf;">:available-media-types</span> [<span style="color: #cc9393;">"text/plain"</span>])
+</pre>
+</div>
+<p>
+If we reload the page, we'll see the 503 response type associated with the
+<b>Service not available</b> response.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Creating Handlers</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+A handler function should return a standard Ring response. Handler keys start
+with the <code>handle-</code> prefix. The <code>handle-ok</code> key in the previous example belongs
+to handle keys.
+</p>
+
+<p>
+For example, if we wanted to return a specific response when the service is not
+available, we could do the following:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f0dfaf; font-weight: bold;">defresource</span> <span style="color: #8cd0d3;">home</span>
+  <span style="color: #bfebbf;">:service-available?</span> <span style="color: #bfebbf;">false</span>
+  <span style="color: #bfebbf;">:handle-service-not-available</span>
+  <span style="color: #cc9393;">"Service is currently unavailable..."</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Taking Actions</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+An action represents an update of the current state by the client, such as a
+PUT, POST or DELETE request. The action keys end with an exclamation point(!) to
+indicate that they're mutating the application's internal state.
+</p>
+
+<p>
+Once an action occurs, we can return the result to the client using the
+<code>handle-creat</code> handler.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4">Declaration</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Declarations are used to indicate that resource's capabilities. For example, our
+resource uses the <code>available-media-type</code> declaration to specify that it returns
+a response of type <code>text/plain</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Ring Notes</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+How to send response with <code>edn</code> format? With the default setup by luminus, we
+only need to do this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #bfebbf;">GET</span> <span style="color: #cc9393;">"/comments"</span> [] (<span style="color: #f0dfaf; font-weight: bold;">-&gt;</span> (response {<span style="color: #bfebbf;">:data</span> @comments})
+                        (header <span style="color: #cc9393;">"Content-Type"</span> <span style="color: #cc9393;">"Application/edn"</span>)))
+</pre>
+</div>
+
+<p>
+That is: send a response and replace its <code>Content-Type</code> in the header to
+<code>Application/edn</code>, and that is done.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<a href="#" class="back-to-top">Back to Top</a>
+
+<!-- <hr class="comment"> -->
+<!-- <div id="show_source"> -->
+<!--   <input type="button" value="Show Org source" onClick='show_org_source()'> -->
+<!-- </div> -->
+
+</script>
+<hr class="comment">
+<section class="comment">
+<!-- An element a visitor can click if they <3 comments! -->
+<button class="btn show-comments">Load Disqus comments</button>
+<div id="disqus_thread"></div>
+ 
+<!-- The empty element required for Disqus to loads comments into -->
+<!--<div id="disqus_thread"></div>-->
+    <!--<script type="text/javascript">-->
+        <!--/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */-->
+        <!--var disqus_shortname = 'lotaboutvimwiki'; // required: replace example with your forum shortname-->
+
+        <!--/* * * DON'T EDIT BELOW THIS LINE * * */-->
+        <!--(function() {-->
+            <!--var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;-->
+            <!--dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';-->
+            <!--(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);-->
+        <!--})();-->
+    <!--</script>-->
+    <!--<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
+</section>
+
+<footer>
+    |采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a>授权|由<a href="http://orgmode.org">Org Mode</a>自动生成<input type="button" value="Show Org source" onClick='show_org_source()'>|部署在<a href="https://github.com/lotabout/orgwiki">Github Pages</a>|
+</footer>
+
+    <script src="assets/js/jquery-1.7.1.min.js"></script>
+    <script>
+$(document).ready(function(){
+	var offset = 100;
+	var duration = 110;
+
+        $(window).resize(function () {
+            var toc= $('#table-of-contents')
+            if ($(window).width() <= 800) {
+                toc.css('position', 'static')
+	        return
+            }
+            });
+        $(window).scroll(
+            function () {
+            console.log("scroll called.")
+            var toc= $('#table-of-contents')
+            if ($(window).width() <= 800) {
+            toc.css('position', 'static')
+            return
+            }
+
+            if ($(this).scrollTop() > duration) {
+            toc.css('left', toc.position().left + 'px')
+            toc.css('position', 'fixed')
+            $('.back-to-top').fadeIn(duration);
+            } else {
+            toc.css('left', '0px')
+            toc.css('top', '0px')
+            toc.css('position', 'relative')
+            $('.back-to-top').fadeOut(duration);
+            }
+            });
+        $('.back-to-top').click(
+            function(event) {
+            event.preventDefault;
+            $('html, body').animate({scrollTop: 0}, duration);
+            return false;
+            });
+
+        $('.show-comments').on('click', function(){
+                               var disqus_shortname = 'lotaboutorgwiki'; // Replace this value with *your* username.
+
+                               // ajax request to load the disqus javascript
+                               $.ajax({
+type: "GET",
+url: "http://" + disqus_shortname + ".disqus.com/embed.js",
+dataType: "script",
+cache: true
+});
+                               // hide the button once comments load
+                               $(this).fadeOut();
+                               });
+});
+    </script>
+</div>
+</body>
+</html>

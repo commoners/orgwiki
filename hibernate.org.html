@@ -42,6 +42,22 @@
         /* org-level-1 */
         color: #dfaf8f;
       }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-level-4 {
+        /* org-level-4 */
+        color: #d0bf8f;
+      }
+      .org-level-5 {
+        /* org-level-5 */
+        color: #93e0e3;
+      }
       .org-link {
         /* org-link */
         color: #d0bf8f;
@@ -68,7 +84,208 @@
     <pre>
 <span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Hibernate Notes
 </span></span>
-<span class="org-level-1">* Hibernate Tools with maven</span>
+<span class="org-level-1">* Hibernate Annotations</span>
+
+<span class="org-level-2">** Mapping Entities</span>
+
+<span class="org-level-3">*** Mapping with JPA</span>
+JPA annotations are in the <span class="org-verbatim">=javax.persistence.*=</span> package.
+
+<span class="org-level-4">**** Marking a POJO as persistent entity</span>
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Entity
+  public class Flight implements Serializable {
+      Long id;
+
+      @Id
+      public Long getId() { return id; }
+
+      public void setId(Long id) { this.id = id; }
+  }
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-verbatim">=@Entity=</span> declares the class as an entity(i.e. a persistent POJO class). <span class="org-verbatim">=@Id=</span>
+declares the identifier property of this entity.
+
+<span class="org-level-5">***** Defining the table</span>
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Entity
+  @Table(name="tbl_sky",
+      uniqueConstraints = {@UniqueConstraint(columnNames={"month", "day"})}
+  )
+  public class Sky implements Serializable {
+     ...
+  }
+</span><span class="org-block-end-line">#+end_src
+</span>If no <span class="org-verbatim">=@Table=</span> is specified, then the default values are used: the unqualified
+class name of the entity.
+
+<span class="org-level-4">**** Mapping simple properties</span>
+
+<span class="org-level-5">***** Declaring basic property mappings</span>
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  public transient int counter; //transient property
+
+  private String firstname; //persistent property
+
+  @Transient
+  String getLengthInMeter() { ... } //transient property
+
+  String getName() {... } // persistent property
+
+  @Basic
+  int getLength() { ... } // persistent property
+
+  @Basic(fetch = FetchType.LAZY)
+  String getDetailedComment() { ... } // persistent property
+
+  @Temporal(TemporalType.TIME)
+  java.util.Date getDepartureTime() { ... } // persistent property
+
+  @Enumerated(EnumType.STRING)
+  Starred getNote() { ... } //enum persisted as String in database
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-5">***** Declaring column attributes</span>
+The column(s) used for a property mapping can be defined using the <span class="org-verbatim">=@Column=</span>
+annotation. Use it to override default values.
+
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Entity
+  public class Flight implements Serializable {
+  ...
+  @Column(updatable = false, name = "flight_name", nullable = false, length=50)
+  public String getName() { ... }
+</span><span class="org-block-end-line">#+end_src
+</span>
+Default values:
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Column(
+      name="colu(1)mnName";
+      boolean un(2)ique() default false;
+      boolean nu(3)llable() default true;
+      boolean in(4)sertable() default true;
+      boolean up(5)datable() default true;
+      String col(6)umnDefinition() default "";
+      String tab(7)le() default "";
+      int length(8)() default 255;
+      int precis(9)ion() default 0; // decimal precision
+      int scale((10)) default 0; // decimal scale
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-5">***** Embedded objects(aka components)</span>
+It is possible to declare an embedded component inside an entity and even
+override its column mapping. Component classes have to be annotated at the clas
+level with the <span class="org-verbatim">=@Embeddable=</span> annotation. It is possible to override the column
+mapping of an embedded object for a particular entry using the <span class="org-verbatim">=@Embedded=</span> and
+<span class="org-verbatim">=@AttributeOverride=</span> annotation in the associated property.
+
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Entity
+  public class Person implements Serializable {
+
+      // Persistent component using defaults
+      Address homeAddress;
+
+      @Embedded
+      @AttributeOverrides( {
+              @AttributeOverride(name="iso2", column = @Column(name="bornIso2") ),
+              @AttributeOverride(name="name", column = @Column(name="bornCountryName") )
+      } )
+      Country bornIn;
+      ...
+  }
+
+  @Embeddable
+  public class Address implements Serializable {
+      String city;
+      Country nationality; //no overriding here
+  }
+
+  @Embeddable
+  public class Country implements Serializable {
+      private String iso2;
+      @Column(name="countryName") private String name;
+
+      public String getIso2() { return iso2; }
+      public void setIso2(String iso2) { this.iso2 = iso2; }
+
+
+      public String getName() { return name; }
+      public void setName(String name) { this.name = name; }
+      ...
+  }
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-4">**** Mapping identifier properties</span>
+
+<span class="org-level-5">***** Generating the identifier property</span>
+JPA defines five types of identifier generation strategies:
+- AUTO -- either identify column, sequence or table depending on the underlying
+  DB
+- TABLE -- table holding the id
+- IDENTITY -- identity column
+- SEQUENCE -- sequence
+- identity copy -- the identity is copied from another entity.
+
+Example usage:
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+  public Long getId() { ... }
+</span><span class="org-block-end-line">#+end_src
+</span>
+Application level generators:
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  &lt;table-generator name="EMP_GEN"
+              table="GENERATOR_TABLE"
+              pk-column-name="key"
+              value-column-name="hi"
+              pk-column-value="EMP"
+              allocation-size="20"/&gt;
+
+  //and the annotation equivalent
+
+  @javax.persistence.TableGenerator(
+      name="EMP_GEN",
+      table="GENERATOR_TABLE",
+      pkColumnName = "key",
+      valueColumnName = "hi"
+      pkColumnValue="EMP",
+      allocationSize=20
+  )
+
+  &lt;sequence-generator name="SEQ_GEN"
+      sequence-name="my_sequence"
+      allocation-size="20"/&gt;
+
+  //and the annotation equivalent
+
+  @javax.persistence.SequenceGenerator(
+      name="SEQ_GEN",
+      sequenceName="my_sequence",
+      allocationSize=20
+  )
+</span><span class="org-block-end-line">#+end_src
+</span>
+The next example shows the definition of a sequence generator in a class scope.
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  @Entity
+  @javax.persistence.SequenceGenerator(
+      name="SEQ_STORE",
+      sequenceName="my_sequence"
+  )
+  public class Store implements Serializable {
+      private Long id;
+
+      @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_STORE")
+      public Long getId() { return id; }
+  }
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-5">***** Composite identifier</span>
+
+<span class="org-level-1">* Hibernate Tools</span>
+<span class="org-level-2">** Use Hibernate Tools with Maven</span>
 The key here is a plugin named
 <span class="org-link"><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">[[http://mojo.codehaus.org/hibernate3-maven-plugin/][</a><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">hibernate3-maven-plugin</a><a href="http://mojo.codehaus.org/hibernate3-maven-plugin/">]]</a></span>. We
 can run hibernate tools in maven with its help.
@@ -158,6 +375,87 @@ Note that hibernate-tools may have conflictions with hibernate 3.5+. The
 <span class="org-verbatim">=3.3.2.GA=</span> version used here is the known version that works. The generated
 resource can be used with higer version. So we only need <span class="org-verbatim">=3.3.2.GA=</span> to reverse
 engineering
+
+
+<span class="org-level-2">** Some Notes on Reverse Engineering</span>
+
+<span class="org-level-3">*** How to set the "owner" of a many-to-many relationship</span>
+
+Perhaps we have a many-to-many relationship as:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  +--------+                                            +---------+
+  | User   | (1) ------- (n) +-----------+ (n) ---- (1) | Project |
+  +--------+                 | Applicant |              +---------+
+  | UID(PK)|                 +-----------+              | PID (PK)|
+  +--------+                 | PID   (FK)|              +---------+
+                             | UID   (FK)|
+                             +-----------+
+</span><span class="org-block-end-line">#+end_example
+</span>
+What is a "owner"? In the following example, "Project" is the owner:
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  // In class "Projects" (the owner side)
+
+  @ManyToMany(fetch=FetchType.LAZY)
+      @JoinTable(name="applicants", catalog="hiber", joinColumns = {
+          @JoinColumn(name="projectid", nullable=false, updatable=false) }, inverseJoinColumns = {
+          @JoinColumn(name="username", nullable=false, updatable=false) })
+      public Set&lt;Users&gt; getUserses() {
+          return this.userses;
+      }
+</span><span class="org-block-end-line">#+end_src
+</span>
+while the "owning side" is:
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  // in class "Users" (the owning side)
+
+  @ManyToMany(fetch=FetchType.LAZY, mappedBy="userses")
+      public Set&lt;Projects&gt; getProjectses() {
+          return this.projectses;
+      }
+</span><span class="org-block-end-line">#+end_src
+</span>
+Being the "owner side" means that update the <span class="org-verbatim">=userses=</span> fields of a <span class="org-verbatim">=Project=</span> will
+add or update the required "users" in "User" table and add/update corresponding
+rows in the association table "Applicant".
+
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  Users user = (Users)session.get(Users.class, "root");  // must be existed.
+  Projects project = new Projects(10, "another project");
+  project.setUserses(new HashSet&lt;Users&gt;());
+  project.getUserses().add(user);
+
+  session.saveOrUpdate(project);
+
+  // =&gt; add Projects(10, "another project") to "Project" table
+  // =&gt; add (10, "root") to "Applicant"
+
+</span><span class="org-block-end-line">#+end_src
+</span>
+Being the "owning side" means that any update on the <span class="org-verbatim">=projectses=</span> fields of a
+<span class="org-verbatim">=User=</span> will do noting at all.
+
+<span class="org-block-begin-line">#+begin_src java
+</span><span class="org-block">  Projects project1 = (Projects)session.get(Projects.class, new Long(1));
+  Users user = new Users("another", "password");
+  user.setProjectses(new HashSet&lt;Projects&gt;());
+  user.getProjectses().add(project1);
+
+  session.saveOrUpdate(user);
+
+  // =&gt; add  Users("another", "password") to table "User".
+  // =&gt; hava no effect on table "Applicant"
+</span><span class="org-block-end-line">#+end_src
+</span>
+The "Applicant" table is the association table. If a many-to-many relationship
+is a defined by association table like "applicant", it will set the table <span class="org-verbatim">=Project=</span>
+as the "owner side" of this relationship while <span class="org-verbatim">=User=</span> is set as the "owning
+side".
+
+That is: Hibernate will set the table which the first foreign key of association
+table refers to as the owner of a many-to-many relationship. So if you want to
+make "user" the "owner side", just put "UID" at the first column of table
+"Applicant" when creating it.
 </pre>
   </body>
 </html>
