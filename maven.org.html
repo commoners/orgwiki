@@ -153,6 +153,33 @@ Then <span class="org-verbatim">=CodeGenerator.main()=</span> will be run while 
 </span>
 
 - <span class="org-link"><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">[[http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/][</a><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">3 ways to run Java main from Maven</a><a href="http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/">]]</a></span>
+
+<span class="org-level-2">** maven download metadata everytime</span>
+
+Use offline mode to resolve this:
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">mvn clean install -o
+</span><span class="org-block-end-line">#+end_src
+</span>
+- <span class="org-link"><a href="http://stackoverflow.com/questions/16421454/why-maven-is-downloading-metadata-every-time">[[</a><a href="http://stackoverflow.com/questions/16421454/why-maven-is-downloading-metadata-every-time">http://stackoverflow.com/questions/16421454/why-maven-is-downloading-metadata-every-time</a><a href="http://stackoverflow.com/questions/16421454/why-maven-is-downloading-metadata-every-time">]]</a></span>
+
+<span class="org-level-2">** maven multi-thread build</span>
+<span class="org-block-begin-line">#+begin_src
+</span><span class="org-block">mvn -T 4 clean install # Builds with 4 threads
+mvn -T 1C clean install # 1 thread per cpu core
+mvn -T 1.5C clean install # 1.5 thread per cpu core
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-link"><a href="https://cwiki.apache.org/confluence/display/MAVEN/Parallel%2Bbuilds%2Bin%2BMaven%2B3">[[https://cwiki.apache.org/confluence/display/MAVEN/Parallel%2Bbuilds%2Bin%2BMaven%2B3][</a><a href="https://cwiki.apache.org/confluence/display/MAVEN/Parallel%2Bbuilds%2Bin%2BMaven%2B3">https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3</a><a href="https://cwiki.apache.org/confluence/display/MAVEN/Parallel%2Bbuilds%2Bin%2BMaven%2B3">]]</a></span>
+
+
+<span class="org-level-2">** How to skip test</span>
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">mvn -Dmaven.test.skip=true or -DskipTests=true 
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-link"><a href="http://maven.apache.org/general.html#skip-test">[[http://maven.apache.org/general.html#skip-test][</a><a href="http://maven.apache.org/general.html#skip-test">Skip Test</a><a href="http://maven.apache.org/general.html#skip-test">]]</a></span>
 </pre>
   </body>
 </html>

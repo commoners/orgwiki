@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>ubuntu_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-level-1"><span class="hl-line">* Needed Software after installation</span></span><span class="hl-line">
+</span>1. vim &amp;&amp; emacs
+2. tmux
+3. input method -- fcitx
+4. applets
+   1. indicator-multilaod
+
+<span class="org-level-1">* GUI's corrsponding CLI command</span>
+- Ubuntu Software Center: <span class="org-verbatim">=software-center=</span>
+- System Settings: <span class="org-verbatim">=unity-control-center=</span>
+
+<span class="org-level-1">* Install JDK</span>
+<span class="org-link"><a href="http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html">[[</a><a href="http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html">http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html</a><a href="http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html">]]</a></span>
+
+<span class="org-block-begin-line">#+begin_src bash
+</span><span class="org-block">sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java9-installer
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-1">* Samba Usage</span>
+
+<span class="org-level-2">** smbclient login with guest no password.</span>
+   Use the <span class="org-verbatim">=-N=</span> flag.
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">smbclient -N smb://xxxx -U guest
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-1">* Problems and fixes</span>
+  
+<span class="org-level-2">** Unity focus problem</span>
+<span class="bold">*Description*</span>: 
+
+Using vimperator with firefox, when switch to another window
+(Alt-Tab for example), and swith back to firefox, firefox will lost
+all key stroks and thus vimperator fail to work.
+
+<span class="bold">*Solution*</span>
+
+As described
+<span class="org-link"><a href="http://askubuntu.com/questions/388153/ubuntu-13-10-not-usable-because-of-focus-problems">[[http://askubuntu.com/questions/388153/ubuntu-13-10-not-usable-because-of-focus-problems][</a><a href="http://askubuntu.com/questions/388153/ubuntu-13-10-not-usable-because-of-focus-problems">here</a><a href="http://askubuntu.com/questions/388153/ubuntu-13-10-not-usable-because-of-focus-problems">]]</a></span>,
+we need to restart the X server. 
+
+For now, still not sure whether I had to do it everytime.
+<span class="org-level-2">** Default sh to bash instead of dash</span>
+The <span class="org-verbatim">=sh=</span> command under ubuntu links to dash to provide fast startup
+and execution. Somehow some scripts that will depends on more
+advanced feature of <span class="org-verbatim">=bash=</span> while keep the sha-bang line link to <span class="org-verbatim">=sh=</span>,
+like:
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  #!/bin/sh
+  
+  # array syntax is supported by bash
+  array=("item 1" "item 2")
+</span><span class="org-block-end-line">#+end_src
+</span>
+Thus it will not run properly. I googled for
+<span class="org-link"><a href="https://justinconover.wordpress.com/2012/05/14/ubuntu-changing-dash-to-bash/">[[https://justinconover.wordpress.com/2012/05/14/ubuntu-changing-dash-to-bash/][</a><a href="https://justinconover.wordpress.com/2012/05/14/ubuntu-changing-dash-to-bash/">this
+link</a><a href="https://justinconover.wordpress.com/2012/05/14/ubuntu-changing-dash-to-bash/">]]</a></span> to add alternative support for <span class="org-verbatim">=sh=</span>.
+
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">$ sudo update-alternatives --install /bin/sh sh /bin/bash 100
+update-alternatives: using /bin/bash to provide /bin/sh (sh) in auto mode.
+
+$ sudo update-alternatives --install /bin/sh sh /bin/dash 200
+update-alternatives: using /bin/dash to provide /bin/sh (sh) in auto mode.
+
+$ sudo update-alternatives --config sh
+There are 2 choices for the alternative sh (providing /bin/sh).
+
+Selection Path Priority Status
+------------------------------------------------------------
+* 0 /bin/dash 2 auto mode
+1 /bin/bash 1 manual mode
+2 /bin/dash 2 manual mode
+
+Press enter to keep the current choice[*], or type selection number: 1
+update-alternatives: using /bin/bash to provide /bin/sh (sh) in manual
+mode.
+</span><span class="org-block-end-line">#+end_example
+</span>
+<span class="org-level-2">** Remap keys</span>
+
+<span class="bold">*Description*</span>
+
+I actually want to remap right context menu key to right control
+keys. And the problem is that Ubuntu do not work with <span class="org-verbatim">=xmodmap=</span>
+well. So we can
+<span class="org-link"><a href="https://radu.cotescu.com/remapping-keys-in-ubuntu-14.04/">[[https://radu.cotescu.com/remapping-keys-in-ubuntu-14.04/][</a><a href="https://radu.cotescu.com/remapping-keys-in-ubuntu-14.04/">remapping
+keys</a><a href="https://radu.cotescu.com/remapping-keys-in-ubuntu-14.04/">]]</a></span> as the link described:
+
+<span class="bold">*Solution*</span>
+
+1. Edit file <span class="org-verbatim">=/usr/share/X11/xkb/symbols/pc=</span> and change the contents
+   accordingly:
+<span class="org-block-begin-line">   #+begin_example
+</span><span class="org-block">     key &lt;MENU&gt; {[ Control_R ]};
+     modifier_map Control{ Control_L, Control_R, &lt;MENU&gt;}
+</span><span class="org-block-end-line">   #+end_example
+</span>2. clear the <span class="org-verbatim">=xkb=</span> cache by:
+<span class="org-block-begin-line">   #+begin_src sh
+</span><span class="org-block">     rm -rf /var/lib/xkb/*
+</span><span class="org-block-end-line">   #+end_src
+</span>3. restart your X session.
+</pre>
+  </body>
+</html>

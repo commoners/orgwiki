@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>core_async.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Core.async Notes
+</span></span>
+<span class="org-level-1">* Notes</span>
+
+<span class="org-level-2">** Function inside go block</span>
+   you cannot use <span class="org-verbatim">=&lt;!=</span> <span class="org-verbatim">=&gt;!=</span> inside function/loop even they are wrapped
+   inside <span class="org-verbatim">=go=</span> block
+<span class="org-block-begin-line">   #+begin_src clojure
+</span><span class="org-block">    (go (map &lt;! some-chan))
+</span><span class="org-block-end-line">   #+end_src
+</span>
+   <span class="org-link"><a href="http://stackoverflow.com/questions/26040928/couldnt-use-for-loop-in-go-block-of-core-async">[[http://stackoverflow.com/questions/26040928/couldnt-use-for-loop-in-go-block-of-core-async][</a><a href="http://stackoverflow.com/questions/26040928/couldnt-use-for-loop-in-go-block-of-core-async">Here</a><a href="http://stackoverflow.com/questions/26040928/couldnt-use-for-loop-in-go-block-of-core-async">]]</a></span>
+   is a good explanation of why.
+</pre>
+  </body>
+</html>

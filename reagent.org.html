@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>reagent.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Reagent Tutorial
+</span></span>
+This artical is a walkthrough of React.js quickstart tutorial using Reagent.
+
+<span class="org-level-1">* Create the testing project</span>
+Use the <span class="org-verbatim">=reagent=</span> template by:
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  lein new reagent reagent-tutorial
+</span><span class="org-block-end-line">#+end_src
+</span>
+Now start figwheel to enable auto compilation of cljs codes and auto
+reload js code to our page.
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">  cd reagent-tutorial
+  lein figwheel
+</span><span class="org-block-end-line">#+end_src
+</span>
+After starting it up, we open the page at <span class="org-link"><a href="http://localhost:3449/">[[</a><a href="http://localhost:3449/">http://localhost:3449/</a><a href="http://localhost:3449/">]]</a></span>,
+and see the page containing "Welcome to reagent-tutorial".
+
+<span class="org-level-1">* Walk through the tutorial</span>
+The react.js quick-start tutorial is
+<span class="org-link"><a href="https://facebook.github.io/react/docs/tutorial.html">[[</a><a href="https://facebook.github.io/react/docs/tutorial.html">https://facebook.github.io/react/docs/tutorial.html</a><a href="https://facebook.github.io/react/docs/tutorial.html">]]</a></span>.
+
+We are trying to implement the functions in Reagent.
+
+<span class="org-level-2">** Your first component</span>
+We build a <span class="org-verbatim">=CommentBox=</span> component:
+<span class="org-block-begin-line">#+begin_src javascript
+</span><span class="org-block">  // tutorial1.js
+  var CommentBox = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentBox"&gt;
+          Hello, world! I am a CommentBox.
+        &lt;/div&gt;
+      );
+    }
+  });
+  React.render(
+    &lt;CommentBox /&gt;,
+    document.getElementById('content')
+  );
+</span><span class="org-block-end-line">#+end_src
+</span>
+Open the <span class="org-verbatim">=core.cljs=</span> file in <span class="org-verbatim">=src/cljs/reagent_tutorial=</span> directory.
+
+First we create a corresonding comment box:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-box []
+    [:div.commentBox
+     "Hello, world! I am a CommentBox."])
+</span><span class="org-block-end-line">#+end_src
+</span>
+And modify the render function <span class="org-verbatim">=mount-root=</span> to:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn mount-root []
+      (reagent/render [comment-box] (.getElementById js/document "app")))
+</span><span class="org-block-end-line">#+end_src
+</span>
+And You should see that the page's content had chaned to "Hello, world! I am a CommentBox.".
+
+<span class="org-level-2">** Composing components</span>
+Now we are tring to build the skeletons for <span class="org-verbatim">=CommentList=</span> and <span class="org-verbatim">=CommentForm=</span>.
+<span class="org-block-begin-line">#+begin_src javascript
+</span><span class="org-block">  // tutorial2.js
+  var CommentList = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentList"&gt;
+          Hello, world! I am a CommentList.
+        &lt;/div&gt;
+      );
+    }
+  });
+
+  var CommentForm = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentForm"&gt;
+          Hello, world! I am a CommentForm.
+        &lt;/div&gt;
+      );
+    }
+  });
+
+  // tutorial3.js
+  var CommentBox = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentBox"&gt;
+          &lt;h1&gt;Comments&lt;/h1&gt;
+          &lt;CommentList /&gt;
+          &lt;CommentForm /&gt;
+        &lt;/div&gt;
+      );
+    }
+  });
+</span><span class="org-block-end-line">#+end_src
+</span>
+And change them to corresonding reagent (nothing to explain):
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-list []
+    [:div.commentList
+     "Hello, world! I am a CommentList"])
+
+  (defn comment-form []
+    [:div.commentForm
+     "Hello, world! I am a CommentForm"])
+
+  (defn comment-box []
+    [:div.commentBox
+     [:h1 "Comments"]
+     [comment-list] 
+     [comment-form]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+Done, the page should be updated automatically(all hail figwheel).
+
+<span class="org-level-2">** Using Props</span>
+We can pass information from the parent node to child node, which is
+called props in child. So when we want to construct a <span class="org-verbatim">=Comment=</span>, we
+can specify the information it needed: author and content:
+
+<span class="org-block-begin-line">#+begin_src js
+</span><span class="org-block">  // tutorial4.js
+  var Comment = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="comment"&gt;
+          &lt;h2 className="commentAuthor"&gt;
+            {this.props.author}
+          &lt;/h2&gt;
+          {this.props.children}
+        &lt;/div&gt;
+      );
+    }
+  });
+</span><span class="org-block-end-line">#+end_src
+</span>
+And we can specify the information(props) via:
+
+<span class="org-block-begin-line">#+begin_src js
+</span><span class="org-block">  // tutorial5.js
+  var CommentList = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentList"&gt;
+          &lt;Comment author="Pete Hunt"&gt;This is one comment&lt;/Comment&gt;
+          &lt;Comment author="Jordan Walke"&gt;This is *another* comment&lt;/Comment&gt;
+        &lt;/div&gt;
+      );
+    }
+  });
+</span><span class="org-block-end-line">#+end_src
+</span>
+First, note the props are accessed by <span class="org-verbatim">=this.props=</span>. Second, the
+<span class="org-verbatim">=props=</span> contains a special item called <span class="org-verbatim">=props.children=</span> which refer to
+the wrapped content in the parent.
+
+<span class="org-level-3">*** Reagent's Components As Functions</span>
+As we had seen, the components in reagent are just like functions in
+clojure. So there better be a way to specify the props.
+
+The first one is abstract it like function called.
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-item [author &amp; children]
+    (into [:div.comment
+           [:h2.commentAuthor author]]
+          children))
+
+  (defn comment-list []
+    [:div.commentList
+     [comment-item "Pete Hunt" "This is one comment"]
+     [comment-item "Jordan Walke" "This is *another* comment"]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-3">*** A Little Test of Reagent's Props</span>
+According to
+<span class="org-link"><a href="https://reagent-project.github.io/news/any-arguments.html">[[https://reagent-project.github.io/news/any-arguments.html][</a><a href="https://reagent-project.github.io/news/any-arguments.html">Reagent
+News</a><a href="https://reagent-project.github.io/news/any-arguments.html">]]</a></span>, the function conversion described above was introduced recently. 
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns example
+      (:require [reagent.core :as r :refer [atom]]))
+
+  (defn my-div []
+    (let [this (reagent/current-component)]
+      (into [:div.custom (reagent/props this)]
+            (reagent/children this))))
+
+  (defn call-my-div []
+    [:div
+     [my-div "Some text."]
+     [my-div {:style {:font-weight 'bold}}
+      [:p "Some other text in bold."]
+      [:p "some other text"]]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+So now <span class="org-verbatim">=(reagent/props this)=</span> will be the map <span class="org-verbatim">={:style {:font-weight
+'bold}}=</span>, and <span class="org-verbatim">=(reagent/children this)=</span> will be a list of two
+components: <span class="org-verbatim">=[[:p "Some other text in bold."] [:p "some other
+text"]]=</span>. That is also the reason that we need to call <span class="org-verbatim">=into=</span> function
+to concate two list.
+
+Also, if you omit the properties in the caller like:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn call-my-div []
+    [:div
+     [my-div "Some text."]
+     [my-div ; removed the properties here
+      [:p "Some other text in bold."]
+      [:p "some other text"]]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+The child simply got nothing(nil) calling to <span class="org-verbatim">=(reagent/props this)=</span>.
+
+The syntax is a bit tedious, but works, right?
+
+But what is we want to combine the properties and the convenience of
+function calls? Now we write a component to check the result:
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-item [first-comp &amp; rest-comp]
+    (let [this (reagent/current-component)]
+      [:div
+       [:p "The 'props' propertity: " (str (reagent/props this))]
+       [:p "The first component: " (str first-comp)]
+       [:p "The rest component: " (str rest-comp)]
+       [:p "The children component: " (str (reagent/children this))]]))
+</span><span class="org-block-end-line">#+end_src
+</span>
+And by using a map as the first argument:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-list []
+    [:div
+     [comment-item {:author "Your Name"}
+      [:p "first component"]
+      [:p "second component"]]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+The result is:
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  The 'props' propertity: {:author "Your Name"}
+  The first component: {:author "Your Name"}
+  The rest component: ([:p "first component"] [:p "second component"])
+  The children component: [[:p "first component"] [:p "second component"]]
+</span><span class="org-block-end-line">#+end_example
+</span>
+And by using a none-map as the first argument:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-list []
+    [:div
+     [comment-item ; note the map is deleted here
+      [:p "first component"]
+      [:p "second component"]]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">  The 'props' propertity:
+  The first component: [:p "first component"]
+  The rest component: ([:p "second component"])
+  The children component: [[:p "first component"] [:p "second component"]]
+</span><span class="org-block-end-line">#+end_example
+</span>
+<span class="org-level-3">*** A Simple Conclusion of Props in Reagent</span>
+1. You can retrieve the properties using <span class="org-verbatim">=(reagent/props component-reference)=</span>.
+2. The <span class="org-verbatim">=props=</span> refers to the first parameter given by the caller/parent if it
+   is a map.
+3. The <span class="org-verbatim">=children=</span> refers to the list of parameters given by the
+   caller/parent other than the first parameter if it is a map.
+
+<span class="org-level-3">*** A Test Combination of Props and Functions</span>
+This can serve as an example when you really need the props, otherwise
+use the component as functions would do all the goods. 
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (defn comment-item [props &amp; children]
+    [:div.comment
+     (into [:p.commentAuthor {:style (:style props)} (:author props)]
+           children)])
+
+  (defn comment-list []
+    [:div.commentList
+     [comment-item {:author "Pete Hunt"} "This is one comment"]
+     [comment-item {:author "Jordan Walke" :style {:font-weight 'bold}} "This is *another* comment"]])
+</span><span class="org-block-end-line">#+end_src
+</span>
+I personally thinks that you will need this only when you cannot
+determine the number of properties you will use.
+
+<span class="org-level-2">** Hook up the data model</span>
+We can pass data into components.
+<span class="org-block-begin-line">#+begin_src js
+</span><span class="org-block">  // tutorial8.js
+  var data = [
+    {author: "Pete Hunt", text: "This is one comment"},
+    {author: "Jordan Walke", text: "This is *another* comment"}
+  ];
+
+  // tutorial9.js
+  var CommentBox = React.createClass({
+    render: function() {
+      return (
+        &lt;div className="commentBox"&gt;
+          &lt;h1&gt;Comments&lt;/h1&gt;
+          &lt;CommentList data={this.props.data} /&gt;
+          &lt;CommentForm /&gt;
+        &lt;/div&gt;
+      );
+    }
+  });
+
+  React.render(
+    &lt;CommentBox data={data} /&gt;,
+    document.getElementById('content')
+  );
+
+  // tutorial10.js
+  var CommentList = React.createClass({
+    render: function() {
+      var commentNodes = this.props.data.map(function (comment) {
+        return (
+          &lt;Comment author={comment.author}&gt;
+            {comment.text}
+          &lt;/Comment&gt;
+        );
+      });
+      return (
+        &lt;div className="commentList"&gt;
+          {commentNodes}
+        &lt;/div&gt;
+      );
+    }
+  });
+</span><span class="org-block-end-line">#+end_src
+</span>
+We pass the data from the top <span class="org-verbatim">=CommentBox=</span> and pass the data to its
+children accordingly. In reagent, this can be implemented smoothly.
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (def data [{:author "Pete Hunt", :text "This is one comment"}
+             {:author "Jordan Walke", :text "This is *another* comment"}])
+
+  (defn comment-item [author &amp; children]
+      (into [:div.comment
+             [:h2.commentAuthor author]]
+            children))
+
+  (defn comment-list [data]
+    [:div.commentList
+     (for [comment data]
+       [comment-item (:author comment) (:text comment)])])
+
+  (defn comment-form []
+    [:div.commentForm
+     "Hello, world! I am a CommentForm"])
+
+  (defn comment-box [data]
+    [:div.commentBox
+     [:h1 "Comments"]
+     [comment-list data] 
+     [comment-form]])
+
+  (defn mount-root []
+      (reagent/render [comment-box data] (.getElementById js/document "app")))
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-2">** Reactive state</span>
+The original document says a lot about AJAX calls to fetch the data, I
+found it irrelevant to React.js. So I'll only explain the following
+things:
+
+1. The state in React.js are represented as 'Atom' in Reagent
+2. According to <span class="org-link"><a href="https://github.com/reagent-project/reagent">[[https://github.com/reagent-project/reagent][</a><a href="https://github.com/reagent-project/reagent">reagent
+   doc</a><a href="https://github.com/reagent-project/reagent">]]</a></span>, you can return a new function while defining components, so
+   as to avoid usage of <span class="org-verbatim">=getInitialState=</span> and <span class="org-verbatim">=componentDidMount=</span>.
+
+Make change to <span class="org-verbatim">=comment-box=</span> and <span class="org-verbatim">=comment-list=</span>
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns reagent-tutorial.core
+      (:require [reagent.core :as reagent :refer [atom]]))
+
+  (defn comment-box []
+    (let [data (atom data)]
+      ;; you can add ajax callback here
+      (fn []
+        [:div.commentBox
+         [:h1 "Comments"]
+         [comment-list data] 
+         [comment-form]])))
+
+  (defn comment-list [data]
+    [:div.commentList
+     (for [comment @data]
+       [comment-item (:author comment) (:text comment)])])
+</span><span class="org-block-end-line">#+end_src
+</span></pre>
+  </body>
+</html>

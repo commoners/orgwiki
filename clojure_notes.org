@@ -1,0 +1,82 @@
+#+TITLE: Clojure Notes
+
+* Syntax Related
+
+** Namespaces
+The information in this chapter is mainly from book "The Joy of
+Clojure" Chapter 2.
+
+Please check the document of [[https://clojuredocs.org/clojure.core/ns][ns]] for more infomation.
+
+*** Create namespaces using ns
+#+BEGIN_SRC clojure
+  (ns joy.ch2)
+#+END_SRC
+Also, in CIDER REPL, =C-c M-n= is binded to switch namespaces.
+
+*** Loading other namespaces with :require
+#+BEGIN_SRC clojure
+  (ns joy.req
+    (:require clojure.set))
+
+  ;;; or use an alias
+  (ns joy.req-alias
+    (:require [clojure.set :as s]))
+#+END_SRC
+
+*** Loading and creating mappings with :use
+#+BEGIN_SRC clojure
+  (ns joy.use-ex
+    (:use [clojure.string :only [capitalize]]))
+#+END_SRC
+In this way we add a new function =capitalize= to current
+function. Then we are able to use it without refer to its full name
+=clojure.string.capitalize= every time.
+
+We can also import all symbols of a namespace and exclude some of them
+by:
+#+BEGIN_SRC clojure
+  (ns joy.exclusion
+    (:use [clojure.string :exclude [capitalize]]))
+#+END_SRC
+Note that the above code will give some warnings. This is because
+=clojure.string= defines =reverse= and =replace= functions that had
+already exists in the =clojure.core= namespace. Therefore, when either
+of those functions are used, the last Var definition wins:
+
+#+BEGIN_SRC clojure
+  (reverse "abc")
+  ; => "cba"
+  (clojure.core/reverse "abc")
+  ; => (\c \b \a)
+#+END_SRC
+
+*** Creating mappings with :refer
+=:refer= works almost exactly like =:use= except that it only creates
+mappings for libraries that have already been loaded:
+#+BEGIN_SRC clojure
+  (ns joy.yet-another
+    (:refer joy.ch1)
+    (:refer joy.ch2 :rename {hello hi}))
+#+END_SRC
+
+Actually, =:use= is a wrapper of =:require= and =:refer= which first
+load the namespace and later add the mappings to current namespace.
+
+*** Loading Java classes with :import
+#+BEGIN_SRC clojure
+  (ns joy.java
+    (:import [java.util HashMap]
+  	   [java.util.concurrent.atomic AtomicLong]))
+#+END_SRC
+As a reminder, any classes in Java =java.lang= package are
+automatically imported when namespaces are created.
+
+** Truthiness
+Every value looks like =true= to =if=, except for =false= and =nil=.
+#+BEGIN_SRC clojure
+  (if true :truthy :falsey) ;=> :truthy
+  (if [] :truthy :falsey)   ;=> :truthy
+  (if nil :truthy :falsey) ;=> :falsey
+  (if false :truthy :falsey) ;=> :falsey
+#+END_SRC

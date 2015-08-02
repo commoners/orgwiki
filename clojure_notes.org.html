@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>clojure_notes.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-level-3 {
+        /* org-level-3 */
+        color: #7cb8bb;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+TITLE:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Clojure Notes
+</span></span>
+<span class="org-level-1">* Syntax Related</span>
+
+<span class="org-level-2">** Namespaces</span>
+The information in this chapter is mainly from book "The Joy of
+Clojure" Chapter 2.
+
+Please check the document of <span class="org-link"><a href="https://clojuredocs.org/clojure.core/ns">[[https://clojuredocs.org/clojure.core/ns][</a><a href="https://clojuredocs.org/clojure.core/ns">ns</a><a href="https://clojuredocs.org/clojure.core/ns">]]</a></span> for more infomation.
+
+<span class="org-level-3">*** Create namespaces using ns</span>
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.ch2)
+</span><span class="org-block-end-line">#+end_src
+</span>Also, in CIDER REPL, <span class="org-verbatim">=C-c M-n=</span> is binded to switch namespaces.
+
+<span class="org-level-3">*** Loading other namespaces with :require</span>
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.req
+    (:require clojure.set))
+
+  ;;; or use an alias
+  (ns joy.req-alias
+    (:require [clojure.set :as s]))
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-3">*** Loading and creating mappings with :use</span>
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.use-ex
+    (:use [clojure.string :only [capitalize]]))
+</span><span class="org-block-end-line">#+end_src
+</span>In this way we add a new function <span class="org-verbatim">=capitalize=</span> to current
+function. Then we are able to use it without refer to its full name
+<span class="org-verbatim">=clojure.string.capitalize=</span> every time.
+
+We can also import all symbols of a namespace and exclude some of them
+by:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.exclusion
+    (:use [clojure.string :exclude [capitalize]]))
+</span><span class="org-block-end-line">#+end_src
+</span>Note that the above code will give some warnings. This is because
+<span class="org-verbatim">=clojure.string=</span> defines <span class="org-verbatim">=reverse=</span> and <span class="org-verbatim">=replace=</span> functions that had
+already exists in the <span class="org-verbatim">=clojure.core=</span> namespace. Therefore, when either
+of those functions are used, the last Var definition wins:
+
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (reverse "abc")
+  ; =&gt; "cba"
+  (clojure.core/reverse "abc")
+  ; =&gt; (\c \b \a)
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-3">*** Creating mappings with :refer</span>
+<span class="org-verbatim">=:refer=</span> works almost exactly like <span class="org-verbatim">=:use=</span> except that it only creates
+mappings for libraries that have already been loaded:
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.yet-another
+    (:refer joy.ch1)
+    (:refer joy.ch2 :rename {hello hi}))
+</span><span class="org-block-end-line">#+end_src
+</span>
+Actually, <span class="org-verbatim">=:use=</span> is a wrapper of <span class="org-verbatim">=:require=</span> and <span class="org-verbatim">=:refer=</span> which first
+load the namespace and later add the mappings to current namespace.
+
+<span class="org-level-3">*** Loading Java classes with :import</span>
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (ns joy.java
+    (:import [java.util HashMap]
+             [java.util.concurrent.atomic AtomicLong]))
+</span><span class="org-block-end-line">#+end_src
+</span>As a reminder, any classes in Java <span class="org-verbatim">=java.lang=</span> package are
+automatically imported when namespaces are created.
+
+<span class="org-level-2">** Truthiness</span>
+Every value looks like <span class="org-verbatim">=true=</span> to <span class="org-verbatim">=if=</span>, except for <span class="org-verbatim">=false=</span> and <span class="org-verbatim">=nil=</span>.
+<span class="org-block-begin-line">#+begin_src clojure
+</span><span class="org-block">  (if true :truthy :falsey) ;=&gt; :truthy
+  (if [] :truthy :falsey)   ;=&gt; :truthy
+  (if nil :truthy :falsey) ;=&gt; :falsey
+  (if false :truthy :falsey) ;=&gt; :falsey
+</span><span class="org-block-end-line">#+end_src
+</span></pre>
+  </body>
+</html>

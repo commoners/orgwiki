@@ -2,10 +2,10 @@
 <html>
 <head>
 <title>JavaScript Notes</title>
-<!-- 2015-06-27 -->
+<!-- 2015-08-02 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
-<meta  name="author" content="Mark Wallace">
+<meta  name="author" content="Wang Menglei">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -92,6 +92,29 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-2">JS Position/Offset</a></li>
 <li><a href="#sec-3">Event Position</a></li>
+<li><a href="#sec-4">Prototype</a></li>
+<li><a href="#sec-5">This</a>
+<ul>
+<li><a href="#sec-5-1">Global context</a></li>
+<li><a href="#sec-5-2">Function context</a>
+<ul>
+<li><a href="#sec-5-2-1">Simple call</a></li>
+<li><a href="#sec-5-2-2">As an object method</a></li>
+<li><a href="#sec-5-2-3">As a constructor</a></li>
+<li><a href="#sec-5-2-4">call and apply</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-3">As a DOM event handler</a></li>
+<li><a href="#sec-5-4">As an in-line event handler</a></li>
+<li><a href="#sec-5-5">Read More</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">Javascript and OOP</a>
+<ul>
+<li><a href="#sec-6-1">The inheritance chain</a></li>
+<li><a href="#sec-6-2">The constructor hierarchy</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -383,6 +406,405 @@ layer. Non-standard.
 <p>
 <a href="http://web.jobbole.com/82419/">About JS event</a>
 </p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Prototype</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Modifying the prototype of a javascript class(i.e. a function) will
+affect all instances using this object. It is like editing the class
+itself in Java and all instances of this class will be affected.
+</p>
+
+<p>
+<a href="http://www.w3schools.com/js/js_object_prototypes.asp">prototype</a> is
+the only way of doing this.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">This</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+NOTE: this section is maily taken from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">MDN</a>
+</p>
+
+<p>
+Normally,
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">this</a>
+is determined by how a function is called. It cannot be set by
+assignment during execution.
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">Global context</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+In global execution contex(outside of any function) <code>this</code> refers to
+the global object, whether in scrit mode or not.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">console.log(<span style="color: #bfebbf;">this</span>.document === document); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">true</span>
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">In web browsers, the window object is also the global object:</span>
+console.log(<span style="color: #bfebbf;">this</span> === window); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">true</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2">Function context</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Inside a function, the value of <code>this</code> depends on how the function is
+called.
+</p>
+</div>
+
+<div id="outline-container-sec-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1">Simple call</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">f1</span>(){
+  <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>;
+}
+
+f1() === window; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">global object</span>
+</pre>
+</div>
+
+<p>
+In this case, the value of <code>this</code> is not set by the call. Since the
+code is not in <code>strict</code> mode, the value of <code>this</code> must always be an
+object so it defaults to the global object.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">f2</span>(){
+  <span style="color: #cc9393;">"use strict"</span>; <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">see strict mode</span>
+  <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>;
+}
+
+f2() === <span style="color: #bfebbf;">undefined</span>;
+</pre>
+</div>
+
+<p>
+In <code>strict</code> mod,e the value of <code>this</code> remains at whatever it is set
+when entering the execution context.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2">As an object method</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+When a function is called as a method of an object, its <code>this</code> is set
+to the object the method is called on.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">o</span> = {
+    prop: 37,
+    <span style="color: #8cd0d3;">f</span>: <span style="color: #f0dfaf; font-weight: bold;">function</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>.prop;
+    }
+};
+
+console.log(o.f()); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">logs 37</span>
+</pre>
+</div>
+
+<p>
+This behavior is not at all affected by how or where the function was defined.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">o</span> = {prop: 37};
+
+<span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">independent</span>() {
+  <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>.prop;
+}
+
+o.f = independent;
+
+console.log(o.f()); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">logs 37</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3">As a constructor</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<p>
+when a function is used as a constructor(with the <code>new</code> keyword), its
+<code>this</code> is bound to the new object being constructed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-4" class="outline-4">
+<h4 id="sec-5-2-4">call and apply</h4>
+<div class="outline-text-4" id="text-5-2-4">
+<p>
+By utilizing <code>call</code> and <code>apply</code>, we are able to specify <code>this</code> in a
+function to anything we want:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">add</span>(<span style="color: #dfaf8f;">c</span>, <span style="color: #dfaf8f;">d</span>){
+  <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>.a + <span style="color: #bfebbf;">this</span>.b + c + d;
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">o</span> = {a:1, b:3};
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">The first parameter is the object to use as</span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">'this', subsequent parameters are passed as </span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">arguments in the function call</span>
+add.call(o, 5, 7); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">1 + 3 + 5 + 7 = 16</span>
+
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">The first parameter is the object to use as</span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">'this', the second is an array whose</span>
+<span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">members are used as the arguments in the function call</span>
+add.apply(o, [10, 20]); <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">1 + 3 + 10 + 20 = 34</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3">As a DOM event handler</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+When a function is used as an event handler, its <code>this</code> is set to the
+element the event fired from.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4">As an in-line event handler</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Its <code>this</code> is set to the DOM element on which the listener is placed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5">Read More</h3>
+<div class="outline-text-3" id="text-5-5">
+<ul class="org-ul">
+<li><a href="http://web.jobbole.com/54267/">解密 JavaScript 中的 this</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Javascript and OOP</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Actually ECMAScript 2015(ES6) introduced some new keywords to support
+OOP in javascript. But we can actually simulate the OOP in older
+versions. Here are something to note when implement it.
+</p>
+
+<p>
+<b>Two things</b> we need to care about are:
+</p>
+<ol class="org-ol">
+<li>How to inherit properties and methods from the super class?
+</li>
+<li>How to properly set the initial values of inherited properties?
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">The inheritance chain</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+The first is called to
+<a href="http://stackoverflow.com/questions/4152931/javascript-inheritance-call-super-constructor-or-use-prototype-chain">construct
+a prototype chain</a>. Which is a function like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">extend</span>(<span style="color: #dfaf8f;">base</span>, <span style="color: #dfaf8f;">sub</span>) {
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Avoid instantiating the base class just to setup inheritance</span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create</span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">for a polyfill</span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Also, do a recursive merge of two prototypes, so we don't overwrite </span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">the existing prototype, but still maintain the inheritance chain</span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Thanks to @ccnokes</span>
+  <span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">origProto</span> = sub.<span style="color: #bfebbf;">prototype</span>;
+  sub.<span style="color: #bfebbf;">prototype</span> = Object.create(base.<span style="color: #bfebbf;">prototype</span>);
+  <span style="color: #f0dfaf; font-weight: bold;">for</span> (<span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">key</span> <span style="color: #f0dfaf; font-weight: bold;">in</span> origProto)  {
+     sub.<span style="color: #bfebbf;">prototype</span>[key] = origProto[key];
+  }
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">Remember the constructor property was set wrong, let's fix it</span>
+  sub.<span style="color: #bfebbf;">prototype</span>.constructor = sub;
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">In ECMAScript5+ (all modern browsers), you can make the constructor property</span>
+  <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">non-enumerable if you define it like this instead</span>
+  Object.defineProperty(sub.<span style="color: #bfebbf;">prototype</span>, <span style="color: #cc9393;">'constructor'</span>, { 
+    enumerable: <span style="color: #bfebbf;">false</span>, 
+    value: sub 
+  });
+}
+</pre>
+</div>
+
+<p>
+With the help of the lookup strategy of Javascript's prototype, now
+we inherited parent's properties and methods(called prototype).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2">The constructor hierarchy</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+In traditional OOP language like java, we will initialize the
+properties in its constructor, and when it is inherited by a
+subclass, we should call its constructor in the subclass to get the
+things right.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Shape</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">shape</span>;
+
+    <span style="color: #8cd0d3;">Shape</span>(<span style="color: #8cd0d3;">String</span> <span style="color: #dfaf8f;">shape</span>) {
+        <span style="color: #f0dfaf; font-weight: bold;">this</span>.shape = shape;
+    }
+
+    <span style="color: #8cd0d3;">String</span> <span style="color: #8cd0d3;">getShape</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> shape;
+    }
+}
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #8cd0d3;">Rect</span> <span style="color: #f0dfaf; font-weight: bold;">extends</span> <span style="color: #8cd0d3;">Shape</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">width</span>;
+    <span style="color: #f0dfaf; font-weight: bold;">private</span> <span style="color: #8cd0d3;">int</span> <span style="color: #dfaf8f;">height</span>;
+    <span style="color: #8cd0d3;">Rect</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">super</span>(<span style="color: #cc9393;">"rect"</span>);
+        width = 0;
+        height = 0;
+    }
+
+    <span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">static</span> <span style="color: #8cd0d3;">void</span> <span style="color: #8cd0d3;">main</span>(<span style="color: #8cd0d3;">String</span>[] <span style="color: #dfaf8f;">args</span>) {
+        <span style="color: #8cd0d3;">Rect</span> <span style="color: #dfaf8f;">rect</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">Rect</span>();
+        System.out.println(rect.getShape());
+    }
+}
+</pre>
+</div>
+
+<p>
+Note the call to <code>super</code> which in this case refer to constructor <code>Shape(String)</code>.
+</p>
+
+<p>
+Although we've constructed the inheritance chain, the properties that
+are set via the constructor can not be conveniently set in the sub
+class. Here is a way to directly call the constructor of the super
+class:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">Shape</span>(<span style="color: #dfaf8f;">shape</span>) {
+    <span style="color: #bfebbf;">this</span>.shape = shape;
+}
+
+Shape.<span style="color: #bfebbf;">prototype</span>.getShape = <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #bfebbf;">this</span>.shape;
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">Rect</span>() {
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">should call the super class</span>
+    Shape.call(<span style="color: #bfebbf;">this</span>, <span style="color: #cc9393;">"rect"</span>)
+}
+
+extend(Shape, Rect);
+
+<span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #dfaf8f;">rect</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #8cd0d3;">Rect</span>();
+console.log(rect.getShape());
+</pre>
+</div>
+
+<p>
+The problem is with the <code>extend</code> utility, we actually haven't decide
+which super class we are going to extend, that means we don't know
+the name of <code>Shape</code> when we write <code>Rect()</code>. And under ECMAScript
+2015, we don't have the <code>super</code> keyword to refer to the constructor.
+</p>
+
+<p>
+So we need to save the super class's constructor. Below is the
+modified version of <code>extend</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #8cd0d3;">function</span> <span style="color: #8cd0d3;">extend</span>(<span style="color: #8cd0d3;">base</span>, <span style="color: #8cd0d3;">sub</span>) {
+    <span style="color: #8cd0d3;">var</span> <span style="color: #dfaf8f;">origProto</span> = sub.prototype;
+    sub.prototype = Object.create(base.prototype);
+    <span style="color: #f0dfaf; font-weight: bold;">for</span> (<span style="color: #8cd0d3;">var</span> key <span style="color: #8cd0d3;">in</span> <span style="color: #dfaf8f;">origProto</span>)  {
+        sub.prototype[key] = origProto[key];
+    }
+
+    <span style="color: #7f9f7f;">// </span><span style="color: #7f9f7f;">save the super class's constructor.</span>
+    sub.prototype.superConstructor = base.prototype.constructor
+
+    sub.prototype.constructor = sub;
+    Object.defineProperty(sub.prototype, <span style="color: #cc9393;">'constructor'</span>, { 
+        <span style="color: #bfebbf;">enumerable</span>: <span style="color: #bfebbf;">false</span>, 
+        value: sub 
+    });
+}
+</pre>
+</div>
+
+<p>
+Now it's time to replace the call to <code>Shape</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #8cd0d3;">Rect</span>() {
+    <span style="color: #bfebbf;">this</span>.superConstructor.call(<span style="color: #bfebbf;">this</span>, <span style="color: #cc9393;">"rect"</span>)
+}
+</pre>
+</div>
+
+<p>
+And we get the same result.
+</p>
+
+<p>
+In this way, we get the basic OOP out of javascript, however, there
+is no default call to super class's default constructor. So we should
+manually call it every time. Please think about what you can do to
+enhance it.
+</p>
+</div>
 </div>
 </div>
 </div>

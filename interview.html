@@ -2,10 +2,10 @@
 <html>
 <head>
 <title>面试技能收集</title>
-<!-- 2015-04-19 -->
+<!-- 2015-08-02 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
-<meta  name="author" content="Mark Wallace">
+<meta  name="author" content="Wang Menglei">
 <link rel="Stylesheet" type="text/css" href="assets/css/style.css"/>
 <script type="text/javascript">
 /*
@@ -353,14 +353,14 @@ python 中的decorator本质上就是包装函数 <code>wrap</code> ，以被包
 <div class="org-src-container">
 
 <pre class="src src-python"><span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">hello</span>(fn):
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">wrapper</span>():
+    <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">wrapper</span>():
         <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"hello, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
         fn()
         <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"goodby, %s"</span> % fn.<span style="color: #8cd0d3;">__name__</span>
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">return</span> wrapper
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> wrapper
 <span style="color: #8cd0d3;">@hello</span>
 <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">foo</span>():
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"i am foo"</span>
+    <span style="color: #f0dfaf; font-weight: bold;">print</span> <span style="color: #cc9393;">"i am foo"</span>
 
 foo()
 </pre>
@@ -379,7 +379,7 @@ foo()
 
 <pre class="src src-python"><span style="color: #8cd0d3;">@decorator</span>(arg1, arg2)
 <span style="color: #f0dfaf; font-weight: bold;">def</span> <span style="color: #8cd0d3;">func</span>():
-<span style="color: #dcdccc; background-color: #4f4f4f;"> </span>   <span style="color: #f0dfaf; font-weight: bold;">pass</span>
+    <span style="color: #f0dfaf; font-weight: bold;">pass</span>
 </pre>
 </div>
 <p>
@@ -706,7 +706,7 @@ Queue, Shared Memory, Semaphore)，socket通信。这些方法同样适用于线
 </p></div>
 
 <div class="footdef"><sup><a id="fn.4" name="fn.4" class="footnum" href="#fnr.4">4</a></sup> <p class="footpara">
-<a href="racket_notes.html#sec-4-1">racket_notes.html#sec-4-1</a>
+<a href="racket_notes.html">racket_notes.html</a>
 </p></div>
 
 

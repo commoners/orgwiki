@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>emacs-helm.org</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #dcdccc;
+        background-color: #3f3f3f;
+      }
+      .bold {
+        /* bold */
+        font-weight: bold;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #404040;
+      }
+      .org-block {
+        /* org-block */
+        color: #b3b3b3;
+      }
+      .org-block-begin-line {
+        /* org-block-begin-line */
+        color: #7f9f7f;
+      }
+      .org-block-end-line {
+        /* org-block-end-line */
+        color: #7f9f7f;
+      }
+      .org-document-info-keyword {
+        /* org-document-info-keyword */
+        color: #b3b3b3;
+      }
+      .org-document-title {
+        /* org-document-title */
+        color: #afeeee;
+        font-weight: bold;
+      }
+      .org-level-1 {
+        /* org-level-1 */
+        color: #dfaf8f;
+      }
+      .org-level-2 {
+        /* org-level-2 */
+        color: #8fb28f;
+      }
+      .org-link {
+        /* org-link */
+        color: #d0bf8f;
+        text-decoration: underline;
+      }
+      .org-verbatim {
+        /* org-verbatim */
+        color: #b3b3b3;
+      }
+      .underline {
+        /* underline */
+        text-decoration: underline;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="org-document-info-keyword"><span class="hl-line">#+title:</span></span><span class="hl-line"> </span><span class="org-document-title"><span class="hl-line">Emacs Helm Notes
+</span></span>
+I personally just want to get vim's
+<span class="org-link"><a href="https://github.com/kien/ctrlp.vim">[[https://github.com/kien/ctrlp.vim][</a><a href="https://github.com/kien/ctrlp.vim">ctrlp</a><a href="https://github.com/kien/ctrlp.vim">]]</a></span> in Emacs. And
+<span class="org-link"><a href="https://github.com/emacs-helm/helm">[[https://github.com/emacs-helm/helm][</a><a href="https://github.com/emacs-helm/helm">helm</a><a href="https://github.com/emacs-helm/helm">]]</a></span> is the replacement, But
+after tring it, I found it <span class="bold">*really*</span> powerful.
+
+<span class="org-link"><a href="http://tuhdo.github.io/helm-intro.html">[[http://tuhdo.github.io/helm-intro.html][</a><a href="http://tuhdo.github.io/helm-intro.html">Here</a><a href="http://tuhdo.github.io/helm-intro.html">]]</a></span> is a very good
+introduction of it.
+
+<span class="org-level-1">* Installation</span>
+With Emacs package manage system, it is quite easy.
+<span class="org-block-begin-line">#+begin_example
+</span><span class="org-block">M-x package-install RET helm RET
+M-x package-install RET helm-projectile RET
+</span><span class="org-block-end-line">#+end_example
+</span>
+Note you don't need <span class="org-verbatim">=helm-projectile=</span> perhapse, but I recommand it. 
+
+And below is the configuration I had based on the
+<span class="org-link"><a href="http://tuhdo.github.io/helm-intro.html">[[http://tuhdo.github.io/helm-intro.html][</a><a href="http://tuhdo.github.io/helm-intro.html">introduction page</a><a href="http://tuhdo.github.io/helm-intro.html">]]</a></span>
+<span class="org-block-begin-line">#+begin_src emacs-lisp
+</span><span class="org-block">(require 'helm-config)
+
+(when (package-installed-p 'helm)
+  ;; change default prefix key
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
+  (global-unset-key (kbd "C-x c"))
+
+  ;; helm-M-x
+  (setq helm-M-x-fuzzy-match t)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+
+  ;; helm-kill-ring
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+  ;; helm-mini
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match t)
+
+  ;; helm-find-files
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  )
+
+;;; -----------------------------
+;;; helm-projectile
+(when (package-installed-p 'helm-projectile)
+  (projectile-global-mode)
+  (helm-projectile-on)
+  )
+</span><span class="org-block-end-line">#+end_src
+</span>
+<span class="org-level-1">* Usage</span>
+Actually I write this to keep a memo. It provides so many functions
+that I cannot remember them all. Basic function that replace the
+default like <span class="org-verbatim">=M-x=</span>, show-kill-ring, switch buffer, etc are directly
+achieved by remapping the key to helm version of functions.
+
+So I'll introduce those I cannot get intuitively.
+
+<span class="org-level-2">** find-files</span>
+<span class="org-verbatim">=helm-find-files=</span> replace the default <span class="org-verbatim">=find-files=</span> function which
+normally binds to key <span class="org-verbatim">=C-x C-f=</span>.
+
+- select current directory by <span class="org-verbatim">=C-j=</span>. That means helm will continue
+  with the current selected directory.
+- open current directory in dired by <span class="org-verbatim">=RET=</span>. That means helm will quit,
+  the directory is opend in dired.
+
+<span class="org-level-2">** find</span>
+Helm can invoke Linux <span class="org-verbatim">=find=</span> utility and filter the result based on
+the pattern you input. <span class="org-verbatim">=find-files=</span> is boring and inefficient some
+times, this <span class="underline">_find_</span> utility is more <span class="org-verbatim">=ctrlp=</span> like.
+
+- <span class="org-verbatim">=&lt;prefix&gt; /=</span> to invoke <span class="org-verbatim">=helm-find=</span> on current directory.
+- <span class="org-verbatim">=C-u &lt;prefix&gt; /=</span> to prompt for the starting directory to find.
+
+If the directory is too large, <span class="org-verbatim">=helm-find=</span> will be slow for instant
+update, toggle with <span class="org-verbatim">=C-!=</span>.
+
+As an alternative, you can use <span class="org-verbatim">=locate=</span> command instead of <span class="org-verbatim">=find=</span>.
+- <span class="org-verbatim">=&lt;prefix&gt; l=</span> to invoke <span class="org-verbatim">=helm-locate=</span>
+
+<span class="org-level-2">** projectile</span>
+<span class="org-verbatim">=helm-projectile=</span> provide good support to another plugin:
+<span class="org-verbatim">=projectile=</span>. I use in only to select files.
+
+- <span class="org-verbatim">=C-c p f=</span> to open selection dialog.
+- <span class="org-verbatim">=C-c p h=</span> to see help.
+
+<span class="org-verbatim">=projectile=</span> will automatically detect git/svn/hg, etc projects.
+
+<span class="org-level-2">** grep</span>
+If your are selecting files or directorys via <span class="org-verbatim">=helm-find-files=</span>, you
+can invoke <span class="org-verbatim">=grep=</span> on current selected entry.
+
+- <span class="org-verbatim">=C-s=</span> to search on current selected files.
+- <span class="org-verbatim">=C-u C-s=</span> to search recursively(if you select a directory).
+
+The advantage of helm-grep is you get instant result updates on any keystrokes.
+
+<span class="org-level-2">** search</span>
+This is a replacement of <span class="org-verbatim">=C-u C-s=</span> of emacs(<span class="org-verbatim">=isearch=</span> with regular expression.)
+
+- <span class="org-verbatim">=&lt;prefix&gt; r=</span> to invoke <span class="org-verbatim">=helm-regexp=</span>.
+
+<span class="org-level-2">** top</span>
+Helm provide a <span class="org-verbatim">=top=</span> interface as alternative of system's <span class="org-verbatim">=top=</span>
+command.
+
+- <span class="org-verbatim">=&lt;prefix&gt; t=</span> to invoke <span class="org-verbatim">=helm-top=</span>.
+</pre>
+  </body>
+</html>

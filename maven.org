@@ -81,3 +81,30 @@ Then =CodeGenerator.main()= will be run while executing:
 
 
 - [[http://www.vineetmanohar.com/2009/11/3-ways-to-run-java-main-from-maven/][3 ways to run Java main from Maven]]
+
+** maven download metadata everytime
+
+Use offline mode to resolve this:
+
+#+BEGIN_SRC sh
+  mvn clean install -o
+#+END_SRC
+
+- [[http://stackoverflow.com/questions/16421454/why-maven-is-downloading-metadata-every-time]]
+
+** maven multi-thread build
+#+BEGIN_SRC
+  mvn -T 4 clean install # Builds with 4 threads
+  mvn -T 1C clean install # 1 thread per cpu core
+  mvn -T 1.5C clean install # 1.5 thread per cpu core
+#+END_SRC
+
+[[https://cwiki.apache.org/confluence/display/MAVEN/Parallel%2Bbuilds%2Bin%2BMaven%2B3][[[https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3]]]]
+
+
+** How to skip test
+#+BEGIN_SRC sh
+  mvn -Dmaven.test.skip=true or -DskipTests=true 
+#+END_SRC
+
+[[http://maven.apache.org/general.html#skip-test][Skip Test]]

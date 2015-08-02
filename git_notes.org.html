@@ -82,6 +82,25 @@ rebasing and stop at every marked commit. For each of those, do a =git
 commit &#8211;amend -m 'new messag'= and <span class="org-verbatim">=git rebase --continue=</span>
 
 - <span class="org-link"><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">[[http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits][</a><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">Change commit message of past git commits</a><a href="http://makandracards.com/makandra/868-change-commit-messages-of-past-git-commits">]]</a></span>
+
+<span class="org-level-2">** ignore changes in tracked file</span>
+I am facing the situation that I need to change some configuration
+file locally, and don't want it to be tracked by git. 
+
+A direct though would be adding it to <span class="org-verbatim">=.gitignore=</span>, which however
+will not work. Git will track a file once it is tracked.
+
+So
+<span class="org-link"><a href="http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/">[[http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/][</a><a href="http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/">here</a><a href="http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/">]]</a></span>
+is the solution:
+
+<span class="org-block-begin-line">#+begin_src sh
+</span><span class="org-block">git update-index --assume-unchanged &lt;file&gt;
+
+# If you wanna start tracking changes again run the following command:
+git update-index --no-assume-unchanged &lt;file&gt;
+</span><span class="org-block-end-line">#+end_src
+</span>That is it!
 </pre>
   </body>
 </html>
