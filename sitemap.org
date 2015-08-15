@@ -32,6 +32,8 @@
 - [[file:index.org][Mark Wallace's Wiki]]
 - [[file:maven.org][maven]]
 - [[file:color_theory.org][Notes on Color Theory]]
+- [[file:pdf.org][PDF file format]]
+- [[file:pip.org][pip Notes]]
 - [[file:python_notes.org][python Notes]]
 - [[file:racket_notes.org][Racket Notes]]
 - [[file:reagent.org][Reagent Tutorial]]
